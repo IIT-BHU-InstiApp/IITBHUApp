@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    tools:context=".EditProfileActivity">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/relative"
+                android:layout_weight="1"
+                android:background="@drawable/profileback"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:padding="10dp"
+                    android:id="@+id/profilepic"
+                    android:src="@drawable/student"
+                    android:layout_centerInParent="true"
+                    android:fadingEdge="vertical|horizontal"
+                    android:translationZ="16dp"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="0dp"
+                    android:layout_marginTop="65dp"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="25dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:id="@+id/namet"
+                    android:textColor="@color/black"
+                    android:layout_alignParentTop="true"/>
+
+                <EditText
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name"
+                    android:layout_below="@+id/namet"
+                    android:hint="Name"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Department"
+                    android:textColor="@color/black"
+                    android:paddingTop="5dp"
+                    android:layout_below="@+id/name"
+                    android:id="@+id/deptt"/>
+
+                <EditText
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Department"
+                    android:layout_below="@+id/deptt"
+                    android:id="@+id/dept"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/dept"
+                    android:id="@+id/rollnot"
+                    android:paddingTop="5dp"
+                    android:text="Institute Roll No."/>
+
+                <EditText
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rollnot"
+                    android:hint="Roll No."
+                    android:id="@+id/rollno"
+                    android:maxLength="8"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Number"
+                    android:paddingTop="5dp"
+                    android:layout_below="@+id/rollno"
+                    android:id="@+id/contactnot" />
+
+                <EditText
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/contactnot"
+                    android:maxLength="10"
+                    android:hint="Contact Number"
+                    android:id="@+id/contactno"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/contactno"
+                    android:id="@+id/emailt"
+                    android:paddingTop="5dp"
+                    android:text="Institute Email-id"/>
+
+                <EditText
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/emailt"
+                    android:id="@+id/email"
+                    android:hint="Email-id" />
+
+
+                <Button
+                    android:layout_width="130dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/check"
+                    android:background="@drawable/buttonback"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/edit"
+                    android:text="EDIT"
+                    android:foreground="?android:attr/selectableItemBackground"/>
+
+                <Button
+                    android:layout_width="130dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/check"
+                    android:background="@drawable/buttonback"
+                    android:id="@+id/save"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:textColor="#ffffff"
+                    android:layout_alignParentRight="true"
+                    android:text="SAVE"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/check"
+                    android:textSize="18dp"
+                    android:layout_below="@+id/email"
+                    android:textColor="@color/black"
+                    android:text="Incorrect information will lead to strict disciplinary action and ban from App."/>
+
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">IIT (BHU) Varanasi</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="event_title">TITLE</string>
+    <string name="event_venue">VENUE</string>
+    <string name="event_date">DATE</string>
+    <string name="event_time">TIME</string>
+    <string name="set_event_time_calender">Set Calendar Reminder</string>
+    <string name="expand_event">Expand</string>
+
+    <string name="event_description">Bonsai Kitten was a hoax website that claimed to provide instructions on how to grow a kitten in a jar, so as to mold the bones of the kitten into the shape of the jar as the cat grows, much like how a bonsai plant is shaped. It was made by an MIT university student going by the alias of Dr. Michael Wong Chang. The website generated furor after members of the public complained to animal rights organizations. The Michigan Society for the Prevention of Cruelty to Animals (MSPCA) stated that content may be faked, the issue it is campaigning for may create violence towards animals. Although the website was shut down some time ago, petitions are still circulated to shut down the site or complain to its ISP. The website has been debunked by several organizations including Snopes.com and the Humane Society of the United States.</string>
+    <string name="transition_image">drawable</string>
+    <string name="transition_heading">heading</string>
+    <string name="transition_date">dates</string>
+</resources>

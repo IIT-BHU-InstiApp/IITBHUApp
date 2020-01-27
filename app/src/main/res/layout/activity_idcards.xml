@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view2"
+    android:layout_gravity="center"
+    android:layout_weight="10"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="8dp"
+    card_view:cardUseCompatPadding="true"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iitbhu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/idimages"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/iitbhu"
+            android:src="@mipmap/ic_launcher_round"
+            android:padding="20dp"/>
+
+        <TextView
+            android:id="@+id/rollno."
+            android:layout_below="@+id/iitbhu"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Student's Roll Number"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/rollno."
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:hint="name of student"/>
+
+        <TextView
+            android:id="@+id/fathername"
+            android:layout_below="@+id/name"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="name of student's father"/>
+
+        <TextView
+            android:id="@+id/dateofbirth"
+            android:layout_below="@+id/fathername"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:hint="Date of birth of student"/>
+
+        <TextView
+            android:id="@+id/course"
+            android:layout_below="@+id/dateofbirth"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:hint="Course of Student"/>
+
+        <TextView
+            android:id="@+id/dept."
+            android:layout_below="@+id/course"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:hint="Department of student"/>
+
+        <TextView
+            android:id="@+id/yearofadd."
+            android:layout_below="@+id/dept."
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:hint="Year of Addmission"/>
+
+        <TextView
+            android:id="@+id/bloodgrp"
+            android:layout_below="@+id/yearofadd."
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:hint="Blood Group of student"/>
+
+        <TextView
+            android:id="@+id/contactno."
+            android:layout_below="@+id/bloodgrp"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:hint="Contact number of student"/>
+
+        <TextView
+            android:id="@+id/emailid"
+            android:layout_below="@+id/contactno."
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:layout_height="wrap_content"
+            android:hint="Email Id of student"/>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_below="@+id/emailid"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/studentphoto"
+            android:paddingBottom="3dp"
+            android:layout_height="wrap_content"
+            android:hint="Permanent Addresss of student"/>
+
+        <ImageView
+            android:id="@+id/studentsignphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_below="@+id/address"
+            android:paddingLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/studentsign"
+            android:paddingLeft="5dp"
+            android:layout_below="@+id/studentsignphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student's Signature"
+            android:textColor="@color/Black"/>
+
+        <ImageView
+            android:id="@+id/DAAsignphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_below="@+id/address"
+            android:paddingRight="30dp"/>
+
+        <TextView
+            android:id="@+id/DAAsign"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/studentsignphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DOAA's Signature"
+            android:paddingRight="5dp"
+            android:textColor="@color/Black"/>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "636798304534",
+    "firebase_url": "https://iitbhuvaranasi-d727c.firebaseio.com",
+    "project_id": "iitbhuvaranasi-d727c",
+    "storage_bucket": "iitbhuvaranasi-d727c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636798304534:android:e04172002e242a30",
+        "android_client_info": {
+          "package_name": "com.example.anant.iitbhuvaranasi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636798304534-6u3f7bo9m4fomtcv0fsvd1dmjo56v12t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.anant.iitbhuvaranasi",
+            "certificate_hash": "afdcf161945a5ad5d7f1bcc8459360757234a6e7"
+          }
+        },
+        {
+          "client_id": "636798304534-n2pvencghiu7ajq8pbuvnus2utrvk6f9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOBDP8xl8VfgF3DD4mRGPeGboZzrJZqvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636798304534-n2pvencghiu7ajq8pbuvnus2utrvk6f9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

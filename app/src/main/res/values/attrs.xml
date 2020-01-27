@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="primaryTextSelector" format="reference" />
+    <attr name="themeColor" format="reference|color" />
+    <attr name="themeColorInverse" format="reference|color" />
+    <attr name="themeGray" format="reference|color" />
+    <attr name="newsColor" format="reference|color" />
+    <attr name="urlColor" format="reference|color" />
+    <attr name="drawerCheckedColor" format="reference|color" />
+</resources>
