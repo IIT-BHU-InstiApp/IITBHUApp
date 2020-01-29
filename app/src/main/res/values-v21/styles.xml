@@ -5,5 +5,10 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!-- Added by Suryansh. -->
+        <item name="android:ambientShadowAlpha">1</item>
+        <item name="android:spotShadowAlpha">1</item>
+        <!-- Added by Suryansh. -->
     </style>
 </resources>

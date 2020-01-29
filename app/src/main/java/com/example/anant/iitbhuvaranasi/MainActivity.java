@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -154,12 +155,14 @@ public class MainActivity extends AppCompatActivity {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                startActivity(new Intent(MainActivity.this,Main2Activity.class));
                 finish();
             }
         });
 
         videoView.start();
+
+
 
     }
 

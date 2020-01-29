@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/layoutfeed"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/big_object_picture"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="10dp"
+        android:paddingTop="2dp"
+        android:minHeight="80dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/event_image1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:cropToPadding="true"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+
+            android:layout_marginRight="12dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/event_title1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Object Title"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/event_dates1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Subtitle"
+                android:textSize="13sp"
+                android:textColor="#bbbbbb"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

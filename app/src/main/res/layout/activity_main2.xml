@@ -1,0 +1,146 @@
+
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        style="@style/MaterialSearchBarLight"
+        app:mt_speechMode="false"
+        app:mt_hint="Custom hint"
+        app:mt_maxSuggestionsCount="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mt_navIconEnabled="true"
+        app:mt_searchBarColor="@color/white"
+        app:mt_roundedSearchBarEnabled="false"
+        android:layout_margin="8dp"
+        android:outlineProvider="paddedBounds"
+        android:elevation="2dp"
+        app:mt_placeholder="Search your Institute"
+        app:mt_placeholderColor="#bbbbbb"
+
+        android:id="@+id/search" />
+
+
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/search"
+        android:id="@+id/horizontal"
+
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/pin">
+
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!--    <ViewFlipper-->
+    <!--        android:id="@+id/flipper"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="300dp"-->
+    <!--        android:layout_gravity="center_horizontal"-->
+    <!--        android:layout_marginTop="16dp" />-->
+
+    <!--    <android.support.v4.view.ViewPager-->
+    <!--        android:id="@+id/viewpager"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clubs and Events"
+        android:textStyle="bold"
+        android:layout_below="@id/horizontal"
+        android:id="@+id/clubs"
+        android:layout_margin="8dp"
+
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"
+        android:layout_below="@id/clubs"
+        android:id="@+id/line1"/>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="0dp"
+        android:layout_below="@+id/line1"
+        />
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+
+        android:id="@+id/dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:dotsColor="@color/colorPrimaryDark"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="8dp"
+        app:dotsSpacing="2dp"
+        app:dotsWidthFactor="2.5"
+        app:progressMode="true"
+        app:selectedDotColor="@color/colorPrimary"
+        android:layout_below="@id/viewpager"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menu_navigation"
+        android:layout_alignParentBottom="true"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Events"
+        android:textStyle="bold"
+        android:layout_below="@id/dots_indicator"
+        android:id="@+id/events"
+        android:layout_margin="8dp"
+        />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"
+        android:layout_below="@id/events"
+        android:id="@+id/line2"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rcv"
+        android:layout_below="@id/line2"
+        android:layout_above="@id/bottom_navigation"
+        ></androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+
+</RelativeLayout>
