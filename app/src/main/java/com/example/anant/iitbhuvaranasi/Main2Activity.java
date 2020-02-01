@@ -3,6 +3,7 @@ package com.example.anant.iitbhuvaranasi;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -87,9 +91,9 @@ public class Main2Activity extends AppCompatActivity {
 
         //Added by Suryansh.
 
+        BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
-
-
+        bottomNav.setOnNavigationItemSelectedListener(listener);
 
 
 
@@ -101,7 +105,63 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+             Fragment selectedFragment = null;
+             int profile = 0;
+             int feed = 0;
 
+            switch(item.getItemId()) {
+                case R.id.id_card:
+                    selectedFragment = new IDCardFragment();
+                    break;
+                case R.id.complain:
+                    selectedFragment = new ComplainFragment();
+                    break;
+                case R.id.profile:
+                    selectedFragment = new MyProfileFragment();
+                    break;
+                case R.id.feed:
+                    feed++;
+                    break;
+                case R.id.more:
+
+
+                    PopupMenu pum = new PopupMenu(Main2Activity.this, findViewById(R.id.more));
+                    pum.getMenuInflater().inflate(R.menu.moretab,pum.getMenu());
+
+                    pum.show();
+
+                    break;
+
+            }
+            if(selectedFragment == null && feed == 1){
+                RelativeLayout mainFeed = (RelativeLayout) findViewById(R.id.mainfeed);
+
+                if(mainFeed.getVisibility() == View.GONE) {
+                    Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                feed = 0;
+            }
+            else if(selectedFragment != null){
+
+
+                RelativeLayout mainFeed = (RelativeLayout) findViewById(R.id.mainfeed);
+                mainFeed.setVisibility(View.GONE);
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.new_container, selectedFragment).commit();
+
+
+            }
+
+
+            return true;
+
+        }
+    };
 //    public void confiureFlipper(ViewFlipper flipper){
 //        flipper.setFlipInterval(4000);
 //        flipper.setAutoStart(true);
@@ -128,6 +188,12 @@ public class Main2Activity extends AppCompatActivity {
         CircleImageView circularImageView =  new CircleImageView(this);
         circularImageView.setLayoutParams(new ViewGroup.LayoutParams(250,250));
         circularImageView.setImageResource(img);
+        circularImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Main2Activity.this, "This is a HorizontalView Item",Toast.LENGTH_SHORT).show();
+            }
+        });
         circularImageView.setBorderWidth(2);
         circularImageView.setPadding(10,0,10,0);
         circularImageView.setBorderColor(getResources().getColor(R.color.colorblack));

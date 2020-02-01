@@ -96,7 +96,7 @@ public class FeedFragment extends Fragment {
                  getVerticalData5.add(getVerticalData4.get(a));
              }
          }
-Log.d("merakuchnhihonewala",getVerticalData5.toString());
+Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
        // mRecyclerView.setRecycledViewPool(sharedPool);

@@ -10,6 +10,8 @@
         <!-- Added by Suryansh. -->
         <item name="android:ambientShadowAlpha">1</item>
         <item name="android:spotShadowAlpha">1</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
         <!-- Added by Suryansh. -->
     </style>
 
@@ -18,9 +20,17 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="windowNoTitle">true</item>
         <!-- Added by Suryansh. -->
-        <item name="android:ambientShadowAlpha">1</item>
-        <item name="android:spotShadowAlpha">1</item>
+        <item name="android:ambientShadowAlpha">0.8</item>
+        <item name="android:spotShadowAlpha">0.8</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <!-- Added by Suryansh. -->
+    </style>
+
+
+
+    <style name="PopupMenu" parent="android:Widget.Material.PopupMenu">
+        <item name="android:popupBackground">@color/cardview_light_background</item>
+        <item name="android:popupElevation">2dp</item>
     </style>
 </resources>
 

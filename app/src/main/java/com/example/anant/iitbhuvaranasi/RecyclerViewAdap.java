@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,13 @@ public class RecyclerViewAdap extends RecyclerView.Adapter<RecyclerViewAdap.Card
         holder.image1.setImageResource(cardViewStruct.getImageid());
         holder.text2.setText(cardViewStruct.getText2());
         holder.text3.setText(cardViewStruct.getText3());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"This is a RecyclerView Item", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
