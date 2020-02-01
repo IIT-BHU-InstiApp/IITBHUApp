@@ -5,16 +5,29 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.ChangeBounds;
+import android.transition.Fade;
+import android.transition.Scene;
+import android.transition.SidePropagation;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,39 +44,66 @@ import static android.content.Context.MODE_PRIVATE;
 //import android.util.Log;
 //import android.util.Log;
 
-
 public class FeedFragment extends Fragment {
+
+    private Toolbar toolbar;
+    private View feedToolbarLayout;
     private ArrayList<Object> objects = new ArrayList<>();
-   // public static Integer i=0;
-   SharedPreferences sharedpreferences;
+    // public static Integer i=0;
+    SharedPreferences sharedpreferences;
     private RecyclerView mRecyclerView;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
-   //public static ArrayList<SingleVerticalData> getVerticalData1 = new ArrayList<>();
+    //public static ArrayList<SingleVerticalData> getVerticalData1 = new ArrayList<>();
     public static ArrayList<SingleVerticalData> getVerticalData4 = new ArrayList<>();
     public static ArrayList<SingleVerticalData> getVerticalData5;
-    public static ArrayList<SingleHorizontaldata>getHorizontalData1=new ArrayList<>();
+    public static ArrayList<SingleHorizontaldata> getHorizontalData1 = new ArrayList<>();
 
+    public ArrayList<SubscribedNotification> notifications;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.feed_fragment, container, false);
+        final View view = inflater.inflate(R.layout.feed_fragment1, container, false);
+
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+
+        feedToolbarLayout = LayoutInflater.from(getContext()).inflate(R.layout.custom_toolbar_feedfragment, toolbar, false);
+
+
+
+        //Sample data
+        notifications = new ArrayList<SubscribedNotification>();
+
+        notifications.add(new SubscribedNotification(R.drawable.amc_waterrocket1, 9));
+        notifications.add(new SubscribedNotification(R.drawable.amc_workshop, 11));
+        notifications.add(new SubscribedNotification(R.drawable.amc_workshop, 6));
+        notifications.add(new SubscribedNotification(R.drawable.amc_waterrocket1, 7));
+        notifications.add(new SubscribedNotification(R.drawable.amc_workshop, 16));
+        notifications.add(new SubscribedNotification(R.drawable.amc_workshop, 8));
+        notifications.add(new SubscribedNotification(R.drawable.amc_workshop, 8));
+
+        RecyclerView view1 = (RecyclerView) view.findViewById(R.id.subscribed_notification_recycler_view);
+        view1.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        AdapterSubscribedNotification adapterSubscribedNotification = new AdapterSubscribedNotification(notifications);
+
+        view1.setAdapter(adapterSubscribedNotification);
+
 
         RecyclerView.RecycledViewPool sharedPool = new RecyclerView.RecycledViewPool();
 
-
         cd = new ConnectionDetector(getContext());
         isInternetPresent = cd.isConnectingToInternet();
-        if(!isInternetPresent){
+        if (!isInternetPresent) {
             showAlertDialog(getContext(), "No Internet Connection",
                     "You don't have internet connection.", false);
         }
         String apidata = Api_Response.method(this.getActivity());
         getVerticalData4 = VerticalDataFeed.getVerticalData3(this.getActivity());
-        Log.d("howareyou1",getVerticalData4.toString());
+        Log.d("howareyou1", getVerticalData4.toString());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -75,40 +115,38 @@ public class FeedFragment extends Fragment {
         }
 
         getVerticalData5 = new ArrayList<>();
-        getHorizontalData1=new ArrayList<>();
+        getHorizontalData1 = new ArrayList<>();
 
 
+        for (int a = 0; a < getVerticalData4.size(); a++) {
+            String originalString = getVerticalData4.get(a).getDate_event();
+            String original = originalString.replace("T", " ");
+            String original1 = original.replace("Z", "");
 
-         for (int a = 0 ; a< getVerticalData4.size(); a++){
-             String originalString = getVerticalData4.get(a).getDate_event();
-             String original = originalString.replace("T"," ");
-             String original1 = original.replace("Z","");
-
-             Date date2 = null;
-             try {
-                 date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
-             } catch (ParseException e) {
-                 e.printStackTrace();
-             }
-             final String newString = new SimpleDateFormat("E, dd MMM  hh:mm a").format(date2);
-             if (CurrentTime.before(date2))
-             {
-                 getVerticalData5.add(getVerticalData4.get(a));
-             }
-         }
-Log.d("merakuchnhihonewala",getVerticalData5.toString());
+            Date date2 = null;
+            try {
+                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            final String newString = new SimpleDateFormat("E, dd MMM  hh:mm a").format(date2);
+            if (CurrentTime.before(date2)) {
+                getVerticalData5.add(getVerticalData4.get(a));
+            }
+        }
+        Log.d("merakuchnhihonewala", getVerticalData5.toString());
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-       // mRecyclerView.setRecycledViewPool(sharedPool);
+        // mRecyclerView.setRecycledViewPool(sharedPool);
 
-      //
+        //
         //  Log.d("fe",getVerticalData1.toString());
-        Log.d("fe",getHorizontalData1.toString());
+        Log.d("fe", getHorizontalData1.toString());
 
         mRecyclerView.setHasFixedSize(true);
 
         SharedPreferences pref3 = this.getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
-        String resonse_feed = pref3.getString(Constants.Response_Feed_Old,"3");
+        String resonse_feed = pref3.getString(Constants.Response_Feed_Old, "3");
 
 
         /*SharedPreferences pref =  this.getActivity().getSharedPreferences("MyPref", 0);
@@ -135,7 +173,7 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
                 JSONArray array = response.getJSONArray("councils");
 
 
-                for (int j = 0; j < array.length(); j++){
+                for (int j = 0; j < array.length(); j++) {
                     JSONObject hit1 = array.getJSONObject(j);
                     String image_council = "http://iitbhuapp.tk" + hit1.getString("image");
                     //  Log.d("clubname", name);
@@ -179,25 +217,23 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
                     Log.d("verticaldataori00",getVerticalData1.toString());
 
                 }*/
-             //   Log.d("getverticaldata100",getVerticalData1.toString());
+                //   Log.d("getverticaldata100",getVerticalData1.toString());
 
 
-            }
-            else {
+            } else {
                 Log.d("status000", "0");
             }
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.d("beforemainadapter","009");
+        Log.d("beforemainadapter", "009");
         MainAdapterfeedfragment adapter = new MainAdapterfeedfragment(getActivity(), getObject());
-        Log.d("aftermainadapter","009");
+        Log.d("aftermainadapter", "009");
         //Log.d("getobjectstart",getObject().toString());
         mRecyclerView.setHasFixedSize(true);
         adapter.notifyDataSetChanged();
-       // adapter.setHasStableIds(true);
+        // adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -206,12 +242,11 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
     }
 
 
-
     private ArrayList<Object> getObject() {
         objects.add(getHorizontalData1);
         objects.add(getVerticalData5);
 
-       // Log.d("horizontalarray234",getHorizontalData1.toString());
+        // Log.d("horizontalarray234",getHorizontalData1.toString());
         return objects;
     }
 
@@ -555,6 +590,27 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
     }
 
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppBarLayout.LayoutParams params =
+                (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+                | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+        toolbar.addView(feedToolbarLayout);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        AppBarLayout.LayoutParams params =
+                (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(0);
+        toolbar.removeView(feedToolbarLayout);
+    }
 
 
 }
