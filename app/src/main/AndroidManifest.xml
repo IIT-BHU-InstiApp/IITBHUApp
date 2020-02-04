@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Main2Activity"></activity>
+        <activity
+            android:name=".Main2Activity"
+            android:theme="@style/AppTheme2" />
         <activity android:name=".Club_ProfilePage" />
         <activity android:name=".Club_Feed" />
         <activity android:name=".EditProfileActivity" />

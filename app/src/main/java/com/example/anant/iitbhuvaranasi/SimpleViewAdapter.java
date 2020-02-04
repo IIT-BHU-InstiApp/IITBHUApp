@@ -3,6 +3,7 @@ package com.example.anant.iitbhuvaranasi;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,28 +11,52 @@ import android.widget.Toast;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
 public class SimpleViewAdapter extends PagerAdapter {
     private Context mContext;
-    private int[] mImages;
+//    private int[] mImages;
+ArrayList<SingleHorizontaldata> mData = new ArrayList<>();
 
-    public SimpleViewAdapter(Context context, int[] images) {
-        mContext = context;
-        mImages = images;
+    public SimpleViewAdapter(Context context, ArrayList<SingleHorizontaldata> data) {
+        this.mContext = context;
+        this.mData = data;
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container,final int position) {
 
         ImageView imageView = new ImageView(mContext);
-        imageView.setImageResource(mImages[position]);
+//        imageView.setImageResource(mImages[position]);
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(mContext, "This is a ViewPager Item",Toast.LENGTH_SHORT).show();
+//
+//
+//            }
+//        });
+//        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        container.addView(imageView);
+        Picasso.get()
+                .load(mData.get(position).getImage())
+                .placeholder(R.drawable.ic_eye_view)
+                .error(R.drawable.amc_workshop)
+
+                .fit()
+                .into(imageView);
+        container.addView(imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "This is a ViewPager Item",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, Clubs_group.class);
+                intent.putExtra("position",position);
+                mContext.startActivity(intent);
             }
         });
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        container.addView(imageView);
+
         return imageView;
     }
 
@@ -43,7 +68,7 @@ public class SimpleViewAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mImages.length;
+        return mData.size();
     }
 
     @Override

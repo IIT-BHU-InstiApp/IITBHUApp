@@ -5,22 +5,26 @@
         android:id="@+id/feed"
         android:title="Feed"
         android:icon="@drawable/ic_feed"/>
-    <item
-        android:id="@+id/complain"
-        android:title="Complain"
-        android:icon="@drawable/ic_complaintab"/>
-    <item
-        android:id="@+id/profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_profile"/>
+
+<!--    <item-->
+<!--        android:id="@+id/complain"-->
+<!--        android:title="Complain"-->
+<!--        android:icon="@drawable/ic_complaintab"/>-->
+
     <item
         android:id="@+id/id_card"
         android:title="E-Id Card"
         android:icon="@drawable/ic_id"/>
+
     <item
-        android:id="@+id/more"
-        android:title="More"
-        android:icon="@drawable/ic_more"/>
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile"/>
+
+<!--    <item-->
+<!--        android:id="@+id/more"-->
+<!--        android:title="More"-->
+<!--        android:icon="@drawable/ic_more"/>-->
 
 
 

@@ -1,0 +1,162 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".HomeFragment">-->
+
+<!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:text="@string/hello_blank_fragment" />-->
+
+<!--</FrameLayout>-->
+
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout android:id="@+id/mainfeed"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <!--        <com.mancj.materialsearchbar.MaterialSearchBar-->
+                <!--            style="@style/MaterialSearchBarLight"-->
+                <!--            app:mt_speechMode="false"-->
+                <!--            app:mt_hint="Custom hint"-->
+                <!--            app:mt_maxSuggestionsCount="10"-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            app:mt_navIconEnabled="true"-->
+                <!--            app:mt_searchBarColor="@color/white"-->
+                <!--            app:mt_roundedSearchBarEnabled="false"-->
+                <!--            android:layout_margin="8dp"-->
+                <!--            android:outlineProvider="paddedBounds"-->
+                <!--            android:elevation="2dp"-->
+                <!--            app:mt_placeholder="Search your Institute"-->
+                <!--            app:mt_placeholderColor="#bbbbbb"-->
+
+                <!--            android:id="@+id/search" />-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/horizontal_rcv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+
+                    />
+
+
+                <!--        <HorizontalScrollView-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:scrollbars="none"-->
+                <!--            android:layout_marginTop="16dp"-->
+                <!--            android:layout_below="@+id/search"-->
+                <!--            android:id="@+id/horizontal"-->
+
+
+                <!--            >-->
+
+                <!--            <LinearLayout-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="match_parent"-->
+                <!--                android:orientation="horizontal"-->
+                <!--                android:id="@+id/pin">-->
+
+
+                <!--            </LinearLayout>-->
+                <!--        </HorizontalScrollView>-->
+
+
+                <!--    <ViewFlipper-->
+                <!--        android:id="@+id/flipper"-->
+                <!--        android:layout_width="match_parent"-->
+                <!--        android:layout_height="300dp"-->
+                <!--        android:layout_gravity="center_horizontal"-->
+                <!--        android:layout_marginTop="16dp" />-->
+
+                <!--    <android.support.v4.view.ViewPager-->
+                <!--        android:id="@+id/viewpager"-->
+                <!--        android:layout_width="match_parent"-->
+                <!--        android:layout_height="match_parent" />-->
+                <TextView
+                    android:id="@+id/clubs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/horizontal_rcv"
+                    android:layout_margin="8dp"
+                    android:text="Councils"
+                    android:textStyle="bold"
+
+                    />
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/clubs"
+                    android:background="@color/colorGray" />
+
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/line1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:layout_marginBottom="0dp" />
+
+                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+
+                    android:id="@+id/dots_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewpager"
+                    android:layout_centerHorizontal="true"
+                    app:dotsColor="@color/colorPrimaryDark"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="8dp"
+                    app:dotsSpacing="2dp"
+                    app:dotsWidthFactor="2.5"
+                    app:progressMode="true"
+                    app:selectedDotColor="@color/colorPrimary" />
+
+
+                <TextView
+                    android:id="@+id/events"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/dots_indicator"
+                    android:layout_margin="8dp"
+                    android:text="Events"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/events"
+                    android:background="@color/colorGray" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line2"
+
+                    />
+            </RelativeLayout>
+</ScrollView>
+
+
+
+
+
+
+
