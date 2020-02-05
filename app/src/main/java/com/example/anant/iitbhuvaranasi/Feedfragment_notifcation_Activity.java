@@ -40,7 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Feedfragment_notifcation_Activity extends AppCompatActivity implements View.OnClickListener {
+public class  Feedfragment_notifcation_Activity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView image_event,image_eventfullscreen;
     String image,time;
