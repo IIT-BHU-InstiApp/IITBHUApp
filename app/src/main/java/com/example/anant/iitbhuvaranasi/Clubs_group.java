@@ -8,7 +8,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +23,7 @@ public class Clubs_group extends AppCompatActivity {
     RecyclerView RecyclerView;
     private ArrayList<CLubFeedData> mExampleList;
     Integer position;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,16 @@ public class Clubs_group extends AppCompatActivity {
         RecyclerView = findViewById(R.id.recyclerView_clubs);
         RecyclerView.setHasFixedSize(true);
         //RecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerView.setLayoutManager(new GridLayoutManager(this,
+        /*RecyclerView.setLayoutManager(new GridLayoutManager(this,
        2,
         androidx.recyclerview.widget.RecyclerView.VERTICAL,
-        false));
-
+        false));*/
+       // StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+       /* RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, androidx.recyclerview.widget.RecyclerView.VERTICAL));
+*/
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        RecyclerView.setLayoutManager(layoutManager);
+      // RecyclerView.setLayoutManager(staggeredGridLayoutManager);
         Api_Response.method(this);
 
         SharedPreferences pref2 =  getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
