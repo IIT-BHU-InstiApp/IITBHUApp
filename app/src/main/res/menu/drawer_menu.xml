@@ -12,10 +12,7 @@
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search"
             android:title="Search" />
-        <item
-            android:id="@+id/nav_complain"
-            android:icon="@drawable/ic_complain"
-            android:title="Complain" />
+
         <item
             android:id="@+id/nav_myprofile"
             android:icon="@drawable/ic_complain"
@@ -24,6 +21,25 @@
             android:id="@+id/nav_eidcard"
             android:icon="@drawable/ic_about"
             android:title="E-ID Card" />
+        <item
+            android:id="@+id/nav_complain"
+            android:icon="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:title="Complain" />
+        <item
+
+            android:id="@+id/nav_hostel_complain"
+            android:title="Hostel Complains"
+            android:visible="false"
+            android:icon="@drawable/ic_home_black_24dp"/>
+        <item
+            android:id="@+id/nav_general_complain"
+            android:title="General Complains"
+            android:visible="false"
+            android:icon="@drawable/ic_feedback_black_24dp"/>
+        <item
+            android:id="@+id/nav_mess_complain"
+            android:title="Mess Complains"
+            android:visible="false"/>
     </group>
 
     <item android:title="Additional Indo.">

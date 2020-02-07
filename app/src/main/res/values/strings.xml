@@ -13,4 +13,5 @@
     <string name="transition_image">drawable</string>
     <string name="transition_heading">heading</string>
     <string name="transition_date">dates</string>
+    <string name="link"><u>link</u></string>
 </resources>

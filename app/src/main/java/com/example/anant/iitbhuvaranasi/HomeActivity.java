@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -25,6 +27,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,17 +45,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState == null)
-        {
+
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FeedFragment()).commit();
         }
@@ -59,29 +63,52 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.nav_notifications:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new FeedFragment()).commit();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_search:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new SearchFragment()).commit();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_complain:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                        new ComplainFragment()).commit();
+                Menu navigationMenu = navigationView.getMenu();
+
+                if(navigationMenu.findItem(R.id.nav_hostel_complain).isVisible()){
+                    navigationMenu.findItem(R.id.nav_hostel_complain).setVisible(false);
+                    navigationMenu.findItem(R.id.nav_general_complain).setVisible(false);
+                    navigationMenu.findItem(R.id.nav_mess_complain).setVisible(false);
+                    navigationMenu.findItem(R.id.nav_complain).setIcon(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                }else {
+                    navigationMenu.findItem(R.id.nav_hostel_complain).setVisible(true);
+                    navigationMenu.findItem(R.id.nav_general_complain).setVisible(true);
+                    navigationMenu.findItem(R.id.nav_mess_complain).setVisible(true);
+                    navigationMenu.findItem(R.id.nav_complain).setIcon(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                }
+                break;
+            case R.id.nav_hostel_complain:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ComplainFragment()).commit();
+                        new HostelComplainFragment()).commit();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_myprofile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new MyProfileFragment()).commit();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_eidcard:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new IDCardFragment()).commit();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_about:
                 Toast.makeText(this, "Info", Toast.LENGTH_SHORT).show();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_logout:
                 mGoogleSignInClient.signOut()
@@ -96,22 +123,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 spreferencesEditor.clear();
                 spreferencesEditor.commit();
 
-                Intent intent = new Intent(this,SignInActivity.class);
+                Intent intent = new Intent(this, SignInActivity.class);
                 startActivity(intent);
                 finish();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
         }
 
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
 
