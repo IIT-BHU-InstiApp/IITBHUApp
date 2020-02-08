@@ -65,9 +65,9 @@
 //////        for(int i = 0; i < images.length; i++){
 //////            addViewFlip(images[i]);
 //////        }
-//////        for(int i = 0; i < images.length; i++){
-//////            addViewHorizontal(pin,images[i]);
-//////        }
+//        for(int i = 0; i < images.length; i++){
+//            addViewHorizontal(pin,images[i]);
+//        }
 ////        confiureFlipper(flipper);
 //
 //        //ViewPager
@@ -218,22 +218,22 @@
 ////        flipper.addView(imageView);
 ////
 ////    }
-////    public void addViewHorizontal(LinearLayout pin,int img){
-////
-////        CircleImageView circularImageView =  new CircleImageView(this);
-////        circularImageView.setLayoutParams(new ViewGroup.LayoutParams(250,250));
-////        circularImageView.setImageResource(img);
-////        circularImageView.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                Toast.makeText(Main2Activity.this, "This is a HorizontalView Item",Toast.LENGTH_SHORT).show();
-////            }
-////        });
-////        circularImageView.setBorderWidth(2);
-////        circularImageView.setPadding(10,0,10,0);
-////        circularImageView.setBorderColor(getResources().getColor(R.color.colorblack));
-////        circularImageView.setElevation(10);
-////        pin.addView(circularImageView);
-////    }}
+//    public void addViewHorizontal(LinearLayout pin,int img){
+//
+//        CircleImageView circularImageView =  new CircleImageView(this);
+//        circularImageView.setLayoutParams(new ViewGroup.LayoutParams(250,250));
+//        circularImageView.setImageResource(img);
+//        circularImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(Main2Activity.this, "This is a HorizontalView Item",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        circularImageView.setBorderWidth(2);
+//        circularImageView.setPadding(10,0,10,0);
+//        circularImageView.setBorderColor(getResources().getColor(R.color.colorblack));
+//        circularImageView.setElevation(10);
+//        pin.addView(circularImageView);
+//    }}
 //
 //

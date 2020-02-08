@@ -101,6 +101,7 @@ public class HomeFragment extends Fragment {
         SimpleViewAdapter adapter = new SimpleViewAdapter(getContext(), getHorizontalData1);
 
         // Set the adapter onto the view pager
+        viewPager.setPadding(130,0,130,0);
         viewPager.setAdapter(adapter);
         dotsIndicator.setViewPager(viewPager);
 

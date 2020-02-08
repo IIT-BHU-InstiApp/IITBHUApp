@@ -4,6 +4,7 @@ package com.example.anant.iitbhuvaranasi;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ public class SimpleViewAdapter extends PagerAdapter {
     private Context mContext;
 //    private int[] mImages;
 ArrayList<SingleHorizontaldata> mData = new ArrayList<>();
+LayoutInflater layoutInflater;
 
     public SimpleViewAdapter(Context context, ArrayList<SingleHorizontaldata> data) {
         this.mContext = context;
@@ -28,7 +30,11 @@ ArrayList<SingleHorizontaldata> mData = new ArrayList<>();
     @Override
     public Object instantiateItem(ViewGroup container,final int position) {
 
-        ImageView imageView = new ImageView(mContext);
+
+
+        View view = layoutInflater.from(mContext).inflate(R.layout.viewpager_card,container,false);
+        ImageView imageView = (ImageView) view.findViewById(R.id.image2);
+
 //        imageView.setImageResource(mImages[position]);
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -44,10 +50,10 @@ ArrayList<SingleHorizontaldata> mData = new ArrayList<>();
                 .load(mData.get(position).getImage())
                 .placeholder(R.drawable.ic_eye_view)
                 .error(R.drawable.amc_workshop)
-
                 .fit()
+                .centerCrop()
                 .into(imageView);
-        container.addView(imageView);
+        container.addView(view);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +63,7 @@ ArrayList<SingleHorizontaldata> mData = new ArrayList<>();
             }
         });
 
-        return imageView;
+        return view;
     }
 
     @Override

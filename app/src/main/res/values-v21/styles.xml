@@ -7,8 +7,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
 
         <!-- Added by Suryansh. -->
-        <item name="android:ambientShadowAlpha">1</item>
-        <item name="android:spotShadowAlpha">1</item>
+        <item name="android:ambientShadowAlpha">0.2</item>
+        <item name="android:spotShadowAlpha">0.2</item>
         <!-- Added by Suryansh. -->
     </style>
 </resources>

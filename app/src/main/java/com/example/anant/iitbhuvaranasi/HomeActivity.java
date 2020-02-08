@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         bottomNav.setOnNavigationItemSelectedListener(listener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+                new FeedFragment()).commit();
         bottomNav.setSelectedItemId(R.id.feed);
 
 
@@ -91,7 +91,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_notifications:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new HomeFragment()).commit();
+                        new FeedFragment()).commit();
                 bottomNavigationView.setSelectedItemId(R.id.feed);
 
                 bottomNavigationView.setVisibility(View.VISIBLE);
@@ -162,7 +162,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     searchView.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.feed:
-                    selectedFragment = new HomeFragment();
+                    selectedFragment = new FeedFragment();
                     searchView.setVisibility(View.VISIBLE);
                     break;
 //                case R.id.more:

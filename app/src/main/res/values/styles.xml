@@ -8,7 +8,7 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!-- Added by Suryansh. -->
-        <item name="android:ambientShadowAlpha">0.8</item>
+        <item name="android:ambientShadowAlpha">.8</item>
         <item name="android:spotShadowAlpha">0.8</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
 
@@ -21,8 +21,8 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="windowNoTitle">true</item>
         <!-- Added by Suryansh. -->
-        <item name="android:ambientShadowAlpha">1</item>
-        <item name="android:spotShadowAlpha">1</item>
+        <item name="android:ambientShadowAlpha">.8</item>
+        <item name="android:spotShadowAlpha">0.8</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <!-- Added by Suryansh. -->
     </style>
@@ -40,8 +40,8 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!-- Added by Suryansh. -->
-        <item name="android:ambientShadowAlpha">1</item>
-        <item name="android:spotShadowAlpha">1</item>
+        <item name="android:ambientShadowAlpha">.8</item>
+        <item name="android:spotShadowAlpha">0.8</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -49,5 +49,7 @@
 
         <!-- Added by Suryansh. -->
     </style>
+
+
 </resources>
 

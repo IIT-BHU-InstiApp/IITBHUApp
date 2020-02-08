@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 //import android.util.Log;
 //import android.util.Log;
@@ -48,6 +51,20 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
                 .placeholder(R.drawable.ic_eye_view)
                 .error(R.drawable.amc_workshop)
                 .into(holder.image);
+        ViewGroup.LayoutParams params = holder.image.getLayoutParams();
+        params.width = 250;
+        params.height = 250;
+        holder.image.setLayoutParams(params);
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "This is a RecyclerView Item", Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.image.setBorderWidth(2);
+        holder.image.setPadding(10,0,10,0);
+
+        holder.image.setElevation(10);
 
        // Log.d("holderimage",holder.image.toString());
 
@@ -96,7 +113,7 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         //TextView title;
-        ImageView image;
+        CircleImageView image;
 
        // LinearLayout linearLayout;
 
