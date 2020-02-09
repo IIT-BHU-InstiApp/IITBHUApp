@@ -5,46 +5,8 @@
     android:id="@+id/toolbar_custom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    
-
     android:elevation="4dp">
 
 
-<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal">-->
 
-
-<!--&lt;!&ndash;        <androidx.cardview.widget.CardView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="0dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_weight="1"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:cardCornerRadius="20dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/search_cardview"&ndash;&gt;-->
-<!--&lt;!&ndash;            >&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <SearchView&ndash;&gt;-->
-<!--&lt;!&ndash;                android:id="@+id/search"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:background="@android:color/transparent"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:iconifiedByDefault="false"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:queryHint="Search your Institute"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:searchIcon="@null"&ndash;&gt;-->
-
-<!--&lt;!&ndash;                />&ndash;&gt;-->
-
-<!--&lt;!&ndash;        </androidx.cardview.widget.CardView>&ndash;&gt;-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="48dp"-->
-<!--            android:layout_height="48dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="12dp"-->
-<!--            app:srcCompat="@drawable/logoiitbhu" />-->
-
-<!--    </LinearLayout>-->
 </androidx.appcompat.widget.Toolbar>

@@ -62,10 +62,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                    new FeedFragment()).commit();
-//        }
+
 
 
         //Added by Suryansh.
@@ -87,7 +84,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        CardView searchView = (CardView) toolbar.findViewById(R.id.search_cardview);
         switch (menuItem.getItemId()) {
 
             case R.id.nav_notifications:
@@ -103,7 +99,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ComplainFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);
-//                searchView.setVisibility(View.INVISIBLE);
+
                 break;
 
             case R.id.nav_about:
@@ -151,33 +147,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//            CardView searchView = (CardView) toolbar.findViewById(R.id.search_cardview);
+
 
 
             switch (item.getItemId()) {
                 case R.id.id_card:
                     selectedFragment = new IDCardFragment();
-//                    searchView.setVisibility(View.INVISIBLE);
+
 
                     break;
 
                 case R.id.profile:
                     selectedFragment = new MyProfileFragment();
-//                    searchView.setVisibility(View.INVISIBLE);
+
                     break;
                 case R.id.feed:
                     selectedFragment = new FeedFragment();
-//                    searchView.setVisibility(View.VISIBLE);
+
                     break;
-//                case R.id.more:
-//
-//
-//                    PopupMenu pum = new PopupMenu(Main2Activity.this, findViewById(R.id.more));
-//                    pum.getMenuInflater().inflate(R.menu.moretab,pum.getMenu());
-//
-//                    pum.show();
-//
-//                    break;
+
 
             }
 
