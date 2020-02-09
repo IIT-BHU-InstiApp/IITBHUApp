@@ -30,6 +30,7 @@ public class Clubs_group extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clubs_group);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent i = getIntent();
         position = i.getIntExtra("position",0);
         Toast.makeText(this,"" + position,Toast.LENGTH_LONG);
@@ -50,6 +51,8 @@ public class Clubs_group extends AppCompatActivity {
         RecyclerView.setLayoutManager(layoutManager);
       // RecyclerView.setLayoutManager(staggeredGridLayoutManager);
         Api_Response.method(this);
+
+
 
         SharedPreferences pref2 =  getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
@@ -101,7 +104,11 @@ public class Clubs_group extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 
     }
 

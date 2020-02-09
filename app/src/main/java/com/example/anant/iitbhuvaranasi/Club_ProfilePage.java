@@ -29,5 +29,13 @@ public class Club_ProfilePage extends AppCompatActivity {
                 .placeholder(R.drawable.ic_eye_view)
                 .error(R.drawable.amc_workshop)
                 .into(feed_clubimage1);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }

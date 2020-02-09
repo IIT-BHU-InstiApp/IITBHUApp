@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="210dp"
-    android:layout_height="200dp"
+    android:layout_height="270dp"
+    android:paddingTop="15dp"
     android:layout_margin="5dp"
     android:background="#FFFFFF"
     android:elevation="5dp"
+    app:cardCornerRadius="5dp"
     android:orientation="vertical"
-    android:padding="5dp"
+    android:padding="10dp"
    >
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +21,7 @@
             android:id="@+id/council_image"
             android:layout_height="wrap_content"
             android:src="@drawable/fmc"
-            android:scaleType="center"
+            android:scaleType="centerCrop"
             />
 
     </LinearLayout>
