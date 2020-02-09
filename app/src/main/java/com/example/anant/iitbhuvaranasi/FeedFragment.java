@@ -209,11 +209,22 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
         //horizontal scroll view
 
-        for(int i = 0; i < getHorizontalData1.size(); i++){
-            addViewHorizontal(view,getHorizontalData1.get(i),i,getContext());
-        }
+//        for(int i = 0; i < getHorizontalData1.size(); i++){
+//            addViewHorizontal(view,getHorizontalData1.get(i),i,getContext());
+//        }
 
         //horizontal scrollview
+
+
+        //RECYCLERVIEW HORIZONTAL PINTAB
+        int[] imgId = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5};
+        RecyclerView horizontalRcv = (RecyclerView) view.findViewById(R.id.horizontal_rcv2);
+        HorizontalRecyclerAdap horizontalRecyclerAdap = new HorizontalRecyclerAdap(getContext(), imgId);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        horizontalRcv.setLayoutManager(layoutManager2);
+        horizontalRcv.setAdapter(horizontalRecyclerAdap);
+
+
         return view;
     }
 
@@ -569,44 +580,44 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
     }
 
-    public void addViewHorizontal(View view, SingleHorizontaldata data, final int  position, final Context context){
-
-//        CircleImageView circularImageView =  new CircleImageView(this);
-//        circularImageView.setLayoutParams(new ViewGroup.LayoutParams(250,250));
-//        circularImageView.setImageResource(img);
-//        circularImageView.setOnClickListener(new View.OnClickListener() {
+//    public void addViewHorizontal(View view, SingleHorizontaldata data, final int  position, final Context context){
+//
+////        CircleImageView circularImageView =  new CircleImageView(this);
+////        circularImageView.setLayoutParams(new ViewGroup.LayoutParams(250,250));
+////        circularImageView.setImageResource(img);
+////        circularImageView.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                Toast.makeText(Main2Activity.this, "This is a HorizontalView Item",Toast.LENGTH_SHORT).show();
+////            }
+////        });
+////        circularImageView.setBorderWidth(2);
+////        circularImageView.setPadding(10,0,10,0);
+////        circularImageView.setBorderColor(getResources().getColor(R.color.colorblack));
+////        circularImageView.setElevation(10);
+//        LayoutInflater layoutInflater = LayoutInflater.from(context);
+//        View cardview = layoutInflater.inflate(R.layout.horizontal_cardview,null);
+//        ImageView imageView = cardview.findViewById(R.id.image2);
+//        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.horizontal_card);
+//
+//        Picasso.get()
+//                .load(data.getImage())
+//                .placeholder(R.drawable.ic_eye_view)
+//                .error(R.drawable.amc_workshop)
+//                .fit()
+//                .centerCrop()
+//                .into(imageView);
+//
+//        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Toast.makeText(Main2Activity.this, "This is a HorizontalView Item",Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context, Clubs_group.class);
+//                intent.putExtra("position",position);
+//                context.startActivity(intent);
 //            }
 //        });
-//        circularImageView.setBorderWidth(2);
-//        circularImageView.setPadding(10,0,10,0);
-//        circularImageView.setBorderColor(getResources().getColor(R.color.colorblack));
-//        circularImageView.setElevation(10);
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View cardview = layoutInflater.inflate(R.layout.horizontal_cardview,null);
-        ImageView imageView = cardview.findViewById(R.id.image2);
-        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.horizontal_card);
-
-        Picasso.get()
-                .load(data.getImage())
-                .placeholder(R.drawable.ic_eye_view)
-                .error(R.drawable.amc_workshop)
-                .fit()
-                .centerCrop()
-                .into(imageView);
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, Clubs_group.class);
-                intent.putExtra("position",position);
-                context.startActivity(intent);
-            }
-        });
-        linearLayout.addView(cardview);
-    }
+//        linearLayout.addView(cardview);
+//    }
 
 }
 

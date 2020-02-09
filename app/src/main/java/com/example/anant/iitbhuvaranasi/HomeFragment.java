@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
@@ -121,12 +122,17 @@ public class HomeFragment extends Fragment {
         rcv.setAdapter(recyclerViewAdap);
 
         //RECYCLERVIEW HORIZONTAL
-        int[] imgId = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5};
+        int[] imgId = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5, };
         RecyclerView horizontalRcv = (RecyclerView) home.findViewById(R.id.horizontal_rcv);
         HorizontalRecyclerAdap horizontalRecyclerAdap = new HorizontalRecyclerAdap(getContext(), imgId);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         horizontalRcv.setLayoutManager(layoutManager2);
         horizontalRcv.setAdapter(horizontalRecyclerAdap);
+        Button addButton = home.findViewById(R.id.add_button);
+        ViewGroup.LayoutParams params = addButton.getLayoutParams();
+        params.width = 250;
+        params.height = 250;
+        addButton.setLayoutParams(params);
 
         return home;
     }

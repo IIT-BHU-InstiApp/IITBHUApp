@@ -47,7 +47,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         drawer = findViewById(R.id.drawer_layout);
 
@@ -76,7 +78,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNav.setSelectedItemId(R.id.feed);
 
 
-
         //Added by Suryansh.
 
 
@@ -86,7 +87,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        CardView searchView = (CardView) toolbar.findViewById(R.id.search_cardview);
+//        CardView searchView = (CardView) toolbar.findViewById(R.id.search_cardview);
         switch (menuItem.getItemId()) {
 
             case R.id.nav_notifications:
@@ -102,7 +103,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ComplainFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);
-                searchView.setVisibility(View.INVISIBLE);
+//                searchView.setVisibility(View.INVISIBLE);
                 break;
 
             case R.id.nav_about:
@@ -133,8 +134,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (bottomNavigationView.getSelectedItemId() != R.id.feed) {
+            bottomNavigationView.setSelectedItemId(R.id.feed);
         } else {
             super.onBackPressed();
         }
@@ -147,23 +151,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            CardView searchView = (CardView) toolbar.findViewById(R.id.search_cardview);
+//            CardView searchView = (CardView) toolbar.findViewById(R.id.search_cardview);
 
 
             switch (item.getItemId()) {
                 case R.id.id_card:
                     selectedFragment = new IDCardFragment();
-                    searchView.setVisibility(View.INVISIBLE);
+//                    searchView.setVisibility(View.INVISIBLE);
 
                     break;
 
                 case R.id.profile:
                     selectedFragment = new MyProfileFragment();
-                    searchView.setVisibility(View.INVISIBLE);
+//                    searchView.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.feed:
                     selectedFragment = new FeedFragment();
-                    searchView.setVisibility(View.VISIBLE);
+//                    searchView.setVisibility(View.VISIBLE);
                     break;
 //                case R.id.more:
 //

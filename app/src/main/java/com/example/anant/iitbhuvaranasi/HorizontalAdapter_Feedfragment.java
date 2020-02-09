@@ -51,17 +51,17 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
                 .placeholder(R.drawable.ic_eye_view)
                 .error(R.drawable.amc_workshop)
                 .into(holder.image);
-        ViewGroup.LayoutParams params = holder.image.getLayoutParams();
-        params.width = 250;
-        params.height = 250;
-        holder.image.setLayoutParams(params);
+//        ViewGroup.LayoutParams params = holder.image.getLayoutParams();
+//        params.width = 250;
+//        params.height = 250;
+//        holder.image.setLayoutParams(params);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "This is a RecyclerView Item", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.image.setBorderWidth(2);
+//        holder.image.setBorderWidth(2);
         holder.image.setPadding(10,0,10,0);
 
         holder.image.setElevation(10);
@@ -113,7 +113,7 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         //TextView title;
-        CircleImageView image;
+        ImageView image;
 
        // LinearLayout linearLayout;
 

@@ -44,8 +44,8 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
                 Toast.makeText(mContext, "This is a RecyclerView Item", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.img.setBorderWidth(2);
-        holder.img.setPadding(10,0,10,0);
+        holder.img.setBorderWidth(3);
+        holder.img.setPadding(10,10,10,0);
 
         holder.img.setElevation(10);
 

@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".PinActivity"></activity>
         <activity
             android:name=".Main2Activity"
             android:theme="@style/AppTheme2" />
