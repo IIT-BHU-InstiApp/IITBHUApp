@@ -3,18 +3,23 @@ package com.example.anant.iitbhuvaranasi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,7 +80,7 @@ public class FeedFragment extends Fragment {
         }
 
         getVerticalData5 = new ArrayList<>();
-        getHorizontalData1=new ArrayList<>();
+        getHorizontalData1 = new ArrayList<>();
 
 
 
@@ -96,7 +101,7 @@ public class FeedFragment extends Fragment {
                  getVerticalData5.add(getVerticalData4.get(a));
              }
          }
-Log.d("merakuchnhihonewala",getVerticalData5.toString());
+Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
        // mRecyclerView.setRecycledViewPool(sharedPool);
@@ -201,6 +206,18 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+
+
+        //RECYCLERVIEW HORIZONTAL PINTAB
+        int[] imgId = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5};
+        RecyclerView horizontalRcv = (RecyclerView) view.findViewById(R.id.horizontal_rcv2);
+        HorizontalRecyclerAdap horizontalRecyclerAdap = new HorizontalRecyclerAdap(getContext(), imgId);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        horizontalRcv.setLayoutManager(layoutManager2);
+        horizontalRcv.setAdapter(horizontalRecyclerAdap);
+
 
         return view;
     }
@@ -552,9 +569,15 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
 
         // Showing Alert Message
         alertDialog.show();
+
+
+
     }
 
 
 
-
 }
+
+
+
+
