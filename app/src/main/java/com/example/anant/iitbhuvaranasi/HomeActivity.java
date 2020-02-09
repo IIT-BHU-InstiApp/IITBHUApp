@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,7 +51,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        View headerView = navigationView.getHeaderView(0);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        String personName="",personEmail="",personGivenName="",personFamilyName="";
+        if (acct != null) {
+            personGivenName = acct.getGivenName();
+            personEmail = acct.getEmail();
+            //Important : Can be used later if needed
+            //personName = acct.getDisplayName();
+            //Stores branch of the student and year of study
+            //personFamilyName = acct.getFamilyName();
+        }
+
+        TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
+        TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
+
+        emailOfStudent.setText(personEmail);
+        nameOfStudent.setText(personGivenName);
+
+        /*Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
+                +"\npersonFamilyName="+personFamilyName);*/
+
         navigationView.setNavigationItemSelectedListener(this);
+
 
         if(savedInstanceState == null)
         {
