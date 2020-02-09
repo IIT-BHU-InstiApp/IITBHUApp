@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_menu" />
+                            <entry key="color" value="915e9b" />
+                            <entry key="outputName" value="ic_menu_purple" />
                             <entry key="sourceFile" value="C:\Users\this_pc" />
                           </map>
                         </option>
