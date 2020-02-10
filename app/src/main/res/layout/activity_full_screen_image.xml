@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
    >
+    <include
+        android:id="@+id/toolbar_fullscreen"
+        layout="@layout/custom_toolbar_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 
     <ImageView
         android:id="@+id/fullscree_nmageView"

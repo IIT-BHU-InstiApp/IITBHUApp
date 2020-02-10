@@ -5,12 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Clubs_group">
+    <include
+        android:id="@+id/toolbar_club_group"
+        layout="@layout/custom_toolbar_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recyclerView_clubs"
         android:layout_height="match_parent"
         android:background="@color/cardview_dark_background"
+        android:layout_below="@+id/toolbar_club_group"
         >
 
     </androidx.recyclerview.widget.RecyclerView>

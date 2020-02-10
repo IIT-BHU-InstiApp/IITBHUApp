@@ -19,6 +19,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -60,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -72,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNav.setOnNavigationItemSelectedListener(listener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FeedFragment()).commit();
-        bottomNav.setSelectedItemId(R.id.feed);
+//        bottomNav.setSelectedItemId(R.id.feed);
 
 
         //Added by Suryansh.
@@ -170,12 +172,24 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
 
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment, "frag").commit();
 
 
             return true;
 
         }
     };
+
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        recreate();
+////        Fragment fragment = getSupportFragmentManager().findFragmentByTag("frag");
+////
+////        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+////        ft.replace(R.id.container, new FeedFragment());;
+////        ft.commitAllowingStateLoss();
+//
+//    }
 }
 

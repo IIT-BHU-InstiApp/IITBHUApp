@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +30,25 @@ public class Clubs_group extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clubs_group);
+
+        //Added by Suryansh
+        Toolbar toolbar = findViewById(R.id.toolbar_club_group);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Window window = this.getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+
+        //Added by Suryansh
 
         Intent i = getIntent();
         position = i.getIntExtra("position",0);
