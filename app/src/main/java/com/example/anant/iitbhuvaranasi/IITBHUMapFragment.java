@@ -75,10 +75,13 @@ public class IITBHUMapFragment extends Fragment implements
 
     final LatLng REGISTRATION_DESK = new LatLng(25.261651600080054, 82.98654980957508);
     final LatLng SWATANTRATA_BHAVAN = new LatLng(25.26073589298122, 82.99452066421509);
+
+    //Lecture Theatres
     final LatLng G11 = new LatLng(25.26123559095607, 82.99245402216911);
     final LatLng G14 = new LatLng(25.26172800976422, 82.99058854579926);
     final LatLng LT3 = new LatLng(25.25884866557616, 82.99267530441284);
     final LatLng LT1 = new LatLng(25.260275004676558, 82.99107670783997);
+
     final LatLng ADV_GROUNDS_EVENT = new LatLng(25.258717674410665, 82.99015402793884);
     final LatLng ADV_GROUNDS_PRONITE = new LatLng(25.258281036171866, 82.99061268568039);
     final LatLng ATM_HG1 = new LatLng(25.2622883459788, 82.9817345738411);
@@ -86,13 +89,37 @@ public class IITBHUMapFragment extends Fragment implements
     final LatLng ATM_VT = new LatLng(25.26537378738049, 82.98967659473419);
     final LatLng ATM_eCorner = new LatLng(25.26386261007635, 82.9949739575386);
 
+
+    //Departments
+    final LatLng ARCHITECHTURE = new LatLng(25.261633, 82.991648);
+    final LatLng CERAMIC = new LatLng(25.259783, 82.992806);
+    final LatLng CHEMICAL = new LatLng(25.259578, 82.993618);
+    final LatLng CIVIL = new LatLng(25.263186, 82.991962);
+    final LatLng CSE = new LatLng(25.262514, 82.993421);
+    final LatLng ELECTRICAL = new LatLng(25.261367, 82.992037);
+    final LatLng ELECTRONICS = new LatLng(25.262856, 82.990626);
+    final LatLng MECHANICAL = new LatLng(25.261777, 82.991742);
+    final LatLng METALLURGICAL = new LatLng(25.268978, 82.992557);
+    final LatLng MINING = new LatLng(25.269711, 82.992847);
+    final LatLng PHARMACEUTICAL = new LatLng(25.258771, 82.993556);
+
+    final LatLng CHEMISTRY = new LatLng(25.261048, 82.991786);
+    final LatLng MATHEMATICAL_SCIENCES = new LatLng(25.261873, 82.993501);
+    final LatLng PHYSICS = new LatLng(25.259545, 82.992941);
+
+    final LatLng BIOCHEMICAL = new LatLng(25.258507, 82.994231);
+    final LatLng BIOMEDICAL = new LatLng(25.261720, 82.994487);
+    final LatLng MATERIALS_SCIENCE = new LatLng(25.259609, 82.991511);
+
+    final LatLng HUMANISTIC_STUDIES = new LatLng(25.261603, 82.990653);
+
     FloatingActionMenu filterFAM;
-    FloatingActionButton filterHostel, filterAtm, filterEvent, filterPronite, filterRegDesk;
+    FloatingActionButton filterHostel, filterAtm, filterDepartment, filterLT, filterRegDesk;
 
     BitmapDescriptor registrationDeskMarker;
     BitmapDescriptor hostelMarker;
-    BitmapDescriptor eventMarker;
-    BitmapDescriptor proniteMarker;
+    BitmapDescriptor departmentMarker;
+    BitmapDescriptor ltMarker;
     BitmapDescriptor atmMarker;
 
     private boolean mPermissionDenied = false;
@@ -125,20 +152,20 @@ public class IITBHUMapFragment extends Fragment implements
                         .findFragmentById(R.id.map);
 
 
-        registrationDeskMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_white_18dp);
-        hostelMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_white_18dp);
-        eventMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_white_18dp);
-        proniteMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_white_18dp);
-        atmMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_white_18dp);
+        registrationDeskMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_24);
+        hostelMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_24);
+        departmentMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_menu_book_black_24);
+        ltMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_24);
+        atmMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_atm_black_24);
 
         mapFragment.getMapAsync(this);
 
         filterFAM = view.findViewById(R.id.filter_menu);
         filterAtm = view.findViewById(R.id.filter_atm);
-        filterEvent = view.findViewById(R.id.filter_event);
+        filterDepartment = view.findViewById(R.id.filter_department);
         filterHostel = view.findViewById(R.id.filter_hostel);
-        filterPronite = view.findViewById(R.id.filter_pronite);
-        filterRegDesk = view.findViewById(R.id.filter_reg_desk);
+        filterLT = view.findViewById(R.id.filter_pronite);
+        //filterRegDesk = view.findViewById(R.id.filter_reg_desk);
 
         createCustomAnimation();
 
@@ -148,9 +175,9 @@ public class IITBHUMapFragment extends Fragment implements
                 if (filterFAM.isOpened()) {
                     markRegistrationDesk();
                     markHostels();
-                    markEventVenues();
+                    markDepartments();
                     markAtms();
-                    markProniteVenues();
+                    markLT();
                 }
                 filterFAM.toggle(true);
             }
@@ -163,19 +190,19 @@ public class IITBHUMapFragment extends Fragment implements
                 filterFAM.close(true);
             }
         });
-        filterRegDesk.setOnClickListener(new View.OnClickListener() {
+        /*filterRegDesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMap.clear();
                 markRegistrationDesk();
                 filterFAM.close(true);
             }
-        });
-        filterPronite.setOnClickListener(new View.OnClickListener() {
+        });*/
+        filterLT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                markProniteVenues();
+                markLT();
                 filterFAM.close(true);
             }
         });
@@ -187,11 +214,11 @@ public class IITBHUMapFragment extends Fragment implements
                 filterFAM.close(true);
             }
         });
-        filterEvent.setOnClickListener(new View.OnClickListener() {
+        filterDepartment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                markEventVenues();
+                markDepartments();
                 filterFAM.close(true);
             }
         });
@@ -225,9 +252,9 @@ public class IITBHUMapFragment extends Fragment implements
 
         markRegistrationDesk();
         markHostels();
-        markEventVenues();
+        markDepartments();
         markAtms();
-        markProniteVenues();
+        markLT();
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(REGISTRATION_DESK)
@@ -298,7 +325,7 @@ public class IITBHUMapFragment extends Fragment implements
      */
     private void showMissingPermissionError() {
         //PermissionUtils.PermissionDeniedDialog
-        //       .newInstance(true).show((new android.app.FragmentManager())getChildFragmentManager(), "dialog");
+        //      .newInstance(true).show((new android.app.FragmentManager())getChildFragmentManager(), "dialog");
         Toast.makeText(this.getContext(),"Permission Missing",Toast.LENGTH_LONG).show();
     }
 
@@ -306,14 +333,25 @@ public class IITBHUMapFragment extends Fragment implements
         mMap.addMarker(new MarkerOptions().position(REGISTRATION_DESK).title("KY Registration Desk").icon(registrationDeskMarker));
     }
 
-    private void markEventVenues() {
-        mMap.addMarker(new MarkerOptions().position(RAJPUTANA_GROUND).title("Rajputana Ground").icon(eventMarker));
-        mMap.addMarker(new MarkerOptions().position(SWATANTRATA_BHAVAN).title("Swatantrata Bhavan").icon(eventMarker));
-        mMap.addMarker(new MarkerOptions().position(G11).title("G11 Hall").icon(eventMarker));
-        mMap.addMarker(new MarkerOptions().position(G14).title("G14 Hall").icon(eventMarker));
-        mMap.addMarker(new MarkerOptions().position(LT1).title("Lecture Theatre 1").icon(eventMarker));
-        mMap.addMarker(new MarkerOptions().position(LT3).title("Lecture Theatre 3").icon(eventMarker));
-        mMap.addMarker(new MarkerOptions().position(ADV_GROUNDS_EVENT).title("ADV Grounds").icon(eventMarker));
+    private void markDepartments() {
+        mMap.addMarker(new MarkerOptions().position(ARCHITECHTURE).title("Department of Architecture, Planning and Design").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(CERAMIC).title("Department of Ceramic Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(CHEMICAL).title("Department of Chemical Engineering & Technology").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(CIVIL).title("Department of Civil Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(CSE).title("Department of Computer Science and Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(ELECTRICAL).title("Department of Electrical Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(ELECTRONICS).title("Department of Electronics Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(MECHANICAL).title("Department of Mechanical Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(METALLURGICAL).title("Department of Metallurgical Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(MINING).title("Department of Mining Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(PHARMACEUTICAL).title("Department of Pharmaceutical Engineering and Technology").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(CHEMISTRY).title("Department of Chemistry").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(MATHEMATICAL_SCIENCES).title("Department of Mathematical Sciences").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(PHYSICS).title("Department of Physics").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(BIOCHEMICAL).title("School of Biochemical Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(BIOMEDICAL).title("School of Biomedical Engineering").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(MATERIALS_SCIENCE).title("School of Materials Science and Technology").icon(departmentMarker));
+        mMap.addMarker(new MarkerOptions().position(HUMANISTIC_STUDIES).title("Department of Humanistic Studies").icon(departmentMarker));
     }
 
     private void markHostels() {
@@ -325,7 +363,7 @@ public class IITBHUMapFragment extends Fragment implements
         mMap.addMarker(new MarkerOptions().position(RAMANUJAN).title("Ramanujan Hostel").icon(hostelMarker));
         mMap.addMarker(new MarkerOptions().position(ASN_BOSE).title("ASN Bose Hostel").icon(hostelMarker));
         mMap.addMarker(new MarkerOptions().position(VISVESWARAYYA).title("Visveswarayya Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(GANDHI_SMRITI_MAHILA).title("Gandhi Smriti Mahila Hostel").icon(hostelMarker));
+        mMap.addMarker(new MarkerOptions().position(GANDHI_SMRITI_MAHILA).title("Gandhi Smriti Hostel").icon(hostelMarker));
         mMap.addMarker(new MarkerOptions().position(LIMBDI).title("Limbdi Hostel").icon(hostelMarker));
         mMap.addMarker(new MarkerOptions().position(SC_DE).title("SC De Hostel").icon(hostelMarker));
         mMap.addMarker(new MarkerOptions().position(VIVEKANANDA).title("Vivekananda Hostel").icon(hostelMarker));
@@ -344,8 +382,11 @@ public class IITBHUMapFragment extends Fragment implements
         mMap.addMarker(new MarkerOptions().position(ATM_VT).title("Bank of Baroda ATM").icon(atmMarker));
     }
 
-    private void markProniteVenues() {
-        mMap.addMarker(new MarkerOptions().position(ADV_GROUNDS_PRONITE).title("ADV Grounds").icon(proniteMarker));
+    private void markLT() {
+        mMap.addMarker(new MarkerOptions().position(LT1).title("Lecture Theater 1").icon(ltMarker));
+        mMap.addMarker(new MarkerOptions().position(LT3).title("Lecture Theater 3").icon(ltMarker));
+        mMap.addMarker(new MarkerOptions().position(G11).title("G-11").icon(ltMarker));
+        mMap.addMarker(new MarkerOptions().position(G14).title("G-14").icon(ltMarker));
     }
 
     private void createCustomAnimation() {
@@ -367,7 +408,7 @@ public class IITBHUMapFragment extends Fragment implements
             @Override
             public void onAnimationStart(Animator animation) {
                 filterFAM.getMenuIconView().setImageResource(filterFAM.isOpened()
-                        ? R.drawable.baseline_place_white_18dp : R.drawable.baseline_place_white_18dp);
+                        ? R.drawable.baseline_place_white_24dp : R.drawable.baseline_place_white_24dp);
             }
         });
 

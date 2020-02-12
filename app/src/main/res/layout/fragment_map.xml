@@ -28,7 +28,7 @@
         fab:menu_colorRipple="@color/white_color"
         fab:menu_fab_label="Clear Filter"
         fab:menu_fab_size="normal"
-        fab:menu_icon="@drawable/baseline_place_white_18dp"
+        fab:menu_icon="@drawable/baseline_place_white_24dp"
         fab:menu_labels_colorNormal="#333333"
         fab:menu_labels_colorPressed="#444444"
         fab:menu_labels_colorRipple="@color/white_color"
@@ -55,51 +55,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:src="@drawable/baseline_place_white_18dp"
+            android:src="@drawable/baseline_place_white_24dp"
             fab:fab_colorNormal="#808000"
             fab:fab_colorPressed="@color/colorPrimary"
             fab:fab_label="Hostels"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/filter_event"
+            android:id="@+id/filter_department"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_place_white_18dp"
+            android:src="@drawable/baseline_place_white_24dp"
             fab:fab_colorNormal="#808000"
             fab:fab_colorPressed="@color/colorPrimary"
-            fab:fab_label="Event Venues"
+            fab:fab_label="Departments"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/filter_pronite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_place_white_18dp"
+            android:src="@drawable/baseline_place_white_24dp"
             fab:fab_colorNormal="#808000"
             fab:fab_colorPressed="@color/colorPrimary"
-            fab:fab_label="ProNite Venues"
+            fab:fab_label="Lecture Halls"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/filter_atm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_place_white_18dp"
+            android:src="@drawable/baseline_place_white_24dp"
             fab:fab_colorNormal="#808000"
             fab:fab_colorPressed="@color/colorPrimary"
             fab:fab_label="ATMs"
             fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/filter_reg_desk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_place_white_18dp"
-            fab:fab_colorNormal="#808000"
-            fab:fab_colorPressed="@color/colorPrimary"
-            fab:fab_label="Registration Desk"
-            fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

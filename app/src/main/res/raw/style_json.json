@@ -2,7 +2,7 @@
   {
     "stylers": [
       {
-        "color": "#111111"
+        "color": "#e7ebed"
       }
     ]
   },
@@ -58,7 +58,15 @@
     "featureType": "road",
     "stylers": [
       {
-        "color": "#808000"
+        "color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "stylers": [
+      {
+        "color": "#c1ecb0"
       }
     ]
   },
@@ -67,7 +75,7 @@
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#e60000"
+        "color": "#91cfff"
       }
     ]
   }
