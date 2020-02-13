@@ -1,225 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/test"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:nestedScrollingEnabled="false"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    xmlns:tools="http://schemas.android.com/tools">
+    tools:context=".MainActivity">
 
-    <LinearLayout
-
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="8dp"
-        >
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:padding="8dp">
-
-            <Spinner
-                android:id="@+id/spin1"
-                android:layout_width="156dp"
-                android:layout_height="37dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="5"
-                android:layout_marginRight="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.092"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.039" />
-
-            <Spinner
-                android:id="@+id/spin2"
-                android:layout_width="137dp"
-                android:paddingLeft="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_height="34dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="5"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.375"
-
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.038" />
-        </LinearLayout>
-
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="253dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:maxLines="1"
-            android:maxLength="34"
-            android:background="@drawable/button_style"
-            android:hint="Heading of Complaint"
-            android:paddingLeft="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.154"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.135" />
-
-        <AutoCompleteTextView
-            android:id="@+id/auto"
-            android:layout_width="313dp"
-            android:layout_height="240dp"
-            android:layout_marginStart="8dp"
-            android:paddingLeft="10dp"
-            android:background="@drawable/button_style"
-
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:inputType="textMultiLine"
-            android:layout_marginBottom="8dp"
-            android:minLines="1"
-            android:maxLines="100"
-            android:hint="Subject of complaint"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.392"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.393" />
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:id="@+id/image_view"
-            android:layout_height="300dp"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-
-            ></ImageView>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="121dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="284dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:textColor="#ffffff"
-                android:text="Upload Photo"
-                android:background="@drawable/textinputborder"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.49"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.467" />
-
-
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:padding="8dp"
-                android:text="Remove"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/from_textview"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:layout_gravity="end"
-            android:padding="8dp">
+            android:layout_height="48dp"
+            android:text="From:"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Monu Kumar"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@id/from_textview"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="60dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_gravity="center_horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.104"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.813" />
-
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="203dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:inputType="textNoSuggestions"
-                android:text="Send Anonymously"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.572"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.836" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/button"
+        <TextView
+            android:id="@+id/emailid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="moukumar.min18@itbhu.ac.in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Spinner
+        android:id="@+id/complain_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:spinnerMode="dialog" />
+
+
+    <Spinner
+        android:id="@+id/hostel_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:spinnerMode="dialog" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+
+    <EditText
+        android:id="@+id/subject_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:hint="Subject of Complaint"
+        android:maxLength="60"
+        android:minHeight="56dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="?android:attr/listDivider" />
+
+    <EditText
+        android:id="@+id/issue_box"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:gravity="left|top"
+        android:hint="Describe your issue"
+        android:inputType="textMultiLine"
+        android:maxLines="100"
+        android:minHeight="240dp"
+        android:minLines="1"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <CheckBox
+            android:id="@+id/anonymous_checkbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Send"
-            android:textColor="#ffffff"
-            android:background="@drawable/textinputborder"
+            android:layout_weight="1"
+            android:text="Keep Anonymous" />
+
+        <ImageButton
+            android:id="@+id/anonymous_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.932" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_help_outline_black_24dp" />
 
 
     </LinearLayout>
-</ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <LinearLayout
+            android:id="@+id/uploaded_image_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/add_image"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_add_box_black_24dp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+    <TextView
+        android:id="@+id/remove_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Remove All"
+        android:visibility="gone" />
+
+
+</LinearLayout>

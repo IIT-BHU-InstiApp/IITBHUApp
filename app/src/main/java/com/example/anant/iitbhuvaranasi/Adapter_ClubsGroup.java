@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,7 +68,7 @@ public class Adapter_ClubsGroup extends RecyclerView.Adapter<Adapter_ClubsGroup.
 
         public TextView mTitle;
         public ImageView image;
-        public CardView club_card;
+        public LinearLayout club_card;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:id="@+id/recyclerView_clubs"
         android:layout_height="match_parent"
-        android:background="@color/cardview_dark_background"
+        android:background="@color/white_color"
         android:layout_below="@+id/toolbar_club_group"
         >
 

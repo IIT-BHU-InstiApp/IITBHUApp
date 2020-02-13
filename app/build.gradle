@@ -66,6 +66,7 @@ dependencies {
     implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
 
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+
     //Added by Suryansh.
 
 
