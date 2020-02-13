@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PinActivity"></activity>
+        <activity android:name=".PinActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity android:name=".Club_ProfilePage"
             android:theme="@style/AppTheme.NoActionBar"/>

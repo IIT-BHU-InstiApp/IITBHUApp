@@ -45,7 +45,7 @@ public class MainAdapterfeedfragment extends RecyclerView.Adapter<RecyclerView.V
 
        // Toast.makeText(context, "Hello" + (viewType+4), Toast.LENGTH_LONG).show();
         Log.d("viewtypemainadapter"," "+ viewType);
-       // viewType = viewType +1;
+       // viewType = viewType plus1;
 
         switch (viewType) {
             case VERTICAL:

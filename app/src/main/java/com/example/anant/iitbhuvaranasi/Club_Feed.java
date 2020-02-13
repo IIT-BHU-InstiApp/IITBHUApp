@@ -49,6 +49,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
+        mActionBar.setDisplayHomeAsUpEnabled(true);
         LayoutInflater mInflater = LayoutInflater.from(this);
 
         View mCustomView = mInflater.inflate(R.layout.club_bar_layout, null);
@@ -264,5 +265,11 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
           return singleVerticalData;
     }*/
+   @Override
+   public boolean onSupportNavigateUp(){
+
+       finish();
+       return true;
+   }
 }
 

@@ -16,10 +16,10 @@
         android:title="E-Id Card"
         android:icon="@drawable/ic_id"/>
 
-    <item
-        android:id="@+id/profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_profile"/>
+<!--    <item-->
+<!--        android:id="@+id/profile"-->
+<!--        android:title="Profile"-->
+<!--        android:icon="@drawable/ic_profile"/>-->
 
 <!--    <item-->
 <!--        android:id="@+id/more"-->

@@ -31,5 +31,7 @@
     <color name="colorblack">#000000</color>
     <color name="colorwhite">#ffffff</color>
     <color name="colorblue200">#90CAF9</color>
+
+    <color name="toolbar_color_control_normal">@color/colorGray</color>
     <!-- Added by Suryansh. -->
 </resources>

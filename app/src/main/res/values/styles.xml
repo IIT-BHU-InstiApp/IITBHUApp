@@ -63,5 +63,13 @@
     </style>
 
 
+
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/toolbar_color_control_normal</item>
+    </style>
+
+
 </resources>
 

@@ -38,5 +38,25 @@
         android:textStyle="bold"
         />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        android:layout_below="@+id/club_profile_name"
+        android:layout_margin="16dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/club_info"
+            android:textColor="@color/black"
+            tools:text="Club of Programmers (or better known as COPS) understands this responsibility and plays a crucial part in maintaining the coding culture in the institute. Introductory workshops are held for freshers to introduce them to the various facets of programming. Regular competitions are held for the general student body to test and sharpen their programming skills. COPS also has an essential role in the successful conduction of Technex, the institute’s techno-management festival. ICM(International Coding Marathon) event organised by COPS in Technex attracts the maximum participation in the fest."
+            android:layout_margin="16dp"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-light"
+            android:elevation="5dp"/>
+    </androidx.cardview.widget.CardView>
+
+
 
 </RelativeLayout>

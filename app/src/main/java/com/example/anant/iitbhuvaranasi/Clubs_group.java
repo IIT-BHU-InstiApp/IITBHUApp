@@ -36,6 +36,7 @@ public class Clubs_group extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Window window = this.getWindow();
 
@@ -113,6 +114,13 @@ public class Clubs_group extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }*/
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivity(i);
+        finish();
+        return true;
     }
 
 
