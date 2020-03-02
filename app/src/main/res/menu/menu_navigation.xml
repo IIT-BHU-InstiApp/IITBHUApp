@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/menu" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu">
     <item
         android:id="@+id/feed"
         android:title="Feed"
-        android:icon="@drawable/ic_feed"/>
+        android:icon="@drawable/ic_feed"
+        app:exb_color="@color/colorPrimary"
+        app:exb_icon="@drawable/ic_feed"/>
 
 <!--    <item-->
 <!--        android:id="@+id/complain"-->
@@ -14,7 +17,9 @@
     <item
         android:id="@+id/id_card"
         android:title="E-Id Card"
-        android:icon="@drawable/ic_id"/>
+        android:icon="@drawable/ic_id"
+        app:exb_color="@color/colorPrimary"
+        app:exb_icon="@drawable/ic_id"/>
 
 <!--    <item-->
 <!--        android:id="@+id/profile"-->

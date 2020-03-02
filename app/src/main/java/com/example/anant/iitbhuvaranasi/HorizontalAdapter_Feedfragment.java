@@ -50,6 +50,7 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
                 .load(data.get(position).getImage())
                 .placeholder(R.drawable.ic_eye_view)
                 .error(R.drawable.amc_workshop)
+                .fit()
                 .into(holder.image);
 //        ViewGroup.LayoutParams params = holder.image.getLayoutParams();
 //        params.width = 250;

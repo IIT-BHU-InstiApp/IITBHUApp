@@ -62,7 +62,7 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
             }
         });
         holder.img.setBorderWidth(3);
-        holder.img.setPadding(10,10,10,0);
+        holder.img.setPadding(8,8,8,0);
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

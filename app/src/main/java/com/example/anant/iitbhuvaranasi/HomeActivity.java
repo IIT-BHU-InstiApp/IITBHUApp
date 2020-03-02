@@ -1,25 +1,20 @@
 package com.example.anant.iitbhuvaranasi;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -107,6 +102,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 x++;
 
                 break;
+            case R.id.nav_imp_contacts:
+                Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
+                startActivity(intent);
+                finish();
+
+                x++;
+
+                break;
 
             case R.id.nav_about:
                 Toast.makeText(this, "Info", Toast.LENGTH_SHORT).show();
@@ -124,8 +127,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 spreferencesEditor.clear();
                 spreferencesEditor.commit();
 
-                Intent intent = new Intent(this, SignInActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(this, SignInActivity.class);
+                startActivity(intent2);
                 finish();
                 break;
         }

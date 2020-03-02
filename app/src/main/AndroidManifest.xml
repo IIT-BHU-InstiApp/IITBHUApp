@@ -16,22 +16,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PinActivity"
+        <activity android:name=".ContactsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".Club_ProfilePage"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Club_Feed"
-            />
-        <activity android:name=".EditProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".PinActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Club_ProfilePage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Club_Feed" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SignInActivity" />
-        <activity android:name=".Full_screen_imageActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Clubs_group"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Feedfragment_notifcation_Activity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Full_screen_imageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Clubs_group"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Feedfragment_notifcation_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

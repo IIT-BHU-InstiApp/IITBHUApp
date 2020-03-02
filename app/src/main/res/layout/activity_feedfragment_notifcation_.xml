@@ -31,7 +31,7 @@
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="wrap_content"
                     android:fitsSystemWindows="true"
                     app:contentScrim="?attr/colorPrimary"
                     app:expandedTitleTextAppearance="@android:color/transparent"
@@ -40,24 +40,26 @@
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="500dp">
+                        android:layout_height="wrap_content">
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
-                            android:layout_height="500dp"
+                            android:layout_height="wrap_content"
                             app:cardCornerRadius="20dp"
                             android:layout_marginBottom="2dp"
+                            android:layout_marginTop="-14dp"
 
                             >
 
-                        <ImageView
-                           android:id="@+id/event_picture_2"
-                            android:layout_width="match_parent"
-                            android:layout_height="500dp"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/ic_launcher_round"
-                            android:transitionName="fullscreen"
-                            />
+                            <ImageView
+                                android:id="@+id/event_picture_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="14dp"
+                                android:adjustViewBounds="true"
+
+
+                                android:src="@mipmap/ic_launcher_round"
+                                android:transitionName="fullscreen" />
                         </androidx.cardview.widget.CardView>
                         <androidx.appcompat.widget.Toolbar
                             android:id="@+id/toolbar_notification"
@@ -124,10 +126,13 @@
                                         android:layout_weight="9"
                                         android:text="Event Title"
 
-                                        android:textAllCaps="true"
-                                        android:textColor="@color/colorblack"
-                                        android:textSize="25sp"
+
+
+                                        android:maxLines="2"
+                                        android:ellipsize="end"
+                                        android:textColor="@color/black_color"
                                         android:textStyle="bold"
+                                        android:textSize="20sp"
                                         android:transitionName="feedtitle" />
 
                                     <ImageButton
