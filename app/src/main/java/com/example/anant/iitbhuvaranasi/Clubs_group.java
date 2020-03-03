@@ -132,11 +132,11 @@ public class Clubs_group extends AppCompatActivity {
     }
 
 
-    @Override
+  /*  @Override
     public boolean onSupportNavigateUp(){
         finish();
         return true;
-    }
+    }*/
 
     }
 

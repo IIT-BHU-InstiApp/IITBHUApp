@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        // View headerView = navigationView.getHeaderView(0);
+         View headerView = navigationView.getHeaderView(0);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         String personName="",personEmail="",personGivenName="",personFamilyName="";
         if (acct != null) {
@@ -74,11 +74,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             //personFamilyName = acct.getFamilyName();
         }
 
-        TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
-        TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
+       // TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
+       // TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
 
-        emailOfStudent.setText(personEmail);
-        nameOfStudent.setText(personGivenName);
+       // emailOfStudent.setText(personEmail);
+       // nameOfStudent.setText(personGivenName);
                 /*Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
                 +"\npersonFamilyName="+personFamilyName);*/
 

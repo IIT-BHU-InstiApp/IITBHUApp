@@ -271,11 +271,11 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
           return singleVerticalData;
     }*/
-   @Override
+ /*  @Override
    public boolean onSupportNavigateUp(){
 
        finish();
        return true;
-   }
+   }*/
 }
 
