@@ -85,6 +85,7 @@ import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_IMAGE;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Name;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Subject;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Type;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_IMAGE;
 
 public class ComplainFragment extends Fragment {
 
@@ -101,15 +102,14 @@ public class ComplainFragment extends Fragment {
     private EditText subjectEditBox;
     private EditText issueBox;
     private CheckBox anonymousCheckbox;
-    private int keepAnonymous;
+    private String keepAnonymous;
     private RequestQueue mrequestqueue;
     private RequestQueue imageRequestqueue;
     private TextView removeImage;
-    private ArrayList<String> base64toString;
     private Intent cameraIntent;
     private Dialog attachImageOption;
     Bitmap rbitmap;
-    String userImage;
+    private ArrayList<String> UserImage;
 
     @Nullable
     @Override
@@ -133,7 +133,7 @@ public class ComplainFragment extends Fragment {
         complaineeEmailaddress = view.findViewById(R.id.complainee_emailaddress);
 
 
-        base64toString = new ArrayList<>();
+        UserImage = new ArrayList<>();
 
         // Todo retrive Name,Email
         ComplaineeName = "";
@@ -297,7 +297,7 @@ public class ComplainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (anonymousCheckbox.isChecked()) {
-                    keepAnonymous = 1;
+                    keepAnonymous = "Keep Anonymous";
                     ComplaineeName = "A IIT(BHU) Student";
                     complaineeName.setText(ComplaineeName);
                     ComplaineeEmailaddress = "";
@@ -305,7 +305,7 @@ public class ComplainFragment extends Fragment {
                     complaineeEmailaddress.setVisibility(View.GONE);
                 }
                 else {
-                    keepAnonymous = 0;
+                    keepAnonymous = "No";
                     // Todo retrive Name,Email
                     ComplaineeName = "";
                     complaineeName.setText(ComplaineeName);
@@ -385,7 +385,7 @@ public class ComplainFragment extends Fragment {
                 for (int i = 1; i < uploadedImageContainer.getChildCount(); ) {
                     uploadedImageContainer.removeViewAt(i);
                 }
-                base64toString.clear();
+                UserImage.clear();
                 removeImage.setVisibility(View.GONE);
             }
         });
@@ -444,6 +444,8 @@ public class ComplainFragment extends Fragment {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
                                             //Toast.makeText(getContext(),error.toString(),Toast.LENGTH_LONG).show();
+                                            pdialog.dismiss();
+
                                             Snackbar.make(Objects.requireNonNull(getView()),"Something went Wrong\nTry again Later",Snackbar.LENGTH_LONG).show();
 
                                         }
@@ -458,9 +460,12 @@ public class ComplainFragment extends Fragment {
                                     params.put(KEY_Complaint_HostelName,hostel1);
                                     params.put(KEY_Complaint_Subject,subject);
                                     params.put(KEY_Complaint_Description,message);
-                                    params.put(KEY_Complaint_Anonymous,Integer.toString(keepAnonymous));
-                                    params.put(KEY_Complaint_IMAGE,userImage);
-
+                                    params.put(KEY_Complaint_Anonymous,keepAnonymous);
+                                    if(UserImage!=null) {
+                                        for(int i=0;i<UserImage.size();i++) {
+                                            params.put(KEY_LOST_IMAGE + i, UserImage.get(i));
+                                        }
+                                    }
                                     return params;
                                 }
 
@@ -555,8 +560,8 @@ public class ComplainFragment extends Fragment {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(),imageUri);
                         rbitmap = getResizedBitmap(bitmap,500);//Setting the Bitmap to ImageView
-                        userImage = getStringImage(rbitmap);
-                        base64toString.add(userImage);
+                        String userImage = getStringImage(rbitmap);
+                        UserImage.add(userImage);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -571,9 +576,9 @@ public class ComplainFragment extends Fragment {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(),imageUri);
                     rbitmap = getResizedBitmap(bitmap,500);//Setting the Bitmap to ImageView
-                    userImage = getStringImage(rbitmap);
+                    String userImage = getStringImage(rbitmap);
                     //base64toString.add(userImage);
-                    base64toString.add(getStringImage(bitmap));
+                    UserImage.add(userImage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -594,9 +599,9 @@ public class ComplainFragment extends Fragment {
         if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             rbitmap = getResizedBitmap(bitmap,500);//Setting the Bitmap to ImageView
-            userImage = getStringImage(rbitmap);
+            String userImage = getStringImage(rbitmap);
             // base64toString.add(userImage);
-            base64toString.add(getStringImage(bitmap));
+            UserImage.add(userImage);
 
             ImageView image = new ImageView(getContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
@@ -623,7 +628,7 @@ public class ComplainFragment extends Fragment {
 //        byte[] imgByte = byteArrayOutputStream.toByteArray();
 //        return Base64.encodeToString(imgByte,Base64.DEFAULT);
 //    }
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -638,13 +643,12 @@ public class ComplainFragment extends Fragment {
         return Bitmap.createScaledBitmap(image, width, height, true);
 
     }
-    public String getStringImage(Bitmap bmp) {
+    private String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
-        return encodedImage;
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
     @Override

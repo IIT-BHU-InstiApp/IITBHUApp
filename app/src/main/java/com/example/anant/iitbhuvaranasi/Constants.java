@@ -25,16 +25,16 @@ public class Constants {
     public static final String PREF_NAME = "LoggedInPref";
     public static String  Response_Feed_Old= "response_all";
     public static String  Response_Feed_New= "response_all";
-    public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzWO5ivBwZkF0ntk3fxyfPkbaprUXtcO0YRoekfTFO6HJH1sUUn/exec";
+    public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxgRZZcwokRi2KZ0CFtnRimcUZGLhSshPS4XJNHdVu5akm13aWS/exec";
     public static final String ADD_USER_URL = APP_SCRIPT_WEB_APP_URL;
-    public static final String KEY_Complaint_Type = "Type";
-    public static final String KEY_Complaint_HostelName = "Hostel";
-    public static final String KEY_Complaint_Subject = "Subject";
-    public static final String KEY_Complaint_Description = "Description";
+    public static final String KEY_Complaint_Type = "uType";
+    public static final String KEY_Complaint_HostelName = "uHostel";
+    public static final String KEY_Complaint_Subject = "uSubject";
+    public static final String KEY_Complaint_Description = "uDescription";
     public static final String KEY_Complaint_IMAGE = "uImage";
-    public static final String KEY_Complaint_Anonymous = "Anonymous";
-    public static final String KEY_Complaint_Name = "Name";
-    public static final String KEY_Complaint_Emailid = "Emailid";
+    public static final String KEY_Complaint_Anonymous = "uAnonymous";
+    public static final String KEY_Complaint_Name = "uName";
+    public static final String KEY_Complaint_Emailid = "uEmailid";
     public  static final String KEY_ACTION = "action";
     public static final String KEY_USERS = "records";
 
