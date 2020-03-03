@@ -23,23 +23,31 @@
             android:title="E-ID Card" />
         <item
             android:id="@+id/nav_complain"
-            android:icon="@drawable/ic_keyboard_arrow_down_black_24dp"
-            android:title="Complain" />
-        <item
+            android:icon="@drawable/ic_feedback_black_24dp"
+            android:title="Complain"/>
+<!--        <item-->
 
-            android:id="@+id/nav_hostel_complain"
-            android:title="Hostel Complains"
-            android:visible="false"
-            android:icon="@drawable/ic_home_black_24dp"/>
+<!--            android:id="@+id/nav_hostel_complain"-->
+<!--            android:title="Hostel Complains"-->
+<!--            android:visible="false"-->
+<!--            android:icon="@drawable/ic_home_black_24dp"/>-->
+<!--        <item-->
+<!--            android:id="@+id/nav_general_complain"-->
+<!--            android:title="General Complains"-->
+<!--            android:visible="false"-->
+<!--            android:icon="@drawable/ic_feedback_black_24dp"/>-->
+<!--        <item-->
+<!--            android:id="@+id/nav_mess_complain"-->
+<!--            android:title="Mess Complains"-->
+<!--            android:visible="false"/>-->
+
         <item
-            android:id="@+id/nav_general_complain"
-            android:title="General Complains"
-            android:visible="false"
-            android:icon="@drawable/ic_feedback_black_24dp"/>
+            android:id="@+id/lost_found"
+            android:title="Lost/Found"/>
         <item
-            android:id="@+id/nav_mess_complain"
-            android:title="Mess Complains"
-            android:visible="false"/>
+            android:id="@+id/important_links"
+            android:title="Important_links"
+            android:icon="@drawable/ic_link_holo_blue_light_24dp"/>
     </group>
 
     <item android:title="Additional Indo.">
