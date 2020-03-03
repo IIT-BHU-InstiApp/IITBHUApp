@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/card_view2"
     android:layout_gravity="center"
     android:layout_weight="10"
@@ -9,8 +9,7 @@
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="8dp"
-    card_view:cardUseCompatPadding="true"
-    >
+    card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -21,145 +20,320 @@
             android:id="@+id/iitbhu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/idimages"
             android:paddingRight="20dp"
-            android:paddingLeft="20dp"/>
+            android:paddingLeft="20dp"
+            android:layout_marginTop="5dp"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/studentphoto"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/iitbhu"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:src="@mipmap/ic_launcher_round"
-            android:padding="20dp"/>
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            android:padding="5dp"
+            android:layout_marginTop="15dp"/>
 
         <TextView
+            android:id="@+id/names"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/studentphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sachit Maurya"
+            android:textStyle="bold"
+            android:textSize="30dp"/>
+
+        <TextView
+            android:id="@+id/address0"
+            android:layout_below="@+id/names"
+            android:layout_width="wrap_content"
+            android:paddingBottom="3dp"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
             android:id="@+id/rollno."
-            android:layout_below="@+id/iitbhu"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Student's Roll Number"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/address0">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Roll Number"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/rollnoedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="16144015"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/rollno."
-            android:layout_toRightOf="@+id/studentphoto"
-            android:layout_height="wrap_content"
-            android:hint="name of student"/>
-
-        <TextView
+        <LinearLayout
             android:id="@+id/fathername"
-            android:layout_below="@+id/name"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="name of student's father"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/rollno.">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Father's Name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/fathernameedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Santosh Kumar Maurya"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/dateofbirth"
-            android:layout_below="@+id/fathername"
+        <LinearLayout
+            android:id="@+id/dob"
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_height="wrap_content"
-            android:hint="Date of birth of student"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/fathername">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Date Of Birth"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/dobedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="26/11/1997"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/course"
-            android:layout_below="@+id/dateofbirth"
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_height="wrap_content"
-            android:hint="Course of Student"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/dob">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Course"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/courseedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="IDD"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/dept."
-            android:layout_below="@+id/course"
+        <LinearLayout
+            android:id="@+id/department"
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_height="wrap_content"
-            android:hint="Department of student"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/course">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Department"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/departmentedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Metallurgical Engineering"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/yearofadd."
-            android:layout_below="@+id/dept."
+        <LinearLayout
+            android:id="@+id/yoa"
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_height="wrap_content"
-            android:hint="Year of Addmission"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/department">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Year Of Admission"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/yoaedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="2016"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/bloodgrp"
-            android:layout_below="@+id/yearofadd."
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_height="wrap_content"
-            android:hint="Blood Group of student"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/yoa">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Blood Group"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/bloodgrpedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="AB+"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/contactno."
-            android:layout_below="@+id/bloodgrp"
+        <LinearLayout
+            android:id="@+id/contactno"
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_height="wrap_content"
-            android:hint="Contact number of student"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/bloodgrp">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Contact Number"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/contactnoedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="8188913979"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/emailid"
-            android:layout_below="@+id/contactno."
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/studentphoto"
             android:layout_height="wrap_content"
-            android:hint="Email Id of student"/>
+            android:orientation="horizontal"
+            android:layout_below="@+id/contactno">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Email ID"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/emailidedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="sachitmaurya01@gmail.com"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/emailid">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Permanent Address"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=": "/>
+            <TextView
+                android:id="@+id/addressedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="L.I.G-130/Phase-2, TRT LDA Colony, Mohan Road, Lucknow-226017"/>
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/address"
-            android:layout_below="@+id/emailid"
+            android:layout_below="@+id/address1"
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/studentphoto"
             android:paddingBottom="3dp"
-            android:layout_height="wrap_content"
-            android:hint="Permanent Addresss of student"/>
+            android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/studentsignphoto"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:src="@mipmap/ic_launcher_round"
             android:layout_below="@+id/address"
-            android:paddingLeft="20dp"/>
+            android:orientation="vertical"
+            android:layout_margin="10dp">
 
-        <TextView
-            android:id="@+id/studentsign"
-            android:paddingLeft="5dp"
-            android:layout_below="@+id/studentsignphoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Student's Signature"
-            android:textColor="@color/Black"/>
+            <ImageView
+                android:id="@+id/studentsignphoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher_round"
+                android:layout_gravity="center"/>
 
-        <ImageView
-            android:id="@+id/DAAsignphoto"
+            <TextView
+                android:id="@+id/studentsign"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student's Signature"
+                android:padding="5dp"
+                android:textColor="@color/Black"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_launcher_round"
             android:layout_below="@+id/address"
-            android:paddingRight="30dp"/>
+            android:orientation="vertical"
+            android:layout_margin="10dp">
 
-        <TextView
-            android:id="@+id/DAAsign"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/studentsignphoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DOAA's Signature"
-            android:paddingRight="5dp"
-            android:textColor="@color/Black"/>
+            <ImageView
+                android:id="@+id/DAAsignphoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher_round"
+                android:layout_gravity="center"/>
 
+            <TextView
+                android:id="@+id/DAAsign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DOAA's Signature"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:textColor="@color/Black"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

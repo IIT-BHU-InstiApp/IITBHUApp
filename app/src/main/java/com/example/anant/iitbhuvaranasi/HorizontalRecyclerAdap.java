@@ -1,6 +1,7 @@
 package com.example.anant.iitbhuvaranasi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyclerAdap.HorizontalViewHolder> {
     private Context mContext;
-    private int[] mImgId;
+//    private int[] mImgId;
+    private ArrayList<String> mImageUrl = new ArrayList<>();
+    private ArrayList<String> mTitle = new ArrayList<>();
 
-    public HorizontalRecyclerAdap(Context context, int[] ImgId){
+    public HorizontalRecyclerAdap(Context context, ArrayList<String> ImageUrl, ArrayList<String> Title){
         mContext = context;
-        mImgId = ImgId;
+        mImageUrl = ImageUrl;
+        mTitle = Title;
     }
 
     @NonNull
@@ -32,7 +40,16 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
 
     @Override
     public void onBindViewHolder(@NonNull HorizontalRecyclerAdap.HorizontalViewHolder holder, int position) {
-        holder.img.setImageResource(mImgId[position]);
+//        holder.img.setImageResource();
+        final String clubName = mTitle.get(position);
+        final String clubImageUrl = mImageUrl.get(position);
+        Picasso
+                .get()
+                .load("http://iitbhuapp.tk" + clubImageUrl)
+                .placeholder(R.drawable.ic_eye_view)
+                .error(R.drawable.amc_workshop)
+                .noFade()
+                .into(holder.img);
 //        holder.img.setLayoutParams(new ViewGroup.LayoutParams(250,250));
         ViewGroup.LayoutParams params = holder.img.getLayoutParams();
         params.width = 250;
@@ -46,6 +63,16 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
         });
         holder.img.setBorderWidth(3);
         holder.img.setPadding(10,10,10,0);
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext,Club_Feed.class);
+                intent.putExtra("title",clubName);
+                intent.putExtra("image","http://iitbhuapp.tk" + clubImageUrl);
+                mContext.startActivity(intent);
+
+            }
+        });
 
         holder.img.setElevation(10);
 
@@ -53,7 +80,7 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
 
     @Override
     public int getItemCount() {
-        return mImgId.length;
+        return mImageUrl.size();
     }
 
     class HorizontalViewHolder extends RecyclerView.ViewHolder{

@@ -6,8 +6,15 @@
 
     android:layout_height="match_parent"
     tools:context=".Club_ProfilePage">
+    <include
+        android:id="@+id/toolbar_profile_page"
+        layout="@layout/custom_toolbar_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     
     <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_below="@+id/toolbar_profile_page"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
