@@ -7,7 +7,8 @@
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications"
-            android:title="Feed" />
+            android:title="Feed"
+            />
 <!--        <item-->
 <!--            android:id="@+id/nav_search"-->
 <!--            android:icon="@drawable/ic_search"-->
@@ -16,6 +17,11 @@
             android:id="@+id/nav_complain"
             android:icon="@drawable/ic_complain"
             android:title="Complain" />
+
+        <item
+            android:id="@+id/nav_imp_contacts"
+            android:icon="@drawable/ic_imp_contacts"
+            android:title="Important Contacts" />
 <!--        <item-->
 <!--            android:id="@+id/nav_myprofile"-->
 <!--            android:icon="@drawable/ic_complain"-->

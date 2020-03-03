@@ -16,4 +16,32 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="sae">“All those cars were once just a dream in somebody’s head.”
+SAE Collegiate club is a platform where students sharing a vehement passion for automobile sciences involve themselves in various projects. It is a platform for students to complement the theoretical knowledge imparted in the classroom, with emphasis on the practical aspects of engineering. We work together as a strong team not only on amassing knowledge but also gaining experience in the technical field of design and manufacturing.</string>
+    <string name="dance">Hello blank fragment</string>
+    <string name="amc">“For most people, the sky is the limit. For us, the sky is our home.”
+The Aero-modelling Club at IIT BHU, Varanasi since its inception has expanded exponentially with the introduction of innovative technologies, be it the IC engine planes, the autonomous drones or other awesome flying models. We fabricate, fix, and fly to satiate our passion. Our phenomenal stunts will readily capture your attention towards our hobby of aeromodelling - to fabricate a splendid flying machine of your own and soar high in the sky.</string>
+    <string name="cops">“Talk is cheap. Show me the Code.”
+For all you programming and computer science enthusiasts out there, this is the place to be! Club of Programmers aims to foster the interest of students across all branches in the field of programming and computer science in general, with various competitions and real-life projects. We are an enthusiastic community of coders who learn and grow together to change the world around us. You know the drill - eat, sleep, code, repeat.</string>
+    <string name="business">“Work until your bank account looks like a phone number.”
+We are a group of like-minded individuals who see the world with a different lens, striving to master the ability to create wealth out of thin air. The Business Club is a platform to test, train, and transform yourself into the business giant you could be. The club is all about ideas. Ideas which the people want so much that they’ll pay you for it, and how to develop an idea into a real-world entity.</string>
+    <string name="csi">“Behind this mask, there is an idea.. and ideas are bulletproof.”
+Welcome to the ideation centre of IIT (BHU), Varanasi! The Club of Sustainability and Innovation is a community of like-minded individuals with technological innovations, to revolutionise the world. With the motto ‘Learning by Doing’, we identify ourselves as the problem solvers of the 21st century, inducing project-based learning with the aim to develop disruptive innovations. CSI is a place constantly jostling with enthusiastic students who want to make a dent in the universe for a better future.</string>
+    <string name="astro">“I’ve loved the stars too fondly to be fearful of the night.”
+United by our love for the cosmos, Astronomy Club IIT (BHU), aims to bring out the fervour for astronomy in each individual. From the tiniest subatomic and theorized particles to the massive superclusters, we have got you all the 62 orders of magnitude covered. Come, explore with us the secrets of the winsome and ravishing night sky.
+#AndheraKayamRahe</string>
+    <string name="kashi">Kashi Utkarsh is a non-profit organization run by the students of Indian Institute of Technology (BHU) Varanasi which has been working since 1997, with the aim to uplift the underprivileged sections of the society. It works for the proliferation of education till the weakest ones in the society and creation of awareness among them for healthcare and hygiene in the backward areas of Varanasi. Kashi Utkarsh was initiated by just two erstwhile students of IT BHU, Anupam Bansal and Vinod Chowdhary in Lahartara Basti. Since then it is achieving various milestones with a family of 70+ dedicated volunteers and three workplaces.</string>
+    <string name="sahyog">Sahyog is a congregation of people who have a common goal in mind, that is to spread awareness about education in the orthodox society we live in. We make people aware of the existing government policies and schemes, help their worlds become more digitalised, give them career counselling and moreover, make them become better citizens of the society.
+
+Our motto is based on a very simple quote,
+"A man without education is like a building without foundation."</string>
+    <string name="hhc">The Health and Hygiene Club strives to generate and disseminate awareness about the importance of healthy living habits and developing feelings of sanitation, health, hygiene and cleanliness among fellow human beings.
+The club aims to create awareness about various causes of disease and their preventive measures. It endeavors to ingrain into the minds of students the ideology that Healthy mind lives in a healthy body.
+One of the major motives of the club is to organize the activities towards a healthy society such as blood donation, medicine collection etc to create a sense of mutual cooperation between everyone.</string>
+
+
+    <string name="robotics">“We are fascinated by robots because they’re reflections of ourselves.”
+If automation and robots fascinate you, you’ve landed in the right place. The Robotics club is inclined to strengthen the essence of real tech in the institute. We promote robotics not only as a hobby but also as a career option for all the tech-enthusiasts out there, by hands-on-experience and guidance. It is a club to unleash your curiosity, fuel your passion and make ideas come alive.</string>
 </resources>

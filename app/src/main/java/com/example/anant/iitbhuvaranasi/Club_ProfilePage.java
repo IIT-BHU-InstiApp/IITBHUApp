@@ -51,6 +51,23 @@ public class Club_ProfilePage extends AppCompatActivity {
                 .placeholder(R.drawable.ic_eye_view)
                 .error(R.drawable.amc_workshop)
                 .into(feed_clubimage1);
+        TextView ClubInfo = findViewById(R.id.club_info);
+        if(title1.contentEquals("Clubs Of Programmers")){ClubInfo.setText(getResources().getString(R.string.cops));}
+        else if(title1.contentEquals("Society Of Automotive Engineers")){ClubInfo.setText(getResources().getString(R.string.sae));}
+        else if(title1.contentEquals("Robotics")){ClubInfo.setText(getResources().getString(R.string.robotics));}
+        else if(title1.contentEquals("Astronomy Club")){ClubInfo.setText(getResources().getString(R.string.astro));}
+        else if(title1.contentEquals("Business Club")){ClubInfo.setText(getResources().getString(R.string.business));}
+        else if(title1.contentEquals("Aero Modelling Club")){ClubInfo.setText(getResources().getString(R.string.amc));}
+        else if(title1.contentEquals("Club of Sustainablity and Innovation")){ClubInfo.setText(getResources().getString(R.string.csi));}
+        else if(title1.contentEquals("Kashi Uttkarsh")){ClubInfo.setText(getResources().getString(R.string.kashi));}
+        else if(title1.contentEquals("Sahyog Club")){ClubInfo.setText(getResources().getString(R.string.sahyog));}
+        else if(title1.contentEquals("Dance Club")){ClubInfo.setText(getResources().getString(R.string.dance));}
+        else{
+            ClubInfo.setText("No information about the club");
+        }
+
+
+
 
 
     }

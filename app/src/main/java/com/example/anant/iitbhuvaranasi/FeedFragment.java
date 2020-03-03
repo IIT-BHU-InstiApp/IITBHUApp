@@ -431,7 +431,7 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
 
                         JSONArray jsonArray = response.getJSONArray("councils");
-                        if(singleVerticals.toArray().length<=(jsonArray.length()+1)){
+                        if(singleVerticals.toArray().length<=(jsonArray.length()plus1)){
 
 
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu">
+    <item
+        android:id="@+id/imp_academics"
+        android:title="Academics"
+        android:icon="@drawable/ic_call_"
+/>
+
+    <!--    <item-->
+    <!--        android:id="@+id/complain"-->
+    <!--        android:title="Complain"-->
+    <!--        android:icon="@drawable/ic_complaintab"/>-->
+
+    <item
+        android:id="@+id/por_imp"
+        android:title="POR Holders"
+        android:icon="@drawable/ic_call_"
+/>
+
+        <item
+            android:id="@+id/security_imp"
+            android:title="Security"
+            android:icon="@drawable/ic_call_"/>
+
+    <!--    <item-->
+    <!--        android:id="@+id/more"-->
+    <!--        android:title="More"-->
+    <!--        android:icon="@drawable/ic_more"/>-->
+
+
+
+
+</menu>

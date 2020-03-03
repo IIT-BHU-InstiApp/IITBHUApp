@@ -1,25 +1,20 @@
 package com.example.anant.iitbhuvaranasi;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -33,6 +28,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
+    NavigationView navigationView;
+    int x =0;
 
 
     @Override
@@ -60,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -94,6 +91,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setSelectedItemId(R.id.feed);
 
                 bottomNavigationView.setVisibility(View.VISIBLE);
+                x=0;
 
                 break;
 
@@ -101,6 +99,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ComplainFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);
+                x++;
+
+                break;
+            case R.id.nav_imp_contacts:
+                Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
+                startActivity(intent);
+                finish();
+
+                x++;
 
                 break;
 
@@ -120,8 +127,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 spreferencesEditor.clear();
                 spreferencesEditor.commit();
 
-                Intent intent = new Intent(this, SignInActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(this, SignInActivity.class);
+                startActivity(intent2);
                 finish();
                 break;
         }
@@ -132,14 +139,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+        MenuItem item_notification = (MenuItem) findViewById(R.id.nav_notifications);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (bottomNavigationView.getSelectedItemId() != R.id.feed) {
+
+        }
+        else if (x>0){
+            navigationView.setCheckedItem(R.id.nav_notifications);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FeedFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.feed);
-        } else {
+
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            x=0;
+        }
+        else if(bottomNavigationView.getSelectedItemId() != R.id.feed) {
+            bottomNavigationView.setSelectedItemId(R.id.feed);
+
+        }
+        else{
             super.onBackPressed();
         }
+
 
     }
 
@@ -159,10 +181,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                     break;
 
-                case R.id.profile:
-                    selectedFragment = new MyProfileFragment();
-
-                    break;
                 case R.id.feed:
                     selectedFragment = new FeedFragment();
 
