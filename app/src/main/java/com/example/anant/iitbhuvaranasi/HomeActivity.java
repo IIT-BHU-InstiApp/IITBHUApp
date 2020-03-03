@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -58,8 +61,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        // View headerView = navigationView.getHeaderView(0);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        String personName="",personEmail="",personGivenName="",personFamilyName="";
+        if (acct != null) {
+            personGivenName = acct.getGivenName();
+            personEmail = acct.getEmail();
+            //Important : Can be used later if needed
+            //personName = acct.getDisplayName();
+            //Stores branch of the student and year of study
+            //personFamilyName = acct.getFamilyName();
+        }
+
+        TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
+        TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
+
+        emailOfStudent.setText(personEmail);
+        nameOfStudent.setText(personGivenName);
+                /*Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
+                +"\npersonFamilyName="+personFamilyName);*/
+
         navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if(savedInstanceState == null)
+        {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FeedFragment()).commit();
+        }
 
 
 
@@ -95,6 +125,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
 
+            case R.id.nav_maps:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new IITBHUMapFragment()).commit();
+                bottomNavigationView.setVisibility(View.GONE);
+                x++;
+                break;
             case R.id.nav_complain:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ComplainFragment()).commit();
