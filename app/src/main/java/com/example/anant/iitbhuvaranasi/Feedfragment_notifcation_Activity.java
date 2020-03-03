@@ -68,7 +68,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         final String url = "http://iitbhuapp.tk/interested";
 
         Log.d("morethanyouknow",time);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         String json=getIntent().getStringExtra("all");

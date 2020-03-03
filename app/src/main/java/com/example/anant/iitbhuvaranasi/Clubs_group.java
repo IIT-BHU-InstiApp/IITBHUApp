@@ -65,7 +65,7 @@ public class Clubs_group extends AppCompatActivity {
         RecyclerView.setLayoutManager(new GridLayoutManager(this,
        2,
         androidx.recyclerview.widget.RecyclerView.VERTICAL,
-        false));*/
+        false));
        // StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
        /* RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, androidx.recyclerview.widget.RecyclerView.VERTICAL));
 */
