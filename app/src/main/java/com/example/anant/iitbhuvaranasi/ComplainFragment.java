@@ -45,15 +45,18 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +75,16 @@ import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 import static com.android.volley.VolleyLog.TAG;
+import static com.example.anant.iitbhuvaranasi.Constants.ADD_USER_URL;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_ACTION;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Anonymous;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Description;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Emailid;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_HostelName;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_IMAGE;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Name;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Subject;
+import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Type;
 
 public class ComplainFragment extends Fragment {
 
@@ -80,12 +93,13 @@ public class ComplainFragment extends Fragment {
     private ImageButton sendButton;
     private LinearLayout uploadedImageContainer;
     private String hostel;
+    private String ComplaineeName,ComplaineeEmailaddress;
     private String Complainttype;
+    private TextView complaineeName,complaineeEmailaddress;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAPTURE_IMAGE_REQUEST =2;
     private EditText subjectEditBox;
     private EditText issueBox;
-    private String url = "http://iitbhuapp.tk/postcomplain";
     private CheckBox anonymousCheckbox;
     private int keepAnonymous;
     private RequestQueue mrequestqueue;
@@ -94,11 +108,12 @@ public class ComplainFragment extends Fragment {
     private ArrayList<String> base64toString;
     private Intent cameraIntent;
     private Dialog attachImageOption;
+    Bitmap rbitmap;
+    String userImage;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.complain_fragment, container, false);
 
 
@@ -114,8 +129,18 @@ public class ComplainFragment extends Fragment {
         ImageButton anonymousHelp = (ImageButton) view.findViewById(R.id.anonymous_help);
         subjectEditBox = view.findViewById(R.id.subject_edittext);
         ImageButton addImage = view.findViewById(R.id.add_image);
+        complaineeName = view.findViewById(R.id.complainee_name);
+        complaineeEmailaddress = view.findViewById(R.id.complainee_emailaddress);
+
 
         base64toString = new ArrayList<>();
+
+        // Todo retrive Name,Email
+        ComplaineeName = "";
+        complaineeName.setText(ComplaineeName);
+        ComplaineeEmailaddress = "";
+        complaineeEmailaddress.setText(ComplaineeEmailaddress);
+        complaineeEmailaddress.setVisibility(View.VISIBLE);
 
 
         //Creating send button
@@ -130,10 +155,14 @@ public class ComplainFragment extends Fragment {
         // List for complainttype & hostel
         List<String> complaints = new ArrayList<>();
         complaints.add(0, "Complain Regarding");
-        complaints.add("Academics Facilities");
-        complaints.add("Hostel Facilities");
-        complaints.add("Mess Facilities");
-        complaints.add("Others");
+        complaints.add("Academics (UG)");
+        complaints.add("Academics (PG)");
+        complaints.add("Hostel");
+        complaints.add("Security");
+        complaints.add("Internet/Wifi");
+        complaints.add("Infrastructure");
+        complaints.add("College festivals");
+        complaints.add("General Complain");
 
         List<String> hostels = new ArrayList<>();
         hostels.add(0, "Your Hostel");
@@ -161,8 +190,7 @@ public class ComplainFragment extends Fragment {
             @Override
             public boolean isEnabled(int position) {
                 if (position == 0) {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
+
                     return false;
                 } else {
                     return true;
@@ -234,19 +262,6 @@ public class ComplainFragment extends Fragment {
 
                 Complainttype = parent.getItemAtPosition(position).toString();
 
-//           if (parent.getItemAtPosition(position).equals("Hostel Facilities")) {
-//              email = "hostel@gmail.com";
-//
-//           } else if (parent.getItemAtPosition(position).equals("Mess Facilities")) {
-//              email = "Mess@gmail.com";
-//
-//           } else if (parent.getItemAtPosition(position).equals("Academics Facilities")) {
-//             email = "Academics@gmail.com";
-//
-//           } else if (parent.getItemAtPosition(position).equals("Others")) {
-//             email = "others@gmail.com";
-//
-//           }
             }
 
             @Override
@@ -254,17 +269,17 @@ public class ComplainFragment extends Fragment {
             }
         });
         hostelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                    @Override
+                                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                    hostel = parent.getItemAtPosition(position).toString();
-            }
+                                                        hostel = parent.getItemAtPosition(position).toString();
+                                                    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                                                    @Override
+                                                    public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        }
+                                                    }
+                                                }
 
 
         );
@@ -281,10 +296,23 @@ public class ComplainFragment extends Fragment {
         anonymousCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (anonymousCheckbox.isChecked())
+                if (anonymousCheckbox.isChecked()) {
                     keepAnonymous = 1;
-                else
+                    ComplaineeName = "A IIT(BHU) Student";
+                    complaineeName.setText(ComplaineeName);
+                    ComplaineeEmailaddress = "";
+                    complaineeEmailaddress.setText(ComplaineeEmailaddress);
+                    complaineeEmailaddress.setVisibility(View.GONE);
+                }
+                else {
                     keepAnonymous = 0;
+                    // Todo retrive Name,Email
+                    ComplaineeName = "";
+                    complaineeName.setText(ComplaineeName);
+                    ComplaineeEmailaddress = "";
+                    complaineeEmailaddress.setText(ComplaineeEmailaddress);
+                    complaineeEmailaddress.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -398,71 +426,59 @@ public class ComplainFragment extends Fragment {
                             pdialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                             pdialog.setMessage("Registering your complain....");
                             pdialog.show();
+                            final String Complainttype1 =Complainttype.trim();
+                            final String hostel1 =hostel.trim();
 
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST,ADD_USER_URL,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            pdialog.dismiss();
+                                            //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                                            if((response.toString()).equals("Success")) {
+                                                Snackbar.make(Objects.requireNonNull(getView()), "Complain successfully Registered", Snackbar.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            //Toast.makeText(getContext(),error.toString(),Toast.LENGTH_LONG).show();
+                                            Snackbar.make(Objects.requireNonNull(getView()),"Something went Wrong\nTry again Later",Snackbar.LENGTH_LONG).show();
 
-                            JSONObject complain = new JSONObject();
-                            try {
-                                complain.put("roll", 18085016);
-                                complain.put("complain", message);
-                                complain.put("anonymous", keepAnonymous);
-                                complain.put("header", subject);
-                                complain.put("type", Complainttype);
-                                complain.put("hostel", hostel);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, complain, new Response.Listener<JSONObject>() {
+                                        }
+                                    }){
                                 @Override
-                                public void onResponse(JSONObject response) {
+                                protected Map<String,String> getParams(){
+                                    Map<String,String> params = new HashMap<String, String>();
+                                    params.put(KEY_ACTION,"insert");
+                                    params.put(KEY_Complaint_Name,ComplaineeName);
+                                    params.put(KEY_Complaint_Emailid,ComplaineeEmailaddress);
+                                    params.put(KEY_Complaint_Type,Complainttype1);
+                                    params.put(KEY_Complaint_HostelName,hostel1);
+                                    params.put(KEY_Complaint_Subject,subject);
+                                    params.put(KEY_Complaint_Description,message);
+                                    params.put(KEY_Complaint_Anonymous,Integer.toString(keepAnonymous));
+                                    params.put(KEY_Complaint_IMAGE,userImage);
 
-                                    pdialog.dismiss();
-                                    Toast.makeText(getContext(), "Complain registered", Toast.LENGTH_SHORT).show();
+                                    return params;
                                 }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    pdialog.dismiss();
-                                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                                    error.printStackTrace();
-                                    VolleyLog.d("TAG", "Error: " + error.getMessage());
-                                }
-                            });
-                            mrequestqueue.add(jsonObjReq);
-//                            //AppController.getInstance ().addToRequestQueue ( jsonObjReq, tag_json_obj );
-//                      /*  String recipientlist = email;
-//                       message = auto.getText().toString();
-//                        String[] recipients = recipientlist.split(",");
-//                        String subject = autoCompleteTextView.getText().toString();
-//                        final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-//                        intent.setType("text/plain");
-//                        intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-//                        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-//                        intent.putExtra(Intent.EXTRA_TEXT, message);
-//                        intent.setType("image/png");
-//                        intent.putExtra(Intent.EXTRA_STREAM,mImageUri);
-//                       final PackageManager pm = getActivity().getPackageManager();
-//                        final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
-//                        ResolveInfo best = null;
-//                        for (final ResolveInfo info : matches)
-//                            if (info.activityInfo.packageName.endsWith(".gm") ||
-//                                    info.activityInfo.name.toLowerCase().contains("gmail")) best = info;
-//                        if (best != null)
-//                            intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
-//                        startActivity(intent);
-//*/
-//
-//                            // Intent intent = new Intent(Intent.ACTION_SEND);
-//                            // intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-//                            //intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-//                            //intent.putExtra(Intent.EXTRA_TEXT, message);
-//
-//                            // intent.setType("image/png");
-//                            //intent.putExtra(Intent.EXTRA_STREAM,mImageUri);
-//                            // startActivity(Intent.createChooser(intent, "Share image using"));
-//                            //intent.setType("message/rfc822");
-//                            //startActivity(Intent.createChooser(intent, "choose an email client"));
+
+                            };
+
+                            int socketTimeout = 30000; // 30 seconds. You can change it
+                            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+                            stringRequest.setRetryPolicy(policy);
+
+
+                            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+                            requestQueue.add(stringRequest);
+
+
 //
                         }
                     });
@@ -538,7 +554,9 @@ public class ComplainFragment extends Fragment {
 
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(),imageUri);
-                        base64toString.add(imagetoString(bitmap));
+                        rbitmap = getResizedBitmap(bitmap,500);//Setting the Bitmap to ImageView
+                        userImage = getStringImage(rbitmap);
+                        base64toString.add(userImage);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -552,7 +570,10 @@ public class ComplainFragment extends Fragment {
 
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(),imageUri);
-                        base64toString.add(imagetoString(bitmap));
+                    rbitmap = getResizedBitmap(bitmap,500);//Setting the Bitmap to ImageView
+                    userImage = getStringImage(rbitmap);
+                    //base64toString.add(userImage);
+                    base64toString.add(getStringImage(bitmap));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -572,8 +593,10 @@ public class ComplainFragment extends Fragment {
 
         if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-
-            base64toString.add(imagetoString(bitmap));
+            rbitmap = getResizedBitmap(bitmap,500);//Setting the Bitmap to ImageView
+            userImage = getStringImage(rbitmap);
+            // base64toString.add(userImage);
+            base64toString.add(getStringImage(bitmap));
 
             ImageView image = new ImageView(getContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
@@ -583,6 +606,7 @@ public class ComplainFragment extends Fragment {
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             image.setImageBitmap(bitmap);
+
             uploadedImageContainer.addView(image);
             removeImage.setVisibility(View.VISIBLE);
 
@@ -593,42 +617,34 @@ public class ComplainFragment extends Fragment {
 
     }
 
+//    private String imagetoString(Bitmap bitmap){
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+//        byte[] imgByte = byteArrayOutputStream.toByteArray();
+//        return Base64.encodeToString(imgByte,Base64.DEFAULT);
+//    }
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
 
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
 
-
-
-    private void uploadImage(){
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"Some Url",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                }, new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        })
-        {
-
-            protected Map<String,String> getparams() throws AuthFailureError{
-                Map<String,String> params = new HashMap<>();
-                params.put("tags","uploaded Image");
-//                params.put("image",);
-
-                return params;
-            }
-        };
-        imageRequestqueue.add(stringRequest);
     }
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+       bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
-    private String imagetoString(Bitmap bitmap){
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-        byte[] imgByte = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(imgByte,Base64.DEFAULT);
+        return encodedImage;
     }
 
     @Override
@@ -654,6 +670,10 @@ public class ComplainFragment extends Fragment {
         toolbar.removeView(sendButton);
         toolbar.setTitle(R.string.app_name);
 
+
+
     }
+
+
 
 }

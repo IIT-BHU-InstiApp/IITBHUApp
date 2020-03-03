@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/test"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:nestedScrollingEnabled="false"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <TextView
+            android:id="@+id/from_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/complainee_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/from_textview"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="A IIT(BHU) Student" />
+
+        <TextView
+            android:id="@+id/complainee_emailaddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/complainee_name"
+            app:layout_constraintTop_toBottomOf="@id/complainee_name"
+            tools:text="studentname.bncyy@itbhu.ac.in" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Spinner
         android:id="@+id/complain_spinner"
@@ -33,13 +69,14 @@
         android:id="@+id/subject_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="56dp"
         android:background="@null"
-        android:hint="Subject of Complaint"
         android:gravity="center_vertical"
+        android:hint="Subject of Complaint"
         android:maxLength="60"
+        android:minHeight="56dp"
         android:paddingLeft="4dp"
-        android:paddingRight="4dp" />
+        android:paddingRight="4dp"
+        android:singleLine="true" />
 
 
     <View
@@ -113,9 +150,9 @@
                 android:id="@+id/add_image"
                 android:layout_width="100dp"
                 android:layout_height="200dp"
+                android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_marginTop="4dp"
-                android:layout_gravity="center"
                 android:background="@drawable/border_color_primary"
                 android:src="@drawable/ic_add_box_black_24dp" />
 
