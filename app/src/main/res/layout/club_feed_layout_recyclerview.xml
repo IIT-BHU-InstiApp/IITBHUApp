@@ -1,125 +1,242 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
-    android:paddingBottom="3dp"
-    android:paddingTop="3dp">
+<?xml version="1.0" encoding="utf-8"?>
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
 
-
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/event_image"
-                android:layout_height="230dp"
-
-                android:layout_width="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sntc"
-                android:transitionName="fullscreen"
-                />
-
-
-        </FrameLayout>
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_feedfragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@id/short_information_card"
+            app:layout_constraintVertical_weight="1">
+        <ImageView
+            android:id="@+id/event_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            app:cardBackgroundColor="@color/feed_background"
-            app:contentPadding="5dp">
+            android:scaleType="centerInside"
+            tools:src="@drawable/sntc" />
+        </androidx.cardview.widget.CardView>
+
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            app:cardBackgroundColor="@color/colorPrimary"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="Club Name" />-->
+        <!--        </androidx.cardview.widget.CardView>-->
+
+        <ImageButton
+            android:id="@+id/share_event_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Share Event"
+            android:src="@drawable/ic_share_black_24dp"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/short_information_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="12dp"
-                android:layout_weight="3"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/event_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:minHeight="24dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="Title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/event_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10"
-                        android:text="Title"
-                        android:textSize="21sp"
-                        android:textStyle="bold"
-                        android:transitionName="feedtitle" />
-
-                    <ImageButton
-                        android:id="@+id/share_event_button2"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Share Event"
-                        android:src="@drawable/ic_share_black_24dp"
-                         />
+                        android:layout_margin="4dp"
+                        app:cardBackgroundColor="#EDEDED"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp">
+
+                        <TextView
+                            android:id="@+id/event_dates"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:minHeight="24dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:textColorLink="@color/white_color"
+                            android:textSize="12sp"
+                            android:transitionName="feed_date"
+                            tools:text="Date" />
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        app:cardBackgroundColor="#EDEDED"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="1dp"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:id="@+id/navigate_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:orientation="horizontal"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp">
+
+                                <ImageButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:contentDescription="Navigate"
+                                    android:gravity="center"
+                                    android:minHeight="40dp"
+                                    android:tint="#BB2003"
+                                    app:srcCompat="@drawable/ic_place_black_24dp" />
+
+                                <TextView
+                                    android:id="@+id/event_location"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:minHeight="40dp"
+                                    android:textColor="#AAAAAA"
+                                    tools:text="Location" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_margin="4dp">
 
-                    >
+                    <RelativeLayout
+                        android:id="@+id/circular_image"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            android:layout_alignParentStart="true">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:background="@color/colorRed"
+                                android:gravity="center"
+                                android:text="A"
+                                android:textSize="16sp" />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            android:layout_alignParentEnd="true">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:background="@color/colorGreen"
+                                android:gravity="center"
+                                android:text="B"
+                                android:textSize="16sp" />
+                        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/event_dates"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="10"
-                        android:text="Date "
-                        android:textColorLink="@color/white_color"
-                        android:textSize="16sp"
-                        android:transitionName="feed_date" />
+                        android:layout_marginLeft="4dp"
+                        android:gravity="center_vertical"
+                        android:minHeight="32dp"
+                        android:text="others are going"
+                        android:textColor="#AAAAAA"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/circular_image"
+                        app:layout_constraintTop_toTopOf="parent" />
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <ImageButton
-                        android:id="@+id/calendar_setevent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Share Event"
-                        android:src="@drawable/ic_access_time_black_24dp"
-                      />
-
-                    <ImageButton
-                        android:id="@+id/navigate_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="Navigate"
-                        android:tint="@color/white_color"
-                        app:srcCompat="@drawable/ic_place_black_24dp" />
-                </LinearLayout>
+                <!--                <ImageButton-->
+                <!--                    android:id="@+id/calendar_setevent"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center_vertical"-->
+                <!--                    android:layout_marginStart="8dp"-->
+                <!--                    android:background="?attr/selectableItemBackgroundBorderless"-->
+                <!--                    android:contentDescription="Share Event"-->
+                <!--                    android:src="@drawable/ic_access_time_black_24dp" />-->
             </LinearLayout>
-
-
         </androidx.cardview.widget.CardView>
-
-
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

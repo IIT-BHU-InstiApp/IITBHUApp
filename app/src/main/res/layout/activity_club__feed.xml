@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:id="@+id/swiperefreshlayout"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Club_Feed"
-    >
+    android:background="#FEF9FF"
+    tools:context=".Club_Feed">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,8 +15,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cub_feed_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"/>
     </LinearLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
