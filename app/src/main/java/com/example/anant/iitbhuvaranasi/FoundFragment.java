@@ -33,6 +33,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -109,6 +110,21 @@ public class FoundFragment extends Fragment {
         extraPart = view.findViewById(R.id.extra_part);
         TextView name = view.findViewById(R.id.name);
         TextView emailaddress = view.findViewById(R.id.emailaddress);
+        TextView linkInfo = view.findViewById(R.id.link_info);
+        TextView spreadsheetLink = view.findViewById(R.id.spreadsheet_link);
+
+        linkInfo.setText("All found forms are registered in the sheet link given below");
+
+        spreadsheetLink.setText("link");
+        spreadsheetLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "www.google.com";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+            }
+        });
 
         // Todo retrive name and emailId
         name.setText("");
