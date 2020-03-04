@@ -56,6 +56,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
@@ -74,6 +75,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.core.content.ContextCompat.checkSelfPermission;
 import static com.android.volley.VolleyLog.TAG;
 import static com.example.anant.iitbhuvaranasi.Constants.ADD_USER_URL;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_ACTION;
@@ -98,7 +100,8 @@ public class ComplainFragment extends Fragment {
     private String Complainttype;
     private TextView complaineeName,complaineeEmailaddress;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int CAPTURE_IMAGE_REQUEST =2;
+    private static final int CAPTURE_IMAGE_REQUEST = 2;
+    private static final int CAMERA_PERMISSION_REQUEST = 3;
     private EditText subjectEditBox;
     private EditText issueBox;
     private CheckBox anonymousCheckbox;
@@ -344,32 +347,35 @@ public class ComplainFragment extends Fragment {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(uploadedImageContainer.getChildCount()<5) {
 
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                attachImageOption = new Dialog(getContext());
-                LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout,null,false);
-
-
-                linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        attachImage();
-                    }
-                });
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+                    attachImageOption = new Dialog(getContext());
+                    LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
 
 
+                    linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            attachImage();
+                        }
+                    });
 
-                linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        captureImage();
-                    }
-                });
 
-                attachImageOption.addContentView(linearLayout,params);
+                    linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            captureImage();
+                        }
+                    });
 
-                attachImageOption.show();
+                    attachImageOption.addContentView(linearLayout, params);
+
+                    attachImageOption.show();
+                }else {
+                    Toast.makeText(getContext(),"You have reached your maximum upload limit", Toast.LENGTH_SHORT).show();
+                }
 
 
 
@@ -520,14 +526,30 @@ public class ComplainFragment extends Fragment {
     }
 
     private void captureImage(){
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, PICK_IMAGE_REQUEST);
+        if (checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+
+        }else {
+            cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
         }
-        cameraIntent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
 
     }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if(requestCode == CAMERA_PERMISSION_REQUEST ){
+//            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
+//            }else{
+//                Toast.makeText(getContext(),"Permission Denied",Toast.LENGTH_SHORT).show();
+//            }
+//        }else {
+//            Toast.makeText(getContext(),"Hi",Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
 
 
@@ -540,12 +562,12 @@ public class ComplainFragment extends Fragment {
 
 
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK ) {
             assert data != null;
             ClipData mClipData = data.getClipData();
 
 
-            if (mClipData != null && mClipData.getItemCount() > 1) {
+            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount()< 6-uploadedImageContainer.getChildCount()) {
 
                 for (int i = 0; i < mClipData.getItemCount(); i++) {
                     ImageView image = new ImageView(getContext());
@@ -570,7 +592,7 @@ public class ComplainFragment extends Fragment {
                     uploadedImageContainer.addView(image);
                     removeImage.setVisibility(View.VISIBLE);
                 }
-            } else {
+            } else if(mClipData != null && mClipData.getItemCount() == 1){
                 Uri imageUri = data.getData();
 
                 try {
@@ -592,11 +614,13 @@ public class ComplainFragment extends Fragment {
                 image.setImageURI(imageUri);
                 uploadedImageContainer.addView(image);
                 removeImage.setVisibility(View.VISIBLE);
+            }else{
+                Toast.makeText(getContext(),"Your upload limit exceeded", Toast.LENGTH_SHORT).show();
             }
 
         }
 
-        if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK ) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             rbitmap = getResizedBitmap(bitmap,500);//Setting the Bitmap to ImageView
             String userImage = getStringImage(rbitmap);

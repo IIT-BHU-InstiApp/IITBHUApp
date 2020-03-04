@@ -75,8 +75,8 @@ public class LostFragment extends Fragment {
     private String branch,semester;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAPTURE_IMAGE_REQUEST =2;
+    private static final int CAMERA_PERMISSION_REQUEST = 3;
     private EditText ownerName,lostItem,contact,location,details;
-
     private TextView removeImage;
     private ArrayList<String> UserImage;
     private Intent cameraIntent;
@@ -266,6 +266,7 @@ public class LostFragment extends Fragment {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(uploadedImageContainer.getChildCount()<5) {
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -292,6 +293,9 @@ public class LostFragment extends Fragment {
                 attachImageOption.addContentView(linearLayout,params);
 
                 attachImageOption.show();
+                }else {
+                    Toast.makeText(getContext(),"You have reached your maximum upload limit", Toast.LENGTH_SHORT).show();
+                }
 
 
 
@@ -450,10 +454,13 @@ public class LostFragment extends Fragment {
     private void captureImage(){
         if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.CAMERA}, PICK_IMAGE_REQUEST);
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{
+                    Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+
+        }else {
+            cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
         }
-        cameraIntent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
 
     }
 
@@ -473,7 +480,7 @@ public class LostFragment extends Fragment {
             ClipData mClipData = data.getClipData();
 
 
-            if (mClipData != null && mClipData.getItemCount() > 1) {
+            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount()< 6-uploadedImageContainer.getChildCount()) {
 
                 for (int i = 0; i < mClipData.getItemCount(); i++) {
                     ImageView image = new ImageView(getContext());
@@ -498,7 +505,7 @@ public class LostFragment extends Fragment {
                     uploadedImageContainer.addView(image);
                     removeImage.setVisibility(View.VISIBLE);
                 }
-            } else {
+            } else if(mClipData != null && mClipData.getItemCount() == 1){
                 Uri imageUri = data.getData();
 
                 try {
@@ -520,6 +527,8 @@ public class LostFragment extends Fragment {
                 image.setImageURI(imageUri);
                 uploadedImageContainer.addView(image);
                 removeImage.setVisibility(View.VISIBLE);
+            }else{
+                Toast.makeText(getContext(),"Your upload limit exceeded", Toast.LENGTH_SHORT).show();
             }
 
         }
