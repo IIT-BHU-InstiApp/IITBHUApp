@@ -4,7 +4,7 @@
     android:id="@+id/menu">
     <item
         android:id="@+id/feed"
-        android:title="Feed"
+        android:title="Home"
         android:icon="@drawable/ic_feed"
         app:exb_color="@color/colorPrimary"
         app:exb_icon="@drawable/ic_feed"/>

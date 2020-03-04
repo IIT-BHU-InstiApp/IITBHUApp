@@ -51,7 +51,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     boolean check;
     String event_title,event_description,event_date,event_venue,event_time;
     TextView title_event, description_event, date_event, venue_event, time_event, interested_count;
-    Button  interested_button;
+
     ImageButton share_button, location_button, clock_button;
     SingleVerticalData obj;
     private Animator currentAnimator;
@@ -112,10 +112,10 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         clock_button.setOnClickListener(this);
       //  go_button = (Button) findViewById(R.id.going_button);
     //    go_button.setOnClickListener(this);
-        interested_button = (Button) findViewById(R.id.interested_button);
-        interested_button.setOnClickListener(this);
+
+
     //    going_count = (TextView) findViewById(R.id.going_count);
-        interested_count = (TextView) findViewById(R.id.interested_count);
+
     //    view_count = (TextView) findViewById(R.id.view_count);
        // title_event.setText(getIntent().getStringExtra("title"));
       //  date_event.setText(getIntent().getStringExtra("date"));
@@ -132,7 +132,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         date_event.setText(time);
         venue_event.setText(obj.getLocation());
        // view_count.setText(obj.getViewcount());
-        interested_count.setText(obj.getInterestedcount());
+
         final JSONObject obj2 = new JSONObject();
         try {
             obj2.put("roll", 18085016);
@@ -153,45 +153,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         final Pair[] pairs = new Pair[1];
         pairs[0] = new Pair<View, String>(image_event, "fullscreen");
 
-        interested_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                interested_button.setBackgroundColor(Color.GRAY);
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, obj2, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Integer interested = response.getInt("status");
-                            if (interested == 1){
-                            interested_count.setText(obj.getInterestedcount()+1);
-                            }
-                            Log.d("interestedbutton",interested.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                       /* Integer interest = 1;
-                        try {
-                            interest = response.getInt("status");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        if (interest == 1) {
-                            check = true;
-                            interested_button.setBackgroundColor(Color.GRAY);
-                        }*/
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-                mRequestQueue.add(jsonObjectRequest);
-            }
-        });
         image_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,13 +229,9 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;
 
-            /*case R.id.going_button:
 
-                break;*/
 
-            case R.id.interested_button:
 
-                break;
 
             case R.id.location:
                 startActivity(new Intent(this,FragmentSupportActivity.class));

@@ -7,12 +7,11 @@
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications"
-            android:title="Feed"
-            />
-<!--        <item-->
-<!--            android:id="@+id/nav_search"-->
-<!--            android:icon="@drawable/ic_search"-->
-<!--            android:title="Search" />-->
+            android:title="Home" />
+        <!--        <item-->
+        <!--            android:id="@+id/nav_search"-->
+        <!--            android:icon="@drawable/ic_search"-->
+        <!--            android:title="Search" />-->
         <item
             android:id="@+id/nav_maps"
             android:icon="@drawable/baseline_map_black_24dp"
@@ -23,25 +22,42 @@
             android:title="Complain" />
 
         <item
-            android:id="@+id/nav_imp_contacts"
-            android:icon="@drawable/ic_imp_contacts"
-            android:title="Important Contacts" />
-
-        <item
             android:id="@+id/lost_found"
-            android:title="Lost/Found"/>
+            android:title="Lost/Found" />
         <item
             android:id="@+id/important_links"
-            android:title="Important_links"
-            android:icon="@drawable/ic_link_holo_blue_light_24dp"/>
-<!--        <item-->
-<!--            android:id="@+id/nav_myprofile"-->
-<!--            android:icon="@drawable/ic_complain"-->
-<!--            android:title="My Profile" />-->
-<!--        <item-->
-<!--            android:id="@+id/nav_eidcard"-->
-<!--            android:icon="@drawable/ic_about"-->
-<!--            android:title="E-ID Card" />-->
+            android:icon="@drawable/ic_link_holo_blue_light_24dp"
+            android:title="Important_links" />
+
+        <item
+            android:id="@+id/nav_imp_contacts"
+            android:icon="@drawable/ic_imp_contacts"
+            android:title="Important Contacts">
+        <menu>
+            <item
+                android:id="@+id/nav_security"
+                android:icon="@drawable/ic_imp_contacts"
+                android:title="Security"/>
+            <item
+                android:id="@+id/nav_academics"
+                android:icon="@drawable/ic_imp_contacts"
+                android:title="Academics"/>
+            <item
+                android:id="@+id/nav_por"
+                android:icon="@drawable/ic_imp_contacts"
+                android:title="POR"/>
+        </menu>
+        </item>
+
+
+        <!--        <item-->
+        <!--            android:id="@+id/nav_myprofile"-->
+        <!--            android:icon="@drawable/ic_complain"-->
+        <!--            android:title="My Profile" />-->
+        <!--        <item-->
+        <!--            android:id="@+id/nav_eidcard"-->
+        <!--            android:icon="@drawable/ic_about"-->
+        <!--            android:title="E-ID Card" />-->
     </group>
 
     <item android:title="Additional Indo.">

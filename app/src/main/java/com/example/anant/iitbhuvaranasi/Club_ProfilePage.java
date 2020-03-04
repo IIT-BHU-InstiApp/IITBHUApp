@@ -18,6 +18,8 @@ public class Club_ProfilePage extends AppCompatActivity {
     private TextView club_name1;
     private CircleImageView feed_clubimage1;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,7 @@ public class Club_ProfilePage extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Window window = this.getWindow();
 
@@ -70,5 +73,10 @@ public class Club_ProfilePage extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return true;
     }
 }
