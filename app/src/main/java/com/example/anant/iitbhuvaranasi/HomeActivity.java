@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View;
@@ -26,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -136,7 +139,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         new ComplainFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);
                 x++;
+                break;
+            case R.id.lost_found:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new LostAndFoundFragment()).commit();
+                bottomNavigationView.setVisibility(View.GONE);
+                x++;
+                break;
 
+            case R.id.important_links:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ImportantLinksFragment()).commit();
+                bottomNavigationView.setVisibility(View.GONE);
+                x++;
                 break;
             case R.id.nav_imp_contacts:
                 Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);

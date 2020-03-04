@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.util.Pair;
@@ -16,9 +17,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyViewHolder1> {
 
@@ -55,6 +59,10 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         Log.d("position209", Integer.toString(position));
 
         holder.title.setText(data.get(position).getTitle_event());
+
+        Random rnd = new Random();
+
+        holder.cardView.setCardBackgroundColor(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
 
 
         Glide.with(context1)
@@ -99,7 +107,8 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             // Bad input
         }
 */
-        holder.date.setText(newString);
+        holder.date.setText(new SimpleDateFormat("E, dd MMM\nhh:mm a").format(date2));
+        holder.eventLocation.setText(data.get(position).getLocation());
 
 
 //        String month_name = month_date.format(date);
@@ -189,7 +198,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             }
         });
 
-        holder.setReminder.setOnClickListener(new View.OnClickListener() {
+        holder.date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addEventToCalender(data.get(position).getTitle_event().toString(),data.get(position).getDescription_event().toString(),
@@ -252,8 +261,10 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
     public class MyViewHolder1 extends RecyclerView.ViewHolder {
 
         public ImageView image;
-        public TextView title, date;
-        public ImageButton shareEvent, setReminder, mapLocation;
+        public TextView title, date, eventLocation;
+        public ImageButton shareEvent, setReminder;
+        private LinearLayout mapLocation;
+        private CardView cardView;
 
         public MyViewHolder1(@NonNull View itemView) {
             super(itemView);
@@ -261,8 +272,10 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             title = itemView.findViewById(R.id.event_title);
             shareEvent = itemView.findViewById(R.id.share_event_button2);
             date = itemView.findViewById(R.id.event_dates);
-            setReminder = itemView.findViewById(R.id.calendar_setevent);
+            //setReminder = itemView.findViewById(R.id.calendar_setevent);
             mapLocation = itemView.findViewById(R.id.navigate_button);
+            eventLocation = itemView.findViewById(R.id.event_location);
+            cardView = itemView.findViewById(R.id.short_information_card);
 
         }
     }

@@ -45,4 +45,8 @@ One of the major motives of the club is to organize the activities towards a hea
 
     <string name="robotics">“We are fascinated by robots because they’re reflections of ourselves.”
 If automation and robots fascinate you, you’ve landed in the right place. The Robotics club is inclined to strengthen the essence of real tech in the institute. We promote robotics not only as a hobby but also as a career option for all the tech-enthusiasts out there, by hands-on-experience and guidance. It is a club to unleash your curiosity, fuel your passion and make ideas come alive.</string>
+    <string name="link"><u>link</u></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

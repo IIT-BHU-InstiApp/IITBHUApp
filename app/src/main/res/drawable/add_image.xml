@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item>
+    <shape android:shape="rectangle">
+        <stroke
+
+            android:width="24dp"
+            android:color="@color/colorPrimary" />
+        <corners android:radius="10dp"/>
+        <size
+            android:width="24dp"/>
+
+
+
+    </shape>
+</item>
+
+
+
+
+    <item
+android:drawable="@drawable/ic_add_box_black_24dp"
+android:gravity="center" />
+
+
+    </layer-list>

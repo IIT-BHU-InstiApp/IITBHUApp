@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
     android:nestedScrollingEnabled="false"
     android:orientation="vertical">
 
@@ -25,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/complainee_name"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
@@ -36,28 +35,16 @@
             tools:text="A IIT(BHU) Student" />
 
         <TextView
-            android:id="@+id/complainee_emailaddress"
+            android:id="@+id/emailaddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/complainee_name"
-            app:layout_constraintTop_toBottomOf="@id/complainee_name"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/name"
             tools:text="studentname.bncyy@itbhu.ac.in" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Spinner
-        android:id="@+id/complain_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:spinnerMode="dialog" />
-
-
-    <Spinner
-        android:id="@+id/hostel_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:spinnerMode="dialog" />
 
     <View
         android:layout_width="match_parent"
@@ -66,34 +53,83 @@
 
 
     <EditText
-        android:id="@+id/subject_edittext"
+        android:id="@+id/owner_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
         android:gravity="center_vertical"
-        android:hint="Subject of Complaint"
+        android:hint="Owners's Name"
         android:maxLength="60"
         android:minHeight="56dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:singleLine="true" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/branch"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:spinnerMode="dialog" />
+
+        <Spinner
+            android:id="@+id/semester"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:spinnerMode="dialog" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:background="?android:attr/listDivider" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/lost_found_Item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:minHeight="56dp"
+            android:paddingLeft="4dp"
+            android:singleLine="true"
+            tools:hint="Lost/Found Item" />
+
+
+        <EditText
+            android:id="@+id/location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:minHeight="56dp"
+            android:paddingRight="4dp"
+            android:singleLine="true"
+            tools:hint="Location" />
+    </LinearLayout>
+
     <EditText
-        android:id="@+id/issue_box"
+        android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@null"
         android:gravity="left|top"
-        android:hint="Describe your issue"
+        android:hint="Details"
         android:inputType="textMultiLine"
         android:maxLines="100"
         android:minHeight="240dp"
@@ -101,35 +137,31 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp" />
 
-    <LinearLayout
+    <View
+        android:id="@+id/extra_part"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <EditText
+        android:id="@+id/contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:minHeight="56dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        tools:hint="Contact" />
 
-
-        <CheckBox
-            android:id="@+id/anonymous_checkbox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:text="Keep Anonymous" />
-
-        <ImageButton
-            android:id="@+id/anonymous_help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_help_outline_colorprimary_24dp" />
-
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

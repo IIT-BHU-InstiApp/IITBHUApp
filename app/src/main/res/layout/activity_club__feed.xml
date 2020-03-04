@@ -16,7 +16,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cub_feed_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"/>
     </LinearLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

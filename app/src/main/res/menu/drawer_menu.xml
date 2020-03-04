@@ -26,6 +26,14 @@
             android:id="@+id/nav_imp_contacts"
             android:icon="@drawable/ic_imp_contacts"
             android:title="Important Contacts" />
+
+        <item
+            android:id="@+id/lost_found"
+            android:title="Lost/Found"/>
+        <item
+            android:id="@+id/important_links"
+            android:title="Important_links"
+            android:icon="@drawable/ic_link_holo_blue_light_24dp"/>
 <!--        <item-->
 <!--            android:id="@+id/nav_myprofile"-->
 <!--            android:icon="@drawable/ic_complain"-->
