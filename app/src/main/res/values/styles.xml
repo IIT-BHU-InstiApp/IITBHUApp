@@ -8,8 +8,8 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!-- Added by Suryansh. -->
-        <item name="android:ambientShadowAlpha">.8</item>
-        <item name="android:spotShadowAlpha">0.8</item>
+        <item name="android:ambientShadowAlpha">0.2</item>
+        <item name="android:spotShadowAlpha">0.2</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
 
 
