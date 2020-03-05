@@ -16,17 +16,29 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 public class Full_screen_imageActivity extends AppCompatActivity  {
     private ScaleGestureDetector scaleGestureDetector;
     private float mScaleFactor = 1.0f;
     private ImageView imageView;
+    private String image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_image);
         imageView=findViewById(R.id.fullscree_nmageView);
+
+        image=getIntent().getStringExtra("image");
+
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+
+        if (image != null) {
+            Glide.with(this)
+                    .load(image)
+                    .fitCenter() // scale to fit entire image within ImageView
+                    .into(imageView);
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar_fullscreen);
         Window window = this.getWindow();

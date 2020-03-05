@@ -62,7 +62,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
 
         Random rnd = new Random();
 
-        holder.cardView.setCardBackgroundColor(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
+        //holder.cardView.setCardBackgroundColor(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
 
 
         Glide.with(context1)
@@ -108,7 +108,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         }
 */
         holder.date.setText(new SimpleDateFormat("E, dd MMM\nhh:mm a").format(date2));
-        holder.eventLocation.setText(data.get(position).getLocation());
+       // holder.eventLocation.setText(data.get(position).getLocation());
 
 
 //        String month_name = month_date.format(date);
@@ -173,7 +173,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context1, Feedfragment_notifcation_Activity.class);
-                 ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation((Activity) context1, pairs);
+              //   ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation((Activity) context1, pairs);
                 Gson gson = new Gson();
                 String json = gson.toJson(data.get(position));
                 // ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mcontext, pair1);
@@ -246,7 +246,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         holder.mapLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context1,Full_screen_imageActivity.class);
+                Intent intent = new Intent(context1,FragmentSupportActivity.class);
                 context1.startActivity(intent);
             }
         });
@@ -263,8 +263,8 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         public ImageView image;
         public TextView title, date, eventLocation;
         public ImageButton shareEvent, setReminder;
-        private LinearLayout mapLocation;
-        private CardView cardView;
+        private ImageButton mapLocation;
+       // private CardView cardView;
 
         public MyViewHolder1(@NonNull View itemView) {
             super(itemView);
@@ -274,8 +274,8 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             date = itemView.findViewById(R.id.event_dates);
             //setReminder = itemView.findViewById(R.id.calendar_setevent);
             mapLocation = itemView.findViewById(R.id.navigate_button);
-            eventLocation = itemView.findViewById(R.id.event_location);
-            cardView = itemView.findViewById(R.id.short_information_card);
+          //  eventLocation = itemView.findViewById(R.id.event_location);
+          //  cardView = itemView.findViewById(R.id.short_information_card);
 
         }
     }

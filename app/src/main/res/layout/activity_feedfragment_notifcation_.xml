@@ -99,7 +99,7 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorWhite"
+                            app:cardBackgroundColor="@color/colorblue200"
 
                             app:cardCornerRadius="20dp">
 
@@ -157,7 +157,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:background="@color/colorWhite"
+                                    android:background="@color/colorblue200"
                                     android:orientation="horizontal"
 
                                     android:weightSum="10">
@@ -216,6 +216,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         app:cardCornerRadius="10dp"
+                                        app:cardBackgroundColor="@color/colorblue200"
                                         android:layout_gravity="center_vertical"
                                         android:elevation="1dp"
                                         android:layout_margin="2dp"
@@ -246,41 +247,11 @@
                                     android:orientation="horizontal"
                                     android:weightSum="100"
                                     >
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="People going:"
-                                        android:layout_gravity="center"/>
-                                    <TextView
-                                        android:id="@+id/interested_count"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_weight="0"
-                                        android:gravity="center"
-                                        android:text="500"
-                                        android:layout_marginLeft="2dp"
-                                        />
 
                                     <FrameLayout
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="100">
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Are you going?"
-                                            android:layout_gravity="center"
-                                            android:layout_marginLeft="30dp"/>
-                                    <Button
-                                        android:id="@+id/interested_button"
-
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
-
-                                        android:background="@drawable/ic_exposure_plus_1_black_24dp"
-                                        android:layout_gravity="end"
-                                         />
-                                    </FrameLayout>
+                                        android:layout_weight="100"/>
 
 
 
