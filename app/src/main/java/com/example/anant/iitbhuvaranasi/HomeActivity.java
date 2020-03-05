@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
 
 
+
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -129,9 +130,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_maps:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new IITBHUMapFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
+                Intent intent = new Intent(HomeActivity.this, IITbhu_Map.class);
+                startActivity(intent);
+                finish();
+
                 x++;
                 break;
             case R.id.nav_complain:
@@ -154,8 +156,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 x++;
                 break;
             case R.id.nav_imp_contacts:
-                Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(HomeActivity.this, ContactsActivity.class);
+                startActivity(intent1);
                 finish();
 
                 x++;
