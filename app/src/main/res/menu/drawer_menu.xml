@@ -24,6 +24,12 @@
         <item
             android:id="@+id/lost_found"
             android:title="Lost/Found" />
+
+        <item
+            android:id="@+id/nav_study"
+            android:icon="@drawable/ic_library_books_black_24dp"
+            android:title="Study Material" />
+
         <item
             android:id="@+id/important_links"
             android:icon="@drawable/ic_link_holo_blue_light_24dp"
