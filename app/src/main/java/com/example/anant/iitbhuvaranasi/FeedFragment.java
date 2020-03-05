@@ -3,18 +3,25 @@ package com.example.anant.iitbhuvaranasi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +50,8 @@ public class FeedFragment extends Fragment {
     public static ArrayList<SingleVerticalData> getVerticalData4 = new ArrayList<>();
     public static ArrayList<SingleVerticalData> getVerticalData5;
     public static ArrayList<SingleHorizontaldata>getHorizontalData1=new ArrayList<>();
+    private ArrayList<String> ImageUrl = new ArrayList<>();
+    private ArrayList<String> Title = new ArrayList<>();
 
 
 
@@ -75,7 +84,7 @@ public class FeedFragment extends Fragment {
         }
 
         getVerticalData5 = new ArrayList<>();
-        getHorizontalData1=new ArrayList<>();
+        getHorizontalData1 = new ArrayList<>();
 
 
 
@@ -96,7 +105,7 @@ public class FeedFragment extends Fragment {
                  getVerticalData5.add(getVerticalData4.get(a));
              }
          }
-Log.d("merakuchnhihonewala",getVerticalData5.toString());
+Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
        // mRecyclerView.setRecycledViewPool(sharedPool);
@@ -202,8 +211,86 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
+
+
+        //RECYCLERVIEW HORIZONTAL PINTAB
+
+        Api_Response.method(getContext());//////////////////////////////////
+
+        SharedPreferences pref2 = getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
+        Log.d("response34567890123", response45678);
+
+        SharedPreferences sharedPrefs = getActivity().getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE);
+
+        try {
+            JSONObject jsonObject = new JSONObject(response45678);
+            int status = jsonObject.getInt("status");
+            JSONArray allcouncils = jsonObject.getJSONArray("councils");
+//            JSONObject council = allcouncils.getJSONObject(position);
+//            JSONArray clubs = council.getJSONArray("clubs");
+            View pinView = LayoutInflater.from(getContext()).inflate(R.layout.activity_pin,null);
+            LinearLayout subList = pinView.findViewById(R.id.sub_list);
+            int posiClub = 0;
+            for (int i = 0; i < allcouncils.length(); i++) {
+                JSONObject council = allcouncils.getJSONObject(i);
+                JSONArray clubs = council.getJSONArray("clubs");
+                for (int j = 0; j < clubs.length(); j++) {
+                    JSONObject club = clubs.getJSONObject(j);
+                    String clubImage = club.getString("image");
+                    String clubTitle = club.getString("name");
+                    Switch subItem = (Switch) subList.findViewById(posiClub);
+                    if(sharedPrefs.getBoolean("000"+Integer.toString(posiClub), true)) {
+                        ImageUrl.add(clubImage);
+                        Title.add(clubTitle);
+                    }
+                    posiClub++;
+                }
+
+            }
+            ArrayList<String> test = ImageUrl;
+
+
+            Log.d("status0010", Integer.toString(status));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+//        int[] imgId = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5};
+        RecyclerView horizontalRcv = (RecyclerView) view.findViewById(R.id.horizontal_rcv2);
+        HorizontalRecyclerAdap horizontalRecyclerAdap = new HorizontalRecyclerAdap(getContext(), ImageUrl, Title);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        horizontalRcv.setLayoutManager(layoutManager2);
+        horizontalRcv.setAdapter(horizontalRecyclerAdap);
+
+        Button addButton = (Button) view.findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openPinActivity = new Intent(getContext(), PinActivity.class);
+                startActivity(openPinActivity);
+                getActivity().finish();
+
+            }
+        });
+
+
         return view;
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+//
+//    }
 
 
 
@@ -344,7 +431,7 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
 
 
                         JSONArray jsonArray = response.getJSONArray("councils");
-                        if(singleVerticals.toArray().length<=(jsonArray.length()+1)){
+                        if(singleVerticals.toArray().length<=(jsonArray.length()plus1)){
 
 
 
@@ -552,9 +639,15 @@ Log.d("merakuchnhihonewala",getVerticalData5.toString());
 
         // Showing Alert Message
         alertDialog.show();
+
+
+
     }
 
 
 
-
 }
+
+
+
+

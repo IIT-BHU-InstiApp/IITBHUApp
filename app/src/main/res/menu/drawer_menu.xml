@@ -7,39 +7,25 @@
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications"
-            android:title="Feed" />
+            android:title="Feed"
+            />
+<!--        <item-->
+<!--            android:id="@+id/nav_search"-->
+<!--            android:icon="@drawable/ic_search"-->
+<!--            android:title="Search" />-->
         <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/ic_search"
-            android:title="Search" />
-
-        <item
-            android:id="@+id/nav_myprofile"
-            android:icon="@drawable/ic_complain"
-            android:title="My Profile" />
-        <item
-            android:id="@+id/nav_eidcard"
-            android:icon="@drawable/ic_about"
-            android:title="E-ID Card" />
+            android:id="@+id/nav_maps"
+            android:icon="@drawable/baseline_map_black_24dp"
+            android:title="Map" />
         <item
             android:id="@+id/nav_complain"
-            android:icon="@drawable/ic_feedback_black_24dp"
-            android:title="Complain"/>
-<!--        <item-->
+            android:icon="@drawable/ic_complain"
+            android:title="Complain" />
 
-<!--            android:id="@+id/nav_hostel_complain"-->
-<!--            android:title="Hostel Complains"-->
-<!--            android:visible="false"-->
-<!--            android:icon="@drawable/ic_home_black_24dp"/>-->
-<!--        <item-->
-<!--            android:id="@+id/nav_general_complain"-->
-<!--            android:title="General Complains"-->
-<!--            android:visible="false"-->
-<!--            android:icon="@drawable/ic_feedback_black_24dp"/>-->
-<!--        <item-->
-<!--            android:id="@+id/nav_mess_complain"-->
-<!--            android:title="Mess Complains"-->
-<!--            android:visible="false"/>-->
+        <item
+            android:id="@+id/nav_imp_contacts"
+            android:icon="@drawable/ic_imp_contacts"
+            android:title="Important Contacts" />
 
         <item
             android:id="@+id/lost_found"
@@ -48,6 +34,14 @@
             android:id="@+id/important_links"
             android:title="Important_links"
             android:icon="@drawable/ic_link_holo_blue_light_24dp"/>
+<!--        <item-->
+<!--            android:id="@+id/nav_myprofile"-->
+<!--            android:icon="@drawable/ic_complain"-->
+<!--            android:title="My Profile" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_eidcard"-->
+<!--            android:icon="@drawable/ic_about"-->
+<!--            android:title="E-ID Card" />-->
     </group>
 
     <item android:title="Additional Indo.">

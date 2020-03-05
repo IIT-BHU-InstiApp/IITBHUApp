@@ -9,10 +9,9 @@
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:tabIndicatorColor="#FFFFFF"
+        app:tabIndicatorColor="@color/black"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="#FFFFFF"
+        app:tabSelectedTextColor="@color/black"
         app:tabTextColor="#A8A19E" />
 
     <androidx.viewpager.widget.ViewPager

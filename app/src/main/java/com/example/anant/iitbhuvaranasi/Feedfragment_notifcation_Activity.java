@@ -14,6 +14,8 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -21,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -62,12 +66,29 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedfragment_notifcation_);
+        Toolbar toolbar = findViewById(R.id.toolbar_notification);
+        Window window = this.getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         time=getIntent().getStringExtra("time");
         mRequestQueue = Volley.newRequestQueue(this);
         final String url = "http://iitbhuapp.tk/interested";
 
         Log.d("morethanyouknow",time);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         String json=getIntent().getStringExtra("all");
@@ -120,9 +141,9 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
             e.printStackTrace();
         }
 
-        if (obj.getInterested().equals("1")){
-            interested_button.setBackgroundColor(Color.GRAY);
-        }
+//        if (obj.getInterested().equals("1")){
+//            interested_button.setBackgroundColor(Color.GRAY);
+//        }
 
 
 
@@ -255,8 +276,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 break;
 
             case R.id.location:
-                Intent intent1 = new Intent(this,Full_screen_imageActivity.class);
-              startActivity(intent1);
+                startActivity(new Intent(this,FragmentSupportActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
@@ -356,5 +376,12 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 editor.commit();
             }
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        super.onBackPressed();
+
+        return true;
     }
 }

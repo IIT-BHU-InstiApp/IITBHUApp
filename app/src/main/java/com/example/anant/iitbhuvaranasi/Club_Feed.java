@@ -50,6 +50,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
+        mActionBar.setDisplayHomeAsUpEnabled(true);
         LayoutInflater mInflater = LayoutInflater.from(this);
 
         View mCustomView = mInflater.inflate(R.layout.club_bar_layout, null);
@@ -58,6 +59,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
         club_name = mCustomView.findViewById(R.id.feed_clubname);
         feed_clubimage = mCustomView.findViewById(R.id.feed_clubimage);
         custombar=mCustomView.findViewById(R.id.linear_club1);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       title1= getIntent().getStringExtra("title");
         final String image1 = getIntent().getStringExtra("image");
         Log.d("title123",title1);
@@ -220,6 +222,11 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
     }
 
     @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+    @Override
     public void onRefresh() {
 
         // Fetching data from server
@@ -265,5 +272,11 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
           return singleVerticalData;
     }*/
+ /*  @Override
+   public boolean onSupportNavigateUp(){
+
+       finish();
+       return true;
+   }*/
 }
 

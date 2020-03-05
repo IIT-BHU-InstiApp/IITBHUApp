@@ -7,12 +7,69 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- Added by Suryansh. -->
+        <item name="android:ambientShadowAlpha">.8</item>
+        <item name="android:spotShadowAlpha">0.8</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
+
+
+        <!-- Added by Suryansh. -->
     </style>
 
     <style name="AppTheme.NoActionBar">
+
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="windowNoTitle">true</item>
+        <!-- Added by Suryansh. -->
+        <item name="android:ambientShadowAlpha">.8</item>
+        <item name="android:spotShadowAlpha">0.8</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <!-- Added by Suryansh. -->
     </style>
+
+
+
+    <style name="PopupMenu" parent="android:Widget.Material.PopupMenu">
+        <item name="android:popupBackground">@color/cardview_light_background</item>
+        <item name="android:popupElevation">2dp</item>
+    </style>
+    <style name="AppTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Added by Suryansh. -->
+        <item name="android:ambientShadowAlpha">.8</item>
+        <item name="android:spotShadowAlpha">0.8</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+
+
+        <!-- Added by Suryansh. -->
+    </style>
+
+    <style name="ThemeForSwitches">
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+
+
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/toolbar_color_control_normal</item>
+    </style>
+
+
 </resources>
 

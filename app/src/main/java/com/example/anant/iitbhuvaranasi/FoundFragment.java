@@ -33,6 +33,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -77,6 +78,7 @@ public class FoundFragment extends Fragment {
     private String branch, semester;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAPTURE_IMAGE_REQUEST = 2;
+    private static final int CAMERA_PERMISSION_REQUEST = 3;
     private EditText ownerName, foundItem, contact, location, details;
     private View extraPart;
     private RequestQueue mrequestqueue;
@@ -108,6 +110,21 @@ public class FoundFragment extends Fragment {
         extraPart = view.findViewById(R.id.extra_part);
         TextView name = view.findViewById(R.id.name);
         TextView emailaddress = view.findViewById(R.id.emailaddress);
+        TextView linkInfo = view.findViewById(R.id.link_info);
+        TextView spreadsheetLink = view.findViewById(R.id.spreadsheet_link);
+
+        linkInfo.setText("All found forms are registered in the sheet link given below");
+
+        spreadsheetLink.setText("link");
+        spreadsheetLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "www.google.com";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+            }
+        });
 
         // Todo retrive name and emailId
         name.setText("");
@@ -272,8 +289,9 @@ public class FoundFragment extends Fragment {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(uploadedImageContainer.getChildCount()<5) {
 
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
                 attachImageOption = new Dialog(getContext());
                 LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
@@ -297,6 +315,9 @@ public class FoundFragment extends Fragment {
                 attachImageOption.addContentView(linearLayout, params);
 
                 attachImageOption.show();
+            }else {
+                Toast.makeText(getContext(),"You have reached your maximum upload limit", Toast.LENGTH_SHORT).show();
+            }
 
 
             }
@@ -444,12 +465,15 @@ public class FoundFragment extends Fragment {
     }
 
     private void captureImage() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, PICK_IMAGE_REQUEST);
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{
+                    Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+
+        }else {
+            cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
         }
-        cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
 
     }
 
@@ -467,7 +491,7 @@ public class FoundFragment extends Fragment {
             ClipData mClipData = data.getClipData();
 
 
-            if (mClipData != null && mClipData.getItemCount() > 1) {
+            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount()< 6-uploadedImageContainer.getChildCount()) {
 
                 for (int i = 0; i < mClipData.getItemCount(); i++) {
                     ImageView image = new ImageView(getContext());
@@ -492,7 +516,7 @@ public class FoundFragment extends Fragment {
                     uploadedImageContainer.addView(image);
                     removeImage.setVisibility(View.VISIBLE);
                 }
-            } else {
+            } else if(mClipData != null && mClipData.getItemCount() == 1){
                 Uri imageUri = data.getData();
 
                 try {
@@ -514,6 +538,8 @@ public class FoundFragment extends Fragment {
                 image.setImageURI(imageUri);
                 uploadedImageContainer.addView(image);
                 removeImage.setVisibility(View.VISIBLE);
+            }else{
+                Toast.makeText(getContext(),"Your upload limit exceeded", Toast.LENGTH_SHORT).show();
             }
 
         }

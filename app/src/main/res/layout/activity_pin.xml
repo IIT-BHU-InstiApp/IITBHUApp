@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    android:id="@+id/sub_list">
+    <include
+        android:id="@+id/toolbar_pin_activity"
+        layout="@layout/custom_toolbar_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Club Of Programmers"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/cops"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Society of Automotive Engineers"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/sae"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Robotics"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/robo"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Astronomy Club"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/astro"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Business Club"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/business"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Aero Modelling Club"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/aero"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Club of Sustainability and Innovation"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/csi"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Kashi Uttkarsh"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/kashi"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Sahyog Club"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/sahyog"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView android:layout_height="wrap_content"-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_margin="10dp">-->
+<!--        <Switch android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:text="Dance Club"-->
+<!--            android:trackTint="@color/colorPrimary"-->
+
+<!--            android:id="@+id/dance"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+
+
+
+
+
+</LinearLayout>
+</ScrollView>

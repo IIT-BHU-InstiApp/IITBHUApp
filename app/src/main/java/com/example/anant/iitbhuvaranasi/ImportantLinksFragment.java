@@ -54,56 +54,56 @@ public class ImportantLinksFragment extends Fragment {
             }
         });
 
-//        view.findViewById(R.id.grade_report).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String url = "http://academics.iitbhu.ac.in/gmail_auth/index.php";
-//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-//                CustomTabsIntent customTabsIntent = builder.build();
-//                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
-//
-//            }
-//        });
-//
-//        view.findViewById(R.id.academic_calender_odd).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String url = "https://iitbhu.ac.in/contents/institute/academics/academic_info/doc/calendar_19-20_odd.pdf";
-//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-//                CustomTabsIntent customTabsIntent = builder.build();
-//                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
-//
-//            }
-//        });
-//        view.findViewById(R.id.academic_calender_even).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String url = "https://iitbhu.ac.in/contents/institute/academics/academic_info/doc/calendar_19-20_even.pdf";
-//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-//                CustomTabsIntent customTabsIntent = builder.build();
-//                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
-//
-//            }
-//        });
-//        view.findViewById(R.id.academic_holidays_2019).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String url = "https://iitbhu.ac.in/contents/institute/others/misc/holidays_2019.pdf";
-//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-//                CustomTabsIntent customTabsIntent = builder.build();
-//                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
-//
-//            }
-//        });view.findViewById(R.id.academic_holidays_2020).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String url = "https://iitbhu.ac.in/contents/institute/others/misc/holidays_2020.pdf";
-//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-//                CustomTabsIntent customTabsIntent = builder.build();
-//                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
-//
-//            }
-//        });
+        view.findViewById(R.id.grade_report).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "http://academics.iitbhu.ac.in/gmail_auth/index.php";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+
+            }
+        });
+
+        view.findViewById(R.id.academic_calender_odd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://iitbhu.ac.in/contents/institute/academics/academic_info/doc/calendar_19-20_odd.pdf";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+
+            }
+        });
+        view.findViewById(R.id.academic_calender_even).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://iitbhu.ac.in/contents/institute/academics/academic_info/doc/calendar_19-20_even.pdf";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+
+            }
+        });
+        view.findViewById(R.id.academic_holidays_2019).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://iitbhu.ac.in/contents/institute/others/misc/holidays_2019.pdf";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+
+            }
+        });view.findViewById(R.id.academic_holidays_2020).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://iitbhu.ac.in/contents/institute/others/misc/holidays_2020.pdf";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+
+            }
+        });
 
 
         view.findViewById(R.id.wifi_lan_guide_link).setOnClickListener(new View.OnClickListener() {

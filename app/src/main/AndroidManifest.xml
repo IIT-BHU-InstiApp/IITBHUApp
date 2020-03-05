@@ -5,6 +5,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -19,13 +22,28 @@
         android:theme="@style/AppTheme"
         android:launchMode="standard"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Club_ProfilePage"></activity>
+        <activity android:name=".ContactsActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".PinActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Club_ProfilePage"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Club_Feed" />
-        <activity android:name=".EditProfileActivity" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SignInActivity" />
-        <activity android:name=".Full_screen_imageActivity" />
-        <activity android:name=".Clubs_group" />
-        <activity android:name=".Feedfragment_notifcation_Activity" />
+        <activity
+            android:name=".Full_screen_imageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Clubs_group"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Feedfragment_notifcation_Activity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,9 +51,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FragmentSupportActivity"/>
         <activity
             android:name=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyB-tWhMGh3DcoNvJbVJWgMuV4xaaVJxje0"/>
     </application>
 
 </manifest>

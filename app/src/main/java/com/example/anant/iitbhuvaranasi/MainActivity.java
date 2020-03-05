@@ -1,16 +1,20 @@
 package com.example.anant.iitbhuvaranasi;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
    // public static ArrayList<SingleVerticalData> getVerticalData1 = new ArrayList<>();
    // public static ArrayList<SingleHorizontaldata>getHorizontalData1=new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.animated_logo);
         videoView.setVideoURI(video);
+        videoView.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -161,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         videoView.start();
+
+
 
     }
 

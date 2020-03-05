@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +34,26 @@ public class Clubs_group extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clubs_group);
 
+        //Added by Suryansh
+        Toolbar toolbar = findViewById(R.id.toolbar_club_group);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Window window = this.getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+
+        //Added by Suryansh
+
         Intent i = getIntent();
         position = i.getIntExtra("position",0);
         Toast.makeText(this,"" + position,Toast.LENGTH_LONG);
@@ -39,15 +63,15 @@ public class Clubs_group extends AppCompatActivity {
         RecyclerView = findViewById(R.id.recyclerView_clubs);
         RecyclerView.setHasFixedSize(true);
         //RecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        /*RecyclerView.setLayoutManager(new GridLayoutManager(this,
+        RecyclerView.setLayoutManager(new GridLayoutManager(this,
        2,
         androidx.recyclerview.widget.RecyclerView.VERTICAL,
-        false));*/
+        false));
        // StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
        /* RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, androidx.recyclerview.widget.RecyclerView.VERTICAL));
 */
-        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        RecyclerView.setLayoutManager(layoutManager);
+        //layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+      //  RecyclerView.setLayoutManager(layoutManager);
       // RecyclerView.setLayoutManager(staggeredGridLayoutManager);
         Api_Response.method(this);
 
@@ -99,9 +123,20 @@ public class Clubs_group extends AppCompatActivity {
             e.printStackTrace();
         }*/
     }
+    @Override
+    public boolean onSupportNavigateUp(){
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivity(i);
+        finish();
+        return true;
+    }
 
 
-
+  /*  @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }*/
 
     }
 
