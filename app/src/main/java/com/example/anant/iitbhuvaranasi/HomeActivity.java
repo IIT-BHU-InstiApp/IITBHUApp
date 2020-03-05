@@ -35,14 +35,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
     NavigationView navigationView;
-    int x =0;
+    int x = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
 
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -66,9 +65,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-         View headerView = navigationView.getHeaderView(0);
+        View headerView = navigationView.getHeaderView(0);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        String personName="",personEmail="",personGivenName="",personFamilyName="";
+        String personName = "", personEmail = "", personGivenName = "", personFamilyName = "";
         if (acct != null) {
             personGivenName = acct.getGivenName();
             personEmail = acct.getEmail();
@@ -78,24 +77,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             //personFamilyName = acct.getFamilyName();
         }
 
-       // TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
-       // TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
+        // TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
+        // TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
 
-       // emailOfStudent.setText(personEmail);
-       // nameOfStudent.setText(personGivenName);
+        // emailOfStudent.setText(personEmail);
+        // nameOfStudent.setText(personGivenName);
                 /*Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
                 +"\npersonFamilyName="+personFamilyName);*/
 
         navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState == null)
-        {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FeedFragment()).commit();
         }
-
-
 
 
         //Added by Suryansh.
@@ -125,15 +121,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setSelectedItemId(R.id.feed);
 
                 bottomNavigationView.setVisibility(View.VISIBLE);
-                x=0;
+                x = 0;
 
                 break;
 
             case R.id.nav_maps:
-                Intent intent = new Intent(HomeActivity.this, IITbhu_Map.class);
-                startActivity(intent);
-                finish();
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new IITBHUMapFragment()).commit();
+                bottomNavigationView.setVisibility(View.GONE);
                 x++;
                 break;
             case R.id.nav_complain:
@@ -155,11 +150,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setVisibility(View.GONE);
                 x++;
                 break;
-            case R.id.nav_imp_contacts:
+            case R.id.nav_security:
                 Intent intent1 = new Intent(HomeActivity.this, ContactsActivity.class);
+                intent1.putExtra("Intent", "security");
                 startActivity(intent1);
                 finish();
+                x++;
 
+                break;
+            case R.id.nav_academics:
+                Intent intent4 = new Intent(HomeActivity.this, ContactsActivity.class);
+                intent4.putExtra("Intent", "academics");
+                startActivity(intent4);
+                finish();
+                x++;
+
+                break;
+            case R.id.nav_por:
+                Intent intent3 = new Intent(HomeActivity.this, ContactsActivity.class);
+                intent3.putExtra("Intent", "por");
+                startActivity(intent3);
+                finish();
                 x++;
 
                 break;
@@ -197,21 +208,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
 
-        }
-        else if (x>0){
+        } else if (x > 0) {
             navigationView.setCheckedItem(R.id.nav_notifications);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FeedFragment()).commit();
             bottomNavigationView.setSelectedItemId(R.id.feed);
 
             bottomNavigationView.setVisibility(View.VISIBLE);
-            x=0;
-        }
-        else if(bottomNavigationView.getSelectedItemId() != R.id.feed) {
+            x = 0;
+        } else if (bottomNavigationView.getSelectedItemId() != R.id.feed) {
             bottomNavigationView.setSelectedItemId(R.id.feed);
 
-        }
-        else{
+        } else {
             super.onBackPressed();
         }
 
@@ -224,7 +232,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
 
 
             switch (item.getItemId()) {

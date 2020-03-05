@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -59,12 +58,11 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
         club_name = mCustomView.findViewById(R.id.feed_clubname);
         feed_clubimage = mCustomView.findViewById(R.id.feed_clubimage);
         custombar=mCustomView.findViewById(R.id.linear_club1);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      title1= getIntent().getStringExtra("title");
+        title1= getIntent().getStringExtra("title");
         final String image1 = getIntent().getStringExtra("image");
         Log.d("title123",title1);
         Log.d("image123",image1);
-       club_name.setText(title1);
+        club_name.setText(title1);
         Picasso.get()
                 .load(image1)
                 .placeholder(R.drawable.ic_eye_view)
@@ -93,7 +91,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
             @Override
             public void run() {
 
-               // swipeRefreshLayout.setRefreshing(true);
+                // swipeRefreshLayout.setRefreshing(true);
 
                 // Fetching data from server
 
@@ -107,7 +105,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
-       // getVerticalData3 = new ArrayList<>();
+        // getVerticalData3 = new ArrayList<>();
 
        /* Log.d("567853", getVerticalData4.toString());
 
@@ -222,11 +220,6 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
-        finish();
-        return true;
-    }
-    @Override
     public void onRefresh() {
 
         // Fetching data from server
@@ -256,7 +249,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
         RecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-       Adapter_CLubFeed adapter_cLubFeed = new Adapter_CLubFeed(getVerticalData3,Club_Feed.this);
+        Adapter_CLubFeed adapter_cLubFeed = new Adapter_CLubFeed(getVerticalData3,Club_Feed.this);
         adapter_cLubFeed.notifyDataSetChanged();
         RecyclerView.setAdapter(adapter_cLubFeed);
         Log.d("vetricalfer",getVerticalData4.toString());
@@ -265,18 +258,18 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
 
 
-   /* public static ArrayList<SingleVerticalData> getVerticaldata() {
-        ArrayList<SingleVerticalData> singleVerticalData = new ArrayList<>();
-        singleHorizontals.add(new SingleHorizontaldata(R.drawable.culturalcouncil, "Cultural Council"));
-      singleHorizontals.add(new SingleHorizontaldata(R.drawable.saic, "Student Alumni Interaction Cell"));
+    /* public static ArrayList<SingleVerticalData> getVerticaldata() {
+         ArrayList<SingleVerticalData> singleVerticalData = new ArrayList<>();
+         singleHorizontals.add(new SingleHorizontaldata(R.drawable.culturalcouncil, "Cultural Council"));
+       singleHorizontals.add(new SingleHorizontaldata(R.drawable.saic, "Student Alumni Interaction Cell"));
 
-          return singleVerticalData;
-    }*/
- /*  @Override
-   public boolean onSupportNavigateUp(){
+           return singleVerticalData;
+     }*/
+    @Override
+    public boolean onSupportNavigateUp(){
 
-       finish();
-       return true;
-   }*/
+        finish();
+        return true;
+    }
 }
 
