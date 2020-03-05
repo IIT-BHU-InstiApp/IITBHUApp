@@ -28,6 +28,7 @@ public class Club_ProfilePage extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Window window = this.getWindow();
 
@@ -70,5 +71,11 @@ public class Club_ProfilePage extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        super.onBackPressed();
+
+        return true;
     }
 }

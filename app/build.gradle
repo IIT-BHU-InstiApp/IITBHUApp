@@ -31,6 +31,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -72,6 +73,11 @@ dependencies {
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     //Added by Suryansh.
     implementation 'com.github.st235:expandablebottombar:1.1.0'
+
+
+        implementation 'com.github.mohammadatif:Animatoo:master'
+
+    //Added by Suryansh.
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

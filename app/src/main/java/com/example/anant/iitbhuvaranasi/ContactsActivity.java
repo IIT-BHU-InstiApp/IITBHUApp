@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -86,6 +87,7 @@ public class ContactsActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent2 = new Intent(ContactsActivity.this, HomeActivity.class);
         startActivity(intent2);
+
         finish();
 
     }
@@ -93,6 +95,7 @@ public class ContactsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         Intent intent2 = new Intent(ContactsActivity.this, HomeActivity.class);
         startActivity(intent2);
+
         finish();
         return true;
     }

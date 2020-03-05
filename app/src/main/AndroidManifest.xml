@@ -31,7 +31,8 @@
         <activity
             android:name=".Club_ProfilePage"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Club_Feed" />
+        <activity android:name=".Club_Feed"
+            />
         <activity
             android:name=".EditProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
