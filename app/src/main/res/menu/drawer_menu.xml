@@ -23,6 +23,7 @@
 
         <item
             android:id="@+id/lost_found"
+            android:icon="@drawable/ic_swap_calls_black_24dp"
             android:title="Lost/Found" />
         <item
             android:id="@+id/important_links"

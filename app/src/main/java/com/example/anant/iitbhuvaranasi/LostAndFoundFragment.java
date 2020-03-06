@@ -1,6 +1,7 @@
 package com.example.anant.iitbhuvaranasi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ public class LostAndFoundFragment extends Fragment {
     private Toolbar toolbar;
     public static ImageButton sendButton;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,10 +49,22 @@ public class LostAndFoundFragment extends Fragment {
         viewPager.setAdapter(pageAdapter);
 
 
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
                 pageAdapter.something(position);
+                /*if(getArguments().getString("Intent").equals("Lost")){
+                    pageAdapter.something(0);
+                }
+                else if (getArguments().getString("Intent").equals("Found"))
+                {
+                    pageAdapter.something(1);
+                }
+                else {
+                    pageAdapter.something(position);
+                }*/
             }
 
             @Override

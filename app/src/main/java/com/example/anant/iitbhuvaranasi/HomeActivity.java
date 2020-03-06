@@ -144,6 +144,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 x++;
                 break;
 
+
             case R.id.important_links:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ImportantLinksFragment()).commit();
@@ -176,7 +177,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_about:
-                Toast.makeText(this, "Info", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new AboutFragment()).commit();
+                bottomNavigationView.setVisibility(View.GONE);
+                x++;
                 break;
             case R.id.nav_logout:
                 mGoogleSignInClient.signOut()

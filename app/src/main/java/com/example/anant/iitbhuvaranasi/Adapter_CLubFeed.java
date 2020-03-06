@@ -237,7 +237,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         holder.mapLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context1,Full_screen_imageActivity.class);
+                Intent intent = new Intent(context1,FragmentSupportActivity.class);
                 context1.startActivity(intent);
             }
         });
