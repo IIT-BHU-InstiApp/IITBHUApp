@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     int track = 0;
 
 
+    public static String emailOfStudent = "";
 
     @Override
     protected void onResume() {
@@ -85,6 +86,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (acct != null) {
             personGivenName = acct.getGivenName();
             personEmail = acct.getEmail();
+
+            emailOfStudent = personEmail;
+
             //Important : Can be used later if needed
             //personName = acct.getDisplayName();
             //Stores branch of the student and year of study
