@@ -63,11 +63,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        /*SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
 
         Log.d("email1234",email);
-        Constants.Email_Key = email;*/
+        Constants.Email_Key = email;
 
         ID_card_Response.method(this);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
