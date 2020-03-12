@@ -66,6 +66,8 @@ import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_NAME;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_OWNER_BRANCH;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_OWNER_NAME;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_TO_CONTACT;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.sendButton;
 
 public class LostFragment extends Fragment {
@@ -103,8 +105,10 @@ public class LostFragment extends Fragment {
         TextView emailaddress = view.findViewById(R.id.emailaddress);
 
         // Todo retrive name and emailId
-        name.setText("");
-        emailaddress.setText("");
+        String email =  emailOfStudent;
+        String name1 = name_student;
+        name.setText(name1);
+        emailaddress.setText(email);
 
         UserImage = new ArrayList<>();
 

@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     public static String emailOfStudent = "";
-    public String name;
+    public static String name_student;
 
     @Override
     protected void onResume() {
@@ -63,11 +63,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        /*SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
 
         Log.d("email1234",email);
-        Constants.Email_Key = email;
+        Constants.Email_Key = email;*/
 
         ID_card_Response.method(this);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -97,8 +97,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (acct != null) {
             personGivenName = acct.getGivenName();
             personEmail = acct.getEmail();
-
             emailOfStudent = personEmail;
+
 
             //Important : Can be used later if needed
             //personName = acct.getDisplayName();
@@ -109,10 +109,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
          TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
          TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
         SharedPreferences pref3 = getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
-        name = pref3.getString(Constants.Name_Student,personGivenName );
-        Log.d("mnbv",name);
+        name_student = pref3.getString(Constants.Name_Student,personGivenName );
+        Log.d("mnbv",name_student);
          emailOfStudent.setText(personEmail);
-         nameOfStudent.setText(name);
+         nameOfStudent.setText(name_student);
                 Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
                 +"\npersonFamilyName="+personFamilyName);
 

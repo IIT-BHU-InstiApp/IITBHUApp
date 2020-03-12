@@ -86,6 +86,8 @@ import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Name;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Subject;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Type;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_IMAGE;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 
 public class ComplainFragment extends Fragment {
 
@@ -136,9 +138,9 @@ public class ComplainFragment extends Fragment {
         UserImage = new ArrayList<>();
 
         // Todo retrive Name,Email
-        ComplaineeName = "";
+        ComplaineeName = name_student;
         complaineeName.setText(ComplaineeName);
-        ComplaineeEmailaddress = "";
+        ComplaineeEmailaddress = emailOfStudent;
         complaineeEmailaddress.setText(ComplaineeEmailaddress);
         complaineeEmailaddress.setVisibility(View.VISIBLE);
 
@@ -300,16 +302,17 @@ public class ComplainFragment extends Fragment {
                     keepAnonymous = "Keep Anonymous";
                     ComplaineeName = "A IIT(BHU) Student";
                     complaineeName.setText(ComplaineeName);
-                    ComplaineeEmailaddress = "";
+                    ComplaineeEmailaddress = emailOfStudent;
                     complaineeEmailaddress.setText(ComplaineeEmailaddress);
                     complaineeEmailaddress.setVisibility(View.GONE);
                 }
                 else {
                     keepAnonymous = "No";
                     // Todo retrive Name,Email
-                    ComplaineeName = "";
+
+                    ComplaineeName = name_student;
                     complaineeName.setText(ComplaineeName);
-                    ComplaineeEmailaddress = "";
+                    ComplaineeEmailaddress = emailOfStudent;
                     complaineeEmailaddress.setText(ComplaineeEmailaddress);
                     complaineeEmailaddress.setVisibility(View.VISIBLE);
                 }
