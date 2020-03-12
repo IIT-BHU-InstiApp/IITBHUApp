@@ -20,6 +20,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class ID_card_Response {
 
     private static RequestQueue mRequestQueue;
+    public static String name;
 
     public static String method(final Context context)
     {
@@ -39,31 +40,27 @@ public class ID_card_Response {
             @Override
             public void onResponse(JSONObject response) {
 
+
+
+                try {
+                    int status = response.getInt("status");
+                    if (status == 1) {
+                        name = response.getString("name");
+                        Log.d("mnbvcc",name);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 apiresponse[0] = response.toString();
-               /* SharedPreferences pref = context.getSharedPreferences("MyPref2", 0);
-                SharedPreferences.Editor editor = pref.edit();
-                String rew = response.toString();
-                editor.putString("bhaiplease", rew);
-                editor.commit();*/
                 SharedPreferences pref = context.getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 String rew = response.toString();
                 Log.d("reponsefeed765",rew);
                 editor.putString(Constants.Response_ID_Old, rew);
+                editor.putString(Constants.Name_Student,name);
                 editor.commit();
-
-
-                //SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-                // String response3 = prefs.getString(Constants.Response_Feed_Old, "2");
-                // Log.d("response345",response3);
                 Log.d("Response345678", apiresponse[0]);
 
-                try {
-                    int status = response.getInt("status");
-                    Log.d("status00", Integer.toString(status));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
             }
         }, new Response.ErrorListener() {

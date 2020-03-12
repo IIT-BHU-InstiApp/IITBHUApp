@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     public static String emailOfStudent = "";
+    public String name;
 
     @Override
     protected void onResume() {
@@ -64,6 +65,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+
         Log.d("email1234",email);
         Constants.Email_Key = email;
 
@@ -106,9 +108,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
          TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
          TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
-
+        SharedPreferences pref3 = getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
+        name = pref3.getString(Constants.Name_Student,personGivenName );
+        Log.d("mnbv",name);
          emailOfStudent.setText(personEmail);
-         nameOfStudent.setText(personGivenName);
+         nameOfStudent.setText(name);
                 Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
                 +"\npersonFamilyName="+personFamilyName);
 
@@ -261,7 +265,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 x++;
                 break;
                 case R.id.feedback:
-                    String url1 = "https://drive.google.co";
+                    String url1 = "https://docs.google.com/forms/d/e/1FAIpQLScGQbDEt_6gN5u3P6UsEEAEEmHE-8vvbjNUl6XhZPgBgKE0KA/viewform?usp=sf_link";
                     CustomTabsIntent.Builder builder1 = new CustomTabsIntent.Builder();
                     CustomTabsIntent customTabsIntent1 = builder1.build();
                     //customTabsIntent1.intent.setPackage("com.android.chrome");
