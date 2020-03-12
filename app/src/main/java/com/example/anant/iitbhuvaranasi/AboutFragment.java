@@ -49,41 +49,42 @@ public class AboutFragment extends Fragment {
 
         AboutAdapter aboutAdapter = new AboutAdapter(new ArrayList<AboutCategory>() {{
             add(new AboutCategory("Core Developers", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual("varunpatil", "Varun Patil", "varun.jpg"));
-                add(new AboutIndividual("sajalnarang", "Sajal Narang", "sajal.jpg"));
+                add(new AboutIndividual("abhinavsingh", "Abhinav Singh", "varun.jpg"));
+                add(new AboutIndividual("bhoomikbhamawat", "Bhoomik Bhamawat", "sajal.jpg"));
             }}, context));
             add(new AboutCategory("Developers", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual("160020012", "Mrunmayi Munkegar", "mrunmayi.jpg"));
-                add(new AboutIndividual("160110009", "Owais Chunawala", "owais.jpg"));
-                add(new AboutIndividual("hrushikeshbodas", "Hrushikesh Bodas", "hrushikesh.jpg"));
-                add(new AboutIndividual("yashkhem", "Yash Khemchandani", "yashkhem.jpg"));
-                add(new AboutIndividual("bavish.kulur", "Bavish Kulur", "bavish.jpg"));
-                add(new AboutIndividual("mayubhattu", "Mayuresh Bhattu", "mayu.jpg"));
-                add(new AboutIndividual("maitreya", "Maitreya Verma", "maitreya.jpg"));
-                add(new AboutIndividual("safwankdb", "Mohd Safwan", "safwan.jpg"));
-                add(new AboutIndividual(null, "Shivam Sharma", "sshivam95.jpg"));
-            }}, context));
-            add(new AboutCategory("Design", new ArrayList<AboutIndividual>() {{
+                add(new AboutIndividual(null, "Yogesh", "mrunmayi.jpg"));
+                add(new AboutIndividual(null, "Sachit", "owais.jpg"));
+                add(new AboutIndividual(null, "Monu Kumar", "hrushikesh.jpg"));
+                add(new AboutIndividual(null, "Tanmay Mishra", "yashkhem.jpg"));
+                add(new AboutIndividual(null, "Martin", "bavish.jpg"));
+                add(new AboutIndividual(null, "Suryansh", "mayu.jpg"));
+                //add(new AboutIndividual("maitreya", "Maitreya Verma", "maitreya.jpg"));
+                 }}, context));
+           /* add(new AboutCategory("Design", new ArrayList<AboutIndividual>() {{
                 add(new AboutIndividual("150040007", "Soham Khadtare", "soham.jpg"));
-            }}, context));
+            }}, context));*/
+
             add(new AboutCategory("Ideation", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual("nihal111", "Nihal Singh", "nihal.jpg"));
-                add(new AboutIndividual("ydidwania", "Yashwarshan Didwania", "ydidwania.jpg"));
-                add(new AboutIndividual("kumar.ayush", "Kumar Ayush", "cheeku.jpg"));
-                add(new AboutIndividual("16D110006", "Sarthak Khandelwal", "sarthak.jpg"));
+                add(new AboutIndividual(null, "Anant Gowadiya", "nihal.jpg"));
+                add(new AboutIndividual(null, "Abhinav Singh", "ydidwania.jpg"));
+                add(new AboutIndividual(null, "Bhoomik Bhamawat", "ydidwania.jpg"));
+              //  add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg"));
+                //add(new AboutIndividual(null, "Arihant Shuklecha", "sarthak.jpg"));
             }}, context));
-            add(new AboutCategory("Alumni", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual("abhijit.tomar", "Abhijit Tomar", "tomar.jpg"));
-                add(new AboutIndividual(null, "Bijoy Singh Kochar", "bijoy.jpg"));
-                add(new AboutIndividual(null, "Dheerendra Rathor", "dheerendra.jpg"));
-                add(new AboutIndividual(null, "Ranveer Aggarwal", "ranveer.jpg"));
-                add(new AboutIndividual(null, "Aman Gour", "amangour.jpg"));
+            add(new AboutCategory("Managing Team", new ArrayList<AboutIndividual>() {{
+            //    add(new AboutIndividual(null, "Anant Gowadiya", "nihal.jpg"));
+                add(new AboutIndividual(null, "Bharat Jain", "ydidwania.jpg"));
+                add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg"));
+                add(new AboutIndividual(null, "Sachit", "cheeku.jpg"));
+             //   add(new AboutIndividual(null, "Bhoomik", "cheeku.jpg"));
+                //add(new AboutIndividual(null, "Arihant Shuklecha", "sarthak.jpg"));
             }}, context));
-            add(new AboutCategory("Contribute", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual("https://github.com/wncc/IITBapp", "Django API", "python.png", TYPE_LINK));
-                add(new AboutIndividual("https://github.com/wncc/InstiApp", "Android App", "android.png", TYPE_LINK));
-                add(new AboutIndividual("https://github.com/pulsejet/iitb-app-angular", "Angular PWA", "angular.png", TYPE_LINK));
-            }}, context));
+            /*add(new AboutCategory("Alumni", new ArrayList<AboutIndividual>() {{
+                add(new AboutIndividual("abhijit.tomar", "Anant Gowadiya", "tomar.jpg"));
+                add(new AboutIndividual(null, "Abhinav Singh", "bijoy.jpg"));
+                 }}, context));*/
+
         }});
 
         RecyclerView aboutRecyclerView = getActivity().findViewById(R.id.about_recycler_view);
@@ -94,7 +95,7 @@ public class AboutFragment extends Fragment {
         aboutRecyclerView.setLayoutManager(manager);
     }
 
-    @Override
+ /*   @Override
     public void onStop() {
         super.onStop();
 
@@ -102,5 +103,5 @@ public class AboutFragment extends Fragment {
 
 
 
-    }
+    }*/
 }

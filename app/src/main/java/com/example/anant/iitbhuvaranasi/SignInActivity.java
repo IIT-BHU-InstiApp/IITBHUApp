@@ -156,6 +156,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             if (Constants.isInternetPresent == false){
                 Api_Response.method(this);
             }
+            SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(Constants.Email, email);
+            editor.commit();
+
             Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
             startActivity(intent);
             finish();
@@ -211,6 +216,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         UpdateUI(account);
+     //   Log.d("account",account.toString());
     }
 
     private void UpdateUI(GoogleSignInAccount account) {

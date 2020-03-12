@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Api_Response.method(this);
+       // ID_card_Response.method(this);
+
+
 
 //        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, obj, new Response.Listener<JSONObject>() {
 //            @Override
@@ -156,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
 //                startActivity(new Intent(MainActivity.this,SignInActivity.class));
-                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                startActivity(new Intent(MainActivity.this,SignInActivity.class));
                 finish();
             }
         });

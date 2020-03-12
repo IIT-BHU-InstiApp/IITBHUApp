@@ -2,6 +2,7 @@ package com.example.anant.iitbhuvaranasi;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -46,6 +47,7 @@ public class IITbhu_Map extends AppCompatActivity implements GoogleMap.OnMyLocat
     private static final String TAG = com.google.android.gms.maps.MapFragment.class.getSimpleName();
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
+    private Toolbar toolbar;
 
     FloatingActionMenu filterFAM;
     FloatingActionButton filterHostel, filterAtm, filterDepartment, filterLT, filterRegDesk;
@@ -122,6 +124,11 @@ public class IITbhu_Map extends AppCompatActivity implements GoogleMap.OnMyLocat
 
 
 
+
+      /*  Toolbar toolbar = findViewById(R.id.toolbar_maps);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
 
         MapsInitializer.initialize(this);
 

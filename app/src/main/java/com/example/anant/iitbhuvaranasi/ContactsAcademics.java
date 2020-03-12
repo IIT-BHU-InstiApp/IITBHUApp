@@ -34,12 +34,12 @@ public class ContactsAcademics extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contacts_academics, container, false);
         LinearLayout linearLayout = view.findViewById(R.id.academics_container);
         ArrayList<ContactsStruct> arrayList = new ArrayList<>();
-        arrayList.add(new ContactsStruct("Director", "Prof. Pramod Kumar Jain","+91 542 2368106","director@iitbhu.ac.in" ));
-        arrayList.add(new ContactsStruct("Dean (Academic Affairs)", "Prof. Shyam Bihari Dwivedi","9792262852","doaa@iitbhu.ac.in" ));
-        arrayList.add(new ContactsStruct("Dean (Students' Affairs)","Prof. B. N. Rai","9450533441","dosa@iitbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Dean (Research & Development)","Prof. Rajiv Prakash","9935033011","dord@iitbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Dean (Faculty Affairs)","Prof. K. K. Shukla","NA","dofa@iitbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Dean (Resource & Alumni)","Prof. Anil Kumar Tripathi","+91 542 6702756","dora@iitbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Director", "Prof. Pramod Kumar Jain","","director@iitbhu.ac.in" ));
+        arrayList.add(new ContactsStruct("Dean (Academic Affairs)", "Prof. Shyam Bihari Dwivedi","","doaa@iitbhu.ac.in" ));
+        arrayList.add(new ContactsStruct("Dean (Students' Affairs)","Prof. B. N. Rai","","dosa@iitbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Dean (Research & Development)","Prof. Rajiv Prakash","","dord@iitbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Dean (Faculty Affairs)","Prof. K. K. Shukla","","dofa@iitbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Dean (Resource & Alumni)","Prof. Anil Kumar Tripathi","","dora@iitbhu.ac.in"));
         for(int i = 0; i<arrayList.size();i++){
             View contact_view = LayoutInflater.from(getContext()).inflate(R.layout.contact_view,linearLayout,false);
             TextView post = contact_view.findViewById(R.id.post_contact);
@@ -51,10 +51,10 @@ public class ContactsAcademics extends Fragment {
             number.setText(arrayList.get(i).getNumber());
             email.setText(arrayList.get(i).getEmail());
 
-            email.setTextColor(getResources().getColor(R.color.colorblue200));
-            number.setTextColor(getResources().getColor(R.color.colorblue200));
+            email.setTextColor(getResources().getColor(R.color.colorblue220));
+            number.setTextColor(getResources().getColor(R.color.colorblue220));
 
-            number.setOnClickListener(new View.OnClickListener() {
+            /*number.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -63,7 +63,7 @@ public class ContactsAcademics extends Fragment {
                         startActivity(intent);
                     }
                 }
-            });
+            });*/
             email.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

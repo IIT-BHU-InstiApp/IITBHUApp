@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,10 +33,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Objects;
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
+    public String email;
     NavigationView navigationView;
     int x = 0;
     int track = 0;
@@ -58,7 +62,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+        Log.d("email1234",email);
+        Constants.Email_Key = email;
 
+        ID_card_Response.method(this);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -95,13 +104,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             //personFamilyName = acct.getFamilyName();
         }
 
-        // TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
-        // TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
+         TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
+         TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
 
-        // emailOfStudent.setText(personEmail);
-        // nameOfStudent.setText(personGivenName);
-                /*Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
-                +"\npersonFamilyName="+personFamilyName);*/
+         emailOfStudent.setText(personEmail);
+         nameOfStudent.setText(personGivenName);
+                Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
+                +"\npersonFamilyName="+personFamilyName);
 
         navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
@@ -160,10 +169,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //                editor1.putInt("track",1);
 //                editor1.commit();
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                /*getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new IITBHUMapFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
-
+                bottomNavigationView.setVisibility(View.GONE);*/
+                Intent intent1 = new Intent(HomeActivity.this, IITbhu_Map.class);
+                startActivity(intent1);
+                finish();
                 x++;
                 break;
             case R.id.nav_complain:
@@ -205,9 +216,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 x++;
                 break;
             case R.id.nav_security:
-                Intent intent1 = new Intent(HomeActivity.this, ContactsActivity.class);
-                intent1.putExtra("Intent", "security");
-                startActivity(intent1);
+                Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
+                intent.putExtra("Intent", "security");
+                startActivity(intent);
                 finish();
 
                 x++;
@@ -249,6 +260,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setVisibility(View.GONE);
                 x++;
                 break;
+                case R.id.feedback:
+                    String url1 = "https://drive.google.co";
+                    CustomTabsIntent.Builder builder1 = new CustomTabsIntent.Builder();
+                    CustomTabsIntent customTabsIntent1 = builder1.build();
+                    //customTabsIntent1.intent.setPackage("com.android.chrome");
+                    customTabsIntent1.launchUrl(this, Uri.parse(url1));
+                    //customTabsIntent1.launchUrl(Objects.requireNonNull(this, Uri.parse(url1));
+
+
+
+                    break;
             case R.id.nav_logout:
                 mGoogleSignInClient.signOut()
                         .addOnCompleteListener(this, new OnCompleteListener<Void>() {
