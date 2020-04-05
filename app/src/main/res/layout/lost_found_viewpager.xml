@@ -5,29 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:nestedScrollingEnabled="false"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/link_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        tools:text="All lost/found forms are registered in the sheet link given below" />
-
-    <TextView
-        android:id="@+id/spreadsheet_link"
-        android:paddingStart="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:paddingBottom="4dp"
-        android:paddingEnd="8dp"
-        tools:text="http://www.google.com"
-        android:textColor="@android:color/holo_blue_light" />
+        android:paddingBottom="8dp"
+        android:textColor="@color/black"
+        tools:text="All lost/found forms are registered in the given sheet link" />
 
     <View
         android:layout_width="match_parent"
@@ -171,10 +160,6 @@
         android:layout_weight="1"
         android:visibility="gone" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
 
     <EditText
         android:id="@+id/contact"
@@ -212,7 +197,6 @@
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/border_color_primary"
                 android:src="@drawable/ic_add_box_black_24dp" />
 
         </LinearLayout>
