@@ -88,6 +88,8 @@ import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Name;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Subject;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_Complaint_Type;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_IMAGE;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 
 public class ComplainFragment extends Fragment {
 
@@ -139,11 +141,12 @@ public class ComplainFragment extends Fragment {
         UserImage = new ArrayList<>();
 
         // Todo retrive Name,Email
-        ComplaineeName = "";
+        ComplaineeName = name_student;
         complaineeName.setText(ComplaineeName);
-        ComplaineeEmailaddress = "";
+        ComplaineeEmailaddress = emailOfStudent;
         complaineeEmailaddress.setText(ComplaineeEmailaddress);
         complaineeEmailaddress.setVisibility(View.VISIBLE);
+        keepAnonymous = "No";
 
 
         //Creating send button
@@ -166,8 +169,12 @@ public class ComplainFragment extends Fragment {
         complaints.add("Infrastructure");
         complaints.add("College festivals");
         complaints.add("General Complain");
+        complaints.add("Sports Council");
+        complaints.add("FMC Council");
+        complaints.add("SSC Council");
+        complaints.add("SNTC Council");
 
-        List<String> hostels = new ArrayList<>();
+       List<String> hostels = new ArrayList<>();
         hostels.add(0, "Your Hostel");
         hostels.add("Aryabhatta - I (A & B Block)");
         hostels.add("Aryabhatta - II (C & D Block)");
@@ -303,16 +310,17 @@ public class ComplainFragment extends Fragment {
                     keepAnonymous = "Keep Anonymous";
                     ComplaineeName = "A IIT(BHU) Student";
                     complaineeName.setText(ComplaineeName);
-                    ComplaineeEmailaddress = "";
+                    ComplaineeEmailaddress = emailOfStudent;
                     complaineeEmailaddress.setText(ComplaineeEmailaddress);
                     complaineeEmailaddress.setVisibility(View.GONE);
                 }
                 else {
                     keepAnonymous = "No";
                     // Todo retrive Name,Email
-                    ComplaineeName = "";
+
+                    ComplaineeName = name_student;
                     complaineeName.setText(ComplaineeName);
-                    ComplaineeEmailaddress = "";
+                    ComplaineeEmailaddress = emailOfStudent;
                     complaineeEmailaddress.setText(ComplaineeEmailaddress);
                     complaineeEmailaddress.setVisibility(View.VISIBLE);
                 }
@@ -444,6 +452,10 @@ public class ComplainFragment extends Fragment {
                                             if((response.toString()).equals("Success")) {
                                                 Snackbar.make(Objects.requireNonNull(getView()), "Complain successfully Registered", Snackbar.LENGTH_LONG).show();
                                             }
+                                            else if((response.toString()).equals("Block")) {
+                                                Snackbar.make(Objects.requireNonNull(getView()), "Complain Registered but You are blocked for misuse of app Contact concerned authority", Snackbar.LENGTH_LONG).show();
+                                            }
+
                                         }
                                     },
                                     new Response.ErrorListener() {

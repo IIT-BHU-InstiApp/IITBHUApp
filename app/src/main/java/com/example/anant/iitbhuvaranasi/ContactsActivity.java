@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -42,8 +43,22 @@ public class ContactsActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation_imp_contacts);
 
         bottomNav.setOnNavigationItemSelectedListener(listener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_imp_contacts,
-                new ContactsAcademics()).commit();
+        if(getIntent().getStringExtra("Intent").equals("academics") ) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_imp_contacts,
+                    new ContactsAcademics()).commit();
+            bottomNav.setSelectedItemId(R.id.imp_academics);
+        }
+        else if(getIntent().getStringExtra("Intent").equals("por") ) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_imp_contacts,
+                    new ContactsPOR()).commit();
+            bottomNav.setSelectedItemId(R.id.por_imp);
+        }
+        else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_imp_contacts,
+                    new ContactsSecurity()).commit();
+            bottomNav.setSelectedItemId(R.id.security_imp);
+        }
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -86,6 +101,7 @@ public class ContactsActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent2 = new Intent(ContactsActivity.this, HomeActivity.class);
         startActivity(intent2);
+
         finish();
 
     }
@@ -93,6 +109,7 @@ public class ContactsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         Intent intent2 = new Intent(ContactsActivity.this, HomeActivity.class);
         startActivity(intent2);
+
         finish();
         return true;
     }

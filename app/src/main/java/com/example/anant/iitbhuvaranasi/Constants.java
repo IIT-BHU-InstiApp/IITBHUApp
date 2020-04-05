@@ -18,12 +18,18 @@ public class Constants {
 
     public static final String MY_PREFERENCE = "myPref";
     public static final String CALENDAR_DIALOG = "calendar_dialog";
+    public static final String Email = "MailId";
+    public static final String Name_Student = "Name";
+    public static String Email_Key = "MailId1";
+
     public static final String CALENDAR_DIALOG_YES = "Yes";
     public static final String CALENDAR_DIALOG_NO = "No";
     public static Boolean isInternetPresent = false;
     public static final String CALENDAR_DIALOG_ALWAYS_ASK = "Always ask";
     public static final String PREF_NAME = "LoggedInPref";
+    public static final String ID_Name = "IDInfo";
     public static String  Response_Feed_Old= "response_all";
+    public static String  Response_ID_Old= "response_all";
     public static String  Response_Feed_New= "response_all";
    /* public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzWO5ivBwZkF0ntk3fxyfPkbaprUXtcO0YRoekfTFO6HJH1sUUn/exec";
     public static final String ADD_USER_URL = APP_SCRIPT_WEB_APP_URL;
@@ -38,7 +44,9 @@ public class Constants {
     public  static final String KEY_ACTION = "action";
     public static final String KEY_USERS = "records";*/
 
-    public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxgRZZcwokRi2KZ0CFtnRimcUZGLhSshPS4XJNHdVu5akm13aWS/exec";
+    //public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxgRZZcwokRi2KZ0CFtnRimcUZGLhSshPS4XJNHdVu5akm13aWS/exec";
+   public static final String APP_SCRIPT_WEB_APP_URL =   "https://script.google.com/macros/s/AKfycbxAM8xl_87tdUiFYm4hSOJBCFJI5v8bEPWnIzFbNNwVa_4mwMPQ/exec";
+   // public static final String APP_SCRIPT_WEB_APP_URL =   "https://script.google.com/macros/s/AKfycbxOJ_pvdpMzI8AbD8EYBSUIxr1FcZKhjbbHflPPxtBGIKUyvt2P/exec";
     public static final String ADD_USER_URL = APP_SCRIPT_WEB_APP_URL;
     public static final String KEY_Complaint_Type = "uType";
     public static final String KEY_Complaint_HostelName = "uHostel";
@@ -47,7 +55,7 @@ public class Constants {
     public static final String KEY_Complaint_IMAGE = "uImage";
     public static final String KEY_Complaint_Anonymous = "uAnonymous";
     public static final String KEY_Complaint_Name = "uName";
-    public static final String KEY_Complaint_Emailid = "uEmailid";
+    public static final String KEY_Complaint_Emailid = "uEmail";
     public  static final String KEY_ACTION = "action";
     public static final String KEY_USERS = "records";
 

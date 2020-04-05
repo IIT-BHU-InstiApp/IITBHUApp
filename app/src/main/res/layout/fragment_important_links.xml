@@ -48,15 +48,35 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/academic_links"
+            android:id="@+id/academic_clickable"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeightSmall"
             android:background="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-            android:text="Academic Links"
+            android:text="Academic"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:id="@+id/academic_layout">
+
+        <TextView
+            android:id="@+id/academic_links"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:text="Academic Links"
+            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         <View
             android:layout_width="match_parent"
@@ -104,6 +124,8 @@
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:text="Odd"
                 android:textColor="@android:color/holo_blue_light"
+
+
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
                />
             <TextView
@@ -114,7 +136,9 @@
                 android:text="Even"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+
                 android:textColor="@android:color/holo_blue_light"
+
                 android:textAppearance="?android:attr/textAppearanceListItemSmall" />
         </LinearLayout>
         <View
@@ -145,7 +169,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:text="2019"
+
                 android:textColor="@android:color/holo_blue_light"
+
                 android:textAppearance="?android:attr/textAppearanceListItemSmall" />
             <TextView
                 android:id="@+id/academic_holidays_2020"
@@ -155,11 +181,13 @@
                 android:text="2020"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+
                 android:textColor="@android:color/holo_blue_light"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall" />
         </LinearLayout>
 
 
+    </LinearLayout>
     </LinearLayout>
 
         <View
@@ -173,19 +201,39 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/wifi_lan_guide_link"
+                android:id="@+id/wifi_lan"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="Wi-Fi/LAN Guide"
+                android:text="Wi-Fi/LAN"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
                 android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/wifi_clickable"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/wifi_lan_guide_link"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:text="Wi-Fi/LAN Guide"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="?android:attr/listDivider" />
 
             <TextView
@@ -295,6 +343,7 @@
                 android:paddingStart="?android:attr/listPreferredItemPaddingStart"
                 android:text="LAN Mac"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        </LinearLayout>
         </LinearLayout>
 
         <View

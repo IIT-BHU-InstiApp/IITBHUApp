@@ -31,6 +31,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -46,6 +47,8 @@ dependencies {
     implementation 'com.zolad:zoominimageview:1.0.0'
     implementation 'com.loopeer.library:cardstack:1.0.2'
     implementation 'com.android.support:customtabs:28.0.0'
+    implementation "io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.2.0"
+
 
 
     //Added by Suryansh.
@@ -66,12 +69,18 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'com.google.android:flexbox:2.0.1'
 
     implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
 
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
     //Added by Suryansh.
     implementation 'com.github.st235:expandablebottombar:1.1.0'
+
+
+        implementation 'com.github.mohammadatif:Animatoo:master'
+
+    //Added by Suryansh.
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -81,5 +90,6 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
+
 
 }

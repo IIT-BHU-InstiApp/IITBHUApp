@@ -68,6 +68,8 @@ import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_OWNER_BRANCH;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_OWNER_NAME;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_TO_CONTACT;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_IMAGE;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.sendButton;
 
 
@@ -127,8 +129,11 @@ public class FoundFragment extends Fragment {
         });
 
         // Todo retrive name and emailId
-        name.setText("");
-        emailaddress.setText("");
+        String email =  emailOfStudent;
+        String name1 = name_student;
+        name.setText(name1);
+        emailaddress.setText(email);
+
 
         UserImage = new ArrayList<>();
 

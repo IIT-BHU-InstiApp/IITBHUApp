@@ -4,6 +4,7 @@
     android:layout_marginTop="4dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
+    app:cardBackgroundColor="@color/white"
     android:layout_marginBottom="4dp"
     app:cardCornerRadius="4dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -17,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Dean of Student Affairs"
             android:textSize="20dp"
+            android:textColor="@color/Black"
             android:textStyle="bold"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
