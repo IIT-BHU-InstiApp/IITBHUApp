@@ -13,7 +13,13 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
@@ -61,7 +67,6 @@ import static com.example.anant.iitbhuvaranasi.Constants.ADD_FOUND_FORM_URL;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_ACTION;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_Email;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_FOUNDITEM;
-import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_IMAGE;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_LOCATION;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_NAME;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_OWNER_BRANCH;
@@ -77,17 +82,16 @@ public class FoundFragment extends Fragment {
 
 
     private LinearLayout uploadedImageContainer;
-    private String branch, semester;
+    private String branch, semester, email, name1;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAPTURE_IMAGE_REQUEST = 2;
     private static final int CAMERA_PERMISSION_REQUEST = 3;
-    private EditText ownerName, foundItem, contact, location, details;
-    private View extraPart;
-    private RequestQueue mrequestqueue;
-    private RequestQueue imageRequestqueue;
+    private EditText ownerName;
+    private EditText foundItem;
+    private EditText contact;
+    private EditText location;
     private TextView removeImage;
     private ArrayList<String> UserImage;
-    private Intent cameraIntent;
     private Dialog attachImageOption;
 
 
@@ -96,11 +100,9 @@ public class FoundFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lost_found_viewpager, container, false);
 
-        mrequestqueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
-        imageRequestqueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         ownerName = view.findViewById(R.id.owner_name);
         location = view.findViewById(R.id.location);
-        details = view.findViewById(R.id.details);
+        EditText details = view.findViewById(R.id.details);
         contact = view.findViewById(R.id.contact);
         location = view.findViewById(R.id.location);
         uploadedImageContainer = view.findViewById(R.id.uploaded_image_container);
@@ -109,28 +111,32 @@ public class FoundFragment extends Fragment {
         Spinner semesterSpinner = view.findViewById(R.id.semester);
         foundItem = view.findViewById(R.id.lost_found_Item);
         ImageButton addImage = view.findViewById(R.id.add_image);
-        extraPart = view.findViewById(R.id.extra_part);
         TextView name = view.findViewById(R.id.name);
         TextView emailaddress = view.findViewById(R.id.emailaddress);
         TextView linkInfo = view.findViewById(R.id.link_info);
-        TextView spreadsheetLink = view.findViewById(R.id.spreadsheet_link);
 
-        linkInfo.setText("All found forms are registered in the sheet link given below");
-
-        spreadsheetLink.setText("link");
-        spreadsheetLink.setOnClickListener(new View.OnClickListener() {
+        SpannableString spannableString = new SpannableString("All found forms are registered in the given sheet link.");
+        ClickableSpan link = new ClickableSpan() {
             @Override
-            public void onClick(View v) {
-                String url = "www.google.com";
+            public void onClick(@NonNull View widget) {
+                String url = "https://www.google.com/";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
-            }
-        });
 
-        // Todo retrive name and emailId
-        String email =  emailOfStudent;
-        String name1 = name_student;
+            }
+        };
+
+        spannableString.setSpan(link, 44, 54, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Objects.requireNonNull(getContext()).getResources().getColor(R.color.holo_blue_light)), 44, 54, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        linkInfo.setText(spannableString);
+        linkInfo.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+        email = emailOfStudent;
+        name1 = name_student;
         name.setText(name1);
         emailaddress.setText(email);
 
@@ -141,12 +147,12 @@ public class FoundFragment extends Fragment {
         foundItem.setHint("Found Item");
         location.setHint("Found at - Location");
         contact.setHint("Your Contact Number");
-        details.setVisibility(View.GONE);
-        extraPart.setVisibility(View.VISIBLE);
+        details.setHint(null);
+        details.setEnabled(false);
 
 
         List<String> Semester = new ArrayList<>();
-        Semester.add(0, "Sem");
+        Semester.add(0, "Semester");
         Semester.add("Sem: I");
         Semester.add("Sem: II");
         Semester.add("Sem: III");
@@ -204,7 +210,6 @@ public class FoundFragment extends Fragment {
 
                         tv.setTypeface(null, Typeface.BOLD);
                         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, 52);
-                        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
                         break;
                     default:
                         tv.setTypeface(null, Typeface.NORMAL);
@@ -239,7 +244,6 @@ public class FoundFragment extends Fragment {
                     case 0:
                         tv.setTypeface(null, Typeface.BOLD);
                         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, 52);
-                        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
                         break;
                     default:
                         tv.setTypeface(null, Typeface.NORMAL);
@@ -294,35 +298,40 @@ public class FoundFragment extends Fragment {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(uploadedImageContainer.getChildCount()<5) {
+                if (uploadedImageContainer.getChildCount() < 5) {
 
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                attachImageOption = new Dialog(getContext());
-                LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+                    attachImageOption = new Dialog(Objects.requireNonNull(getContext()));
+                    LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(Objects.requireNonNull(getActivity()).getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
 
 
-                linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        attachImage();
+                    linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            attachImage();
+                        }
+                    });
+
+
+                    linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            captureImage();
+                        }
+                    });
+
+                    attachImageOption.addContentView(linearLayout, params);
+
+                    attachImageOption.show();
+                } else {
+                    try {
+                        Snackbar.make(Objects.requireNonNull(getView()), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
+                    } catch (NullPointerException e) {
+                        Log.e("FoundFragment", "Snackbar: You have reached your maximum upload limit of 4", e);
+                        Toast.makeText(getContext(), "You have reached your maximum upload limit of 4", Toast.LENGTH_SHORT).show();
                     }
-                });
-
-
-                linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        captureImage();
-                    }
-                });
-
-                attachImageOption.addContentView(linearLayout, params);
-
-                attachImageOption.show();
-            }else {
-                Toast.makeText(getContext(),"You have reached your maximum upload limit", Toast.LENGTH_SHORT).show();
-            }
+                }
 
 
             }
@@ -353,15 +362,30 @@ public class FoundFragment extends Fragment {
                 public void onClick(View v) {
                     if (TextUtils.isEmpty(foundItem.getText())) {
                         foundItem.setPressed(true);
-                        Toast.makeText(getContext(), "Please specify foundItem", Toast.LENGTH_SHORT).show();
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please specify foundItem", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("FoundFragment", "Snackbar: Please specify foundItem", e);
+                            Toast.makeText(getContext(), "Please specify foundItem", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (TextUtils.isEmpty(location.getText())) {
                         location.setPressed(true);
-                        Toast.makeText(getContext(), "Please specify where you found item", Toast.LENGTH_SHORT).show();
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please specify where you found item", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("FoundFragment", "Snackbar: Please specify where you found item", e);
+                            Toast.makeText(getContext(), "Please specify where you found item", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (TextUtils.isEmpty(contact.getText())) {
                         contact.setPressed(true);
-                        Toast.makeText(getContext(), "Please fill your contact number", Toast.LENGTH_SHORT).show();
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please fill your contact number", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("FoundFragment", "Snackbar: Please fill your contact number", e);
+                            Toast.makeText(getContext(), "Please fill your contact number", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        AlertDialog.Builder a_builder = new AlertDialog.Builder(getContext());
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
                         a_builder.setMessage("I am aware that if I will misuse this facility by any way I would be deregistered from this app");
                         a_builder.setCancelable(false);
                         a_builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -385,17 +409,25 @@ public class FoundFragment extends Fragment {
                                                 pdialog.dismiss();
                                                 //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                                                 if ((response.toString()).equals("Success")) {
-                                                    Snackbar.make(Objects.requireNonNull(getView()), "Form successfully Registered", Snackbar.LENGTH_LONG).show();
+                                                    try {
+                                                        Snackbar.make(Objects.requireNonNull(getView()), "Form successfully Registered", Snackbar.LENGTH_SHORT).show();
+                                                    } catch (NullPointerException e) {
+                                                        Log.e("FoundFragment", "Snackbar: Form successfully Registered", e);
+                                                        Toast.makeText(getContext(), "Form successfully Registered", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
                                             }
                                         },
                                         new Response.ErrorListener() {
                                             @Override
                                             public void onErrorResponse(VolleyError error) {
-                                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                                                 pdialog.dismiss();
-                                                Snackbar.make(Objects.requireNonNull(getView()), "Something went Wrong\nTry again Later", Snackbar.LENGTH_LONG).show();
-
+                                                try {
+                                                    Snackbar.make(Objects.requireNonNull(getView()), "Something went Wrong\nTry again Later", Snackbar.LENGTH_SHORT).show();
+                                                } catch (NullPointerException e) {
+                                                    Log.e("FoundFragment", "Snackbar: Something went Wrong\nTry again Later", e);
+                                                    Toast.makeText(getContext(), "Something went Wrong\nTry again Later", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
                                         }) {
                                     @Override
@@ -403,16 +435,15 @@ public class FoundFragment extends Fragment {
                                         Map<String, String> params = new HashMap<String, String>();
 
                                         params.put(KEY_ACTION, "insert");
-                                        //    Todo Retrive Name,Email
-                                        params.put(KEY_FOUND_NAME, "");
-                                        params.put(KEY_FOUND_Email, "");
+                                        params.put(KEY_FOUND_NAME, name1);
+                                        params.put(KEY_FOUND_Email, email);
                                         params.put(KEY_FOUND_OWNER_NAME, OwnerName);
                                         params.put(KEY_FOUND_OWNER_BRANCH, Branch + Semester);
                                         params.put(KEY_FOUND_FOUNDITEM, FoundItem);
                                         params.put(KEY_FOUND_LOCATION, Location);
                                         params.put(KEY_FOUND_TO_CONTACT, Contact);
-                                        if(UserImage!=null) {
-                                            for(int i=0;i<UserImage.size();i++) {
+                                        if (UserImage != null) {
+                                            for (int i = 0; i < UserImage.size(); i++) {
                                                 params.put(KEY_LOST_IMAGE + i, UserImage.get(i));
                                             }
                                         }
@@ -429,7 +460,7 @@ public class FoundFragment extends Fragment {
                                 stringRequest.setRetryPolicy(policy);
 
 
-                                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                                RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
 
                                 requestQueue.add(stringRequest);
 
@@ -475,8 +506,8 @@ public class FoundFragment extends Fragment {
             ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{
                     Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
 
-        }else {
-            cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        } else {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
         }
 
@@ -496,7 +527,7 @@ public class FoundFragment extends Fragment {
             ClipData mClipData = data.getClipData();
 
 
-            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount()< 6-uploadedImageContainer.getChildCount()) {
+            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount() < 6 - uploadedImageContainer.getChildCount()) {
 
                 for (int i = 0; i < mClipData.getItemCount(); i++) {
                     ImageView image = new ImageView(getContext());
@@ -511,7 +542,7 @@ public class FoundFragment extends Fragment {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), imageUri);
                         Bitmap rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
-                       String userImage = getStringImage(rbitmap);
+                        String userImage = getStringImage(rbitmap);
                         UserImage.add(userImage);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -521,13 +552,13 @@ public class FoundFragment extends Fragment {
                     uploadedImageContainer.addView(image);
                     removeImage.setVisibility(View.VISIBLE);
                 }
-            } else if(mClipData != null && mClipData.getItemCount() == 1){
+            } else if (data.getData() != null) {
                 Uri imageUri = data.getData();
 
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), imageUri);
                     Bitmap rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
-                   String userImage = getStringImage(rbitmap);
+                    String userImage = getStringImage(rbitmap);
                     //base64toString.add(userImage);
                     UserImage.add(userImage);
                 } catch (IOException e) {
@@ -543,16 +574,26 @@ public class FoundFragment extends Fragment {
                 image.setImageURI(imageUri);
                 uploadedImageContainer.addView(image);
                 removeImage.setVisibility(View.VISIBLE);
-            }else{
-                Toast.makeText(getContext(),"Your upload limit exceeded", Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    Snackbar.make(Objects.requireNonNull(getView()), "Can't upload more than 4 images", Snackbar.LENGTH_SHORT).show();
+                } catch (NullPointerException e) {
+                    Log.e("ComplainFragment", "Can't upload more than 4 images", e);
+                    Toast.makeText(getContext(), "Can't upload more than 4 images", Toast.LENGTH_SHORT).show();
+
+                }
             }
 
+        } else {
+            Toast.makeText(getContext(), "You haven't picked image", Toast.LENGTH_SHORT).show();
         }
 
         if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-           Bitmap rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
-           String userImage = getStringImage(rbitmap);
+            assert data != null;
+            Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+            assert bitmap != null;
+            Bitmap rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
+            String userImage = getStringImage(rbitmap);
             // base64toString.add(userImage);
             UserImage.add(userImage);
 
@@ -576,7 +617,7 @@ public class FoundFragment extends Fragment {
     }
 
 
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+    private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -593,8 +634,7 @@ public class FoundFragment extends Fragment {
     }
 
 
-
-    public String getStringImage(Bitmap bmp) {
+    private String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
