@@ -64,7 +64,6 @@
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
 
-
     <EditText
         android:id="@+id/subject_edittext"
         android:layout_width="match_parent"
@@ -74,8 +73,8 @@
         android:hint="Subject of Complaint"
         android:maxLength="60"
         android:minHeight="56dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:singleLine="true" />
 
 
@@ -98,8 +97,8 @@
         android:maxLines="100"
         android:minHeight="240dp"
         android:minLines="1"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp" />
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -112,7 +111,7 @@
             android:id="@+id/anonymous_checkbox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -153,7 +152,6 @@
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/border_color_primary"
                 android:src="@drawable/ic_add_box_black_24dp" />
 
         </LinearLayout>
