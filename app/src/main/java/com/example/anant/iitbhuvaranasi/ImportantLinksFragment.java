@@ -73,6 +73,7 @@ public class ImportantLinksFragment extends Fragment {
                 CustomTabsIntent customTabsIntent = builder.build();
                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
 
+
             }
         });
 
@@ -88,6 +89,7 @@ public class ImportantLinksFragment extends Fragment {
         });
        view.findViewById(R.id.academic_calender_even).setOnClickListener(new View.OnClickListener() {
            @Override
+
             public void onClick(View v) {
                 String url = "https://iitbhu.ac.in/contents/institute/academics/academic_info/doc/calendar_19-20_even.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
