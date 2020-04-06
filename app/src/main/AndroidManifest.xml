@@ -26,7 +26,8 @@
         android:usesCleartextTraffic="true">
         <!-- Remove above lines after moving to https -->
 
-        <activity android:name=".IITbhu_Map"></activity>
+        <activity android:name=".IITbhu_Map"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ContactsActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -10,9 +10,9 @@
         android:id="@+id/attachimage"
         android:layout_width="match_parent"
 
-        android:paddingEnd="?android:attr/listPreferredItemPaddingStart"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:layout_height="?android:attr/listPreferredItemHeightSmall">
+        android:paddingEnd="?android:attr/listPreferredItemPaddingStart">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -21,22 +21,23 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingStart"
-            android:gravity="center_vertical"
             android:text="Pick image from gallery"
-            android:textSize="24sp"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/captureimage"
         android:layout_width="match_parent"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingStart"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:layout_height="?android:attr/listPreferredItemHeightSmall">
+        android:paddingEnd="?android:attr/listPreferredItemPaddingStart">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -44,13 +45,13 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="Capture from camera"
-            android:textSize="24sp"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            android:text="Capture from camera"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textSize="24sp" />
     </LinearLayout>
 
 </LinearLayout>

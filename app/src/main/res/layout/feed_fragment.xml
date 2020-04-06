@@ -10,7 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pinned Clubs"
+            android:textStyle="bold"
+            android:layout_margin="8dp"/>
         <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,24 +30,32 @@
                     android:id="@+id/horizontal_rcv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+
 
                     />
 
                 <Button
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
 
                     android:gravity="center"
                     android:text="+"
                     android:textSize="32dp"
-                    android:layout_marginTop="20dp"
+
                     android:id="@+id/add_button"
                     style="?android:attr/borderlessButtonStyle"
                     />
             </LinearLayout>
 
         </HorizontalScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Councils"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

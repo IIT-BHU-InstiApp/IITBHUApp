@@ -33,6 +33,8 @@
     <color name="colorblue200">#90CAF9</color>
     <color name="colorblue220">#55A4E4</color>
 
-    <color name="toolbar_color_control_normal">@color/colorGray</color>
     <!-- Added by Suryansh. -->
+    <color name="toolbar_color_control_normal">@color/colorGray</color>
+
+    <color name="holo_blue_light">#ff33b5e5</color>
 </resources>
