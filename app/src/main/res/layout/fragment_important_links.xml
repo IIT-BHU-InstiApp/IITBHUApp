@@ -81,66 +81,25 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/grade_report"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?android:attr/listPreferredItemHeightSmall"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="?attr/selectableItemBackground"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:text="Grade Report (Intranet)"-->
-<!--            android:paddingStart="?android:attr/listPreferredItemPaddingStart"-->
-<!--            android:textAppearance="?android:attr/textAppearanceListItemSmall" />-->
+        <TextView
+            android:id="@+id/grade_report"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:text="Grade Report (Intranet)"
+            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="?android:attr/listDivider" />-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider" />
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <TextView-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="?android:attr/listPreferredItemHeightSmall"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:paddingStart="?android:attr/listPreferredItemPaddingStart"-->
-<!--                android:text="Academic Calender"-->
-<!--                android:textAppearance="?android:attr/textAppearanceListItemSmall" />-->
-<!--            <TextView-->
-<!--                android:id="@+id/academic_calender_odd"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="?android:attr/listPreferredItemHeightSmall"-->
-<!--                android:text="Odd"-->
-<!--                android:background="?attr/selectableItemBackground"-->
-<!--                android:textAppearance="?android:attr/textAppearanceListItemSmall"-->
-<!--               />-->
-<!--            <TextView-->
-<!--                android:id="@+id/academic_calender_even"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="?android:attr/listPreferredItemHeightSmall"-->
-<!--                android:text="Even"-->
-<!--                android:layout_marginStart="8dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:background="?attr/selectableItemBackground"-->
-<!--                android:textAppearance="?android:attr/textAppearanceListItemSmall" />-->
-<!--        </LinearLayout>-->
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="?android:attr/listDivider" />-->
 
         <View
             android:layout_width="match_parent"
