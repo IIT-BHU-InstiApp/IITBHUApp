@@ -9,24 +9,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
         android:gravity="center"
         android:id="@+id/linear_layout"
         android:orientation="vertical"
         >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/studentsapp"
-            android:textSize="32sp"
-            android:text="Students App"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="7dp"
-            android:textColor="@color/colorAccent"
 
-            />
 
 
         <TextView
@@ -51,16 +41,38 @@
             android:elevation="6dp"
             />
 
-        <com.google.android.gms.common.SignInButton
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:layout_marginTop="7dp"
             android:id="@+id/siginbutton"
-            >
+            android:layout_gravity="center_horizontal"
+            android:text="Login via Student Account"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
 
-        </com.google.android.gms.common.SignInButton>
+
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="16dp"
+            android:background="@color/white"
+
+            android:text="or"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/guestLogin"
+            android:background="@color/white"
+
+            android:text="Continue as a Guest"/>
 
     </LinearLayout>
 
