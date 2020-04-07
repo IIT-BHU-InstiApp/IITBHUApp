@@ -53,6 +53,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -75,6 +76,7 @@ import static com.example.anant.iitbhuvaranasi.Constants.KEY_FOUND_TO_CONTACT;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_IMAGE;
 import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
 import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
+import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.addImage;
 import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.sendButton;
 
 
@@ -110,10 +112,14 @@ public class FoundFragment extends Fragment {
         Spinner branchSpinner = view.findViewById(R.id.branch);
         Spinner semesterSpinner = view.findViewById(R.id.semester);
         foundItem = view.findViewById(R.id.lost_found_Item);
-        ImageButton addImage = view.findViewById(R.id.add_image);
         TextView name = view.findViewById(R.id.name);
         TextView emailaddress = view.findViewById(R.id.emailaddress);
         TextView linkInfo = view.findViewById(R.id.link_info);
+        TextView ownerInformation = view.findViewById(R.id.owner_information);
+        TextInputLayout lostItemTILayout = view.findViewById(R.id.lost_found_item_layout);
+        TextInputLayout locationlayout = view.findViewById(R.id.location_layout);
+        TextInputLayout contactLayout = view.findViewById(R.id.contact_layout);
+
 
         SpannableString spannableString = new SpannableString("All found forms are registered in the given sheet link.");
         ClickableSpan link = new ClickableSpan() {
@@ -143,10 +149,11 @@ public class FoundFragment extends Fragment {
 
         UserImage = new ArrayList<>();
 
-        ownerName.setHint("Founder's Name ");
-        foundItem.setHint("Found Item");
-        location.setHint("Found at - Location");
-        contact.setHint("Your Contact Number");
+        ownerInformation.setText("Owner's Information (If Known)");
+        contactLayout.setHint("Your Contact Number");
+        lostItemTILayout.setHint("Found Item");
+        locationlayout.setHint("Found at (Location)");
+
         details.setHint(null);
         details.setEnabled(false);
 
@@ -168,7 +175,8 @@ public class FoundFragment extends Fragment {
 
 
         List<String> Branch = new ArrayList<>();
-        Branch.add(0, "Founder Branch");
+        Branch.add(0, "Owner's Branch");
+
         Branch.add("Architecture, Planning and Design");
         Branch.add("Biochemical Engineering");
         Branch.add("Biomedical Engineering");
@@ -294,49 +302,8 @@ public class FoundFragment extends Fragment {
 //        });
 
 
-        // Adding & Removing Image
-        addImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (uploadedImageContainer.getChildCount() < 5) {
 
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT);
-                    attachImageOption = new Dialog(Objects.requireNonNull(getContext()));
-                    LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(Objects.requireNonNull(getActivity()).getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
-
-
-                    linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            attachImage();
-                        }
-                    });
-
-
-                    linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            captureImage();
-                        }
-                    });
-
-                    attachImageOption.addContentView(linearLayout, params);
-
-                    attachImageOption.show();
-                } else {
-                    try {
-                        Snackbar.make(Objects.requireNonNull(getView()), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
-                    } catch (NullPointerException e) {
-                        Log.e("FoundFragment", "Snackbar: You have reached your maximum upload limit of 4", e);
-                        Toast.makeText(getContext(), "You have reached your maximum upload limit of 4", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-
-            }
-        });
-
+        //Removing Image
         removeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -344,6 +311,7 @@ public class FoundFragment extends Fragment {
                     uploadedImageContainer.removeViewAt(i);
                 }
                 UserImage.clear();
+                uploadedImageContainer.setVisibility(View.GONE);
                 removeImage.setVisibility(View.GONE);
             }
         });
@@ -355,6 +323,49 @@ public class FoundFragment extends Fragment {
 
     public void onClick(int a) {
         if (a == 1) {
+
+            // Adding Image
+            addImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (uploadedImageContainer.getChildCount() < 4) {
+
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                        attachImageOption = new Dialog(Objects.requireNonNull(getContext()));
+                        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(Objects.requireNonNull(getActivity()).getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
+
+
+                        linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                attachImage();
+                            }
+                        });
+
+
+                        linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                captureImage();
+                            }
+                        });
+
+                        attachImageOption.addContentView(linearLayout, params);
+
+                        attachImageOption.show();
+                    } else {
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("FoundFragment", "Snackbar: You have reached your maximum upload limit of 4", e);
+                            Toast.makeText(getContext(), "You have reached your maximum upload limit of 4", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+
+                }
+            });
 
 
             sendButton.setOnClickListener(new View.OnClickListener() {
@@ -518,6 +529,7 @@ public class FoundFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,200,getResources().getDisplayMetrics());
         int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
         int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 
@@ -527,12 +539,11 @@ public class FoundFragment extends Fragment {
             ClipData mClipData = data.getClipData();
 
 
-            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount() < 6 - uploadedImageContainer.getChildCount()) {
+            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount() < 5 - uploadedImageContainer.getChildCount()) {
 
                 for (int i = 0; i < mClipData.getItemCount(); i++) {
                     ImageView image = new ImageView(getContext());
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                            LinearLayout.LayoutParams.MATCH_PARENT);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
                     params.setMargins(margin, margin, margin, margin);
                     image.setLayoutParams(params);
                     image.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -550,6 +561,7 @@ public class FoundFragment extends Fragment {
 
                     image.setImageURI(imageUri);
                     uploadedImageContainer.addView(image);
+                    uploadedImageContainer.setVisibility(View.VISIBLE);
                     removeImage.setVisibility(View.VISIBLE);
                 }
             } else if (data.getData() != null) {
@@ -565,14 +577,14 @@ public class FoundFragment extends Fragment {
                     e.printStackTrace();
                 }
                 ImageView image = new ImageView(getContext());
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
                 params.setMargins(margin, margin, margin, margin);
                 image.setLayoutParams(params);
                 image.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 image.setImageURI(imageUri);
                 uploadedImageContainer.addView(image);
+                uploadedImageContainer.setVisibility(View.VISIBLE);
                 removeImage.setVisibility(View.VISIBLE);
             } else {
                 try {
@@ -598,8 +610,7 @@ public class FoundFragment extends Fragment {
             UserImage.add(userImage);
 
             ImageView image = new ImageView(getContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
             params.setMargins(margin, margin, margin, margin);
             image.setLayoutParams(params);
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -607,6 +618,7 @@ public class FoundFragment extends Fragment {
             image.setImageBitmap(bitmap);
 
             uploadedImageContainer.addView(image);
+            uploadedImageContainer.setVisibility(View.VISIBLE);
             removeImage.setVisibility(View.VISIBLE);
 
 
