@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -76,7 +77,7 @@ public class ComplainFragment extends Fragment {
 
 
     private Toolbar toolbar;
-    private ImageButton sendButton;
+    private ImageButton sendButton,addImage;
     private LinearLayout uploadedImageContainer;
     private String hostel;
     private String ComplaineeName, ComplaineeEmailaddress;
@@ -107,7 +108,6 @@ public class ComplainFragment extends Fragment {
         final Spinner hostelSpinner = view.findViewById(R.id.hostel_spinner);
         ImageButton anonymousHelp = (ImageButton) view.findViewById(R.id.anonymous_help);
         subjectEditBox = view.findViewById(R.id.subject_edittext);
-        ImageButton addImage = view.findViewById(R.id.add_image);
         complaineeName = view.findViewById(R.id.complainee_name);
         complaineeEmailaddress = view.findViewById(R.id.complainee_emailaddress);
 
@@ -122,14 +122,23 @@ public class ComplainFragment extends Fragment {
         keepAnonymous = "No";
 
 
-        //Creating send button
+        //Creating send button & addImage Button
         int endMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics());
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, typedValue, true);
+        Toolbar.LayoutParams LayoutParam = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParam.gravity = Gravity.END;
+        LayoutParam.setMarginEnd(endMargin);
+
         sendButton = new ImageButton(getContext());
-        Toolbar.LayoutParams sendLayoutParam = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        sendLayoutParam.gravity = Gravity.END;
-        sendLayoutParam.setMarginEnd(endMargin);
-        sendButton.setLayoutParams(sendLayoutParam);
-        sendButton.setBackground(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.ic_send_black_24dp));
+        sendButton.setLayoutParams(LayoutParam);
+        sendButton.setImageDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.ic_send_black_24dp));
+        sendButton.setBackgroundResource(typedValue.resourceId);
+
+        addImage = new ImageButton(getContext());
+        addImage.setLayoutParams(LayoutParam);
+        addImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_attachment_black_24dp));
+        addImage.setBackgroundResource(typedValue.resourceId);
 
         // List for complainttype & hostel
         List<String> complaints = new ArrayList<>();
@@ -323,7 +332,7 @@ public class ComplainFragment extends Fragment {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (uploadedImageContainer.getChildCount() < 5) {
+                if (uploadedImageContainer.getChildCount() < 4) {
 
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -362,6 +371,14 @@ public class ComplainFragment extends Fragment {
             }
         });
 
+        addImage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getContext(), "Attach Image(s)", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
         removeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -369,6 +386,7 @@ public class ComplainFragment extends Fragment {
                     uploadedImageContainer.removeViewAt(i);
                 }
                 UserImage.clear();
+                uploadedImageContainer.setVisibility(View.GONE);
                 removeImage.setVisibility(View.GONE);
             }
         });
@@ -561,6 +579,7 @@ public class ComplainFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,200,getResources().getDisplayMetrics());
         int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
         int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 
@@ -571,12 +590,11 @@ public class ComplainFragment extends Fragment {
             ClipData mClipData = data.getClipData();
 
 
-            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount() < 6 - uploadedImageContainer.getChildCount()) {
+            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount() < 5 - uploadedImageContainer.getChildCount()) {
 
                 for (int i = 0; i < mClipData.getItemCount(); i++) {
                     ImageView image = new ImageView(getContext());
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                            LinearLayout.LayoutParams.MATCH_PARENT);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
                     params.setMargins(margin, margin, margin, margin);
                     image.setLayoutParams(params);
                     image.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -594,6 +612,7 @@ public class ComplainFragment extends Fragment {
 
                     image.setImageURI(imageUri);
                     uploadedImageContainer.addView(image);
+                    uploadedImageContainer.setVisibility(View.VISIBLE);
                     removeImage.setVisibility(View.VISIBLE);
                 }
             } else if (data.getData() != null) {
@@ -609,14 +628,14 @@ public class ComplainFragment extends Fragment {
                     e.printStackTrace();
                 }
                 ImageView image = new ImageView(getContext());
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
                 params.setMargins(margin, margin, margin, margin);
                 image.setLayoutParams(params);
                 image.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 image.setImageURI(imageUri);
                 uploadedImageContainer.addView(image);
+                uploadedImageContainer.setVisibility(View.VISIBLE);
                 removeImage.setVisibility(View.VISIBLE);
             } else {
                 try {
@@ -643,8 +662,7 @@ public class ComplainFragment extends Fragment {
             UserImage.add(userImage);
 
             ImageView image = new ImageView(getContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
             params.setMargins(margin, margin, margin, margin);
             image.setLayoutParams(params);
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -652,9 +670,8 @@ public class ComplainFragment extends Fragment {
             image.setImageBitmap(bitmap);
 
             uploadedImageContainer.addView(image);
+            uploadedImageContainer.setVisibility(View.VISIBLE);
             removeImage.setVisibility(View.VISIBLE);
-
-
         }
 
         attachImageOption.hide();
@@ -703,6 +720,7 @@ public class ComplainFragment extends Fragment {
 //        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         toolbar.addView(sendButton);
+        toolbar.addView(addImage);
 
 
     }
@@ -712,6 +730,7 @@ public class ComplainFragment extends Fragment {
         super.onStop();
 
         toolbar.removeView(sendButton);
+        toolbar.removeView(addImage);
         toolbar.setTitle(R.string.app_name);
 
 
