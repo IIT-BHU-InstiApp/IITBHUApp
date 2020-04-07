@@ -182,28 +182,42 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 x++;
                 break;
             case R.id.nav_complain:
-                track = 2;
+
 //                SharedPreferences.Editor editor2 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor2.putInt("track",2);
 //                editor2.commit();
+                if(SignInActivity.guestLoginChecker != 1){
+                    track = 2;
+
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ComplainFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);
+                    x++;}
+                else{
+                    navigationView.getMenu().getItem(track).setChecked(true);
+                    Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                    toast.show();
+
+                }
 
 
-                x++;
+
                 break;
             case R.id.lost_found:
-                track = 3;
-                SharedPreferences.Editor editor3 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
-                editor3.putInt("track",3);
-                editor3.commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new LostAndFoundFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
 
+                if(SignInActivity.guestLoginChecker != 1){
+                    track = 3;
 
-                x++;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new LostAndFoundFragment()).commit();
+                    bottomNavigationView.setVisibility(View.GONE);
+                    x++;}
+                else{
+                    navigationView.getMenu().getItem(track).setChecked(true);
+                    Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                    toast.show();
+
+                }
                 break;
 
 

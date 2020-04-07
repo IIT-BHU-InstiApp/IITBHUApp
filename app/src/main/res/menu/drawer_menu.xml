@@ -41,10 +41,7 @@
             android:icon="@drawable/ic_imp_contacts"
             android:title="Important Contacts">
         <menu>
-            <item
-                android:id="@+id/nav_security"
-                android:icon="@drawable/ic_imp_contacts"
-                android:title="Security"/>
+
             <item
                 android:id="@+id/nav_academics"
                 android:icon="@drawable/ic_imp_contacts"
@@ -53,6 +50,10 @@
                 android:id="@+id/nav_por"
                 android:icon="@drawable/ic_imp_contacts"
                 android:title="POR"/>
+            <item
+                android:id="@+id/nav_security"
+                android:icon="@drawable/ic_imp_contacts"
+                android:title="Security"/>
         </menu>
         </item>
 
@@ -73,7 +74,7 @@
 
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/ic_info_black_24dp"
+                android:icon="@drawable/ic_developer_mode_black_24dp"
                 android:title="Developers" />
             <item
                 android:id="@+id/feedback"
