@@ -49,16 +49,16 @@ public class AboutFragment extends Fragment {
 
         AboutAdapter aboutAdapter = new AboutAdapter(new ArrayList<AboutCategory>() {{
             add(new AboutCategory("Core Developers", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual("abhinavsingh", "Abhinav Singh", "varun.jpg"));
-                add(new AboutIndividual("bhoomikbhamawat", "Bhoomik Bhamawat", "sajal.jpg"));
+                add(new AboutIndividual("abhinavsingh", "Abhinav Singh", "varun.jpg","Computer Science"));
+                add(new AboutIndividual("bhoomikbhamawat", "Bhoomik Bhamawat", "sajal.jpg","Electrical"));
             }}, context));
             add(new AboutCategory("Developers", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual(null, "Yogesh", "mrunmayi.jpg"));
-                add(new AboutIndividual(null, "Sachit", "owais.jpg"));
-                add(new AboutIndividual(null, "Monu Kumar", "hrushikesh.jpg"));
-                add(new AboutIndividual(null, "Tanmay Mishra", "yashkhem.jpg"));
-                add(new AboutIndividual(null, "Martin", "bavish.jpg"));
-                add(new AboutIndividual(null, "Suryansh", "mayu.jpg"));
+                add(new AboutIndividual(null, "Yogesh", "mrunmayi.jpg","Electrical"));
+                add(new AboutIndividual(null, "Sachit", "owais.jpg","Electrical"));
+                add(new AboutIndividual(null, "Monu Kumar", "hrushikesh.jpg","Electrical"));
+                add(new AboutIndividual(null, "Tanmay Mishra", "yashkhem.jpg","Electrical"));
+                add(new AboutIndividual(null, "Martin", "bavish.jpg","Electrical"));
+                add(new AboutIndividual(null, "Suryansh", "mayu.jpg","Electrical"));
                 //add(new AboutIndividual("maitreya", "Maitreya Verma", "maitreya.jpg"));
                  }}, context));
            /* add(new AboutCategory("Design", new ArrayList<AboutIndividual>() {{
@@ -66,17 +66,17 @@ public class AboutFragment extends Fragment {
             }}, context));*/
 
             add(new AboutCategory("Ideation", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual(null, "Anant Gowadiya", "nihal.jpg"));
-                add(new AboutIndividual(null, "Abhinav Singh", "ydidwania.jpg"));
-                add(new AboutIndividual(null, "Bhoomik Bhamawat", "ydidwania.jpg"));
+                add(new AboutIndividual(null, "Anant Gowadiya", "nihal.jpg","SMST"));
+                add(new AboutIndividual(null, "Abhinav Singh", "ydidwania.jpg","Electrical"));
+                add(new AboutIndividual(null, "Bhoomik Bhamawat", "ydidwania.jpg","Electrical"));
               //  add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg"));
                 //add(new AboutIndividual(null, "Arihant Shuklecha", "sarthak.jpg"));
             }}, context));
             add(new AboutCategory("Managing Team", new ArrayList<AboutIndividual>() {{
             //    add(new AboutIndividual(null, "Anant Gowadiya", "nihal.jpg"));
-                add(new AboutIndividual(null, "Bharat Jain", "ydidwania.jpg"));
-                add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg"));
-                add(new AboutIndividual(null, "Sachit", "cheeku.jpg"));
+                add(new AboutIndividual(null, "Bharat Jain", "ydidwania.jpg","Electrical"));
+                add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg","Electrical"));
+                add(new AboutIndividual(null, "Sachit", "cheeku.jpg","Electrical"));
              //   add(new AboutIndividual(null, "Bhoomik", "cheeku.jpg"));
                 //add(new AboutIndividual(null, "Arihant Shuklecha", "sarthak.jpg"));
             }}, context));
