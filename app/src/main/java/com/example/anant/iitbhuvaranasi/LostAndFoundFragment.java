@@ -25,6 +25,7 @@ public class LostAndFoundFragment extends Fragment {
 
     private Toolbar toolbar;
     public static ImageButton sendButton;
+    public static ImageButton addButton;
 
 
     @Nullable
@@ -42,7 +43,9 @@ public class LostAndFoundFragment extends Fragment {
         sendButton = new ImageButton(getContext());
         sendButton.setLayoutParams(sendLayoutParam);
         sendButton.setBackground(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.ic_send_black_24dp));
-
+        addButton = new ImageButton(getContext());
+        addButton.setLayoutParams(sendLayoutParam);
+        addButton.setBackground(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.ic_attachment_black_24dp));
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.lost_found_viewpager);
         final LostFoundPageAdapter pageAdapter = new LostFoundPageAdapter(getChildFragmentManager());
@@ -93,6 +96,7 @@ public class LostAndFoundFragment extends Fragment {
 
         toolbar.setTitle("Lost/Found");
         toolbar.addView(sendButton);
+        toolbar.addView(addButton);
 
 
     }
@@ -103,6 +107,7 @@ public class LostAndFoundFragment extends Fragment {
 
         toolbar.setTitle(R.string.app_name);
         toolbar.removeView(sendButton);
+        toolbar.removeView(addButton);
 
     }
 }

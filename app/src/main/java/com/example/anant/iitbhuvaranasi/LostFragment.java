@@ -77,6 +77,7 @@ import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_TO_CONTACT;
 import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
 import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.sendButton;
+import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.addButton;
 
 public class LostFragment extends Fragment {
 

@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
 //                startActivity(new Intent(MainActivity.this,SignInActivity.class));
-                startActivity(new Intent(MainActivity.this,SignInActivity.class));
+                startActivity(new Intent(MainActivity.this,HomeActivity.class));
                 finish();
             }
         });
