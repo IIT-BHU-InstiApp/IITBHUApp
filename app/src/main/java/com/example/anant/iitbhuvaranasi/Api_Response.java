@@ -27,7 +27,7 @@ public class Api_Response {
         String url = "http://iitbhuapp.tk/feedandclubs";
         JSONObject obj = new JSONObject();
         try {
-            obj.put("roll", 18085016);
+            obj.put("email","bhoomikbhamawat.eee18@itbhu.ac.in");
         } catch (JSONException e) {
             e.printStackTrace();
         }
