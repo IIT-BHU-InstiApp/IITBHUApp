@@ -38,9 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="From:"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:textSize="16sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="16dp"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/from_textview"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="A IIT(BHU) Student" />
@@ -68,11 +66,11 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height=".5dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginTop="4dp"
-                android:background="@android:color/black"/>
+                android:background="@color/grey"/>
 
 
             <TextView
@@ -83,13 +81,21 @@
                 android:textSize="16sp"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:textStyle="bold" />
+                 />
 
             <Spinner
                 android:id="@+id/complain_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:spinnerMode="dialog" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height=".5dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/grey"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -99,7 +105,7 @@
                 android:textSize="16sp"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:textStyle="bold" />
+            />
 
 
             <Spinner
