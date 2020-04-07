@@ -33,7 +33,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
@@ -55,86 +54,119 @@ public class IITBHUMapFragment extends Fragment implements
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
+    //Nested class used for storing map data
+    private class Place {
+        private String name;
+        private LatLng point;
+
+        Place(String nameOfPlace, LatLng latLngOfPlace) {
+            name = nameOfPlace;
+            point = latLngOfPlace;
+        }
+
+        String getName() {
+            return name;
+        }
+
+        LatLng getPoint() {
+            return point;
+        }
+    }
+
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private static final String TAG = com.google.android.gms.maps.MapFragment.class.getSimpleName();
 
-    final Map<String , LatLng> hostelLocations = new HashMap<String, LatLng>(){{
-        put("C_V_RAMAN" , new LatLng(25.265912276191887, 82.9862916469574));
-        put("MORVI", new LatLng(25.265077860079725, 82.98618972301483));
-        put("DHANRAJGIRI", new LatLng(25.26392325158243, 82.98608243465424));
-        put("RAMANUJAN", new LatLng(25.263578807425237, 82.9848861694336));
-        put("ASN_BOSE", new LatLng(25.263442970024144, 82.98393130302429));
-        put("VISVESWARAYYA", new LatLng(25.262744375275034, 82.98392057418823));
-        put("GANDHI_SMRITI_MAHILA", new LatLng(25.260580646589776, 82.98429071903229));
-        put("RAJPUTANA", new LatLng(25.262385373632068, 82.98617899417877));
-        put("ARYABHATTA", new LatLng(25.26464124471217, 82.98425316810608));
-        put("LIMBDI", new LatLng(25.261301085198394, 82.9863291978836));
-        put("SC_DE", new LatLng(25.260148866519867, 82.98673689365387));
-        put("VIVEKANANDA", new LatLng(25.259178568626197, 82.9871016740799));
-        put("VISHVAKARMA", new LatLng(25.25782984167578, 82.98563718795776));
-        put("IIT_GUEST_HOUSE", new LatLng(25.259610352146275, 82.98519730567932));
-        put("GRT_APARTMENTS", new LatLng(25.258513910094607, 82.9848164319992));
-        put("SALUJA", new LatLng(25.270190994281233, 82.98426389694214));
-        put("LIMBDI_GIRLS", new LatLng(25.260766214518878, 82.98562176525593));
-        put("IIT_GIRLS",new LatLng(25.261187, 82.983791));}};
+    final Map<String, Place> hostelLocations = new HashMap<String, Place>() {{
+        put("C_V_RAMAN", new Place("C V Raman Hostel", new LatLng(25.265912276191887, 82.9862916469574)));
+        put("MORVI", new Place("Morvi Hostel", new LatLng(25.265077860079725, 82.98618972301483)));
+        put("DHANRAJGIRI", new Place("Dhanrajgiri Hostel", new LatLng(25.26392325158243, 82.98608243465424)));
+        put("RAMANUJAN", new Place("Ramanujan Hostel", new LatLng(25.263578807425237, 82.9848861694336)));
+        put("ASN_BOSE", new Place("ASN Bose Hostel", new LatLng(25.263442970024144, 82.98393130302429)));
+        put("VISVESWARAYYA", new Place("Vishveshwarya Hostel", new LatLng(25.262744375275034, 82.98392057418823)));
+        put("GANDHI_SMRITI_MAHILA", new Place("Gandhi Smriti Hostel", new LatLng(25.260580646589776, 82.98429071903229)));
+        put("RAJPUTANA", new Place("Rajputana Hostel", new LatLng(25.262385373632068, 82.98617899417877)));
+        put("ARYABHATTA", new Place("Aryabhatta Hostel", new LatLng(25.26464124471217, 82.98425316810608)));
+        put("LIMBDI", new Place("Limbdi Hostel", new LatLng(25.261301085198394, 82.9863291978836)));
+        put("SC_DE", new Place("SC Dey Hostel", new LatLng(25.260148866519867, 82.98673689365387)));
+        put("VIVEKANANDA", new Place("Vivekananda Hostel", new LatLng(25.259178568626197, 82.9871016740799)));
+        put("VISHVAKARMA", new Place("Vishvakarma Hostel", new LatLng(25.25782984167578, 82.98563718795776)));
+        put("IIT_GUEST_HOUSE", new Place("IIT Guest House", new LatLng(25.259610352146275, 82.98519730567932)));
+        put("GRT_APARTMENTS", new Place("GRT Apartments", new LatLng(25.258513910094607, 82.9848164319992)));
+        put("SALUJA", new Place("Saluja Hostel", new LatLng(25.270190994281233, 82.98426389694214)));
+        put("LIMBDI_GIRLS", new Place("Limbdi Girls Hostel", new LatLng(25.260766214518878, 82.98562176525593)));
+        put("IIT_GIRLS", new Place("IIT Girls Hostel", new LatLng(25.261187, 82.983791)));
+    }};
 
-    final Map<String , LatLng> ltLocations =new HashMap<String, LatLng>(){{
-        put("SWATANTRATA_BHAVAN", new LatLng(25.26073589298122, 82.99452066421509));
-
-        //Lecture Theatres
-        put("G11", new LatLng(25.26123559095607, 82.99245402216911));
-        put("G14", new LatLng(25.26172800976422, 82.99058854579926));
-        put("LT3", new LatLng(25.25884866557616, 82.99267530441284));
-        put("LT1", new LatLng(25.260275004676558, 82.99107670783997));}};
-
-    final Map<String, LatLng> atmLocations =new HashMap<String, LatLng>(){{
-        put("ATM_HG1", new LatLng(25.2622883459788, 82.9817345738411));
-        put("ATM_HG2", new LatLng(25.26173468044865, 82.98157699406147));
-        put("ATM_VT", new LatLng(25.26537378738049, 82.98967659473419));
-        put("ATM_eCorner", new LatLng(25.26386261007635, 82.9949739575386));}};
-
-    final Map<String,LatLng> departmentLocations = new HashMap<String, LatLng>(){{
+    final Map<String, Place> departmentLocations = new HashMap<String, Place>() {{
         //Departments
-        put("ARCHITECHTURE", new LatLng(25.261633, 82.991648));
-        put("CERAMIC", new LatLng(25.259783, 82.992806));
-        put("CHEMICAL", new LatLng(25.259578, 82.993618));
-        put("CIVIL", new LatLng(25.263186, 82.991962));
-        put("CSE", new LatLng(25.262514, 82.993421));
-        put("ELECTRICAL", new LatLng(25.261367, 82.992037));
-        put("ELECTRONICS", new LatLng(25.262856, 82.990626));
-        put("MECHANICAL", new LatLng(25.261777, 82.991742));
-        put("METALLURGICAL", new LatLng(25.268978, 82.992557));
-        put("MINING", new LatLng(25.269711, 82.992847));
-        put("PHARMACEUTICAL", new LatLng(25.258771, 82.993556));
+        put("ARCHITECHTURE", new Place("Department of Architecture, Planning and Design", new LatLng(25.261633, 82.991648)));
+        put("CERAMIC", new Place("Department of Ceramic Engineering", new LatLng(25.259783, 82.992806)));
+        put("CHEMICAL", new Place("Department of Chemical Engineering & Technology", new LatLng(25.259578, 82.993618)));
+        put("CIVIL", new Place("Department of Civil Engineering", new LatLng(25.263186, 82.991962)));
+        put("CSE", new Place("Department of Computer Science and Engineering", new LatLng(25.262514, 82.993421)));
+        put("ELECTRICAL", new Place("Department of Electrical Engineering", new LatLng(25.261367, 82.992037)));
+        put("ELECTRONICS", new Place("Department of Electronics Engineering", new LatLng(25.262856, 82.990626)));
+        put("MECHANICAL", new Place("Department of Mechanical Engineering", new LatLng(25.261777, 82.991742)));
+        put("METALLURGICAL", new Place("Department of Metallurgical Engineering", new LatLng(25.268978, 82.992557)));
+        put("MINING", new Place("Department of Mining Engineering", new LatLng(25.269711, 82.992847)));
+        put("PHARMACEUTICAL", new Place("Department of Pharmaceutical Engineering and Technology", new LatLng(25.258771, 82.993556)));
+        put("CHEMISTRY", new Place("Department of Chemistry", new LatLng(25.261048, 82.991786)));
+        put("MATHEMATICAL_SCIENCES", new Place("Department of Mathematical Sciences", new LatLng(25.261873, 82.993501)));
+        put("PHYSICS", new Place("Department of Physics", new LatLng(25.259545, 82.992941)));
+        put("BIOCHEMICAL", new Place("School of Biochemical Engineering", new LatLng(25.258507, 82.994231)));
+        put("BIOMEDICAL", new Place("School of Biomedical Engineering", new LatLng(25.261720, 82.994487)));
+        put("MATERIALS_SCIENCE", new Place("School of Materials Science and Technology", new LatLng(25.259609, 82.991511)));
+        put("HUMANISTIC_STUDIES", new Place("Department of Humanistic Studies", new LatLng(25.261603, 82.990653)));
+    }};
 
-        put("CHEMISTRY", new LatLng(25.261048, 82.991786));
-        put("MATHEMATICAL_SCIENCES", new LatLng(25.261873, 82.993501));
-        put("PHYSICS", new LatLng(25.259545, 82.992941));
+    final Map<String, Place> ltLocations = new HashMap<String, Place>() {{
+        //Lecture Theatres
+        put("G11", new Place("G-11", new LatLng(25.26123559095607, 82.99245402216911)));
+        put("G14", new Place("G-14", new LatLng(25.26172800976422, 82.99058854579926)));
+        put("LT3", new Place("Lecture Theatre 3", new LatLng(25.25884866557616, 82.99267530441284)));
+        put("LT1", new Place("Lecture Theatre 1", new LatLng(25.260275004676558, 82.99107670783997)));
+    }};
 
-        put("BIOCHEMICAL", new LatLng(25.258507, 82.994231));
-        put("BIOMEDICAL", new LatLng(25.261720, 82.994487));
-        put("MATERIALS_SCIENCE", new LatLng(25.259609, 82.991511));
+    final Map<String, Place> atmLocations = new HashMap<String, Place>() {{
+        put("ATM_HG1", new Place("ICICI ATM", new LatLng(25.2622883459788, 82.9817345738411)));
+        put("ATM_HG2", new Place("SBI ATM", new LatLng(25.26173468044865, 82.98157699406147)));
+        put("ATM_VT", new Place("Bank of Baroda ATM", new LatLng(25.26537378738049, 82.98967659473419)));
+        put("ATM_eCorner", new Place("SBI eCorner", new LatLng(25.26386261007635, 82.9949739575386)));
+    }};
 
-        put("HUMANISTIC_STUDIES", new LatLng(25.261603, 82.990653));}};
+    final Map<String, Place> templeLocations = new HashMap<String, Place>() {{
+        put("VT", new Place("", new LatLng(25.266083, 82.987908)));
+    }};
 
+    final Map<String, Place> cafeLocations = new HashMap<String, Place>() {{
+        put("DG", new Place("DG Corner", new LatLng(25.263215, 82.986463)));
+        put("LC", new Place("Limbdi Corner", new LatLng(25.260667, 82.986883)));
+        put("CCD", new Place("Café Coffee Day", new LatLng(25.258257, 82.986542)));
+    }};
 
-    final Map<String, LatLng> otherLocations =new HashMap<String, LatLng>(){{
-        put("BHU_PETROL", new LatLng(25.278200, 82.996613));
-        put("SUNDERLAL_HOSPITAL", new LatLng(25.276436, 82.999643));
-        put("HG", new LatLng(25.262944, 82.982306));
-        put("DG", new LatLng(25.263215, 82.986463));
-        put("LC", new LatLng(25.260667, 82.986883));
-        put("VT", new LatLng(25.266083, 82.987908));
-        put("HEALTH_CENTER", new LatLng(25.270028, 82.988653));
-        put("GTAC", new LatLng(25.259717, 82.984984));
-        put("CCD", new LatLng(25.258257, 82.986542));
-        put("RAJPUTANA_GROUND", new LatLng(25.262191, 82.987291));
-        put("GYMKHANAA_GROUND", new LatLng(25.260313, 82.988470));
-        put("ADV_GROUND", new LatLng(25.258717674410665, 82.99015402793884));}};
+    final Map<String, Place> hospitalLocations = new HashMap<String, Place>() {{
+        put("SUNDERLAL_HOSPITAL", new Place("Sir Sunderlal Hospital", new LatLng(25.276436, 82.999643)));
+        put("HEALTH_CENTER", new Place("Student's Health Center", new LatLng(25.270028, 82.988653)));
+    }};
+
+    final Map<String, Place> petrolLocations = new HashMap<String, Place>() {{
+        put("BHU_PETROL", new Place("BHU Petrol Pump", new LatLng(25.278200, 82.996613)));
+    }};
+
+    final Map<String, Place> groundLocations = new HashMap<String, Place>() {{
+        put("RAJPUTANA_GROUND", new Place("Rajputana Grounds", new LatLng(25.262191, 82.987291)));
+        put("GYMKHANAA_GROUND", new Place("Gymkhana Grounds", new LatLng(25.260313, 82.988470)));
+        put("ADV_GROUND", new Place("ADV Grounds", new LatLng(25.258717674410665, 82.99015402793884)));
+    }};
+
+    final Map<String, Place> otherLocations = new HashMap<String, Place>() {{
+        put("SWATANTRATA_BHAVAN", new Place("Swatantrata Bhavan", new LatLng(25.26073589298122, 82.99452066421509)));
+        put("HG", new Place("Hyderabad Gate", new LatLng(25.262944, 82.982306)));
+        put("GTAC", new Place("GTAC", new LatLng(25.259717, 82.984984)));
+    }};
 
     private String location = null;
-    private LatLng place = null;
 
     FloatingActionMenu filterFAM;
     FloatingActionButton filterHostel, filterOther, filterDepartment, filterLT;
@@ -147,6 +179,7 @@ public class IITBHUMapFragment extends Fragment implements
     BitmapDescriptor cafeMarker;
     BitmapDescriptor hospitalMarker;
     BitmapDescriptor petrolMarker;
+    BitmapDescriptor groundMarker;
     BitmapDescriptor otherMarker;
 
 
@@ -190,7 +223,8 @@ public class IITBHUMapFragment extends Fragment implements
         templeMarker = BitmapDescriptorFactory.fromResource(R.drawable.temple_icon);
         cafeMarker = BitmapDescriptorFactory.fromResource(R.drawable.sharp_local_cafe_black_24);
         hospitalMarker = BitmapDescriptorFactory.fromResource(R.drawable.sharp_local_hospital_black_24);
-        petrolMarker =BitmapDescriptorFactory.fromResource(R.drawable.baseline_local_gas_station_black_24);
+        petrolMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_local_gas_station_black_24);
+        groundMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_24);
         otherMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_24);
 
         mapFragment.getMapAsync(this);
@@ -212,7 +246,7 @@ public class IITBHUMapFragment extends Fragment implements
                     markLT();
                     markAtms();
                     markTemples();
-                    markEateries();
+                    markCafe();
                     markHospitals();
                     markPetrol();
                     markOther();
@@ -226,9 +260,10 @@ public class IITBHUMapFragment extends Fragment implements
                 mMap.clear();
                 markAtms();
                 markTemples();
-                markEateries();
+                markCafe();
                 markHospitals();
                 markPetrol();
+                markGround();
                 markOther();
                 filterFAM.close(true);
             }
@@ -266,7 +301,7 @@ public class IITBHUMapFragment extends Fragment implements
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng targetLocation = otherLocations.get("LC");
+        LatLng targetLocation = cafeLocations.get("LC").getPoint();
 
         mMap = googleMap;
         try {
@@ -292,25 +327,61 @@ public class IITBHUMapFragment extends Fragment implements
         markLT();
         markAtms();
         markTemples();
-        markEateries();
+        markCafe();
         markHospitals();
         markPetrol();
+        markGround();
         markOther();
 
         /*
             if backend provides name of place as " " or "Not_Given"
             then only map will be opened without any InfoWindow
          */
-        if (place == null || place.equals(" ") || place.equals("Not_Given")) { }
-        else {
-               if ((targetLocation = hostelLocations.get(place))!=null);
-               else if ((targetLocation = departmentLocations.get(place))!=null);
-               else if ((targetLocation = ltLocations.get(place))!=null);
-               else if ((targetLocation = atmLocations.get(place))!=null);
-               else if ((targetLocation = otherLocations.get(place))!=null);
-                   
+        if (location == null || location.trim().isEmpty() || location.trim().equalsIgnoreCase("nolocation")
+                || location.trim().equalsIgnoreCase("not_given") || location.trim().equalsIgnoreCase("no_location")) {
+        } else {
+            if (hostelLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(hostelLocations.get(location).getPoint()).title(groundLocations.get(location).getName())
+                        .icon(hostelMarker)).showInfoWindow();
+                targetLocation = hospitalLocations.get(location).getPoint();
+            } else if (departmentLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(departmentLocations.get(location).getPoint()).title(departmentLocations.get(location).getName())
+                        .icon(departmentMarker)).showInfoWindow();
+                targetLocation = departmentLocations.get(location).getPoint();
+            } else if (ltLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(ltLocations.get(location).getPoint()).title(ltLocations.get(location).getName())
+                        .icon(ltMarker)).showInfoWindow();
+                targetLocation = ltLocations.get(location).getPoint();
+            } else if (atmLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(atmLocations.get(location).getPoint()).title(atmLocations.get(location).getName())
+                        .icon(atmMarker)).showInfoWindow();
+                targetLocation = atmLocations.get(location).getPoint();
+            } else if (templeLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(templeLocations.get(location).getPoint()).title(templeLocations.get(location).getName())
+                        .icon(templeMarker)).showInfoWindow();
+                targetLocation = templeLocations.get(location).getPoint();
+            } else if (cafeLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(cafeLocations.get(location).getPoint()).title(cafeLocations.get(location).getName())
+                        .icon(cafeMarker)).showInfoWindow();
+                targetLocation = cafeLocations.get(location).getPoint();
+            } else if (hospitalLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(hospitalLocations.get(location).getPoint()).title(hospitalLocations.get(location).getName())
+                        .icon(hospitalMarker)).showInfoWindow();
+                targetLocation = hospitalLocations.get(location).getPoint();
+            } else if (petrolLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(petrolLocations.get(location).getPoint()).title(petrolLocations.get(location).getName())
+                        .icon(petrolMarker)).showInfoWindow();
+                targetLocation = petrolLocations.get(location).getPoint();
+            } else if (groundLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(groundLocations.get(location).getPoint()).title(groundLocations.get(location).getName())
+                        .icon(groundMarker)).showInfoWindow();
+                targetLocation = groundLocations.get(location).getPoint();
+            } else if (otherLocations.containsKey(location)) {
+                mMap.addMarker(new MarkerOptions().position(otherLocations.get(location).getPoint()).title(otherLocations.get(location).getName())
+                        .icon(otherMarker)).showInfoWindow();
+                targetLocation = otherLocations.get(location).getPoint();
+            }
         }
-
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(targetLocation)
                 .zoom(17)
@@ -385,83 +456,53 @@ public class IITBHUMapFragment extends Fragment implements
     }
 
     private void markDepartments() {
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("ARCHITECHTURE")).title("Department of Architecture, Planning and Design").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("CERAMIC")).title("Department of Ceramic Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("CHEMICAL")).title("Department of Chemical Engineering & Technology").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("CIVIL")).title("Department of Civil Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("CSE")).title("Department of Computer Science and Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("ELECTRICAL")).title("Department of Electrical Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("ELECTRONICS")).title("Department of Electronics Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("MECHANICAL")).title("Department of Mechanical Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("METALLURGICAL")).title("Department of Metallurgical Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("MINING")).title("Department of Mining Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("PHARMACEUTICAL")).title("Department of Pharmaceutical Engineering and Technology").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("CHEMISTRY")).title("Department of Chemistry").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("MATHEMATICAL_SCIENCES")).title("Department of Mathematical Sciences").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("PHYSICS")).title("Department of Physics").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("BIOCHEMICAL")).title("School of Biochemical Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("BIOMEDICAL")).title("School of Biomedical Engineering").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("MATERIALS_SCIENCE")).title("School of Materials Science and Technology").icon(departmentMarker));
-        mMap.addMarker(new MarkerOptions().position(departmentLocations.get("HUMANISTIC_STUDIES")).title("Department of Humanistic Studies").icon(departmentMarker));
+        for (String key : departmentLocations.keySet())
+                mMap.addMarker(new MarkerOptions().position(departmentLocations.get(key).getPoint()).title(departmentLocations.get(key).getName()).icon(departmentMarker));
     }
 
     private void markHostels() {
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("C_V_RAMAN")).title("C V Raman Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("ARYABHATTA")).title("Aryabhatta Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("MORVI")).title("Morvi Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("DHANRAJGIRI")).title("Dhanrajgiri Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("RAJPUTANA")).title("Rajputana Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("RAMANUJAN")).title("Ramanujan Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("ASN_BOSE")).title("ASN Bose Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("VISVESWARAYYA")).title("Visveswarayya Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("GANDHI_SMRITI_MAHILA")).title("Gandhi Smriti Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("LIMBDI")).title("Limbdi Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("SC_DE")).title("SC De Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("VIVEKANANDA")).title("Vivekananda Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("VISHVAKARMA")).title("Vishvakarma Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("GANDHI_SMRITI_MAHILA")).title("Gandhi Smriti Mahila Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("IIT_GUEST_HOUSE")).title("IIT Guest House").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("SALUJA")).title("Saluja Girls Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("LIMBDI_GIRLS")).title("Limbdi Girls Hostel").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("GRT_APARTMENTS")).title("GRT Apartments").icon(hostelMarker));
-        mMap.addMarker(new MarkerOptions().position(hostelLocations.get("IIT_GIRLS")).title("IIT Girls Hostel").icon(hostelMarker));
+        for (String key : hostelLocations.keySet())
+                mMap.addMarker(new MarkerOptions().position(hostelLocations.get(key).getPoint()).title(hostelLocations.get(key).getName()).icon(hostelMarker));
     }
 
     private void markAtms() {
-        mMap.addMarker(new MarkerOptions().position(atmLocations.get("ATM_eCorner")).title("SBI eCorner").icon(atmMarker));
-        mMap.addMarker(new MarkerOptions().position(atmLocations.get("ATM_HG1")).title("ICICI ATM").icon(atmMarker));
-        mMap.addMarker(new MarkerOptions().position(atmLocations.get("ATM_HG2")).title("SBI ATM").icon(atmMarker));
-        mMap.addMarker(new MarkerOptions().position(atmLocations.get("ATM_VT")).title("Bank of Baroda ATM").icon(atmMarker));
+        for (String key : atmLocations.keySet())
+            mMap.addMarker(new MarkerOptions().position(atmLocations.get(key).getPoint()).title(atmLocations.get(key).getName()).icon(atmMarker));
     }
 
     private void markLT() {
-        mMap.addMarker(new MarkerOptions().position(ltLocations.get("LT1")).title("Lecture Theater 1").icon(ltMarker));
-        mMap.addMarker(new MarkerOptions().position(ltLocations.get("LT3")).title("Lecture Theater 3").icon(ltMarker));
-        mMap.addMarker(new MarkerOptions().position(ltLocations.get("G11")).title("G-11").icon(ltMarker));
-        mMap.addMarker(new MarkerOptions().position(ltLocations.get("G14")).title("G-14").icon(ltMarker));
+        for (String key : ltLocations.keySet())
+            mMap.addMarker(new MarkerOptions().position(ltLocations.get(key).getPoint()).title(ltLocations.get(key).getName()).icon(ltMarker));
     }
 
     private void markTemples(){
-        mMap.addMarker(new MarkerOptions().position(otherLocations.get("VT")).title("Vishwanath Temple (VT)").icon(templeMarker));
+        for (String key : templeLocations.keySet())
+            mMap.addMarker(new MarkerOptions().position(templeLocations.get(key).getPoint()).title(templeLocations.get(key).getName()).icon(templeMarker));
     }
 
     private void markPetrol(){
-        mMap.addMarker(new MarkerOptions().position(otherLocations.get("BHU_PETROL")).title("BHU Petrol Pump").icon(petrolMarker));
+        for (String key : petrolLocations.keySet())
+            mMap.addMarker(new MarkerOptions().position(petrolLocations.get(key).getPoint()).title(petrolLocations.get(key).getName()).icon(petrolMarker));
     }
 
-    private void markEateries(){
-        mMap.addMarker(new MarkerOptions().position(otherLocations.get("DG")).title("DG").icon(cafeMarker));
-        mMap.addMarker(new MarkerOptions().position(otherLocations.get("LC")).title("LC").icon(cafeMarker));
-        mMap.addMarker(new MarkerOptions().position(otherLocations.get("CCD")).title("Cafe Coffee Day").icon(cafeMarker));
+    private void markCafe(){
+        for (String key : cafeLocations.keySet())
+            mMap.addMarker(new MarkerOptions().position(cafeLocations.get(key).getPoint()).title(cafeLocations.get(key).getName()).icon(cafeMarker));
     }
 
     private void markHospitals(){
-        mMap.addMarker(new MarkerOptions().position(otherLocations.get("SUNDERLAL_HOSPITAL")).title("Sir Sunderlal Hospital").icon(hospitalMarker));
-        mMap.addMarker(new MarkerOptions().position(otherLocations.get("HEALTH_CENTER")).title("Student's Health Center").icon(hospitalMarker));
+        for (String key : hospitalLocations.keySet())
+            mMap.addMarker(new MarkerOptions().position(hospitalLocations.get(key).getPoint()).title(hospitalLocations.get(key).getName()).icon(hospitalMarker));
+    }
+
+    private void markGround() {
+        for (String key : groundLocations.keySet())
+            mMap.addMarker(new MarkerOptions().position(groundLocations.get(key).getPoint()).title(groundLocations.get(key).getName()).icon(groundMarker));
     }
 
     private void markOther(){
-        mMap.addMarker(new MarkerOptions().position(otherLocations.get("HG")).title("Hyderabad Gate").icon(otherMarker));
+        for (String key : otherLocations.keySet())
+            mMap.addMarker(new MarkerOptions().position(otherLocations.get(key).getPoint()).title(otherLocations.get(key).getName()).icon(otherMarker));
     }
 
     private void createCustomAnimation() {
