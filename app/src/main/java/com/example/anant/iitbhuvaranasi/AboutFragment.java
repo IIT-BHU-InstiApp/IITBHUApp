@@ -43,7 +43,7 @@ public class AboutFragment extends Fragment {
         super.onStart();
 
         toolbar = getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("About");
+        toolbar.setTitle("About the Developers");
 
         final Context context = getContext();
 
@@ -95,7 +95,19 @@ public class AboutFragment extends Fragment {
         aboutRecyclerView.setLayoutManager(manager);
     }
 
- /*   @Override
+    @Override
+    public void onResume() {
+        toolbar.setTitle("About the Developers");
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        toolbar.setTitle("IIT(BHU) Varanasi");
+        super.onStop();
+    }
+
+    /*   @Override
     public void onStop() {
         super.onStop();
 
