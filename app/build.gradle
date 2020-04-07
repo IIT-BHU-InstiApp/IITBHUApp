@@ -7,10 +7,10 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-   /* compileOptions {
+    compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
-    }*/
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.anant.iitbhuvaranasi"

@@ -143,7 +143,7 @@ public class FoundFragment extends Fragment {
 
         UserImage = new ArrayList<>();
 
-        ownerName.setHint("Owner's Name (If Known)");
+        ownerName.setHint("Founder's Name ");
         foundItem.setHint("Found Item");
         location.setHint("Found at - Location");
         contact.setHint("Your Contact Number");
@@ -168,7 +168,7 @@ public class FoundFragment extends Fragment {
 
 
         List<String> Branch = new ArrayList<>();
-        Branch.add(0, "Owner's Branch (If Known)");
+        Branch.add(0, "Founder Branch");
         Branch.add("Architecture, Planning and Design");
         Branch.add("Biochemical Engineering");
         Branch.add("Biomedical Engineering");

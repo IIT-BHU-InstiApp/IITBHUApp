@@ -107,6 +107,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         location_button = (ImageButton) findViewById(R.id.location);
         description_event=findViewById(R.id.event_page_description);
         location_button.setOnClickListener(this);
+        venue_event.setOnClickListener(this);
         //time_event = (TextView) findViewById(R.id.event_time);
         clock_button = (ImageButton) findViewById(R.id.clock);
         clock_button.setOnClickListener(this);
@@ -273,6 +274,14 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
 
 
             case R.id.location:
+                startActivity(new Intent(this,FragmentSupportActivity.class));
+               /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
+                Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);*/
+                break;
+
+            case R.id.event_venue:
                 startActivity(new Intent(this,FragmentSupportActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
