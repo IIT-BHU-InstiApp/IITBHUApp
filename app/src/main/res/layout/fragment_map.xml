@@ -88,7 +88,7 @@
             android:src="@drawable/baseline_place_white_24dp"
             fab:fab_colorNormal="#808000"
             fab:fab_colorPressed="@color/colorPrimary"
-            fab:fab_label="ATMs"
+            fab:fab_label="Other"
             fab:fab_size="mini" />
 
 
