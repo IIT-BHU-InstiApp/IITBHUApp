@@ -140,6 +140,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+    private void itemSelectionNavigationView() {
+        navigationView.getMenu().getItem(track).setChecked(true);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -194,7 +197,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setVisibility(View.GONE);
                     x++;}
                 else{
-                    navigationView.getMenu().getItem(track).setChecked(true);
+                    itemSelectionNavigationView();
                     Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
                     toast.show();
 
@@ -213,7 +216,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     bottomNavigationView.setVisibility(View.GONE);
                     x++;}
                 else{
-                    navigationView.getMenu().getItem(track).setChecked(true);
+                    itemSelectionNavigationView();
                     Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
                     toast.show();
 
@@ -290,6 +293,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                     break;
             case R.id.nav_logout:
+                SignInActivity.guestLoginChecker = 0;
                 mGoogleSignInClient.signOut()
                         .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                             @Override
@@ -352,13 +356,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             switch (item.getItemId()) {
                 case R.id.id_card:
-                    selectedFragment = new IDCardFragment();
+                    if(SignInActivity.guestLoginChecker == 1){
 
+                        selectedFragment = new FeedFragment();
+                        Toast.makeText(getApplicationContext(),"You need to Login for this feature",Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        selectedFragment = new IDCardFragment();
+                    }
 
                     break;
 
                 case R.id.feed:
-                    selectedFragment = new FeedFragment();
+
+                        selectedFragment = new FeedFragment();
 
                     break;
 
