@@ -92,7 +92,8 @@
                     android:layout_height=".5dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:background="@android:color/black" />
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grey"/>
 
                 <TextView
                     android:id="@+id/owner_information"
@@ -202,6 +203,14 @@
                     android:minLines="1"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grey"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/contact_layout"

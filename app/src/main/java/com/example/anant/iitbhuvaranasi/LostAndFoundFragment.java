@@ -167,9 +167,9 @@ class LostFoundPageAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Lost Item Form";
+                return "Lost";
             case 1:
-                return "Found Item Form";
+                return "Found";
             default:
                 return null;
         }

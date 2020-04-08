@@ -8,197 +8,190 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Links from "
-                android:textColor="@color/black_color"
-                android:textSize="16sp"
-                />
-
-            <TextView
-                android:id="@+id/iitbhu_link"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:text="iitbhu.ac.in"
-                android:linksClickable="false"
-                android:textColorLink="@android:color/holo_blue_light"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                />
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/academic_clickable"
-            android:clickable="true"
+            android:id="@+id/iitbhu_link"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-            android:text="Academic"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:singleLine="true"
+            android:text="Important links from iitbhu.ac.in"
+            android:textColor="@color/black_color"
+            android:textSize="21sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-
             android:background="?android:attr/listDivider" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-
-            android:id="@+id/academic_layout">
-
-        <TextView
-            android:id="@+id/academic_links"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:text="Academic Links"
-            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider" />
-
-        <TextView
-            android:id="@+id/grade_report"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:text="Grade Report (Intranet)"
-            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider" />
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:id="@+id/academic_clickable"
+                android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 android:gravity="center_vertical"
                 android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="Academic Calender"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-            <TextView
-                android:id="@+id/academic_calender_odd"
-                android:gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:text="Odd"
-                android:background="?attr/selectableItemBackground"
+                android:text="Academic"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
-               />
-            <TextView
-                android:id="@+id/academic_calender_even"
-                android:gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:text="Even"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="?attr/selectableItemBackground"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                android:textSize="20sp" />
+
+
+
+            <LinearLayout
+                android:id="@+id/academic_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/academic_links"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="Academic Links"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/grade_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="Grade Report (Intranet)"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                        android:text="Academic Calender"
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+                    <TextView
+                        android:id="@+id/academic_calender_odd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:gravity="center_vertical"
+                        android:text="Odd"
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+
+
+                        android:textColor="@android:color/holo_blue_light" />
+
+                    <TextView
+                        android:id="@+id/academic_calender_even"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical"
+                        android:text="Even"
+
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+
+                        android:textColor="@android:color/holo_blue_light" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                        android:text="Academic Holidays"
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+                    <TextView
+                        android:id="@+id/academic_holidays_2019"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:gravity="center_vertical"
+                        android:text="2019"
+
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+
+                        android:textColor="@android:color/holo_blue_light" />
+
+                    <TextView
+                        android:id="@+id/academic_holidays_2020"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical"
+                        android:text="2020"
+
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                        android:textColor="@android:color/holo_blue_light" />
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             android:background="?android:attr/listDivider" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="Academic Holidays"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-            <TextView
-                android:id="@+id/academic_holidays_2019"
-                android:gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:text="2019"
-                android:background="?attr/selectableItemBackground"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-            <TextView
-                android:id="@+id/academic_holidays_2020"
-                android:gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:text="2020"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="?attr/selectableItemBackground"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />-->
-        </LinearLayout>
-
-
-    </LinearLayout>
-    </LinearLayout>
-
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="?android:attr/listDivider" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -207,148 +200,156 @@
 
             <TextView
                 android:id="@+id/wifi_lan"
-                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 android:gravity="center_vertical"
                 android:paddingStart="?android:attr/listPreferredItemPaddingStart"
                 android:text="Wi-Fi/LAN"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
                 android:textSize="20sp" />
+
             <LinearLayout
-                android:layout_width="match_parent"
                 android:id="@+id/wifi_clickable"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/wifi_lan_guide_link"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="Wi-Fi/LAN Guide"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider" />
+                <TextView
+                    android:id="@+id/wifi_lan_guide_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="Wi-Fi/LAN Guide"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-            <TextView
-                android:id="@+id/wifi_android"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="Wi-Fi Android Devices"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider" />
+                <TextView
+                    android:id="@+id/wifi_android"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="Wi-Fi Android Devices"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-            <TextView
-                android:id="@+id/wifi_win7"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="Wi-Fi Windows 7"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider" />
+                <TextView
+                    android:id="@+id/wifi_win7"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="Wi-Fi Windows 7"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-            <TextView
-                android:id="@+id/wifi_win10"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
 
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="Wi-Fi Windows 10"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                <TextView
+                    android:id="@+id/wifi_win10"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider" />
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="Wi-Fi Windows 10"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-            <TextView
-                android:id="@+id/lan_win"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="LAN Windows 7/8/10"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider" />
+                <TextView
+                    android:id="@+id/lan_win"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="LAN Windows 7/8/10"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-            <TextView
-                android:id="@+id/lan_ubuntu"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="LAN Ubuntu"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?android:attr/listDivider" />
+                <TextView
+                    android:id="@+id/lan_ubuntu"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="LAN Ubuntu"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-            <TextView
-                android:id="@+id/lan_mac"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                android:text="LAN Mac"
-                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-        </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/lan_mac"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                    android:text="LAN Mac"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            </LinearLayout>
         </LinearLayout>
 
         <View
