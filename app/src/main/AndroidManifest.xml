@@ -23,8 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Developer_Info"></activity>
-        <activity android:name=".User_info" /> <!-- Remove above lines after moving to https -->
+        <activity android:name=".DeveloperInfo"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+        <!-- Remove above lines after moving to https -->
         <activity
             android:name=".IITbhu_Map"
             android:theme="@style/AppTheme.NoActionBar" />
