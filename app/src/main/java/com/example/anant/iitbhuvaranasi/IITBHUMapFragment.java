@@ -138,7 +138,7 @@ public class IITBHUMapFragment extends Fragment implements
     }};
 
     final Map<String, Place> templeLocations = new HashMap<String, Place>() {{
-        put("VT", new Place("", new LatLng(25.266083, 82.987908)));
+        put("VT", new Place("Vishwanath Temple", new LatLng(25.266083, 82.987908)));
     }};
 
     final Map<String, Place> cafeLocations = new HashMap<String, Place>() {{
@@ -193,6 +193,7 @@ public class IITBHUMapFragment extends Fragment implements
 
     public IITBHUMapFragment() {
         // Required empty public constructor
+        location=location23;
     }
 
     public IITBHUMapFragment(String locationOfEvent) {
@@ -350,9 +351,9 @@ public class IITBHUMapFragment extends Fragment implements
                 || location.trim().equalsIgnoreCase("not_given") || location.trim().equalsIgnoreCase("no_location")) {
         } else {
             if (hostelLocations.containsKey(location)) {
-                mMap.addMarker(new MarkerOptions().position(hostelLocations.get(location).getPoint()).title(groundLocations.get(location).getName())
+                mMap.addMarker(new MarkerOptions().position(hostelLocations.get(location).getPoint()).title(hostelLocations.get(location).getName())
                         .icon(hostelMarker)).showInfoWindow();
-                targetLocation = hospitalLocations.get(location).getPoint();
+                targetLocation = hostelLocations.get(location).getPoint();
             } else if (departmentLocations.containsKey(location)) {
                 mMap.addMarker(new MarkerOptions().position(departmentLocations.get(location).getPoint()).title(departmentLocations.get(location).getName())
                         .icon(departmentMarker)).showInfoWindow();

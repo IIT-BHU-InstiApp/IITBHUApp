@@ -128,6 +128,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         Log.d("notidsd",notifid);
         title_event.setText(obj.getTitle_event());
         map_location = obj.getMap_location();
+        Log.d("FeedFragmentMapData","Map Location from backend = "+map_location);
 
         description_event.setText(obj.getDescription_event());
         Glide.with(this)

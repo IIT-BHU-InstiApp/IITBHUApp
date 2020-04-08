@@ -74,7 +74,5 @@ public class Api_Response {
         });
         mRequestQueue.add(request);
         return apiresponse[0];
-
     }
-
 }
