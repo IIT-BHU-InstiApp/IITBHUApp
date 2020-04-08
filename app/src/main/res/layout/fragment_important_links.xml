@@ -15,14 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Important links from "
+                android:text="Links from "
                 android:textColor="@color/black_color"
-                android:textSize="24sp" />
+                android:textSize="16sp"
+                />
 
             <TextView
                 android:id="@+id/iitbhu_link"
@@ -32,7 +34,9 @@
                 android:text="iitbhu.ac.in"
                 android:linksClickable="false"
                 android:textColorLink="@android:color/holo_blue_light"
-                android:textSize="24sp" />
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                />
         </LinearLayout>
 
 
@@ -56,6 +60,12 @@
             android:text="Academic"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             android:textSize="20sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,10 +86,12 @@
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/grade_report"
@@ -93,20 +105,15 @@
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider" />
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?android:attr/listDivider" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
