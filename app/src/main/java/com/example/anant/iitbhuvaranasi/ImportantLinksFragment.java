@@ -3,28 +3,31 @@ package com.example.anant.iitbhuvaranasi;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.fragment.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.fragment.app.Fragment;
+
 import java.util.Objects;
 
 public class ImportantLinksFragment extends Fragment {
 
+
 //    String formattedDate;
-    LinearLayout wifi,academic_layout;
-    TextView wifi_guide,academic;
+    
      private Toolbar toolbar;
 
     @Override
@@ -45,6 +48,7 @@ public class ImportantLinksFragment extends Fragment {
         super.onStart();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,27 +58,36 @@ public class ImportantLinksFragment extends Fragment {
 //        Date c = Calendar.getInstance().getTime();
 //        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 //        formattedDate = df.format(c);
-        wifi = view.findViewById(R.id.wifi_clickable);
-        academic_layout = view.findViewById(R.id.academic_layout);
+        //    String formattedDate;
+        toolbar = (Toolbar) Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
+        LinearLayout wifi = view.findViewById(R.id.wifi_clickable);
+        LinearLayout academic_layout = view.findViewById(R.id.academic_layout);
         wifi.setVisibility(View.GONE);
-        academic = view.findViewById(R.id.academic_clickable);
-        wifi_guide = view.findViewById(R.id.wifi_lan);
-        expandCollapseText(academic,academic_layout);
-        expandCollapseText(wifi_guide,wifi);
-        toolbar = getActivity().findViewById(R.id.toolbar);
 
+        TextView academic = view.findViewById(R.id.academic_clickable);
+        TextView wifi_guide = view.findViewById(R.id.wifi_lan);
+        TextView iitbhuLink = view.findViewById(R.id.iitbhu_link);
+        expandCollapseText(academic, academic_layout);
+        expandCollapseText(wifi_guide, wifi);
 
+        SpannableString spannableString = new SpannableString("Important links from iitbhu.ac.in");
+        ClickableSpan link = new ClickableSpan() {
 
-        view.findViewById(R.id.iitbhu_link).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(@NonNull View widget) {
                 String url = "https://iitbhu.ac.in/";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
 
             }
-        });
+        };
+
+        spannableString.setSpan(link, 21, 33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Objects.requireNonNull(getContext()).getResources().getColor(R.color.holo_blue_light)), 21, 33, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        iitbhuLink.setText(spannableString);
+        iitbhuLink.setMovementMethod(LinkMovementMethod.getInstance());
+
 
         view.findViewById(R.id.academic_links).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +106,8 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "http://academics.iitbhu.ac.in/gmail_auth/index.php";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-               customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+
 
             }
         });
@@ -108,8 +122,9 @@ public class ImportantLinksFragment extends Fragment {
 
             }
         });
-       view.findViewById(R.id.academic_calender_even).setOnClickListener(new View.OnClickListener() {
-           @Override
+        view.findViewById(R.id.academic_calender_even).setOnClickListener(new View.OnClickListener() {
+            @Override
+
             public void onClick(View v) {
                 String url = "https://iitbhu.ac.in/contents/institute/academics/academic_info/doc/calendar_19-20_even.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
@@ -127,7 +142,8 @@ public class ImportantLinksFragment extends Fragment {
                 customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
 
             }
-        });view.findViewById(R.id.academic_holidays_2020).setOnClickListener(new View.OnClickListener() {
+        });
+        view.findViewById(R.id.academic_holidays_2020).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = "https://iitbhu.ac.in/contents/institute/others/misc/holidays_2020.pdf";
@@ -223,18 +239,16 @@ public class ImportantLinksFragment extends Fragment {
         });
 
 
-
-
         return view;
     }
-    void expandCollapseText(final TextView title,final LinearLayout text){
+
+    void expandCollapseText(final TextView title, final LinearLayout text) {
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(text.isShown()){
+                if (text.isShown()) {
                     text.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     text.setVisibility(View.VISIBLE);
                 }
             }
