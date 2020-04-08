@@ -3,6 +3,7 @@ package com.example.anant.iitbhuvaranasi;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +25,25 @@ public class ImportantLinksFragment extends Fragment {
 //    String formattedDate;
     LinearLayout wifi,academic_layout;
     TextView wifi_guide,academic;
+     private Toolbar toolbar;
+
+    @Override
+    public void onStop() {
+        toolbar.setTitle("IIT(BHU) Varanasi");
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        toolbar.setTitle("Important Links");
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        toolbar.setTitle("Important Links");
+        super.onStart();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +61,8 @@ public class ImportantLinksFragment extends Fragment {
         wifi_guide = view.findViewById(R.id.wifi_lan);
         expandCollapseText(academic,academic_layout);
         expandCollapseText(wifi_guide,wifi);
+        toolbar = getActivity().findViewById(R.id.toolbar);
+
 
 
         view.findViewById(R.id.iitbhu_link).setOnClickListener(new View.OnClickListener() {
