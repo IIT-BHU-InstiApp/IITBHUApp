@@ -50,8 +50,8 @@ public class PORfestivals extends Fragment {
             number.setText(arrayList.get(i).getNumber());
             email.setText(arrayList.get(i).getEmail());
 
-            email.setTextColor(getResources().getColor(R.color.colorblue200));
-            number.setTextColor(getResources().getColor(R.color.colorblue200));
+            email.setTextColor(getResources().getColor(R.color.colorblue220));
+            number.setTextColor(getResources().getColor(R.color.colorblue220));
 
             number.setOnClickListener(new View.OnClickListener() {
                 @Override

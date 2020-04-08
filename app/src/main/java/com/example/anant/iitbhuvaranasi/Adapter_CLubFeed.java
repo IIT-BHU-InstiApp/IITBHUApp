@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.util.Pair;
@@ -17,11 +16,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +30,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 
 public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyViewHolder1> {
 
@@ -60,10 +56,6 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
 
         holder.title.setText(data.get(position).getTitle_event());
 
-        Random rnd = new Random();
-
-        holder.cardView.setCardBackgroundColor(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
-
 
         Glide.with(context1)
                 .load(data.get(position).getImage_event())
@@ -85,10 +77,10 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             e.printStackTrace();
         }
         final String newString = new SimpleDateFormat("E, dd MMM  hh:mm a").format(date2);
-       // String time = new SimpleDateFormat("HH mm ss").format(date2);
-          //starttime= Integer.valueOf(time);
+        // String time = new SimpleDateFormat("HH mm ss").format(date2);
+        //starttime= Integer.valueOf(time);
 
-       Log.d("6789",newString);
+        Log.d("6789",newString);
 
       /*  String date1 = data.get(position).getDate();
         String regex = "(\\d{4}-\\d{2}-\\d{2})";
@@ -107,8 +99,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             // Bad input
         }
 */
-        holder.date.setText(new SimpleDateFormat("E, dd MMM\nhh:mm a").format(date2));
-        holder.eventLocation.setText(data.get(position).getLocation());
+        holder.date.setText(newString);
 
 
 //        String month_name = month_date.format(date);
@@ -173,7 +164,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context1, Feedfragment_notifcation_Activity.class);
-                 ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation((Activity) context1, pairs);
+                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation((Activity) context1, pairs);
                 Gson gson = new Gson();
                 String json = gson.toJson(data.get(position));
                 // ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mcontext, pair1);
@@ -198,7 +189,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             }
         });
 
-        holder.date.setOnClickListener(new View.OnClickListener() {
+        holder.setReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addEventToCalender(data.get(position).getTitle_event().toString(),data.get(position).getDescription_event().toString(),
@@ -246,7 +237,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         holder.mapLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context1,Full_screen_imageActivity.class);
+                Intent intent = new Intent(context1,FragmentSupportActivity.class);
                 context1.startActivity(intent);
             }
         });
@@ -261,10 +252,8 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
     public class MyViewHolder1 extends RecyclerView.ViewHolder {
 
         public ImageView image;
-        public TextView title, date, eventLocation;
-        public ImageButton shareEvent, setReminder;
-        private LinearLayout mapLocation;
-        private CardView cardView;
+        public TextView title, date;
+        public ImageButton shareEvent, setReminder, mapLocation;
 
         public MyViewHolder1(@NonNull View itemView) {
             super(itemView);
@@ -272,10 +261,8 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             title = itemView.findViewById(R.id.event_title);
             shareEvent = itemView.findViewById(R.id.share_event_button2);
             date = itemView.findViewById(R.id.event_dates);
-            //setReminder = itemView.findViewById(R.id.calendar_setevent);
+            setReminder = itemView.findViewById(R.id.calendar_setevent);
             mapLocation = itemView.findViewById(R.id.navigate_button);
-            eventLocation = itemView.findViewById(R.id.event_location);
-            cardView = itemView.findViewById(R.id.short_information_card);
 
         }
     }
@@ -290,56 +277,56 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         }
     }
 
-        public void showAddEventToCalendarDialog(final String title, final String description, final String location,final String time) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context1);
-            LayoutInflater layoutInflater = LayoutInflater.from(context1);
-            View layout = layoutInflater.inflate(R.layout.calendar_dialog_checkbox, null);
-            dialogBuilder.setView(layout);
-            final CheckBox dontShowAgain = layout.findViewById(R.id.skip);
+    public void showAddEventToCalendarDialog(final String title, final String description, final String location,final String time) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context1);
+        LayoutInflater layoutInflater = LayoutInflater.from(context1);
+        View layout = layoutInflater.inflate(R.layout.calendar_dialog_checkbox, null);
+        dialogBuilder.setView(layout);
+        final CheckBox dontShowAgain = layout.findViewById(R.id.skip);
 
-            dialogBuilder.setTitle("Add to Calendar")
-                    .setMessage("You will be notified about this event by InstiApp. Do you also want to add this event to your calendar?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Adapter_CLubFeed.this.createAddToCalendarIntent(title,description,location,time);
-                            Adapter_CLubFeed.this.saveCalendarDialogPreference(dontShowAgain.isChecked(), true);
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            Adapter_CLubFeed.this.saveCalendarDialogPreference(dontShowAgain.isChecked(), false);
-                        }
-                    })
-                    .create()
-                    .show();
+        dialogBuilder.setTitle("Add to Calendar")
+                .setMessage("You will be notified about this event by InstiApp. Do you also want to add this event to your calendar?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Adapter_CLubFeed.this.createAddToCalendarIntent(title,description,location,time);
+                        Adapter_CLubFeed.this.saveCalendarDialogPreference(dontShowAgain.isChecked(), true);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Adapter_CLubFeed.this.saveCalendarDialogPreference(dontShowAgain.isChecked(), false);
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    public void createAddToCalendarIntent(String title,String description,String location,String time) {
+
+        DateFormat formatter = new SimpleDateFormat("E, dd MMM  hh:mm a");
+        long lnsTime = 0, lneTime = 0;
+        Date dateObject = null;
+        try {
+            dateObject = formatter.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        lnsTime = dateObject.getTime();
+        Calendar cal = Calendar.getInstance();
 
-        public void createAddToCalendarIntent(String title,String description,String location,String time) {
-
-            DateFormat formatter = new SimpleDateFormat("E, dd MMM  hh:mm a");
-            long lnsTime = 0, lneTime = 0;
-            Date dateObject = null;
-            try {
-                dateObject = formatter.parse(time);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            lnsTime = dateObject.getTime();
-            Calendar cal = Calendar.getInstance();
-
-            Intent intent = new Intent(Intent.ACTION_EDIT);
-            intent.setType("vnd.android.cursor.item/event");
-            intent.putExtra("beginTime", lnsTime);
-            Log.d("34567", String.valueOf(cal.getTimeInMillis()));
-            intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY,0);
-            intent.putExtra("endTime", lnsTime+60*60*1000*2);
-            intent.putExtra(CalendarContract.Events.TITLE, title);
-            intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
-            intent.putExtra(CalendarContract.Events.EVENT_LOCATION,location);
-            intent.putExtra("eventTimezone", "UTC/GMT +5:30");
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime", lnsTime);
+        Log.d("34567", String.valueOf(cal.getTimeInMillis()));
+        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY,0);
+        intent.putExtra("endTime", lnsTime+60*60*1000*2);
+        intent.putExtra(CalendarContract.Events.TITLE, title);
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION,location);
+        intent.putExtra("eventTimezone", "UTC/GMT +5:30");
          /*   startActivity(intent);
             Intent intent = new Intent(Intent.ACTION_INSERT);
             intent.setType("vnd.android.cursor.item/event");
@@ -352,25 +339,25 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
             intent.putExtra(CalendarContract.Events.EVENT_LOCATION,location);*/
 
-            context1.startActivity(intent);
-        }
+        context1.startActivity(intent);
+    }
 
-        public void saveCalendarDialogPreference(boolean dontAskAgain, boolean yes) {
-            SharedPreferences sharedPref =context1.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            if (!dontAskAgain) {
-                editor.putString(Constants.CALENDAR_DIALOG, Constants.CALENDAR_DIALOG_ALWAYS_ASK);
+    public void saveCalendarDialogPreference(boolean dontAskAgain, boolean yes) {
+        SharedPreferences sharedPref =context1.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        if (!dontAskAgain) {
+            editor.putString(Constants.CALENDAR_DIALOG, Constants.CALENDAR_DIALOG_ALWAYS_ASK);
+            editor.commit();
+        } else {
+            if (yes) {
+                editor.putString(Constants.CALENDAR_DIALOG, Constants.CALENDAR_DIALOG_YES);
                 editor.commit();
             } else {
-                if (yes) {
-                    editor.putString(Constants.CALENDAR_DIALOG, Constants.CALENDAR_DIALOG_YES);
-                    editor.commit();
-                } else {
-                    editor.putString(Constants.CALENDAR_DIALOG, Constants.CALENDAR_DIALOG_NO);
-                    editor.commit();
-                }
+                editor.putString(Constants.CALENDAR_DIALOG, Constants.CALENDAR_DIALOG_NO);
+                editor.commit();
             }
         }
+    }
 
 
 }

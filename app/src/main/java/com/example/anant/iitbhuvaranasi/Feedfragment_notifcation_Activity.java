@@ -44,14 +44,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class  Feedfragment_notifcation_Activity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView image_event,image_eventfullscreen;
-    String image,time;
+    String image,time,map_location;
+    public static String location2345 = null;
     boolean check;
     String event_title,event_description,event_date,event_venue,event_time;
     TextView title_event, description_event, date_event, venue_event, time_event, interested_count;
-    Button  interested_button;
+   // Button  interested_button;
     ImageButton share_button, location_button, clock_button;
     SingleVerticalData obj;
     private Animator currentAnimator;
@@ -107,15 +109,16 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         location_button = (ImageButton) findViewById(R.id.location);
         description_event=findViewById(R.id.event_page_description);
         location_button.setOnClickListener(this);
+        venue_event.setOnClickListener(this);
         //time_event = (TextView) findViewById(R.id.event_time);
         clock_button = (ImageButton) findViewById(R.id.clock);
         clock_button.setOnClickListener(this);
       //  go_button = (Button) findViewById(R.id.going_button);
     //    go_button.setOnClickListener(this);
-        interested_button = (Button) findViewById(R.id.interested_button);
-        interested_button.setOnClickListener(this);
+      //  interested_button = (Button) findViewById(R.id.interested_button);
+       // interested_button.setOnClickListener(this);
     //    going_count = (TextView) findViewById(R.id.going_count);
-        interested_count = (TextView) findViewById(R.id.interested_count);
+        //interested_count = (TextView) findViewById(R.id.interested_count);
     //    view_count = (TextView) findViewById(R.id.view_count);
        // title_event.setText(getIntent().getStringExtra("title"));
       //  date_event.setText(getIntent().getStringExtra("date"));
@@ -124,6 +127,8 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         Integer notif_id = Integer.valueOf(notifid);
         Log.d("notidsd",notifid);
         title_event.setText(obj.getTitle_event());
+        map_location = obj.getMap_location();
+
         description_event.setText(obj.getDescription_event());
         Glide.with(this)
                 .load(obj.getImage_event())
@@ -132,7 +137,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         date_event.setText(time);
         venue_event.setText(obj.getLocation());
        // view_count.setText(obj.getViewcount());
-        interested_count.setText(obj.getInterestedcount());
+//        interested_count.setText(obj.getInterestedcount());
         final JSONObject obj2 = new JSONObject();
         try {
             obj2.put("roll", 18085016);
@@ -153,7 +158,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         final Pair[] pairs = new Pair[1];
         pairs[0] = new Pair<View, String>(image_event, "fullscreen");
 
-        interested_button.setOnClickListener(new View.OnClickListener() {
+        /*interested_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -172,7 +177,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                         }
 
 
-                       /* Integer interest = 1;
+                       *//* Integer interest = 1;
                         try {
                             interest = response.getInt("status");
                         } catch (JSONException e) {
@@ -181,7 +186,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                         if (interest == 1) {
                             check = true;
                             interested_button.setBackgroundColor(Color.GRAY);
-                        }*/
+                        }*//*
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -191,7 +196,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 });
                 mRequestQueue.add(jsonObjectRequest);
             }
-        });
+        });*/
         image_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,11 +276,17 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
 
                 break;*/
 
-            case R.id.interested_button:
-
-                break;
 
             case R.id.location:
+                location2345 = map_location;
+                startActivity(new Intent(this,FragmentSupportActivity.class));
+               /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
+                Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);*/
+                break;
+
+            case R.id.event_venue:
                 startActivity(new Intent(this,FragmentSupportActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);

@@ -11,6 +11,7 @@
     <color name="black_color">#000000</color>
     <color name="white_color">#FFFFFF</color>
     <color name="greycolor600">#757575</color>
+    <color name="grey">#9A9A92</color>
 
 
     <color name="colorSecondary">#ffd740</color>
@@ -31,7 +32,10 @@
     <color name="colorblack">#000000</color>
     <color name="colorwhite">#ffffff</color>
     <color name="colorblue200">#90CAF9</color>
+    <color name="colorblue220">#55A4E4</color>
 
-    <color name="toolbar_color_control_normal">@color/colorGray</color>
     <!-- Added by Suryansh. -->
+    <color name="toolbar_color_control_normal">@color/colorGray</color>
+
+    <color name="holo_blue_light">#ff33b5e5</color>
 </resources>

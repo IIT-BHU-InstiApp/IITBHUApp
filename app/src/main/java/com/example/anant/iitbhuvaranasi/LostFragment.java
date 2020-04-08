@@ -13,8 +13,15 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +39,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -45,6 +53,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -66,20 +75,23 @@ import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_NAME;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_OWNER_BRANCH;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_OWNER_NAME;
 import static com.example.anant.iitbhuvaranasi.Constants.KEY_LOST_TO_CONTACT;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
+import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.addImage;
 import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.sendButton;
+
 
 public class LostFragment extends Fragment {
 
 
     private LinearLayout uploadedImageContainer;
-    private String branch,semester;
+    private String branch, semester, email, name1;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int CAPTURE_IMAGE_REQUEST =2;
-    private EditText ownerName,lostItem,contact,location,details;
-
+    private static final int CAPTURE_IMAGE_REQUEST = 2;
+    private static final int CAMERA_PERMISSION_REQUEST = 3;
+    private EditText ownerName, lostItem, contact, location, details;
     private TextView removeImage;
     private ArrayList<String> UserImage;
-    private Intent cameraIntent;
     private Dialog attachImageOption;
 
 
@@ -88,7 +100,7 @@ public class LostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lost_found_viewpager, container, false);
 
-        ownerName= view.findViewById(R.id.owner_name);
+        ownerName = view.findViewById(R.id.owner_name);
         location = view.findViewById(R.id.location);
         details = view.findViewById(R.id.details);
         contact = view.findViewById(R.id.contact);
@@ -98,26 +110,50 @@ public class LostFragment extends Fragment {
         Spinner branchSpinner = view.findViewById(R.id.branch);
         Spinner semesterSpinner = view.findViewById(R.id.semester);
         lostItem = view.findViewById(R.id.lost_found_Item);
-        ImageButton addImage = view.findViewById(R.id.add_image);
         TextView name = view.findViewById(R.id.name);
         TextView emailaddress = view.findViewById(R.id.emailaddress);
+        TextView linkInfo = view.findViewById(R.id.link_info);
+        TextView ownerInformation = view.findViewById(R.id.owner_information);
+        TextInputLayout  lostItemTILayout = view.findViewById(R.id.lost_found_item_layout);
+        TextInputLayout locationlayout = view.findViewById(R.id.location_layout);
+        TextInputLayout contactLayout = view.findViewById(R.id.contact_layout);
 
-        // Todo retrive name and emailId
-        name.setText("");
-        emailaddress.setText("");
+
+        SpannableString spannableString = new SpannableString("All lost forms are registered in the given sheet link.");
+        ClickableSpan link = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                String url = "https://www.google.com/";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+
+            }
+        };
+
+        spannableString.setSpan(link, 43, 53, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Objects.requireNonNull(getContext()).getResources().getColor(R.color.holo_blue_light)), 43, 53, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        linkInfo.setText(spannableString);
+        linkInfo.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+        email = emailOfStudent;
+        name1 = name_student;
+        name.setText(name1);
+        emailaddress.setText(email);
 
         UserImage = new ArrayList<>();
 
-        ownerName.setHint("Owner's Name");
-        lostItem.setHint("Lost Item");
-        location.setHint("Last known location");
+        ownerInformation.setText("Owner's Information");
+        lostItemTILayout.setHint("Lost Item");
+        contactLayout.setHint("Contact at (if Found)");
+        locationlayout.setHint("Last known location");
         details.setHint("Details");
-        contact.setHint("Contact at if Found");
-
 
 
         List<String> Semester = new ArrayList<>();
-        Semester.add(0, "Sem");
+        Semester.add(0, "Semester");
         Semester.add("Sem: I");
         Semester.add("Sem: II");
         Semester.add("Sem: III");
@@ -175,7 +211,6 @@ public class LostFragment extends Fragment {
 
                         tv.setTypeface(null, Typeface.BOLD);
                         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, 52);
-                        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
                         break;
                     default:
                         tv.setTypeface(null, Typeface.NORMAL);
@@ -210,7 +245,6 @@ public class LostFragment extends Fragment {
                     case 0:
                         tv.setTypeface(null, Typeface.BOLD);
                         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, 52);
-                        tv.setTextColor(getResources().getColor(R.color.colorPrimary));
                         break;
                     default:
                         tv.setTypeface(null, Typeface.NORMAL);
@@ -262,45 +296,7 @@ public class LostFragment extends Fragment {
 
 
 
-        // Adding & Removing Image
-        addImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                attachImageOption = new Dialog(getContext());
-                LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout,null,false);
-
-
-                linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        attachImage();
-                    }
-                });
-
-
-
-                linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        captureImage();
-                    }
-                });
-
-                attachImageOption.addContentView(linearLayout,params);
-
-                attachImageOption.show();
-
-
-
-
-
-
-            }
-        });
-
+        // Removing Image
         removeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,36 +304,104 @@ public class LostFragment extends Fragment {
                     uploadedImageContainer.removeViewAt(i);
                 }
                 UserImage.clear();
+                uploadedImageContainer.setVisibility(View.GONE);
                 removeImage.setVisibility(View.GONE);
             }
         });
 
 
-
-
         return view;
     }
-    public void onClick(int a){
-        if(a==0){
+
+    public void onClick(int a) {
+        if (a == 0) {
+
+            // Adding Image
+            addImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (uploadedImageContainer.getChildCount() < 4) {
+
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                        attachImageOption = new Dialog(Objects.requireNonNull(getContext()));
+                        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(Objects.requireNonNull(getActivity()).getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
+
+
+                        linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                attachImage();
+                            }
+                        });
+
+
+                        linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                captureImage();
+                            }
+                        });
+
+                        attachImageOption.addContentView(linearLayout, params);
+
+                        attachImageOption.show();
+                    } else {
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("LostFragment", "Snackbar: You have reached your maximum upload limit of 4", e);
+                            Toast.makeText(getContext(), "You have reached your maximum upload limit of 4", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+
+                }
+            });
 
             sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (TextUtils.isEmpty(ownerName.getText())) {
                         ownerName.setPressed(true);
-                        Toast.makeText(getContext(), "Please fill Owner's Name", Toast.LENGTH_SHORT).show();
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please fill Owner's Name", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("LostFragment", "Snackbar: Please fill Owner's Name", e);
+                            Toast.makeText(getContext(), "Please fill Owner's Name", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (semester.equals("Sem")) {
-                        Toast.makeText(getContext(), "Please select semester", Toast.LENGTH_SHORT).show();
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please select semester", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("LostFragment", "Snackbar: Please select semester", e);
+                            Toast.makeText(getContext(), "Please select semester", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (branch.equals("Owner's Branch")) {
-                        Toast.makeText(getContext(), "Please select Branch", Toast.LENGTH_SHORT).show();
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please select Branch", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("LostFragment", "Snackbar: Please select Branch", e);
+                            Toast.makeText(getContext(), "Please select Branch", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (TextUtils.isEmpty(lostItem.getText())) {
                         lostItem.setPressed(true);
-                        Toast.makeText(getContext(), "Please specify lostItem", Toast.LENGTH_SHORT).show();
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please specify lostItem", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("LostFragment", "Snackbar: Please specify lostItem", e);
+                            Toast.makeText(getContext(), "Please specify lostItem", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (TextUtils.isEmpty(contact.getText())) {
                         contact.setPressed(true);
-                        Toast.makeText(getContext(), "Please fill your Contact number", Toast.LENGTH_SHORT).show();
+                        try {
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please fill your Contact number", Snackbar.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Log.e("LostFragment", "Snackbar: Please fill your Contact number", e);
+                            Toast.makeText(getContext(), "Please fill your Contact number", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        AlertDialog.Builder a_builder = new AlertDialog.Builder(getContext());
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
                         a_builder.setMessage("I am aware that if I will misuse this facility by any way I would be deregistered from this app");
                         a_builder.setCancelable(false);
                         a_builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -361,9 +425,13 @@ public class LostFragment extends Fragment {
                                             public void onResponse(String response) {
                                                 pdialog.dismiss();
 
-                                                Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
-                                                if((response.toString()).equals("Success")) {
-                                                    Snackbar.make(Objects.requireNonNull(getView()), "Form successfully Registered", Snackbar.LENGTH_LONG).show();
+                                                if ((response.toString()).equals("Success")) {
+                                                    try {
+                                                        Snackbar.make(Objects.requireNonNull(getView()), "Form successfully Registered", Snackbar.LENGTH_SHORT).show();
+                                                    } catch (NullPointerException e) {
+                                                        Log.e("LostFragment", "Snackbar: Form successfully Registered", e);
+                                                        Toast.makeText(getContext(), "Form successfully Registered", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
                                             }
                                         },
@@ -372,25 +440,28 @@ public class LostFragment extends Fragment {
                                             public void onErrorResponse(VolleyError error) {
                                                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                                                 pdialog.dismiss();
-                                                Snackbar.make(Objects.requireNonNull(getView()),"Something went Wrong\nTry again Later",Snackbar.LENGTH_LONG).show();
-
+                                                try {
+                                                    Snackbar.make(Objects.requireNonNull(getView()), "Something went Wrong\nTry again Later", Snackbar.LENGTH_SHORT).show();
+                                                } catch (NullPointerException e) {
+                                                    Log.e("LostFragment", "Snackbar: Something went Wrong\nTry again Later", e);
+                                                    Toast.makeText(getContext(), "Something went Wrong\nTry again Later", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
                                         }) {
                                     @Override
                                     protected Map<String, String> getParams() {
                                         Map<String, String> params = new HashMap<String, String>();
-//                                          Todo Retrive Name,Email
                                         params.put(KEY_ACTION, "insert");
-                                        params.put(KEY_LOST_NAME,"");
-                                        params.put(KEY_LOST_Email,"");
+                                        params.put(KEY_LOST_NAME, name1);
+                                        params.put(KEY_LOST_Email, email);
                                         params.put(KEY_LOST_OWNER_NAME, OwnerName);
                                         params.put(KEY_LOST_OWNER_BRANCH, Branch + Semester);
                                         params.put(KEY_LOST_LOSTITEM, LostItem);
                                         params.put(KEY_LOST_LASTKNOWNLOCATION, Location);
                                         params.put(KEY_LOST_DETAILS, Details);
                                         params.put(KEY_LOST_TO_CONTACT, Contact);
-                                        if(UserImage!=null) {
-                                            for(int i=0;i<UserImage.size();i++) {
+                                        if (UserImage != null) {
+                                            for (int i = 0; i < UserImage.size(); i++) {
                                                 params.put(KEY_LOST_IMAGE + i, UserImage.get(i));
                                             }
                                         }
@@ -408,7 +479,7 @@ public class LostFragment extends Fragment {
                                 stringRequest.setRetryPolicy(policy);
 
 
-                                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                                RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
 
                                 requestQueue.add(stringRequest);
 
@@ -437,35 +508,38 @@ public class LostFragment extends Fragment {
 
         }
     }
+
     // Working with Attach & remove Image
     private void attachImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
-    private void captureImage(){
+    private void captureImage() {
         if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.CAMERA}, PICK_IMAGE_REQUEST);
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{
+                    Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+
+        } else {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
         }
-        cameraIntent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAPTURE_IMAGE_REQUEST);
 
     }
-
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,200,getResources().getDisplayMetrics());
         int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
         int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
-
 
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
@@ -473,12 +547,11 @@ public class LostFragment extends Fragment {
             ClipData mClipData = data.getClipData();
 
 
-            if (mClipData != null && mClipData.getItemCount() > 1) {
+            if (mClipData != null && mClipData.getItemCount() > 1 && mClipData.getItemCount() < 6 - uploadedImageContainer.getChildCount()) {
 
                 for (int i = 0; i < mClipData.getItemCount(); i++) {
                     ImageView image = new ImageView(getContext());
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                            LinearLayout.LayoutParams.MATCH_PARENT);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
                     params.setMargins(margin, margin, margin, margin);
                     image.setLayoutParams(params);
                     image.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -486,9 +559,9 @@ public class LostFragment extends Fragment {
                     Uri imageUri = mClipData.getItemAt(i).getUri();
 
                     try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(),imageUri);
-                       Bitmap rbitmap = getResizedBitmap(bitmap);//Setting the Bitmap to ImageView
-                       String userImage = getStringImage(rbitmap);
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), imageUri);
+                        Bitmap rbitmap = getResizedBitmap(bitmap);//Setting the Bitmap to ImageView
+                        String userImage = getStringImage(rbitmap);
                         UserImage.add(userImage);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -496,44 +569,56 @@ public class LostFragment extends Fragment {
 
                     image.setImageURI(imageUri);
                     uploadedImageContainer.addView(image);
+                    uploadedImageContainer.setVisibility(View.VISIBLE);
                     removeImage.setVisibility(View.VISIBLE);
                 }
-            } else {
+            } else if (data.getData() != null) {
                 Uri imageUri = data.getData();
 
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(),imageUri);
-                   Bitmap rbitmap = getResizedBitmap(bitmap);//Setting the Bitmap to ImageView
-                   String userImage = getStringImage(rbitmap);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), imageUri);
+                    Bitmap rbitmap = getResizedBitmap(bitmap);//Setting the Bitmap to ImageView
+                    String userImage = getStringImage(rbitmap);
                     //base64toString.add(userImage);
                     UserImage.add(userImage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 ImageView image = new ImageView(getContext());
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
                 params.setMargins(margin, margin, margin, margin);
                 image.setLayoutParams(params);
                 image.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 image.setImageURI(imageUri);
                 uploadedImageContainer.addView(image);
+                uploadedImageContainer.setVisibility(View.VISIBLE);
                 removeImage.setVisibility(View.VISIBLE);
+            } else {
+                try {
+                    Snackbar.make(Objects.requireNonNull(getView()), "Can't upload more than 4 images", Snackbar.LENGTH_SHORT).show();
+                } catch (NullPointerException e) {
+                    Log.e("ComplainFragment", "Can't upload more than 4 images", e);
+                    Toast.makeText(getContext(), "Can't upload more than 4 images", Toast.LENGTH_SHORT).show();
+
+                }
             }
 
+        } else {
+            Toast.makeText(getContext(), "You haven't picked image", Toast.LENGTH_SHORT).show();
         }
 
         if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == RESULT_OK) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-           Bitmap rbitmap = getResizedBitmap(bitmap);//Setting the Bitmap to ImageView
+            assert data != null;
+            Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+            assert bitmap != null;
+            Bitmap rbitmap = getResizedBitmap(bitmap);//Setting the Bitmap to ImageView
             String userImage = getStringImage(rbitmap);
             // base64toString.add(userImage);
             UserImage.add(userImage);
 
             ImageView image = new ImageView(getContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
             params.setMargins(margin, margin, margin, margin);
             image.setLayoutParams(params);
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -541,6 +626,7 @@ public class LostFragment extends Fragment {
             image.setImageBitmap(bitmap);
 
             uploadedImageContainer.addView(image);
+            uploadedImageContainer.setVisibility(View.VISIBLE);
             removeImage.setVisibility(View.VISIBLE);
 
 
@@ -551,12 +637,11 @@ public class LostFragment extends Fragment {
     }
 
 
-
     private Bitmap getResizedBitmap(Bitmap image) {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        float bitmapRatio = (float)width / (float) height;
+        float bitmapRatio = (float) width / (float) height;
         if (bitmapRatio > 1) {
             width = 500;
             height = (int) (width / bitmapRatio);

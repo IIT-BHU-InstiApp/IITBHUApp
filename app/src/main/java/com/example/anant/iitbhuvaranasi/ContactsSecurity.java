@@ -52,7 +52,7 @@ public class ContactsSecurity extends Fragment {
                 post.setText(arrayList.get(i).getPost());
                 name.setText(arrayList.get(i).getName());
                 number.setText(arrayList.get(i).getNumber());
-                number.setTextColor(getResources().getColor(R.color.colorblue200));
+                number.setTextColor(getResources().getColor(R.color.colorblue220));
                 number.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -68,8 +68,8 @@ public class ContactsSecurity extends Fragment {
                 post.setText(arrayList.get(i).getPost());
                 name.setText(arrayList.get(i).getNumber());
                 number.setText(arrayList.get(i).getEmail());
-                number.setTextColor(getResources().getColor(R.color.colorblue200));
-                name.setTextColor(getResources().getColor(R.color.colorblue200));
+                number.setTextColor(getResources().getColor(R.color.colorblue220));
+                name.setTextColor(getResources().getColor(R.color.colorblue220));
                 name.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

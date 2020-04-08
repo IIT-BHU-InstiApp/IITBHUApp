@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,10 +34,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+    public static int guestLoginChecker;
 
     private static final int RC_SIGN_IN =1 ;
     private GoogleApiClient googleApiClient;
-    private SignInButton signInButton;
+    private Button signInButton;
     private  static final int REQ_CODE = 9001;
     private GoogleSignInClient mGoogleSignInClient;
     private  GoogleSignInOptions gso;
@@ -51,7 +54,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("LOGIN");
+        actionBar.hide();
 
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -68,8 +71,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     "You don't have internet connection.", false);
         }
 
-        signInButton = (SignInButton) findViewById(R.id.siginbutton);
+        signInButton = findViewById(R.id.siginbutton);
         signInButton.setOnClickListener(this);
+
+        TextView guestLogin = findViewById(R.id.guestLogin);
+        guestLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                guestLoginChecker = 1;
+
+                startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override
@@ -156,6 +170,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             if (Constants.isInternetPresent == false){
                 Api_Response.method(this);
             }
+            SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(Constants.Email, email);
+            editor.commit();
+
             Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
             startActivity(intent);
             finish();
@@ -211,6 +230,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         UpdateUI(account);
+     //   Log.d("account",account.toString());
     }
 
     private void UpdateUI(GoogleSignInAccount account) {
