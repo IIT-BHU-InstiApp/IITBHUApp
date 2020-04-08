@@ -25,7 +25,8 @@ public class ContactsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar_important_contacts);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Important Contacts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Window window = this.getWindow();
