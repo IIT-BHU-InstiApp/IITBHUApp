@@ -44,10 +44,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class  Feedfragment_notifcation_Activity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView image_event,image_eventfullscreen;
-    String image,time;
+    String image,time,map_location;
+    public static String location2345 = null;
     boolean check;
     String event_title,event_description,event_date,event_venue,event_time;
     TextView title_event, description_event, date_event, venue_event, time_event, interested_count;
@@ -125,6 +127,8 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         Integer notif_id = Integer.valueOf(notifid);
         Log.d("notidsd",notifid);
         title_event.setText(obj.getTitle_event());
+        map_location = obj.getMap_location();
+
         description_event.setText(obj.getDescription_event());
         Glide.with(this)
                 .load(obj.getImage_event())
@@ -274,6 +278,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
 
 
             case R.id.location:
+                location2345 = map_location;
                 startActivity(new Intent(this,FragmentSupportActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);

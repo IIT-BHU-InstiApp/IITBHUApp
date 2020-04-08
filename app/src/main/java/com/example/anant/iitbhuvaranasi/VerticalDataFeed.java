@@ -71,6 +71,7 @@ public class VerticalDataFeed {
                         }
                         String date_event = hit.getString("datetime");
                         String location = hit.getString("location");
+                        String map_location = hit.getString("map_location");
 
                         Integer viewcount1 = hit.getInt("viewedcount");
                         String viewcount = viewcount1.toString();
@@ -82,7 +83,7 @@ public class VerticalDataFeed {
                         String notifid = notif_id.toString();
                         Interestedbutton_class.notification_id = notification_id;
                         getVerticalData3.add(new SingleVerticalData(club_name, club_image, council_name, council_image, title_event, description_event
-                                , image_event, date_event, location, viewcount, interestedcount, interested, notifid));
+                                , image_event, date_event, location, viewcount, interestedcount, interested, notifid,map_location));
                         Log.d("verticalse00", getVerticalData3.toArray().toString());
 
                         // Log.d("imageurl00", image);

@@ -79,7 +79,7 @@ import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
 import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.addImage;
 import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.sendButton;
-import static com.example.anant.iitbhuvaranasi.LostAndFoundFragment.addButton;
+
 
 public class LostFragment extends Fragment {
 

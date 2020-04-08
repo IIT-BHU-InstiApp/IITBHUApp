@@ -38,6 +38,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
+
 /*
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -167,6 +169,9 @@ public class IITBHUMapFragment extends Fragment implements
     }};
 
     private String location = null;
+    String location23 = location2345;
+
+
 
     FloatingActionMenu filterFAM;
     FloatingActionButton filterHostel, filterOther, filterDepartment, filterLT;
@@ -337,6 +342,10 @@ public class IITBHUMapFragment extends Fragment implements
             if backend provides name of place as " " or "Not_Given"
             then only map will be opened without any InfoWindow
          */
+        location = location2345;
+        Log.d("position13456",location);
+        Log.d("position1345678",location2345);
+
         if (location == null || location.trim().isEmpty() || location.trim().equalsIgnoreCase("nolocation")
                 || location.trim().equalsIgnoreCase("not_given") || location.trim().equalsIgnoreCase("no_location")) {
         } else {

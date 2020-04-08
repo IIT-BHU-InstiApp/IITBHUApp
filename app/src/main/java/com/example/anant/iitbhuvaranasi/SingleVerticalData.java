@@ -3,7 +3,7 @@ package com.example.anant.iitbhuvaranasi;
 public class SingleVerticalData {
 
     private String club_name,club_image,council_name,council_image;
-    private String title_event;
+    private String title_event,map_location;
     private String description_event;
     private String image_event,date_event;
     private String location,viewcount,interestedcount,interested,notifid;
@@ -12,7 +12,8 @@ public class SingleVerticalData {
 
     }
 
-    public SingleVerticalData(String club_name, String club_image, String council_name, String council_image, String title_event, String description_event, String image_event, String date_event, String location, String viewcount, String interestedcount, String interested, String notifid) {
+
+    public SingleVerticalData(String club_name, String club_image, String council_name, String council_image, String title_event, String description_event, String image_event, String date_event, String location, String viewcount, String interestedcount, String interested, String notifid, String map_location) {
         this.club_name = club_name;
         this.club_image = club_image;
         this.council_name = council_name;
@@ -26,6 +27,7 @@ public class SingleVerticalData {
         this.interestedcount = interestedcount;
         this.interested = interested;
         this.notifid = notifid;
+        this.map_location = map_location;
     }
 
 
@@ -39,6 +41,14 @@ public class SingleVerticalData {
         this.interested = interested;
         this.notifid=notifid;
     }*/
+
+    public String getMap_location() {
+        return map_location;
+    }
+
+    public void setMap_location(String map_location) {
+        this.map_location = map_location;
+    }
 
     public String getClub_name() {
         return club_name;

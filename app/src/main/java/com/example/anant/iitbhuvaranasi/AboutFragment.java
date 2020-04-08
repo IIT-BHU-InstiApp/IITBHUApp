@@ -50,7 +50,7 @@ public class AboutFragment extends Fragment {
         AboutAdapter aboutAdapter = new AboutAdapter(new ArrayList<AboutCategory>() {{
             add(new AboutCategory("Core Developers", new ArrayList<AboutIndividual>() {{
                 add(new AboutIndividual("abhinavsingh", "Abhinav Singh", "varun.jpg","Computer Science"));
-                add(new AboutIndividual("bhoomikbhamawat", "Bhoomik Bhamawat", "sajal.jpg","Electrical"));
+                add(new AboutIndividual("bhoomikbhamawat.eee18@itbhu.ac.in", "Bhoomik Bhamawat", "sajal.jpg","Electrical"));
             }}, context));
             add(new AboutCategory("Developers", new ArrayList<AboutIndividual>() {{
                 add(new AboutIndividual(null, "Yogesh", "mrunmayi.jpg","Electrical"));
@@ -58,7 +58,7 @@ public class AboutFragment extends Fragment {
                 add(new AboutIndividual(null, "Monu Kumar", "hrushikesh.jpg","Electrical"));
                 add(new AboutIndividual(null, "Tanmay Mishra", "yashkhem.jpg","Electrical"));
                 add(new AboutIndividual(null, "Martin", "bavish.jpg","Electrical"));
-                add(new AboutIndividual(null, "Suryansh", "mayu.jpg","Electrical"));
+                add(new AboutIndividual("suryansh.min19@itbhu.ac.in", "Suryansh", "mayu.jpg","Mining"));
                 //add(new AboutIndividual("maitreya", "Maitreya Verma", "maitreya.jpg"));
                  }}, context));
            /* add(new AboutCategory("Design", new ArrayList<AboutIndividual>() {{
