@@ -1,5 +1,6 @@
 package com.example.anant.iitbhuvaranasi;
 
+/*
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -189,14 +190,16 @@ public class IITbhu_Map extends AppCompatActivity implements GoogleMap.OnMyLocat
                 filterFAM.close(true);
             }
         });
-        /*filterRegDesk.setOnClickListener(new View.OnClickListener() {
+        */
+/*filterRegDesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMap.clear();
                 markRegistrationDesk();
                 filterFAM.close(true);
             }
-        });*/
+        });*//*
+
         filterLT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,10 +235,12 @@ public class IITbhu_Map extends AppCompatActivity implements GoogleMap.OnMyLocat
 
 
 
-            /**
+            */
+/**
              * Manipulates the map when it's available.
              * The API invokes this callback when the map is ready for use.
-             */
+             *//*
+
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
@@ -272,15 +277,19 @@ public class IITbhu_Map extends AppCompatActivity implements GoogleMap.OnMyLocat
                 mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
 
-            /**
+            */
+/**
              * Enables the My Location layer if the fine location permission has been granted.
-             */
+             *//*
+
             private void enableMyLocation() {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
                     // Permission to access the location is missing
                     // TODO : Error is coming from this line(closed)
-                    PermissionUtils.requestPermission(/*(AppCompatActivity)*/this , LOCATION_PERMISSION_REQUEST_CODE,
+                    PermissionUtils.requestPermission(*/
+/*(AppCompatActivity)*//*
+this , LOCATION_PERMISSION_REQUEST_CODE,
                             Manifest.permission.ACCESS_FINE_LOCATION, true);
                 } else if (mMap != null) {
                     // Access to the location has been granted to the app.
@@ -327,9 +336,11 @@ public class IITbhu_Map extends AppCompatActivity implements GoogleMap.OnMyLocat
                 }
             }
 
-            /**
+            */
+/**
              * Displays a dialog with error message explaining that the location permission is missing.
-             */
+             *//*
+
             private void showMissingPermissionError() {
                 //PermissionUtils.PermissionDeniedDialog
                 //      .newInstance(true).show((new android.app.FragmentManager())getChildFragmentManager(), "dialog");
@@ -447,3 +458,4 @@ public class IITbhu_Map extends AppCompatActivity implements GoogleMap.OnMyLocat
 
 }
 
+*/
