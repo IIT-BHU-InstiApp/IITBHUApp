@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/from_textview"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="A IIT(BHU) Student" />
@@ -117,12 +117,26 @@
                         android:hint="Name"
                         android:maxLength="60"
                         android:singleLine="true" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grey"/>
 
                 <Spinner
                     android:id="@+id/branch"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:spinnerMode="dialog" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grey"/>
 
                 <Spinner
                     android:id="@+id/semester"
@@ -149,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="4dp"
-                android:paddingStart="4dp"
+                android:paddingStart="8dp"
                 android:paddingEnd="4dp"
                 android:orientation="vertical">
 
@@ -166,7 +180,7 @@
                         android:maxLength="50"
                         android:maxLines="1"
                         android:minHeight="56dp"
-                        android:paddingLeft="4dp"
+                        android:paddingLeft="8dp"
                         android:singleLine="true"
                         tools:hint="Lost/Found Item" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -186,6 +200,7 @@
                         android:maxLines="1"
                         android:minHeight="56dp"
                         android:paddingRight="4dp"
+                        android:paddingLeft="8dp"
                         android:singleLine="true"
                         tools:hint="Location" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -202,7 +217,7 @@
                     android:maxLines="100"
                     android:minLines="1"
                     android:paddingLeft="8dp"
-                    android:paddingRight="8dp" />
+                    android:paddingRight="4dp" />
 
                 <View
                     android:layout_width="match_parent"

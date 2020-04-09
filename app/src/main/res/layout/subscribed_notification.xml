@@ -21,6 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Club Of Programmers"></TextView>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -38,7 +42,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:textAlignment="center"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/black"
             tools:text="6" />
     </androidx.cardview.widget.CardView>
 

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.util.Pair;
@@ -84,39 +85,9 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
 
         Log.d("6789",newString);
 
-      /*  String date1 = data.get(position).getDate();
-        String regex = "(\\d{4}-\\d{2}-\\d{2})";
-        Matcher m = Pattern.compile(regex).matcher(date1);
-        String dateo = null;
-        if (m.find()) {
-            try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(m.group(1));
-                dateo = date.toString().substring(0, 11);
-                Log.d("date45", dateo);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
 
-        } else {
-            // Bad input
-        }
-*/
         holder.date.setText(newString);
 
-
-//        String month_name = month_date.format(date);
-        //  Log.d("date",month_name);
-
-        /*holder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(context1,Feedfragment_notifcation_Activity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-
-             context1.startActivity(intent);
-            }
-        });*/
 
         final Pair[] pairs = new Pair[3];
         pairs[0] = new Pair<View, String>(holder.image, "fullscreen");
@@ -200,27 +171,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         });
 
 
-    /*    holder.setReminder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar beginTime = Calendar.getInstance();
-                beginTime.set(2012, 0, 19, 7, 30);
-                Calendar endTime = Calendar.getInstance();
-                endTime.set(2012, 0, 19, 8, 30);
-                Intent intent = new Intent(Intent.ACTION_INSERT)
-                        .setData(CalendarContract.Events.CONTENT_URI)
-                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-                        .putExtra(CalendarContract.Events.TITLE, "Yoga")
-                        .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
-                        .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
-                        //invitees emails
-                        .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
-                mcontext.startActivity(intent);
-            }
-        });
-
-
+/*
         holder.mapLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

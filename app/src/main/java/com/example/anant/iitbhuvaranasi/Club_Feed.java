@@ -258,13 +258,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
 
 
-    /* public static ArrayList<SingleVerticalData> getVerticaldata() {
-         ArrayList<SingleVerticalData> singleVerticalData = new ArrayList<>();
-         singleHorizontals.add(new SingleHorizontaldata(R.drawable.culturalcouncil, "Cultural Council"));
-       singleHorizontals.add(new SingleHorizontaldata(R.drawable.saic, "Student Alumni Interaction Cell"));
 
-           return singleVerticalData;
-     }*/
     @Override
     public boolean onSupportNavigateUp(){
 
