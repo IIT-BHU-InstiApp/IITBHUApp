@@ -23,7 +23,7 @@
 
             <ImageView
                 android:id="@+id/council_image"
-                android:layout_width="170dp"
+                android:layout_width="180dp"
                 android:layout_height="180dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/slide1" />
