@@ -239,7 +239,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         final CheckBox dontShowAgain = layout.findViewById(R.id.skip);
 
         dialogBuilder.setTitle("Add to Calendar")
-                .setMessage("You will be notified about this event by InstiApp. Do you also want to add this event to your calendar?")
+                .setMessage("You will be notified about this event by IIT(BHU) App. Do you also want to add this event to your calendar?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
