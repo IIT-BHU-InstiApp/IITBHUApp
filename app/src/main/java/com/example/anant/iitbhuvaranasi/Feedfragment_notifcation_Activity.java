@@ -137,6 +137,9 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 .into(image_event);
         date_event.setText(time);
         venue_event.setText(obj.getLocation());
+        Log.d("location-098",venue_event.toString());
+        Log.d("location-0987",obj.getLocation());
+        Log.d("location-09876",obj.getMap_location());
        // view_count.setText(obj.getViewcount());
 //        interested_count.setText(obj.getInterestedcount());
         final JSONObject obj2 = new JSONObject();
@@ -288,6 +291,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 break;
 
             case R.id.event_venue:
+                location2345 = map_location;
                 startActivity(new Intent(this,FragmentSupportActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);

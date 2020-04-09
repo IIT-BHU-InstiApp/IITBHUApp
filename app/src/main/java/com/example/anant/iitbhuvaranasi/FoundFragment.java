@@ -125,7 +125,7 @@ public class FoundFragment extends Fragment {
         ClickableSpan link = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                String url = "https://www.google.com/";
+                String url = "https://docs.google.com/spreadsheets/d/1hp0PnIh2fKjbXRfUVkycWzCpgaLlG54TTqCvGnsiVdc/edit?ts=5e8de55a#gid=0";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
@@ -149,7 +149,7 @@ public class FoundFragment extends Fragment {
 
         UserImage = new ArrayList<>();
 
-        ownerInformation.setText("Owner's Information (If Known)");
+        ownerInformation.setText("Founder's Information");
         contactLayout.setHint("Your Contact Number");
         lostItemTILayout.setHint("Found Item");
         locationlayout.setHint("Found at (Location)");
@@ -175,7 +175,7 @@ public class FoundFragment extends Fragment {
 
 
         List<String> Branch = new ArrayList<>();
-        Branch.add(0, "Owner's Branch");
+        Branch.add(0, "Branch");
 
         Branch.add("Architecture, Planning and Design");
         Branch.add("Biochemical Engineering");

@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-<androidx.cardview.widget.CardView android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_margin="5dp"
-    >
-<Switch android:layout_width="match_parent"
-    android:layout_height="50dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginLeft="5dp"
-    android:textStyle="bold"
-    android:textColor="@color/colorPrimary"
-    tools:text="Club Of Programmers"
-    android:trackTint="@color/colorPrimary"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/switch_for_pin"
-    />
-</androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <Switch xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/switch_for_pin"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:trackTint="@color/colorPrimary"
+            tools:text="Club Of Programmers" />
+    </androidx.cardview.widget.CardView>
 </FrameLayout>

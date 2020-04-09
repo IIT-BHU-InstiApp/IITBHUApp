@@ -23,6 +23,5 @@
         android:textAllCaps="true"
         android:gravity="center_horizontal"
         android:textStyle="bold"
-        android:fontFamily="sans-serif-smallcaps"
         android:text="Loading..."/>
 </LinearLayout>

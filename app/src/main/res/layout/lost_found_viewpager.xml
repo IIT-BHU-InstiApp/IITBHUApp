@@ -114,7 +114,7 @@
                      android:paddingEnd="8dp"
                         android:background="@null"
                         android:gravity="center_vertical"
-                        android:hint="Owner's Name"
+                        android:hint="Name"
                         android:maxLength="60"
                         android:singleLine="true" />
 
