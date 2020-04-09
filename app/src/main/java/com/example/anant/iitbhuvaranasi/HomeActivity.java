@@ -34,6 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
+import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -173,7 +174,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_maps:
-                track = 1;
+//                track = 1;
 //                SharedPreferences.Editor editor1 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor1.putInt("track",1);
 //                editor1.commit();
@@ -181,9 +182,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 /*getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new IITBHUMapFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);*/
-                Intent intent1 = new Intent(HomeActivity.this, IITbhu_Map.class);
+                location2345=null;
+                Intent intent1 = new Intent(HomeActivity.this, FragmentSupportActivity.class);
                 startActivity(intent1);
-                finish();
+                //finish();
                 x++;
                 break;
             case R.id.nav_complain:
