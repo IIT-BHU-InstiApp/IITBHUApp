@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single" android:id="@+id/group1">
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications"
@@ -18,12 +18,12 @@
             android:title="Map" />
         <item
             android:id="@+id/nav_complain"
-            android:icon="@drawable/ic_complain"
+            android:icon="@drawable/complain"
             android:title="Complain" />
 
         <item
             android:id="@+id/lost_found"
-            android:icon="@drawable/ic_swap_calls_black_24dp"
+            android:icon="@drawable/lostfound2"
             android:title="Lost/Found" />
 
         <item
@@ -34,17 +34,13 @@
         <item
             android:id="@+id/important_links"
             android:icon="@drawable/ic_link_holo_blue_light_24dp"
-            android:title="Important_links" />
+            android:title="Important Links" />
+    </group>
 
-        <item
-            android:id="@+id/nav_imp_contacts"
-            android:icon="@drawable/ic_imp_contacts"
-            android:title="Important Contacts">
-        <menu>
-            <item
-                android:id="@+id/nav_security"
-                android:icon="@drawable/ic_imp_contacts"
-                android:title="Security"/>
+
+
+        <group android:id="@+id/group2" >
+
             <item
                 android:id="@+id/nav_academics"
                 android:icon="@drawable/ic_imp_contacts"
@@ -53,8 +49,32 @@
                 android:id="@+id/nav_por"
                 android:icon="@drawable/ic_imp_contacts"
                 android:title="POR"/>
-        </menu>
-        </item>
+            <item
+                android:id="@+id/nav_security"
+                android:icon="@drawable/ic_imp_contacts"
+                android:title="Security"/>
+        </group>
+
+
+    <group android:checkableBehavior="single" android:id="@+id/group3" android:title="Additional Info">
+
+
+
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_developer_mode_black_24dp"
+                android:title="Developers" />
+            <item
+                android:id="@+id/feedback"
+                android:icon="@drawable/ic_feedback_black_24dp"
+                android:title="Feedback/Suggestions" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Logout" />
+
+    </group>
+
 
 
         <!--        <item-->
@@ -65,24 +85,7 @@
         <!--            android:id="@+id/nav_eidcard"-->
         <!--            android:icon="@drawable/ic_about"-->
         <!--            android:title="E-ID Card" />-->
-    </group>
 
-    <item android:title="Additional Indo.">
-        <menu>
-
-
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_info_black_24dp"
-                android:title="About us" />
-            <item
-                android:id="@+id/feedback"
-                android:icon="@drawable/ic_feedback_black_24dp"
-                android:title="Feedback/Suggestions" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_logout"
-                android:title="Logout" />
-        </menu>
-    </item>
 </menu>
+
+

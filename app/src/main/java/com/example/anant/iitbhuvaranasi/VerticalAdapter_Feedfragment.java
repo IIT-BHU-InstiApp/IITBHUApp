@@ -163,6 +163,8 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
                 intent.putExtra("title",data.get(position).getTitle_event());
                 intent.putExtra("date",data.get(position).getDate_event());
                 intent.putExtra("image",data.get(position).getImage_event());
+                intent.putExtra("map_location",data.get(position).getMap_location());
+
                         mcontext.startActivity(intent,options.toBundle());
             }
         });

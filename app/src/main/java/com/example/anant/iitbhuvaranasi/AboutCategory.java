@@ -1,11 +1,11 @@
 package com.example.anant.iitbhuvaranasi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -71,12 +71,15 @@ public class AboutCategory extends StatelessSection {
         individualViewHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String individualId = individual.getId();
-                if (individualId == null) {
-                    return;
-                }
-
+                Intent intent=new Intent(context, DeveloperInfo.class);
+                intent.putExtra("Image",individual.getImageName());
+                intent.putExtra("Name",individual.getName());
+                intent.putExtra("Email",individual.getId());
+                intent.putExtra("Branch",individual.getBranch());
+                context.startActivity(intent);
             }
+
+
         });
     }
 

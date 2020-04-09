@@ -44,10 +44,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class  Feedfragment_notifcation_Activity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView image_event,image_eventfullscreen;
-    String image,time;
+    String image,time,map_location;
+    public static String location2345 = null;
     boolean check;
     String event_title,event_description,event_date,event_venue,event_time;
     TextView title_event, description_event, date_event, venue_event, time_event, interested_count;
@@ -107,6 +109,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         location_button = (ImageButton) findViewById(R.id.location);
         description_event=findViewById(R.id.event_page_description);
         location_button.setOnClickListener(this);
+        venue_event.setOnClickListener(this);
         //time_event = (TextView) findViewById(R.id.event_time);
         clock_button = (ImageButton) findViewById(R.id.clock);
         clock_button.setOnClickListener(this);
@@ -124,6 +127,9 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         Integer notif_id = Integer.valueOf(notifid);
         Log.d("notidsd",notifid);
         title_event.setText(obj.getTitle_event());
+        map_location = obj.getMap_location();
+        Log.d("FeedFragmentMapData","Map Location from backend = "+map_location);
+
         description_event.setText(obj.getDescription_event());
         Glide.with(this)
                 .load(obj.getImage_event())
@@ -273,6 +279,15 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
 
 
             case R.id.location:
+                location2345 = map_location;
+                startActivity(new Intent(this,FragmentSupportActivity.class));
+               /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
+                Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);*/
+                break;
+
+            case R.id.event_venue:
                 startActivity(new Intent(this,FragmentSupportActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -301,7 +316,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         final CheckBox dontShowAgain = layout.findViewById(R.id.skip);
 
         dialogBuilder.setTitle("Add to Calendar")
-                .setMessage("You will be notified about this event by InstiApp. Do you also want to add this event to your calendar?")
+                .setMessage("You will be notified about this event by IIT(BHU) App. Do you also want to add this event to your calendar?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

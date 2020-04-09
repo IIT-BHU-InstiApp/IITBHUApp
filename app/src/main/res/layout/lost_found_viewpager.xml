@@ -1,233 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:nestedScrollingEnabled="false"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/link_info"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        tools:text="All lost/found forms are registered in the sheet link given below" />
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"
 
-    <TextView
-        android:id="@+id/spreadsheet_link"
-        android:paddingStart="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:paddingBottom="4dp"
-        android:paddingEnd="8dp"
-        tools:text="http://www.google.com"
-        android:textColor="@android:color/holo_blue_light" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
-
-        <TextView
-            android:id="@+id/from_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="From:"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/from_textview"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="A IIT(BHU) Student" />
-
-        <TextView
-            android:id="@+id/emailaddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/name"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            tools:text="studentname.bncyy@itbhu.ac.in" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
-
-    <EditText
-        android:id="@+id/owner_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="center_vertical"
-        android:hint="Owners's Name"
-        android:maxLength="60"
-        android:minHeight="56dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:singleLine="true" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/branch"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:spinnerMode="dialog" />
-
-        <Spinner
-            android:id="@+id/semester"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:spinnerMode="dialog" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/lost_found_Item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:maxLength="50"
-            android:maxLines="1"
-            android:minHeight="56dp"
-            android:paddingLeft="4dp"
-            android:singleLine="true"
-            tools:hint="Lost/Found Item" />
-
-
-        <EditText
-            android:id="@+id/location"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:maxLength="50"
-            android:maxLines="1"
-            android:minHeight="56dp"
-            android:paddingRight="4dp"
-            android:singleLine="true"
-            tools:hint="Location" />
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/details"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@null"
-        android:gravity="left|top"
-        android:hint="Details"
-        android:inputType="textMultiLine"
-        android:maxLines="100"
-        android:minHeight="240dp"
-        android:minLines="1"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp" />
-
-    <View
-        android:id="@+id/extra_part"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
-    <EditText
-        android:id="@+id/contact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="center_vertical"
-        android:inputType="phone"
-        android:maxLength="10"
-        android:minHeight="56dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        tools:hint="Contact" />
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:padding="4dp">
 
         <LinearLayout
-            android:id="@+id/uploaded_image_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/add_image"
-                android:layout_width="100dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_margin="4dp"
+
+            <TextView
+                android:id="@+id/link_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/black"
+
+                tools:text="All lost/found forms are registered in the given sheet link" />
+
+
+            <!--        <View-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="1dp"-->
+            <!--            android:background="@color/black" />-->
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp">
+
+                        <TextView
+                            android:id="@+id/from_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="From:"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintStart_toEndOf="@id/from_textview"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="A IIT(BHU) Student" />
+
+                        <TextView
+                            android:id="@+id/emailaddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/name"
+                            app:layout_constraintTop_toBottomOf="@id/name"
+                            tools:text="studentname.bncyy@itbhu.ac.in" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height=".5dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:id="@+id/owner_information"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:text="Owner's Information"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/owner_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="Owner's Name"
+                        android:maxLength="60"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:singleLine="true" />
+
+                    <Spinner
+                        android:id="@+id/branch"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:spinnerMode="dialog" />
+
+                    <Spinner
+                        android:id="@+id/semester"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:spinnerMode="dialog" />
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/border_color_primary"
-                android:src="@drawable/ic_add_box_black_24dp" />
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="4dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lost_found_item_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/lost_found_Item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:maxLength="50"
+                            android:maxLines="1"
+                            android:minHeight="56dp"
+                            android:paddingLeft="4dp"
+                            android:singleLine="true"
+                            tools:hint="Lost/Found Item" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/location_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <EditText
+                            android:id="@+id/location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:maxLength="50"
+                            android:maxLines="1"
+                            android:minHeight="56dp"
+                            android:paddingRight="4dp"
+                            android:singleLine="true"
+                            tools:hint="Location" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <EditText
+                        android:id="@+id/details"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="left|top"
+                        android:hint="Details"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height=".5dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@color/grey" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/contact_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <EditText
+                            android:id="@+id/contact"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:inputType="phone"
+                            android:maxLength="10"
+                            android:minHeight="56dp"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
+                            tools:hint="Contact" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <View
+                android:id="@+id/extra_part"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+
+            <androidx.cardview.widget.CardView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="2dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/uploaded_image_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:paddingStart="8dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="8dp"
+                            android:visibility="gone">
+
+                            <!--                <ImageButton-->
+                            <!--                    android:id="@+id/add_image"-->
+                            <!--                    android:layout_width="100dp"-->
+                            <!--                    android:layout_height="200dp"-->
+                            <!--                    android:layout_gravity="center"-->
+                            <!--                    android:layout_margin="4dp"-->
+                            <!--                    android:layout_marginTop="4dp"-->
+                            <!--                    android:src="@drawable/ic_add_box_black_24dp" />-->
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+
+                    <TextView
+                        android:id="@+id/remove_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="Remove All"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-    </HorizontalScrollView>
+    </ScrollView>
 
+    <include
+        android:id="@+id/upload_image"
+        layout="@layout/uploadimage_dialog_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <TextView
-        android:id="@+id/remove_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="Remove All"
-        android:visibility="gone" />
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

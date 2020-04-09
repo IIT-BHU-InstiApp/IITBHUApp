@@ -75,8 +75,8 @@ public class Constants {
     public static final String ADD_FOUND_FORM_URL = APP_SCRIPT_WEB_URL_FOUND;
     public static final String KEY_FOUND_NAME="uName";
     public static final String KEY_FOUND_Email = "uEmail";
-    public static final String KEY_FOUND_OWNER_NAME ="uName";
-    public static final String KEY_FOUND_OWNER_BRANCH ="uBranch";
+    public static final String KEY_FOUND_OWNER_NAME ="uOwnerName";
+    public static final String KEY_FOUND_OWNER_BRANCH ="uOwnerBranch";
     public static final String KEY_FOUND_TO_CONTACT ="uToContact";
     public static final String KEY_FOUND_FOUNDITEM ="uFoundItem";
     public static final String KEY_FOUND_LOCATION ="uLocation";

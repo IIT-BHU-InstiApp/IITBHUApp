@@ -21,6 +21,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
@@ -125,10 +127,22 @@ public class IITbhu_Map extends AppCompatActivity implements GoogleMap.OnMyLocat
 
 
 
-      /*  Toolbar toolbar = findViewById(R.id.toolbar_maps);
+        Toolbar toolbar = findViewById(R.id.toolbar_maps);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        Window window = this.getWindow();
+
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+
 
         MapsInitializer.initialize(this);
 

@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "636798304534",
-    "firebase_url": "https://iitbhuvaranasi-d727c.firebaseio.com",
-    "project_id": "iitbhuvaranasi-d727c",
-    "storage_bucket": "iitbhuvaranasi-d727c.appspot.com"
+    "project_number": "510545355891",
+    "firebase_url": "https://iitbhuvaranasiap-1580152482004.firebaseio.com",
+    "project_id": "iitbhuvaranasiap-1580152482004",
+    "storage_bucket": "iitbhuvaranasiap-1580152482004.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:636798304534:android:e04172002e242a30",
+        "mobilesdk_app_id": "1:510545355891:android:0e9e1d70c522a3221b7606",
         "android_client_info": {
           "package_name": "com.example.anant.iitbhuvaranasi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "636798304534-6u3f7bo9m4fomtcv0fsvd1dmjo56v12t.apps.googleusercontent.com",
+          "client_id": "510545355891-n8nnfhi0tj7c72qaa0d8tdj7r5rq2qe6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.anant.iitbhuvaranasi",
-            "certificate_hash": "afdcf161945a5ad5d7f1bcc8459360757234a6e7"
+            "certificate_hash": "f1d7092e727df356428fa0223fe71b5dd6251d03"
           }
         },
         {
-          "client_id": "636798304534-n2pvencghiu7ajq8pbuvnus2utrvk6f9.apps.googleusercontent.com",
+          "client_id": "510545355891-l2k83ie46g6q500uk87t4kni3ksmsnit.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDOBDP8xl8VfgF3DD4mRGPeGboZzrJZqvc"
+          "current_key": "AIzaSyD83sdHPkyCVQDp5ZfC9XM2uOmaOTZpBJY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "636798304534-n2pvencghiu7ajq8pbuvnus2utrvk6f9.apps.googleusercontent.com",
+              "client_id": "510545355891-l2k83ie46g6q500uk87t4kni3ksmsnit.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

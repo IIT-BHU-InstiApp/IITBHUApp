@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
    // public static ArrayList<SingleVerticalData> getVerticalData1 = new ArrayList<>();
    // public static ArrayList<SingleHorizontaldata>getHorizontalData1=new ArrayList<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,13 +157,15 @@ public class MainActivity extends AppCompatActivity {
 
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.animated_logo);
         videoView.setVideoURI(video);
-        videoView.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            videoView.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
+        }
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
 //                startActivity(new Intent(MainActivity.this,SignInActivity.class));
-                startActivity(new Intent(MainActivity.this,SignInActivity.class));
+                startActivity(new Intent(MainActivity.this,HomeActivity.class));
                 finish();
             }
         });

@@ -86,7 +86,7 @@
                     android:layout_marginStart="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Share Event"
-                    android:src="@drawable/ic_date_range_black_24dp"
+                    android:src="@drawable/ic_event_black_24dp"
                     />
 
                 <ImageButton
@@ -124,16 +124,5 @@
 
 
         </FrameLayout>
-
-
-
-
-
-
-
-
-
-
-
-    </RelativeLayout>
+</RelativeLayout>
 </androidx.cardview.widget.CardView>

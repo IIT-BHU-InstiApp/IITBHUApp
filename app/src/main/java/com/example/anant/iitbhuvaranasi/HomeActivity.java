@@ -50,6 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
+
         navigationView.getMenu().getItem(track).setChecked(true);
         super.onResume();
 //        SharedPreferences sharedPrefs = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE);
@@ -80,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("IIT(BHU) Varanasi");
 
         drawer = findViewById(R.id.drawer_layout);
 
@@ -140,6 +142,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+    private void itemSelectionNavigationView() {
+        navigationView.getMenu().getItem(track).setChecked(true);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -182,28 +187,42 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 x++;
                 break;
             case R.id.nav_complain:
-                track = 2;
+
 //                SharedPreferences.Editor editor2 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor2.putInt("track",2);
 //                editor2.commit();
+                if(SignInActivity.guestLoginChecker != 1){
+                    track = 2;
+
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ComplainFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);
+                    x++;}
+                else{
+                    itemSelectionNavigationView();
+                    Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                    toast.show();
+
+                }
 
 
-                x++;
+
                 break;
             case R.id.lost_found:
-                track = 3;
-                SharedPreferences.Editor editor3 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
-                editor3.putInt("track",3);
-                editor3.commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new LostAndFoundFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
 
+                if(SignInActivity.guestLoginChecker != 1){
+                    track = 3;
 
-                x++;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new LostAndFoundFragment()).commit();
+                    bottomNavigationView.setVisibility(View.GONE);
+                    x++;}
+                else{
+                    itemSelectionNavigationView();
+                    Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                    toast.show();
+
+                }
                 break;
 
 
@@ -259,6 +278,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
             case R.id.nav_about:
+                track = 9;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AboutFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);
@@ -276,6 +296,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                     break;
             case R.id.nav_logout:
+                SignInActivity.guestLoginChecker = 0;
                 mGoogleSignInClient.signOut()
                         .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                             @Override
@@ -338,13 +359,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             switch (item.getItemId()) {
                 case R.id.id_card:
-                    selectedFragment = new IDCardFragment();
+                    if(SignInActivity.guestLoginChecker == 1){
 
+                        selectedFragment = new FeedFragment();
+                        Toast.makeText(getApplicationContext(),"You need to Login for this feature",Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        selectedFragment = new IDCardFragment();
+                    }
 
                     break;
 
                 case R.id.feed:
-                    selectedFragment = new FeedFragment();
+
+                        selectedFragment = new FeedFragment();
 
                     break;
 

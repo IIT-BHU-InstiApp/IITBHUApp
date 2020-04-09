@@ -4,23 +4,16 @@ public class AboutIndividual {
     private String id;
     private String name;
     private String imageName;
-    private int type;
+    private String branch;
 
     public static final int TYPE_HUMAN = 0;
     public static final int TYPE_LINK = 1;
 
-    public AboutIndividual(String id, String name, String imageName) {
+    public AboutIndividual(String id, String name, String imageName,String branch) {
         this.id = id;
         this.name = name;
         this.imageName = imageName;
-        this.type = TYPE_HUMAN;
-    }
-
-    public AboutIndividual(String id, String name, String imageName, int type) {
-        this.id = id;
-        this.name = name;
-        this.imageName = imageName;
-        this.type = type;
+        this.branch = branch;
     }
 
     public String getId() {
@@ -47,11 +40,11 @@ public class AboutIndividual {
         this.imageName = imageName;
     }
 
-    public int getType() {
-        return type;
+    public String getBranch() {
+        return branch;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 }
