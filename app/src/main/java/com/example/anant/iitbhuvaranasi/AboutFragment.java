@@ -1,12 +1,15 @@
 package com.example.anant.iitbhuvaranasi;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +35,22 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        Button joinTeam = view.findViewById(R.id.join_team_button);
+        joinTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://forms.gle/afuGZ22huGcyRPpW9";
+
+
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.intent.setPackage("com.android.chrome");
+                customTabsIntent.launchUrl(getContext(), Uri.parse(url));
+            }
+        });
+
+        return view;
 
 
 
@@ -46,6 +64,7 @@ public class AboutFragment extends Fragment {
         toolbar.setTitle("About the Developers");
 
         final Context context = getContext();
+
 
         AboutAdapter aboutAdapter = new AboutAdapter(new ArrayList<AboutCategory>() {{
             add(new AboutCategory("Core Developers", new ArrayList<AboutIndividual>() {{
@@ -93,6 +112,7 @@ public class AboutFragment extends Fragment {
         FlexboxLayoutManager manager = new FlexboxLayoutManager(context, FlexDirection.ROW);
         manager.setJustifyContent(JustifyContent.CENTER);
         aboutRecyclerView.setLayoutManager(manager);
+
     }
 
     @Override

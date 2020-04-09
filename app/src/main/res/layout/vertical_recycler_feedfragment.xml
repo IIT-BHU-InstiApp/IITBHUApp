@@ -10,9 +10,10 @@
         android:layout_height="wrap_content"
         android:text="Events"
         android:textStyle="bold"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginLeft="0dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/inner_recyclerView"

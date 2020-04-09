@@ -7,6 +7,7 @@
     android:layout_marginRight="4dp"
     android:layout_marginBottom="6dp"
     android:layout_marginTop="2dp"
+    android:elevation="8dp"
 
 
     xmlns:android="http://schemas.android.com/apk/res/android" >
@@ -64,7 +65,7 @@
                 android:ellipsize="end"
                 android:textColor="@color/black_color"
                 android:textStyle="bold"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/event_dates1"

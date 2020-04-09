@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -72,7 +71,7 @@ public class AboutCategory extends StatelessSection {
         individualViewHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,User_info.class);
+                Intent intent=new Intent(context, DeveloperInfo.class);
                 intent.putExtra("Image",individual.getImageName());
                 intent.putExtra("Name",individual.getName());
                 intent.putExtra("Email",individual.getId());

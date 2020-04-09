@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single" android:id="@+id/group1">
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications"
@@ -35,12 +35,11 @@
             android:id="@+id/important_links"
             android:icon="@drawable/ic_link_holo_blue_light_24dp"
             android:title="Important Links" />
+    </group>
 
-        <item
-            android:id="@+id/nav_imp_contacts"
-            android:icon="@drawable/ic_imp_contacts"
-            android:title="Important Contacts">
-        <menu>
+
+
+        <group android:id="@+id/group2" >
 
             <item
                 android:id="@+id/nav_academics"
@@ -54,23 +53,11 @@
                 android:id="@+id/nav_security"
                 android:icon="@drawable/ic_imp_contacts"
                 android:title="Security"/>
-        </menu>
-        </item>
+        </group>
 
 
-        <!--        <item-->
-        <!--            android:id="@+id/nav_myprofile"-->
-        <!--            android:icon="@drawable/ic_complain"-->
-        <!--            android:title="My Profile" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/nav_eidcard"-->
-        <!--            android:icon="@drawable/ic_about"-->
-        <!--            android:title="E-ID Card" />-->
-    </group>
+    <group android:checkableBehavior="single" android:id="@+id/group3" android:title="Additional Info">
 
-
-    <item android:title="Additional Info">
-        <menu>
 
 
             <item
@@ -85,6 +72,20 @@
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_logout"
                 android:title="Logout" />
-        </menu>
-    </item>
+
+    </group>
+
+
+
+        <!--        <item-->
+        <!--            android:id="@+id/nav_myprofile"-->
+        <!--            android:icon="@drawable/ic_complain"-->
+        <!--            android:title="My Profile" />-->
+        <!--        <item-->
+        <!--            android:id="@+id/nav_eidcard"-->
+        <!--            android:icon="@drawable/ic_about"-->
+        <!--            android:title="E-ID Card" />-->
+
 </menu>
+
+
