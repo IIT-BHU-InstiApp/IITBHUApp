@@ -33,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.cooltechworks.views.WhatsappViewCompat;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -128,9 +129,13 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         Log.d("notidsd",notifid);
         title_event.setText(obj.getTitle_event());
         map_location = obj.getMap_location();
+        Log.d("sdfsfdsf1",obj.getDescription_event());
         Log.d("FeedFragmentMapData","Map Location from backend = "+map_location);
-
+       // WhatsappViewCompat.applyFormatting(description_event);
+        Log.d("sdfsfdsf",obj.getDescription_event());
         description_event.setText(obj.getDescription_event());
+       // WhatsappViewCompat.applyFormatting(description_event);
+       // WhatsappViewCompat.applyFormatting(description_event);
         Glide.with(this)
                 .load(obj.getImage_event())
                 .fitCenter() // scale to fit entire image within ImageView

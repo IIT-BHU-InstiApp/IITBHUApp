@@ -173,6 +173,7 @@ public class IITBHUMapFragment extends Fragment implements
 
 
 
+
     FloatingActionMenu filterFAM;
     FloatingActionButton filterHostel, filterOther, filterDepartment, filterLT;
 
@@ -344,6 +345,8 @@ public class IITBHUMapFragment extends Fragment implements
             then only map will be opened without any InfoWindow
          */
         location = location2345;
+        Log.d("position234",location);
+        Log.d("position234",location2345);
 
 
         if (location == null || location.trim().isEmpty() || location.trim().equalsIgnoreCase("nolocation")
