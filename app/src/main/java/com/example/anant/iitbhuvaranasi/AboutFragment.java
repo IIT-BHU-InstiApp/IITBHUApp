@@ -1,12 +1,15 @@
 package com.example.anant.iitbhuvaranasi;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +35,22 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        Button joinTeam = view.findViewById(R.id.join_team_button);
+        joinTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://forms.gle/afuGZ22huGcyRPpW9";
+
+
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.intent.setPackage("com.android.chrome");
+                customTabsIntent.launchUrl(getContext(), Uri.parse(url));
+            }
+        });
+
+        return view;
 
 
 
@@ -47,10 +65,11 @@ public class AboutFragment extends Fragment {
 
         final Context context = getContext();
 
+
         AboutAdapter aboutAdapter = new AboutAdapter(new ArrayList<AboutCategory>() {{
             add(new AboutCategory("Core Developers", new ArrayList<AboutIndividual>() {{
-                add(new AboutIndividual("abhinavsingh", "Abhinav Singh", "varun.jpg","Computer Science"));
-                add(new AboutIndividual("bhoomikbhamawat.eee18@itbhu.ac.in", "Bhoomik Bhamawat", "sajal.jpg","Electrical"));
+                add(new AboutIndividual("bhoomikbhamawat.eee18@itbhu.ac.in", "Bhoomik Bhamawat", "varun.jpg","Electrical"));
+                add(new AboutIndividual("abhinav.singh.cse15@itbhu.ac.in", "Abhinav Singh", "sajal.jpg","Computer Science"));
             }}, context));
             add(new AboutCategory("Developers", new ArrayList<AboutIndividual>() {{
                 add(new AboutIndividual(null, "Yogesh", "mrunmayi.jpg","Electrical"));
@@ -59,6 +78,7 @@ public class AboutFragment extends Fragment {
                 add(new AboutIndividual(null, "Tanmay Mishra", "yashkhem.jpg","Electrical"));
                 add(new AboutIndividual(null, "Martin", "bavish.jpg","Electrical"));
                 add(new AboutIndividual("suryansh.min19@itbhu.ac.in", "Suryansh", "mayu.jpg","Mining"));
+                add(new AboutIndividual("null", "Rohil Shah", "mayu.jpg","Chemical"));
                 //add(new AboutIndividual("maitreya", "Maitreya Verma", "maitreya.jpg"));
                  }}, context));
            /* add(new AboutCategory("Design", new ArrayList<AboutIndividual>() {{
@@ -68,18 +88,20 @@ public class AboutFragment extends Fragment {
             add(new AboutCategory("Ideation", new ArrayList<AboutIndividual>() {{
                 add(new AboutIndividual(null, "Anant Gowadiya", "nihal.jpg","SMST"));
                 add(new AboutIndividual(null, "Abhinav Singh", "ydidwania.jpg","Electrical"));
-                add(new AboutIndividual(null, "Bhoomik Bhamawat", "ydidwania.jpg","Electrical"));
+                add(new AboutIndividual(null, "Bharat Jain", "ydidwania.jpg","Electrical"));
+                add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg","Electrical"));
+
               //  add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg"));
                 //add(new AboutIndividual(null, "Arihant Shuklecha", "sarthak.jpg"));
             }}, context));
-            add(new AboutCategory("Managing Team", new ArrayList<AboutIndividual>() {{
-            //    add(new AboutIndividual(null, "Anant Gowadiya", "nihal.jpg"));
-                add(new AboutIndividual(null, "Bharat Jain", "ydidwania.jpg","Electrical"));
-                add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg","Electrical"));
-                add(new AboutIndividual(null, "Sachit", "cheeku.jpg","Electrical"));
-             //   add(new AboutIndividual(null, "Bhoomik", "cheeku.jpg"));
+            add(new AboutCategory("Design", new ArrayList<AboutIndividual>() {{
+                add(new AboutIndividual(null, "Prakhar Bhatnagar", "nihal.jpg","SMST"));
+                add(new AboutIndividual(null, "Vaibhav Jain", "ydidwania.jpg","Electrical"));
+                add(new AboutIndividual(null, "Arihant Kumar", "ydidwania.jpg","Electrical"));
+                //  add(new AboutIndividual(null, "Arihant Shuklecha", "cheeku.jpg"));
                 //add(new AboutIndividual(null, "Arihant Shuklecha", "sarthak.jpg"));
             }}, context));
+
             /*add(new AboutCategory("Alumni", new ArrayList<AboutIndividual>() {{
                 add(new AboutIndividual("abhijit.tomar", "Anant Gowadiya", "tomar.jpg"));
                 add(new AboutIndividual(null, "Abhinav Singh", "bijoy.jpg"));
@@ -93,6 +115,7 @@ public class AboutFragment extends Fragment {
         FlexboxLayoutManager manager = new FlexboxLayoutManager(context, FlexDirection.ROW);
         manager.setJustifyContent(JustifyContent.CENTER);
         aboutRecyclerView.setLayoutManager(manager);
+
     }
 
     @Override

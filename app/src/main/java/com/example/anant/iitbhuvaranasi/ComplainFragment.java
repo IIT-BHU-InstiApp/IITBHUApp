@@ -1,6 +1,7 @@
 package com.example.anant.iitbhuvaranasi;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
@@ -20,13 +21,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,7 +77,7 @@ public class ComplainFragment extends Fragment {
 
 
     private Toolbar toolbar;
-    private ImageButton sendButton, addImage;
+    private ImageButton sendButton,addImage;
     private LinearLayout uploadedImageContainer;
     private String hostel;
     private String ComplaineeName, ComplaineeEmailaddress;
@@ -91,9 +90,8 @@ public class ComplainFragment extends Fragment {
     private EditText issueBox;
     private CheckBox anonymousCheckbox;
     private String keepAnonymous;
-    private LinearLayout hiddenPanel;
-    private Animation bottomUp,bottomDown;
     private TextView removeImage;
+    private Dialog attachImageOption;
     private ArrayList<String> UserImage;
 
     @Nullable
@@ -102,7 +100,7 @@ public class ComplainFragment extends Fragment {
         View view = inflater.inflate(R.layout.complain_fragment, container, false);
 
         issueBox = view.findViewById(R.id.issue_box);
-        toolbar = (Toolbar) requireActivity().findViewById(R.id.toolbar);
+        toolbar = (Toolbar) Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
         uploadedImageContainer = view.findViewById(R.id.uploaded_image_container);
         anonymousCheckbox = view.findViewById(R.id.anonymous_checkbox);
         removeImage = view.findViewById(R.id.remove_image);
@@ -112,22 +110,6 @@ public class ComplainFragment extends Fragment {
         subjectEditBox = view.findViewById(R.id.subject_edittext);
         complaineeName = view.findViewById(R.id.complainee_name);
         complaineeEmailaddress = view.findViewById(R.id.complainee_emailaddress);
-
-        bottomUp = AnimationUtils.loadAnimation(getContext(),
-                R.anim.bottom_up);
-        bottomDown = AnimationUtils.loadAnimation(getContext(),R.anim.bottom_down);
-        hiddenPanel = (LinearLayout) view.findViewById(R.id.upload_image);
-        View outsideCard = hiddenPanel.findViewById(R.id.outside_card);
-
-
-        outsideCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hiddenPanel.startAnimation(bottomDown);
-                hiddenPanel.setVisibility(View.GONE);
-
-            }
-        });
 
 
         UserImage = new ArrayList<>();
@@ -150,7 +132,7 @@ public class ComplainFragment extends Fragment {
 
         sendButton = new ImageButton(getContext());
         sendButton.setLayoutParams(LayoutParam);
-        sendButton.setImageDrawable(requireContext().getResources().getDrawable(R.drawable.ic_send_black_24dp));
+        sendButton.setImageDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.ic_send_black_24dp));
         sendButton.setBackgroundResource(typedValue.resourceId);
 
         addImage = new ImageButton(getContext());
@@ -325,7 +307,7 @@ public class ComplainFragment extends Fragment {
         anonymousHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog.Builder warning = new AlertDialog.Builder(requireContext());
+                final AlertDialog.Builder warning = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
                 warning.setMessage("Your identity will be kept anonymous to complain authority.");
                 warning.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -352,31 +334,33 @@ public class ComplainFragment extends Fragment {
             public void onClick(View v) {
                 if (uploadedImageContainer.getChildCount() < 4) {
 
-                    if(hiddenPanel.getVisibility() == View.VISIBLE){
-                        hiddenPanel.startAnimation(bottomDown);
-                        hiddenPanel.setVisibility(View.GONE);
-                    }else {
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+                    attachImageOption = new Dialog(Objects.requireNonNull(getContext()));
+                    LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
 
-                        hiddenPanel.startAnimation(bottomUp);
-                        hiddenPanel.setVisibility(View.VISIBLE);
 
-                    }
-                    hiddenPanel.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                attachImage();
-                            }
-                        });
-                    hiddenPanel.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                captureImage();
-                            }
-                        });
+                    linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            attachImage();
+                        }
+                    });
 
+
+                    linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            captureImage();
+                        }
+                    });
+
+                    attachImageOption.addContentView(linearLayout, params);
+
+                    attachImageOption.show();
                 } else {
                     try {
-                        Snackbar.make(requireView(), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(Objects.requireNonNull(getView()), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
                     } catch (NullPointerException e) {
                         Log.e("ComplainFragment", "Snackbar: You have reached your maximum upload limit of 4", e);
                         Toast.makeText(getContext(), "You have reached your maximum upload limit of 4", Toast.LENGTH_SHORT).show();
@@ -420,7 +404,7 @@ public class ComplainFragment extends Fragment {
             public void onClick(View v) {
                 if (Complainttype.equals("Complain Regarding")) {
                     try {
-                        Snackbar.make(requireView(), "Please specify complain type", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(Objects.requireNonNull(getView()), "Please specify complain type", Snackbar.LENGTH_SHORT).show();
                     } catch (NullPointerException e) {
 
                         Log.e("ComplainFragment", "Snackbar: Please specify complain type", e);
@@ -428,7 +412,7 @@ public class ComplainFragment extends Fragment {
                     }
                 } else if (hostel.equals("Your Hostel")) {
                     try {
-                        Snackbar.make(requireView(), "Please Select your Hostel", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(Objects.requireNonNull(getView()), "Please Select your Hostel", Snackbar.LENGTH_SHORT).show();
                     } catch (NullPointerException e) {
 
                         Log.e("ComplainFragment", "Snackbar: Please Select your Hostel", e);
@@ -437,7 +421,7 @@ public class ComplainFragment extends Fragment {
                 } else if (TextUtils.isEmpty(subjectEditBox.getText())) {
                     issueBox.setPressed(true);
                     try {
-                        Snackbar.make(requireView(), "Please fill subject of complain", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(Objects.requireNonNull(getView()), "Please fill subject of complain", Snackbar.LENGTH_SHORT).show();
                     } catch (NullPointerException e) {
 
                         Log.e("ComplainFragment", "Snackbar: Please fill subject of complain", e);
@@ -446,14 +430,14 @@ public class ComplainFragment extends Fragment {
                 } else if (TextUtils.isEmpty(issueBox.getText())) {
                     issueBox.setPressed(true);
                     try {
-                        Snackbar.make(requireView(), "Please describe your issue", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(Objects.requireNonNull(getView()), "Please describe your issue", Snackbar.LENGTH_SHORT).show();
                     } catch (NullPointerException e) {
 
                         Log.e("ComplainFragment", "Snackbar: Please describe your issue", e);
                         Toast.makeText(getContext(), "Please describe your issue", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    AlertDialog.Builder a_builder = new AlertDialog.Builder(requireContext());
+                    AlertDialog.Builder a_builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
                     a_builder.setMessage("I am aware that if I will misuse this facility by any way I would be deregistered from this app");
                     a_builder.setCancelable(false);
                     a_builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -474,9 +458,9 @@ public class ComplainFragment extends Fragment {
                                         public void onResponse(String response) {
                                             pdialog.dismiss();
                                             if ((response.toString()).equals("Success")) {
-                                                Snackbar.make(requireView(), "Complain successfully Registered", Snackbar.LENGTH_LONG).show();
+                                                Snackbar.make(Objects.requireNonNull(getView()), "Complain successfully Registered", Snackbar.LENGTH_LONG).show();
                                             } else if ((response.toString()).equals("Block")) {
-                                                Snackbar.make(requireView(), "Complain Registered but You are blocked for misuse of app Contact concerned authority", Snackbar.LENGTH_LONG).show();
+                                                Snackbar.make(Objects.requireNonNull(getView()), "Complain Registered but You are blocked for misuse of app Contact concerned authority", Snackbar.LENGTH_LONG).show();
                                             }
 
                                         }
@@ -487,7 +471,7 @@ public class ComplainFragment extends Fragment {
                                             pdialog.dismiss();
 
                                             try {
-                                                Snackbar.make(requireView(), "Something went Wrong\nTry again Later", Snackbar.LENGTH_LONG).show();
+                                                Snackbar.make(Objects.requireNonNull(getView()), "Something went Wrong\nTry again Later", Snackbar.LENGTH_LONG).show();
                                             } catch (NullPointerException e) {
                                                 Log.e("ComplainFragment", "Snackbar: Something went Wrong\nTry again Later", e);
                                                 Toast.makeText(getContext(), "Something went Wrong\nTry again Later", Toast.LENGTH_SHORT).show();
@@ -524,7 +508,7 @@ public class ComplainFragment extends Fragment {
                             stringRequest.setRetryPolicy(policy);
 
 
-                            RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
+                            RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
 
                             requestQueue.add(stringRequest);
 
@@ -565,8 +549,8 @@ public class ComplainFragment extends Fragment {
     }
 
     private void captureImage() {
-        if (checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+        if (checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
 
         } else {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -595,7 +579,7 @@ public class ComplainFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,200,getResources().getDisplayMetrics());
         int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
         int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 
@@ -618,7 +602,7 @@ public class ComplainFragment extends Fragment {
                     Uri imageUri = mClipData.getItemAt(i).getUri();
 
                     try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), imageUri);
                         rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
                         String userImage = getStringImage(rbitmap);
                         UserImage.add(userImage);
@@ -635,7 +619,7 @@ public class ComplainFragment extends Fragment {
                 Uri imageUri = data.getData();
 
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), imageUri);
                     rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
                     String userImage = getStringImage(rbitmap);
                     //base64toString.add(userImage);
@@ -655,7 +639,7 @@ public class ComplainFragment extends Fragment {
                 removeImage.setVisibility(View.VISIBLE);
             } else {
                 try {
-                    Snackbar.make(requireView(), "Can't upload more than 4 images", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(Objects.requireNonNull(getView()), "Can't upload more than 4 images", Snackbar.LENGTH_SHORT).show();
                 } catch (NullPointerException e) {
                     Log.e("ComplainFragment", "Can't upload more than 4 images", e);
                     Toast.makeText(getContext(), "Can't upload more than 4 images", Toast.LENGTH_SHORT).show();
@@ -690,8 +674,7 @@ public class ComplainFragment extends Fragment {
             removeImage.setVisibility(View.VISIBLE);
         }
 
-        hiddenPanel.startAnimation(bottomDown);
-        hiddenPanel.setVisibility(View.GONE);
+        attachImageOption.hide();
 
     }
 

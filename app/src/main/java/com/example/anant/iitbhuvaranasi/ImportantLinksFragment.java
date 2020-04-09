@@ -70,7 +70,7 @@ public class ImportantLinksFragment extends Fragment {
         expandCollapseText(academic, academic_layout);
         expandCollapseText(wifi_guide, wifi);
 
-        SpannableString spannableString = new SpannableString("Important links from iitbhu.ac.in");
+        SpannableString spannableString = new SpannableString("Institute Website");
         ClickableSpan link = new ClickableSpan() {
 
             @Override
@@ -83,8 +83,8 @@ public class ImportantLinksFragment extends Fragment {
             }
         };
 
-        spannableString.setSpan(link, 21, 33, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ForegroundColorSpan(Objects.requireNonNull(getContext()).getResources().getColor(R.color.holo_blue_light)), 21, 33, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(link, 0, 17, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Objects.requireNonNull(getContext()).getResources().getColor(R.color.holo_blue_light)), 0, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         iitbhuLink.setText(spannableString);
         iitbhuLink.setMovementMethod(LinkMovementMethod.getInstance());
 

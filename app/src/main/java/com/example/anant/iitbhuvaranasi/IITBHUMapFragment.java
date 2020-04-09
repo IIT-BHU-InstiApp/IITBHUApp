@@ -344,8 +344,7 @@ public class IITBHUMapFragment extends Fragment implements
             then only map will be opened without any InfoWindow
          */
         location = location2345;
-        Log.d("position13456",location);
-        Log.d("position1345678",location2345);
+
 
         if (location == null || location.trim().isEmpty() || location.trim().equalsIgnoreCase("nolocation")
                 || location.trim().equalsIgnoreCase("not_given") || location.trim().equalsIgnoreCase("no_location")) {

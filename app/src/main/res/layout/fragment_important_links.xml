@@ -17,8 +17,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:singleLine="true"
-            android:text="Important links from iitbhu.ac.in"
-            android:textColor="@color/black_color"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Institute Website"
             android:textSize="21sp" />
 
         <View

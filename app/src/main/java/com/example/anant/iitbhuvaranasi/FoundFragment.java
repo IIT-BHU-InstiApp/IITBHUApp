@@ -26,8 +26,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -96,8 +94,7 @@ public class FoundFragment extends Fragment {
     private EditText location;
     private TextView removeImage;
     private ArrayList<String> UserImage;
-    private Animation bottomUp,bottomDown;
-    private LinearLayout hiddenPanel;
+    private Dialog attachImageOption;
 
 
     @Nullable
@@ -123,37 +120,21 @@ public class FoundFragment extends Fragment {
         TextInputLayout locationlayout = view.findViewById(R.id.location_layout);
         TextInputLayout contactLayout = view.findViewById(R.id.contact_layout);
 
-        bottomUp = AnimationUtils.loadAnimation(getContext(),
-                R.anim.bottom_up);
-        bottomDown = AnimationUtils.loadAnimation(getContext(),R.anim.bottom_down);
-        hiddenPanel = (LinearLayout) view.findViewById(R.id.upload_image);
-        View outsideCard = hiddenPanel.findViewById(R.id.outside_card);
-
-
-        outsideCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hiddenPanel.startAnimation(bottomDown);
-                hiddenPanel.setVisibility(View.GONE);
-
-            }
-        });
-
 
         SpannableString spannableString = new SpannableString("All found forms are registered in the given sheet link.");
         ClickableSpan link = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                String url = "https://www.google.com/";
+                String url = "https://docs.google.com/spreadsheets/d/1hp0PnIh2fKjbXRfUVkycWzCpgaLlG54TTqCvGnsiVdc/edit?ts=5e8de55a#gid=0";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
+                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
 
             }
         };
 
         spannableString.setSpan(link, 44, 54, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ForegroundColorSpan(requireContext().getResources().getColor(R.color.holo_blue_light)), 44, 54, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Objects.requireNonNull(getContext()).getResources().getColor(R.color.holo_blue_light)), 44, 54, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
         linkInfo.setText(spannableString);
@@ -168,7 +149,7 @@ public class FoundFragment extends Fragment {
 
         UserImage = new ArrayList<>();
 
-        ownerInformation.setText("Owner's Information (If Known)");
+        ownerInformation.setText("Founder's Information");
         contactLayout.setHint("Your Contact Number");
         lostItemTILayout.setHint("Found Item");
         locationlayout.setHint("Found at (Location)");
@@ -194,7 +175,7 @@ public class FoundFragment extends Fragment {
 
 
         List<String> Branch = new ArrayList<>();
-        Branch.add(0, "Owner's Branch");
+        Branch.add(0, "Branch");
 
         Branch.add("Architecture, Planning and Design");
         Branch.add("Biochemical Engineering");
@@ -349,30 +330,33 @@ public class FoundFragment extends Fragment {
                 public void onClick(View v) {
                     if (uploadedImageContainer.getChildCount() < 4) {
 
-                        if(hiddenPanel.getVisibility() == View.VISIBLE){
-                            hiddenPanel.startAnimation(bottomDown);
-                            hiddenPanel.setVisibility(View.GONE);
-                        }else {
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                        attachImageOption = new Dialog(Objects.requireNonNull(getContext()));
+                        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(Objects.requireNonNull(getActivity()).getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
 
-                            hiddenPanel.startAnimation(bottomUp);
-                            hiddenPanel.setVisibility(View.VISIBLE);
 
-                        }
-                        hiddenPanel.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
+                        linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 attachImage();
                             }
                         });
-                        hiddenPanel.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
+
+
+                        linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 captureImage();
                             }
                         });
+
+                        attachImageOption.addContentView(linearLayout, params);
+
+                        attachImageOption.show();
                     } else {
                         try {
-                            Snackbar.make(requireView(), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(Objects.requireNonNull(getView()), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
                         } catch (NullPointerException e) {
                             Log.e("FoundFragment", "Snackbar: You have reached your maximum upload limit of 4", e);
                             Toast.makeText(getContext(), "You have reached your maximum upload limit of 4", Toast.LENGTH_SHORT).show();
@@ -390,7 +374,7 @@ public class FoundFragment extends Fragment {
                     if (TextUtils.isEmpty(foundItem.getText())) {
                         foundItem.setPressed(true);
                         try {
-                            Snackbar.make(requireView(), "Please specify foundItem", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please specify foundItem", Snackbar.LENGTH_SHORT).show();
                         } catch (NullPointerException e) {
                             Log.e("FoundFragment", "Snackbar: Please specify foundItem", e);
                             Toast.makeText(getContext(), "Please specify foundItem", Toast.LENGTH_SHORT).show();
@@ -398,7 +382,7 @@ public class FoundFragment extends Fragment {
                     } else if (TextUtils.isEmpty(location.getText())) {
                         location.setPressed(true);
                         try {
-                            Snackbar.make(requireView(), "Please specify where you found item", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please specify where you found item", Snackbar.LENGTH_SHORT).show();
                         } catch (NullPointerException e) {
                             Log.e("FoundFragment", "Snackbar: Please specify where you found item", e);
                             Toast.makeText(getContext(), "Please specify where you found item", Toast.LENGTH_SHORT).show();
@@ -406,13 +390,13 @@ public class FoundFragment extends Fragment {
                     } else if (TextUtils.isEmpty(contact.getText())) {
                         contact.setPressed(true);
                         try {
-                            Snackbar.make(requireView(), "Please fill your contact number", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(Objects.requireNonNull(getView()), "Please fill your contact number", Snackbar.LENGTH_SHORT).show();
                         } catch (NullPointerException e) {
                             Log.e("FoundFragment", "Snackbar: Please fill your contact number", e);
                             Toast.makeText(getContext(), "Please fill your contact number", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        AlertDialog.Builder a_builder = new AlertDialog.Builder(requireContext());
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
                         a_builder.setMessage("I am aware that if I will misuse this facility by any way I would be deregistered from this app");
                         a_builder.setCancelable(false);
                         a_builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -437,7 +421,7 @@ public class FoundFragment extends Fragment {
                                                 //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                                                 if ((response.toString()).equals("Success")) {
                                                     try {
-                                                        Snackbar.make(requireView(), "Form successfully Registered", Snackbar.LENGTH_SHORT).show();
+                                                        Snackbar.make(Objects.requireNonNull(getView()), "Form successfully Registered", Snackbar.LENGTH_SHORT).show();
                                                     } catch (NullPointerException e) {
                                                         Log.e("FoundFragment", "Snackbar: Form successfully Registered", e);
                                                         Toast.makeText(getContext(), "Form successfully Registered", Toast.LENGTH_SHORT).show();
@@ -450,7 +434,7 @@ public class FoundFragment extends Fragment {
                                             public void onErrorResponse(VolleyError error) {
                                                 pdialog.dismiss();
                                                 try {
-                                                    Snackbar.make(requireView(), "Something went Wrong\nTry again Later", Snackbar.LENGTH_SHORT).show();
+                                                    Snackbar.make(Objects.requireNonNull(getView()), "Something went Wrong\nTry again Later", Snackbar.LENGTH_SHORT).show();
                                                 } catch (NullPointerException e) {
                                                     Log.e("FoundFragment", "Snackbar: Something went Wrong\nTry again Later", e);
                                                     Toast.makeText(getContext(), "Something went Wrong\nTry again Later", Toast.LENGTH_SHORT).show();
@@ -487,7 +471,7 @@ public class FoundFragment extends Fragment {
                                 stringRequest.setRetryPolicy(policy);
 
 
-                                RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
+                                RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
 
                                 requestQueue.add(stringRequest);
 
@@ -528,9 +512,9 @@ public class FoundFragment extends Fragment {
     }
 
     private void captureImage() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{
                     Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
 
         } else {
@@ -567,7 +551,7 @@ public class FoundFragment extends Fragment {
                     Uri imageUri = mClipData.getItemAt(i).getUri();
 
                     try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), imageUri);
                         Bitmap rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
                         String userImage = getStringImage(rbitmap);
                         UserImage.add(userImage);
@@ -584,7 +568,7 @@ public class FoundFragment extends Fragment {
                 Uri imageUri = data.getData();
 
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), imageUri);
                     Bitmap rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
                     String userImage = getStringImage(rbitmap);
                     //base64toString.add(userImage);
@@ -604,7 +588,7 @@ public class FoundFragment extends Fragment {
                 removeImage.setVisibility(View.VISIBLE);
             } else {
                 try {
-                    Snackbar.make(requireView(), "Can't upload more than 4 images", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(Objects.requireNonNull(getView()), "Can't upload more than 4 images", Snackbar.LENGTH_SHORT).show();
                 } catch (NullPointerException e) {
                     Log.e("ComplainFragment", "Can't upload more than 4 images", e);
                     Toast.makeText(getContext(), "Can't upload more than 4 images", Toast.LENGTH_SHORT).show();
@@ -639,8 +623,8 @@ public class FoundFragment extends Fragment {
 
 
         }
-        hiddenPanel.startAnimation(bottomDown);
-        hiddenPanel.setVisibility(View.GONE);
+
+        attachImageOption.hide();
 
     }
 

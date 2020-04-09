@@ -61,7 +61,7 @@ public class Clubs_group extends AppCompatActivity {
 
         mExampleList = new ArrayList<>();
         RecyclerView = findViewById(R.id.recyclerView_clubs);
-        RecyclerView.setHasFixedSize(true);
+
         //RecyclerView.setLayoutManager(new LinearLayoutManager(this));
         RecyclerView.setLayoutManager(new GridLayoutManager(this,
        2,
