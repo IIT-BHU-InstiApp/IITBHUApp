@@ -125,22 +125,24 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
                                         android:text="Event Title"
-                                        android:maxLines="2"
+                                        android:maxLines="3"
                                         android:ellipsize="end"
                                         android:textColor="@color/black_color"
                                         android:textStyle="bold"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                          />
                                     <ImageButton
                                         android:id="@+id/clock"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="end"
+                                        android:layout_gravity="center_vertical"
                                         android:layout_weight="1"
                                         android:background="?attr/selectableItemBackgroundBorderless"
                                         android:clickable="true"
+                                        android:layout_margin="1dp"
                                         android:contentDescription="@string/set_event_time_calender"
-                                        android:src="@drawable/ic_event_black_24dp" />
+                                        android:src="@drawable/ic_event_black_24dp"
+                                        />
 
                                     <ImageButton
                                         android:id="@+id/share_event_button"
@@ -186,7 +188,7 @@
                                                 android:gravity="center"
                                                 android:text="Date"
                                                 android:textColor="@color/colorGray"
-                                                android:textSize="18sp"
+                                                android:textSize="16sp"
 
                                                  />
 
@@ -209,7 +211,7 @@
 
                                         android:layout_gravity="center_vertical"
                                         android:elevation="1dp"
-                                        android:layout_margin="2dp"
+                                        android:layout_margin="4dp"
                                         >
                                         <LinearLayout
                                             android:layout_width="match_parent"
@@ -229,13 +231,11 @@
                                             android:id="@+id/event_venue"
                                             android:layout_width="match_parent"
                                             android:layout_height="40dp"
-
                                             android:layout_gravity="center_vertical"
                                             android:gravity="center"
-                                            android:text="Gymkhana Ground , Ne  fdsd sdf dsf dsf sdf dsf"
-
+                                            android:text="Gymkhana Ground"
                                             android:textColor="@color/colorGray"
-                                            android:textSize="16sp"
+                                            android:textSize="24dp"
                                             android:textStyle="bold" />
                                         </LinearLayout>
 

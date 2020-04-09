@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
 
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/tools">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:text="Pinned Clubs"
-            android:textStyle="bold"
-            android:layout_margin="8dp"/>
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
         <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,42 +33,40 @@
                     android:id="@+id/horizontal_rcv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:layout_marginBottom="8dp"
 
                     />
 
                 <Button
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-
-                    android:gravity="center"
-                    android:text="+"
-                    android:textSize="32dp"
-
                     android:id="@+id/add_button"
                     style="?android:attr/borderlessButtonStyle"
-                    />
+
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+
+                    android:text="+"
+                    android:textSize="32dp" />
             </LinearLayout>
 
         </HorizontalScrollView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Councils"
-            android:textStyle="bold"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"/>
+            android:text="Councils"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            
-
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
-
 
     </LinearLayout>
 </ScrollView>

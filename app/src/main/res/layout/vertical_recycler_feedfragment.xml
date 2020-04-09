@@ -5,18 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     android:orientation="vertical">
+    
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Events"
         android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginLeft="0dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/inner_recyclerView"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"/>

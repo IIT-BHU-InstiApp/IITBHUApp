@@ -11,10 +11,12 @@
         <item name="android:ambientShadowAlpha">0.2</item>
         <item name="android:spotShadowAlpha">0.2</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
-
-
-
+        <item name="android:windowDisablePreview">true</item>
         <!-- Added by Suryansh. -->
+    </style>
+
+    <style name="AppTheme34" parent="android:Theme">
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -60,6 +62,15 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
 

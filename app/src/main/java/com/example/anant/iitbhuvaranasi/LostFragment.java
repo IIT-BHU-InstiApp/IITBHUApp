@@ -123,7 +123,7 @@ public class LostFragment extends Fragment {
         ClickableSpan link = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                String url = "https://www.google.com/";
+                String url = "https://docs.google.com/spreadsheets/d/1gfpbpDhN--kI6dVFD4dTc6yBAcGqyINT99tdtzrDpW4/edit?ts=5e8de596#gid=0";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));

@@ -2,11 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-   >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+ <Button
+     android:layout_width="200dp"
+     android:layout_height="wrap_content"
+     android:text="Join our team"
+     android:layout_margin="16dp"
+     android:textColor="@color/white"
+     android:layout_gravity="center_horizontal"
+     android:background="@drawable/rounded_button"
+     android:id="@+id/join_team_button"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/about_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hello bitch"/>
 </LinearLayout>

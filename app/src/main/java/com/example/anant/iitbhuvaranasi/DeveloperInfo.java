@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import static android.view.View.VISIBLE;
 
-public class User_info extends AppCompatActivity {
+public class DeveloperInfo extends AppCompatActivity {
     private Animator mCurrentAnimator;
 
     // The system "short" animation time duration, in milliseconds. This
@@ -44,11 +44,11 @@ public class User_info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
-  /*      Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Profile");
-        setSupportActionBar(toolbar);
-      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+//       Toolbar toolbar = findViewById(R.id.toolbar);
+//        toolbar.setTitle("Profile");
+//        setSupportActionBar(toolbar);
+//       getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Name1 = findViewById(R.id.user_name_profile);
         Email1 = findViewById(R.id.user_email_profile);
@@ -85,6 +85,7 @@ public class User_info extends AppCompatActivity {
         userProfilePictureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.cardview_visible).setVisibility(View.GONE);
                 zoomImageFromThumb(userProfilePictureImageView);
             }
         });
@@ -234,16 +235,14 @@ public class User_info extends AppCompatActivity {
         if (zoomMode) {
             zoomOut(expandedImageView, startBounds, startScaleFinal, userProfilePictureImageView);
             zoomMode = false;
+            findViewById(R.id.cardview_visible).setVisibility(VISIBLE);
         }
-
+        else {
+            super.onBackPressed();
+        }
     }
 
-    @Override
-    public boolean onSupportNavigateUp(){
-        super.onBackPressed();
 
-        return true;
-    }
 
 
 

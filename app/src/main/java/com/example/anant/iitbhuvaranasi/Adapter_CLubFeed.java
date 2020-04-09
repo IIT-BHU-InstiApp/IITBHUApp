@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
+
 public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyViewHolder1> {
 
     public  long starttime;
@@ -237,6 +239,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         holder.mapLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                location2345 = data.get(position).getMap_location();
                 Intent intent = new Intent(context1,FragmentSupportActivity.class);
                 context1.startActivity(intent);
             }

@@ -50,6 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
+
         navigationView.getMenu().getItem(track).setChecked(true);
         super.onResume();
 //        SharedPreferences sharedPrefs = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE);
@@ -80,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("IIT(BHU) Varanasi");
 
         drawer = findViewById(R.id.drawer_layout);
 
@@ -276,6 +278,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
             case R.id.nav_about:
+                track = 9;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AboutFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);

@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".ContactsPOR">
@@ -16,12 +17,19 @@
         android:id="@+id/por_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+
+
         >
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Parliament" />
+            android:text="Parliament"
+
+
+            />
+
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
