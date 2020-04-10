@@ -40,15 +40,6 @@ import java.util.Map;
 
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
 
-/*
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-*/
-//import org.kashiyatra.ky18.R;
-//import org.kashiyatra.ky18.utils.PermissionUtils;
 
 public class IITBHUMapFragment extends Fragment implements
         GoogleMap.OnMyLocationButtonClickListener,
