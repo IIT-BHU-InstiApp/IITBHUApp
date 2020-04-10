@@ -26,6 +26,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -92,7 +94,8 @@ public class LostFragment extends Fragment {
     private EditText ownerName, lostItem, contact, location, details;
     private TextView removeImage;
     private ArrayList<String> UserImage;
-    private Dialog attachImageOption;
+    private Animation bottomUp,bottomDown;
+    private LinearLayout hiddenPanel;
 
 
     @Nullable
@@ -118,6 +121,22 @@ public class LostFragment extends Fragment {
         TextInputLayout locationlayout = view.findViewById(R.id.location_layout);
         TextInputLayout contactLayout = view.findViewById(R.id.contact_layout);
 
+        bottomUp = AnimationUtils.loadAnimation(getContext(),
+                R.anim.bottom_up);
+        bottomDown = AnimationUtils.loadAnimation(getContext(),R.anim.bottom_down);
+        hiddenPanel = (LinearLayout) view.findViewById(R.id.upload_image);
+        View outsideCard = hiddenPanel.findViewById(R.id.outside_card);
+
+
+        outsideCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hiddenPanel.startAnimation(bottomDown);
+                hiddenPanel.setVisibility(View.GONE);
+
+            }
+        });
+
 
         SpannableString spannableString = new SpannableString("All lost forms are registered in the given sheet link.");
         ClickableSpan link = new ClickableSpan() {
@@ -126,13 +145,13 @@ public class LostFragment extends Fragment {
                 String url = "https://docs.google.com/spreadsheets/d/1gfpbpDhN--kI6dVFD4dTc6yBAcGqyINT99tdtzrDpW4/edit?ts=5e8de596#gid=0";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         };
 
         spannableString.setSpan(link, 43, 53, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ForegroundColorSpan(Objects.requireNonNull(getContext()).getResources().getColor(R.color.holo_blue_light)), 43, 53, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(requireContext().getResources().getColor(R.color.holo_blue_light)), 43, 53, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         linkInfo.setText(spannableString);
         linkInfo.setMovementMethod(LinkMovementMethod.getInstance());
@@ -322,30 +341,27 @@ public class LostFragment extends Fragment {
                 public void onClick(View v) {
                     if (uploadedImageContainer.getChildCount() < 4) {
 
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT);
-                        attachImageOption = new Dialog(Objects.requireNonNull(getContext()));
-                        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(Objects.requireNonNull(getActivity()).getApplicationContext()).inflate(R.layout.uploadimage_dialog_layout, null, false);
+                        if(hiddenPanel.getVisibility() == View.VISIBLE){
+                            hiddenPanel.startAnimation(bottomDown);
+                            hiddenPanel.setVisibility(View.GONE);
+                        }else {
 
+                            hiddenPanel.startAnimation(bottomUp);
+                            hiddenPanel.setVisibility(View.VISIBLE);
 
-                        linearLayout.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
+                        }
+                        hiddenPanel.findViewById(R.id.attachimage).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 attachImage();
                             }
                         });
-
-
-                        linearLayout.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
+                        hiddenPanel.findViewById(R.id.captureimage).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 captureImage();
                             }
                         });
-
-                        attachImageOption.addContentView(linearLayout, params);
-
-                        attachImageOption.show();
                     } else {
                         try {
                             Snackbar.make(Objects.requireNonNull(getView()), "You have reached your maximum upload limit of 4", Snackbar.LENGTH_SHORT).show();
@@ -520,9 +536,9 @@ public class LostFragment extends Fragment {
     }
 
     private void captureImage() {
-        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.CAMERA)
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{
                     Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
 
         } else {
@@ -632,7 +648,8 @@ public class LostFragment extends Fragment {
 
         }
 
-        attachImageOption.hide();
+        hiddenPanel.startAnimation(bottomDown);
+        hiddenPanel.setVisibility(View.GONE);
 
     }
 

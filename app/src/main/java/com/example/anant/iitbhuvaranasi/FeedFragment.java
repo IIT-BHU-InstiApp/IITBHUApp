@@ -154,42 +154,6 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
                 }
                 Log.d("horizontaldata234500", getHorizontalData1.toString());
 
-                /*for (int i = jsonArray.length() - 1; i >= 0; i--) {
-                    JSONObject hit = jsonArray.getJSONObject(i);
-
-                    // store in share opref hit.toString()
-                    // update last post number
-                    // read shared pref and add vertical ddata section
-
-                    String club_name=hit.getString("club");
-                    String club_image="http://iitbhuapp.tk"+hit.getString("clubimage");
-                    String council_name=hit.getString("council");
-                    String council_image="http://iitbhuapp.tk"+hit.getString("councilimage");
-                    String title_event=hit.getString("title");
-                    String description_event=hit.getString("description");
-                    String image_event="http://iitbhuapp.tk"+hit.getString("image");
-                    String date_event=hit.getString("datetime");
-                    String location=hit.getString("location");
-
-                    Integer viewcount1=hit.getInt("viewedcount");
-                    String viewcount=viewcount1.toString();
-                    Integer interested1=hit.getInt("interestedcount");
-                    String interestedcount=interested1.toString();
-                    String interested=hit.getInt("interested") + "";
-                    Integer notification_id=hit.getInt("notifid");
-                    Integer notif_id=hit.getInt("notifid");
-                    String notifid=notif_id.toString();
-                    Interestedbutton_class.notification_id=notification_id;
-                    getVerticalData1.add(new SingleVerticalData(club_name,club_image,council_name,council_image,title_event,description_event
-                            ,image_event,date_event,location,viewcount,interestedcount,interested,notifid));
-                    Log.d("verticalse00",getVerticalData1.toArray().toString());
-
-                    // Log.d("imageurl00", image);
-                    Log.d("verticaldataori00",getVerticalData1.toString());
-
-                }*/
-             //   Log.d("getverticaldata100",getVerticalData1.toString());
-
 
             }
             else {
