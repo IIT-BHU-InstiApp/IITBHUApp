@@ -46,8 +46,8 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
         Picasso
                 .get()
                 .load("http://iitbhuapp.tk" + clubImageUrl)
-                .placeholder(R.drawable.ic_eye_view)
-                .error(R.drawable.amc_workshop)
+                .placeholder(R.drawable.ic_cloud_download_black_24dp)
+                .error(R.drawable.ic_error_outline_black_24dp)
                 .noFade()
                 .into(holder.img);
 //        holder.img.setLayoutParams(new ViewGroup.LayoutParams(250,250));

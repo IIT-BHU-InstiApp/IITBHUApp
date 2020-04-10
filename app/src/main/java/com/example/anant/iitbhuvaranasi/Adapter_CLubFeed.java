@@ -62,8 +62,8 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
 
         Glide.with(context1)
                 .load(data.get(position).getImage_event())
-                .placeholder(R.drawable.sntc)
-                .error(R.drawable.amc_workshop)
+                .placeholder(R.drawable.ic_cloud_download_black_24dp)
+                .error(R.drawable.ic_error_outline_black_24dp)
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(holder.image);
 

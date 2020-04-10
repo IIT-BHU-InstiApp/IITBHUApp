@@ -42,8 +42,8 @@ public class Adapter_ClubsGroup extends RecyclerView.Adapter<Adapter_ClubsGroup.
         final String image_url = mExampleList.get(position).getImage();
         Picasso.get()
                 .load(mExampleList.get(position).getImage())
-                .placeholder(R.drawable.ic_eye_view)
-                .error(R.drawable.amc_workshop)
+                .placeholder(R.drawable.ic_cloud_download_black_24dp)
+                .error(R.drawable.ic_error_outline_black_24dp)
                 .into(holder.image);
         // Title appears disabled if item is disabled
 

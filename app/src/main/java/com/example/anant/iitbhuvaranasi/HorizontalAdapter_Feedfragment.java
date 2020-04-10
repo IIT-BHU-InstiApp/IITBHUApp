@@ -48,8 +48,8 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
        // Log.d("imageurlhorizontal",data.get(position).getImage());
         Picasso.get()
                 .load(data.get(position).getImage())
-                .placeholder(R.drawable.ic_eye_view)
-                .error(R.drawable.amc_workshop)
+                .placeholder(R.drawable.ic_cloud_download_black_24dp)
+                .error(R.drawable.ic_error_outline_black_24dp)
                 .fit()
                 .into(holder.image);
 //        ViewGroup.LayoutParams params = holder.image.getLayoutParams();
