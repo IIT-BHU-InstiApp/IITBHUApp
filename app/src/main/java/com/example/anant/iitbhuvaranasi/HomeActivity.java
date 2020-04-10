@@ -183,7 +183,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         new IITBHUMapFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);*/
                 location2345=null;
-                Intent intent1 = new Intent(HomeActivity.this, FragmentSupportActivity.class);
+                Intent intent1 = new Intent(HomeActivity.this, IITBHUMapActivity.class);
                 startActivity(intent1);
                 //finish();
                 x++;

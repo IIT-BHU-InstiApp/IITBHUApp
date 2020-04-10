@@ -28,9 +28,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             />
         <!-- Remove above lines after moving to https -->
-        <!--<activity
-            android:name=".IITbhu_Map"
-            android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity
+            android:name=".IITBHUMapActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ContactsActivity"
             android:theme="@style/AppTheme.NoActionBar" />

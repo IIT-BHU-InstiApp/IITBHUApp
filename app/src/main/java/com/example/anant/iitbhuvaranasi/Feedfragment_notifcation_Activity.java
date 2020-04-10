@@ -290,7 +290,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
 
             case R.id.location:
                 location2345 = map_location;
-                startActivity(new Intent(this,FragmentSupportActivity.class));
+                startActivity(new Intent(this,IITBHUMapActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
@@ -299,7 +299,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
 
             case R.id.event_venue:
                 location2345 = map_location;
-                startActivity(new Intent(this,FragmentSupportActivity.class));
+                startActivity(new Intent(this,IITBHUMapActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");

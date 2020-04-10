@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IITbhu_Map">
+    tools:context=".IITBHUMapActivty">
 
     <include
         android:id="@+id/toolbar_maps"
@@ -97,7 +97,7 @@
             android:src="@drawable/baseline_place_white_24dp"
             fab:fab_colorNormal="#808000"
             fab:fab_colorPressed="@color/colorPrimary"
-            fab:fab_label="ATMs"
+            fab:fab_label="Others"
             fab:fab_size="mini" />
 
 
