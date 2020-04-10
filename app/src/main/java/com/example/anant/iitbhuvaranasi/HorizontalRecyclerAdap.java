@@ -53,8 +53,8 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
 //        holder.img.setLayoutParams(new ViewGroup.LayoutParams(250,250));
         float factor = holder.img .getContext().getResources().getDisplayMetrics().density;
         ViewGroup.LayoutParams params = holder.img.getLayoutParams();
-        params.width = (int)(100*factor);
-        params.height = (int)(100*factor);
+        params.width = (int)(95*factor);
+        params.height = (int)(95*factor);
         holder.img.setLayoutParams(params);
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override

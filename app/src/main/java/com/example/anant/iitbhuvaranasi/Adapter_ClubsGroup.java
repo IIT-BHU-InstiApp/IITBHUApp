@@ -31,10 +31,6 @@ public class Adapter_ClubsGroup extends RecyclerView.Adapter<Adapter_ClubsGroup.
     @Override
     public Adapter_ClubsGroup.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.clubs_recylerview, parent, false);
-        ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
-        layoutParams.width = (int) (parent.getWidth() * .5);
-        layoutParams.height = (int) (parent.getHeight() * .21);
-        v.setLayoutParams(layoutParams);
         return new ViewHolder(v);
     }
 

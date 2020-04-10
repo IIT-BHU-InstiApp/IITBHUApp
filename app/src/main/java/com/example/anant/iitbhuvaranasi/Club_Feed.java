@@ -6,11 +6,15 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,6 +32,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
     private TextView club_name;
     private CircleImageView feed_clubimage;
+    ImageButton about_button;
     RecyclerView RecyclerView;
     private LinearLayout custombar;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -45,7 +50,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
 
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
+        swipeRefreshLayout =  findViewById(R.id.swiperefreshlayout);
         ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setDisplayShowTitleEnabled(false);
@@ -57,6 +62,8 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
         club_name = mCustomView.findViewById(R.id.feed_clubname);
         feed_clubimage = mCustomView.findViewById(R.id.feed_clubimage);
+        about_button = mCustomView.findViewById(R.id.about_club);
+
         custombar=mCustomView.findViewById(R.id.linear_club1);
         title1= getIntent().getStringExtra("title");
         final String image1 = getIntent().getStringExtra("image");
@@ -71,7 +78,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
 
 
-        custombar.setOnClickListener(new View.OnClickListener() {
+        about_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -105,6 +112,15 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
+
+
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
+        mActionBar.setCustomView(mCustomView, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+//        Toolbar toolbar=(Toolbar)mCustomView.getParent();
+//        toolbar.setContentInsetsAbsolute(0,0);
         // getVerticalData3 = new ArrayList<>();
 
        /* Log.d("567853", getVerticalData4.toString());

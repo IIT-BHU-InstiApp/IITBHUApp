@@ -52,7 +52,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
                                 android:adjustViewBounds="true"
-                                android:transitionName="fullscreen"
+
                                 tools:src="@mipmap/ic_launcher_round" />
                         </androidx.cardview.widget.CardView>
 

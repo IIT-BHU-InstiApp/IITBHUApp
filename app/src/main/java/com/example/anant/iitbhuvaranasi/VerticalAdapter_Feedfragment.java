@@ -90,7 +90,7 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mcontext, Feedfragment_notifcation_Activity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) mcontext, pairs);
+
                 // ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mcontext, pair1);
                 Gson gson = new Gson();
                 String json = gson.toJson(data.get(position));
@@ -101,7 +101,7 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
                 intent.putExtra("image", data.get(position).getImage_event());
                 intent.putExtra("map_location", data.get(position).getMap_location());
 
-                mcontext.startActivity(intent, options.toBundle());
+                mcontext.startActivity(intent);
             }
         });
     }
