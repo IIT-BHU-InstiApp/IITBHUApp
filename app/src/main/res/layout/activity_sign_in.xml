@@ -47,7 +47,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:layout_marginTop="7dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
             android:id="@+id/siginbutton"
             android:layout_gravity="center_horizontal"
             android:text="Login via Student Account"
@@ -60,7 +60,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="0dp"
             android:background="@color/white"
 
             android:text="or"/>
@@ -72,7 +73,7 @@
 
             android:id="@+id/guestLogin"
             android:background="?attr/selectableItemBackground"
-            android:padding="10dp"
+            android:padding="16dp"
             android:text="Continue as a Guest"/>
 
     </LinearLayout>
