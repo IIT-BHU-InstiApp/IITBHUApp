@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_inflatein"
-        android:background="@color/white_color"
-        android:orientation="vertical"
-        tools:context=".Feedfragment_notifcation_Activity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_color"
+    android:orientation="vertical"
+    tools:context=".Feedfragment_notifcation_Activity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
 
-
-
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
 
             <com.google.android.material.appbar.AppBarLayout
@@ -41,26 +38,24 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
+
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="20dp"
+                            android:layout_marginTop="-16dp"
                             android:layout_marginBottom="2dp"
-                            android:layout_marginTop="-14dp"
-
-                            >
+                            app:cardCornerRadius="16dp">
 
                             <ImageView
                                 android:id="@+id/event_picture_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="14dp"
+                                android:layout_marginTop="16dp"
                                 android:adjustViewBounds="true"
-
-
-                                android:src="@mipmap/ic_launcher_round"
-                                android:transitionName="fullscreen" />
+                                android:transitionName="fullscreen"
+                                tools:src="@mipmap/ic_launcher_round" />
                         </androidx.cardview.widget.CardView>
+
                         <androidx.appcompat.widget.Toolbar
                             android:id="@+id/toolbar_notification"
                             android:layout_width="match_parent"
@@ -78,127 +73,127 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginTop="4dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:background="@android:color/transparent"
-                    android:orientation="vertical">
-
+                    android:layout_marginTop="4dp"
+                    app:cardCornerRadius="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
+                        android:background="@android:color/transparent"
                         android:orientation="vertical">
 
-                        <androidx.cardview.widget.CardView
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-
-                            app:cardCornerRadius="20dp">
-
-                            <LinearLayout
+                            <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="12dp"
-                                android:layout_marginEnd="16dp"
-                                android:layout_marginBottom="8dp"
-                                android:orientation="vertical">
+                                app:cardCornerRadius="20dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:weightSum="10">
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:orientation="vertical">
 
                                     <TextView
-                                        android:id="@+id/event_page_title"
+                                        android:id="@+id/council_name"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="9"
-                                        android:text="Event Title"
-                                        android:maxLines="3"
-                                        android:ellipsize="end"
-                                        android:textColor="@color/black_color"
-                                        android:textStyle="bold"
-                                        android:textSize="18sp"
-                                         />
-                                    <ImageButton
-                                        android:id="@+id/clock"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_weight="1"
-                                        android:background="?attr/selectableItemBackgroundBorderless"
-                                        android:clickable="true"
-                                        android:layout_margin="1dp"
-                                        android:contentDescription="@string/set_event_time_calender"
-                                        android:src="@drawable/ic_event_black_24dp"
-                                        />
+                                        android:singleLine="true"
+                                        tools:text="Council"
+                                        android:textColor="@color/colorPrimary"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"/>
 
-                                    <ImageButton
-                                        android:id="@+id/share_event_button"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_marginStart="8dp"
-                                        android:layout_weight="1"
-                                        android:background="?attr/selectableItemBackgroundBorderless"
-                                        android:src="@drawable/ic_share_black_24dp" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:layout_gravity="center"
-
-                                    android:orientation="horizontal"
-
-                                    android:weightSum="10">
-
-                                    <FrameLayout
+                                    <LinearLayout
                                         android:layout_width="match_parent"
+
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
+                                        android:orientation="horizontal">
 
-                                        android:layout_weight="9">
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:weightSum="10">
 
 
 
-                                            <TextView
-                                                android:id="@+id/event_page_date"
+                                        <TextView
+                                            android:id="@+id/event_page_title"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="9"
+                                            android:ellipsize="end"
+                                            android:maxLines="2"
+                                            android:text="Event Title"
+                                            android:textColor="@color/black_color"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/event_page_date"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@android:color/transparent"
+                                            android:gravity="center_vertical"
+                                            android:text="Date"
+                                            android:layout_marginTop="4dp"
+                                            android:layout_marginBottom="4dp"
+                                            android:textColor="@color/colorGray"
+                                            android:textSize="16dp" />
+
+                                    </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:orientation="vertical">
+
+
+
+                                            <ImageButton
+                                                android:id="@+id/share_event_button"
                                                 android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:background="@android:color/transparent"
-                                                android:gravity="center"
-                                                android:text="Date"
-                                                android:textColor="@color/colorGray"
-                                                android:textSize="16sp"
+                                                android:layout_height="0dp"
+                                                android:layout_gravity="center"
+                                                android:layout_weight="1"
+                                                android:layout_marginBottom="4dp"
+                                                android:background="?attr/selectableItemBackgroundBorderless"
+                                                android:src="@drawable/ic_share_black_24dp" />
 
-                                                 />
+                                            <ImageButton
+                                                android:id="@+id/clock"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="0dp"
+                                                android:layout_marginTop="4dp"
+                                                android:layout_gravity="center"
+                                                android:layout_weight="1"
+                                                android:background="?attr/selectableItemBackgroundBorderless"
+                                                android:clickable="true"
+                                                android:contentDescription="@string/set_event_time_calender"
+                                                android:src="@drawable/ic_event_black_24dp" />
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
 
 
-                                    </FrameLayout>
-
-
-
-
-                                </LinearLayout>
 
 
 
@@ -207,120 +202,109 @@
                                     <androidx.cardview.widget.CardView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        app:cardCornerRadius="10dp"
-
                                         android:layout_gravity="center_vertical"
-                                        android:elevation="1dp"
+
                                         android:layout_margin="4dp"
-                                        >
+                                        android:elevation="1dp"
+                                        app:cardCornerRadius="10dp">
+
+
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_margin="5dp"
                                             android:orientation="horizontal">
-                                        <ImageButton
-                                            android:layout_width="30dp"
-                                            android:layout_height="40dp"
-                                            android:scaleType="centerCrop"
-                                            android:src="@drawable/ic_location_on_black_24dp"
-                                            android:id="@+id/location"
-                                            android:background="?attr/selectableItemBackgroundBorderless"
-                                            android:elevation="5dp"/>
 
-                                        <TextView
-                                            android:id="@+id/event_venue"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="40dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:gravity="center"
-                                            android:text="Gymkhana Ground"
-                                            android:textColor="@color/colorGray"
-                                            android:textSize="24dp"
-                                            android:textStyle="bold" />
+                                            <ImageButton
+                                                android:id="@+id/location"
+                                                android:layout_width="30dp"
+                                                android:layout_height="30dp"
+                                                android:background="?attr/selectableItemBackgroundBorderless"
+                                                android:elevation="5dp"
+                                                android:scaleType="centerCrop"
+                                                android:src="@drawable/ic_location_on_black_24dp" />
+
+                                            <TextView
+                                                android:id="@+id/event_venue"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="24dp"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center"
+                                                android:text="Gymkhana Ground"
+                                                android:textColor="@color/colorGray"
+                                                android:textSize="18dp"
+                                                android:textStyle="bold" />
+
                                         </LinearLayout>
 
 
                                     </androidx.cardview.widget.CardView>
 
 
+                                    <LinearLayout
 
-                                <LinearLayout
-
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:weightSum="100"
-                                    >
-
-                                    <FrameLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="100"/>
+                                        android:orientation="horizontal"
+                                        android:weightSum="100">
+
+                                        <FrameLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="100" />
 
 
-
-
+                                    </LinearLayout>
 
 
                                 </LinearLayout>
 
+                            </androidx.cardview.widget.CardView>
 
 
-                            </LinearLayout>
+                            <com.cooltechworks.views.WhatsAppTextView
+                                android:id="@+id/event_page_description"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="16dp"
+                                android:text="description"
+                                android:textColor="@color/Black"
+                                android:textSize="16sp" />
 
-                        </androidx.cardview.widget.CardView>
 
+                        </LinearLayout>
 
+                        <!-- <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:gravity="center_horizontal">
 
+                             <ImageView
+                                 android:layout_width="38dp"
+                                 android:layout_height="33dp"
+                                 android:layout_gravity="center_horizontal"
+                                 android:adjustViewBounds="true"
+                                 android:cropToPadding="true"
+                                 android:scaleType="fitXY"
+                                 android:src="@drawable/ic_eye_view" />
 
-
-
-                        <TextView
-                            android:id="@+id/event_page_description"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="16dp"
-                            android:text="description"
-                            android:textColor="@color/Black"
-                            android:textSize="16sp" />
-
+                             <TextView
+                                 android:id="@+id/view_count"
+                                 android:layout_width="42dp"
+                                 android:layout_height="match_parent"
+                                 android:gravity="center"
+                                 android:text="500" />
+                         </LinearLayout>-->
 
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-                   <!-- <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal">
-
-                        <ImageView
-                            android:layout_width="38dp"
-                            android:layout_height="33dp"
-                            android:layout_gravity="center_horizontal"
-                            android:adjustViewBounds="true"
-                            android:cropToPadding="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/ic_eye_view" />
-
-                        <TextView
-                            android:id="@+id/view_count"
-                            android:layout_width="42dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="500" />
-                    </LinearLayout>-->
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-        </androidx.core.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-
-
-
     </LinearLayout>
-    </FrameLayout>
+</FrameLayout>

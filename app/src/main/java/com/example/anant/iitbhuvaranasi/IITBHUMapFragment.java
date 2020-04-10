@@ -5,18 +5,23 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -35,20 +40,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
 
-/*
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-*/
-//import org.kashiyatra.ky18.R;
-//import org.kashiyatra.ky18.utils.PermissionUtils;
 
 public class IITBHUMapFragment extends Fragment implements
         GoogleMap.OnMyLocationButtonClickListener,
@@ -168,8 +166,11 @@ public class IITBHUMapFragment extends Fragment implements
         put("GTAC", new Place("GTAC", new LatLng(25.259717, 82.984984)));
     }};
 
+    static Map<String,Place> used;
+
     private String location = null;
     String location23 = location2345;
+
 
 
 
@@ -255,6 +256,7 @@ public class IITBHUMapFragment extends Fragment implements
                     markCafe();
                     markHospitals();
                     markPetrol();
+                    markGround();
                     markOther();
                 }
                 filterFAM.toggle(true);
@@ -264,13 +266,7 @@ public class IITBHUMapFragment extends Fragment implements
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                markAtms();
-                markTemples();
-                markCafe();
-                markHospitals();
-                markPetrol();
-                markGround();
-                markOther();
+                displayAlertDialog("Others",view);
                 filterFAM.close(true);
             }
         });
@@ -278,7 +274,7 @@ public class IITBHUMapFragment extends Fragment implements
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                markLT();
+                displayAlertDialog("Lecture Halls",view);
                 filterFAM.close(true);
             }
         });
@@ -286,7 +282,7 @@ public class IITBHUMapFragment extends Fragment implements
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                markHostels();
+                displayAlertDialog("Hostels",view);
                 filterFAM.close(true);
             }
         });
@@ -294,7 +290,7 @@ public class IITBHUMapFragment extends Fragment implements
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                markDepartments();
+                displayAlertDialog("Departments",view);
                 filterFAM.close(true);
             }
         });
@@ -544,4 +540,83 @@ public class IITBHUMapFragment extends Fragment implements
         filterFAM.setIconToggleAnimatorSet(set);
     }
 
+    private void displayAlertDialog(String name,View view)
+    {
+        String options[] = {"Display All","Select from List"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(IITBHUMapFragment.this.getContext());
+        builder.setTitle("Display "+name);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0: {
+                        if (name.equals("Hostels"))
+                            markHostels();
+                        else if (name.equals("Departments"))
+                            markDepartments();
+                        else if (name.equals("Lecture Halls"))
+                            markLT();
+                        else if (name.equals("Others")) {
+                            markAtms();
+                            markTemples();
+                            markCafe();
+                            markHospitals();
+                            markPetrol();
+                            markGround();
+                            markOther();
+                        }
+                    }
+                        break;
+                    case 1:
+                        if (name.equals("Hostels"))
+                            used=hostelLocations;
+                        else if (name.equals("Departments"))
+                            used=departmentLocations;
+                        else if (name.equals("Lecture Halls"))
+                            used=ltLocations;
+                        else if (name.equals("Others")) {
+                            used = new HashMap<String, Place>();
+                            used.clear();
+                            used.putAll(atmLocations);
+                            used.putAll(templeLocations);
+                            used.putAll(cafeLocations);
+                            used.putAll(hospitalLocations);
+                            used.putAll(petrolLocations);
+                            used.putAll(groundLocations);
+                            used.putAll(otherLocations);
+                        }
+                        registerForContextMenu(view);
+                        view.showContextMenu();
+                    default:
+                        dialog.cancel();
+                }
+
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
+            int i=0;
+            for (String key : used.keySet()) {
+                menu.add(1,i,i,used.get(key).getName());
+            }
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        String name = item.getTitle().toString();
+        for (String key : used.keySet())
+        {
+            if (name.equals(used.get(key).getName())){
+                location2345=key;
+                onMapReady(mMap);
+            }
+        }
+        return true;
+    }
 }

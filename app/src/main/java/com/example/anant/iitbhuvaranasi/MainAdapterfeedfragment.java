@@ -143,45 +143,6 @@ public class MainAdapterfeedfragment extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public int getItemViewType(int position) {
         return position;
-//        if (items.get(position) instanceof SingleHorizontaldata)
-//            return HORIZONTAL;
-//       else if (items.get(position) instanceof SingleVerticalData)
-//            return VERTICAL;
-//       return -1;
-
-       /* if (position == 0) {
-
-
-            if (items.get(position) instanceof SingleVerticalData)
-                return VERTICAL;
-            if (items.get(position) instanceof SingleHorizontaldata)
-                return HORIZONTAL;
-        }
-        return -1;*/
-
-        /*switch(position) {
-
-            case 0:
-            if (items.get(position) instanceof SingleHorizontaldata) {
-                return HORIZONTAL;
-
-            }
-            else
-                return VERTICAL;
-
-            *//*if (items.get(position) instanceof SingleVerticalData)
-                return VERTICAL;*//*
-
-
-         *//* case 1:
-                if (items.get(position) instanceof SingleHorizontaldata)
-                    return HORIZONTAL;
-                if (items.get(position) instanceof SingleVerticalData)
-                    return VERTICAL;
-
-            break;*//*
-        }
-        return -1;*/
     }
 
 
