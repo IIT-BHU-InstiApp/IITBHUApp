@@ -191,7 +191,7 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
         try {
             JSONObject jsonObject = new JSONObject(response45678);
-            int status = jsonObject.getInt("status");
+//            int status = jsonObject.getInt("status");
             JSONArray allcouncils = jsonObject.getJSONArray("councils");
 //            JSONObject council = allcouncils.getJSONObject(position);
 //            JSONArray clubs = council.getJSONArray("clubs");

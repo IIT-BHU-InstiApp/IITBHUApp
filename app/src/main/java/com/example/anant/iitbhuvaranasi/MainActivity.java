@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCompletion(MediaPlayer mediaPlayer) {
 //                startActivity(new Intent(MainActivity.this,SignInActivity.class));
 
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                startActivity(new Intent(MainActivity.this,SignInActivity.class));
                 finish();
             }
         });
