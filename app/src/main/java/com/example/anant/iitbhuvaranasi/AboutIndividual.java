@@ -36,15 +36,15 @@ public class AboutIndividual {
         return imageName;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
+//    public void setImageName(String imageName) {
+//        this.imageName = imageName;
+//    }
 
     public String getBranch() {
         return branch;
     }
 
-    public void setBranch(String branch) {
-        this.branch = branch;
-    }
+//    public void setBranch(String branch) {
+//        this.branch = branch;
+//    }
 }

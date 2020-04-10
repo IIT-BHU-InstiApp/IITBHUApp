@@ -6,11 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
+
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Objects;
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -92,7 +89,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView =  findViewById(R.id.nav_view);
 
         View headerView = navigationView.getHeaderView(0);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -123,15 +120,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FeedFragment()).commit();
-        }
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                    new FeedFragment()).commit();
+//        }
 
 
         //Added by Suryansh.
 
-        BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNav =  findViewById(R.id.bottom_navigation);
 
         bottomNav.setOnNavigationItemSelectedListener(listener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -149,11 +146,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        SharedPreferences sharedPrefs = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE);
+
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         switch (menuItem.getItemId()) {
 
             case R.id.nav_notifications:
@@ -310,7 +307,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor spreferencesEditor = spreferences.edit();
                 spreferencesEditor.clear();
-                spreferencesEditor.commit();
+                spreferencesEditor.apply();
 
                 Intent intent2 = new Intent(this, SignInActivity.class);
                 startActivity(intent2);
@@ -325,7 +322,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
 
-        MenuItem item_notification = (MenuItem) findViewById(R.id.nav_notifications);
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -356,7 +353,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
 
             switch (item.getItemId()) {
@@ -402,22 +399,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //
 //    }
 
-    void onNavigationEvent(int navigationEvent, Bundle extras){
-//        if(home == 1) {
-//            navigationView.getMenu().getItem(0).setChecked(true);
-//        }
-//        else if(map == 1) {
-//            navigationView.getMenu().getItem(1).setChecked(true);
-//        }
-//        else if(complain == 1) {
-//            navigationView.getMenu().getItem(2).setChecked(true);
-//        }
-//        else if(lost == 1) {
-//            navigationView.getMenu().getItem(3).setChecked(true);
-//        }
-//        else {
-//            navigationView.getMenu().getItem(5).setChecked(true);
-//        }
-    }
+//
 }
 

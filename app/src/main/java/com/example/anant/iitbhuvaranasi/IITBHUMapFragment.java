@@ -601,7 +601,7 @@ public class IITBHUMapFragment extends Fragment implements
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        getActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
+//        getActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
             int i=0;
             for (String key : used.keySet()) {
                 menu.add(1,i,i,used.get(key).getName());
