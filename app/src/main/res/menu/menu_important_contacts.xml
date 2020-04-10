@@ -21,7 +21,7 @@
 
         <item
             android:id="@+id/security_imp"
-            android:title="Security"
+            android:title="Security/Emergency"
             android:icon="@drawable/ic_call_"/>
 
     <!--    <item-->

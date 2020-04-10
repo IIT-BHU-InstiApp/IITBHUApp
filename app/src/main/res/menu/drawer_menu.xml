@@ -52,7 +52,7 @@
             <item
                 android:id="@+id/nav_security"
                 android:icon="@drawable/ic_imp_contacts"
-                android:title="Security"/>
+                android:title="Security/Emergency"/>
         </group>
 
 

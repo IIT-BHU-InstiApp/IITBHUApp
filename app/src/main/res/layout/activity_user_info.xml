@@ -82,10 +82,5 @@
         </LinearLayout>
 </androidx.cardview.widget.CardView>
 
-    <com.example.anant.iitbhuvaranasi.TouchImageView
-        android:id="@+id/expanded_image_profile"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="Zoomed Image"
-        android:visibility="gone" />
+
 </FrameLayout>

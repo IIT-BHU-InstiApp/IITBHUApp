@@ -70,8 +70,8 @@
             android:layout_height="wrap_content"
 
             android:id="@+id/guestLogin"
-            android:background="@color/white"
-
+            android:background="?attr/selectableItemBackground"
+            android:padding="10dp"
             android:text="Continue as a Guest"/>
 
     </LinearLayout>
