@@ -128,7 +128,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         String notifid = obj.getNotifid();
         Integer notif_id = Integer.valueOf(notifid);
         Log.d("notidsd",notifid);
-        councilName.setText(obj.getClub_name());
+        councilName.setText(obj.getCouncil_name());
         title_event.setText(obj.getTitle_event());
         map_location = obj.getMap_location();
         Log.d("sdfsfdsf1",obj.getDescription_event());

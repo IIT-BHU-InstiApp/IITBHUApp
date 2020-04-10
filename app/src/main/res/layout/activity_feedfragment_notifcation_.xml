@@ -114,7 +114,7 @@
                                         android:layout_height="wrap_content"
                                         android:singleLine="true"
                                         tools:text="Council"
-                                        android:textColor="@android:color/black"
+                                        android:textColor="@color/colorPrimary"
                                         android:textSize="14sp"
                                         android:textStyle="bold"/>
 
@@ -156,7 +156,7 @@
                                             android:layout_marginTop="4dp"
                                             android:layout_marginBottom="4dp"
                                             android:textColor="@color/colorGray"
-                                            android:textSize="16sp" />
+                                            android:textSize="16dp" />
 
                                     </LinearLayout>
 
@@ -204,7 +204,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
 
-                                        android:layout_margin="2dp"
+                                        android:layout_margin="4dp"
                                         android:elevation="1dp"
                                         app:cardCornerRadius="10dp">
 
@@ -218,7 +218,7 @@
                                             <ImageButton
                                                 android:id="@+id/location"
                                                 android:layout_width="30dp"
-                                                android:layout_height="40dp"
+                                                android:layout_height="30dp"
                                                 android:background="?attr/selectableItemBackgroundBorderless"
                                                 android:elevation="5dp"
                                                 android:scaleType="centerCrop"
@@ -227,12 +227,12 @@
                                             <TextView
                                                 android:id="@+id/event_venue"
                                                 android:layout_width="match_parent"
-                                                android:layout_height="40dp"
+                                                android:layout_height="24dp"
                                                 android:layout_gravity="center_vertical"
                                                 android:gravity="center"
-                                                android:text="Gymkhana Ground , Ne  fdsd sdf dsf dsf sdf dsf"
+                                                android:text="Gymkhana Ground"
                                                 android:textColor="@color/colorGray"
-                                                android:textSize="1sp"
+                                                android:textSize="18dp"
                                                 android:textStyle="bold" />
 
                                         </LinearLayout>
@@ -262,7 +262,7 @@
                             </androidx.cardview.widget.CardView>
 
 
-                            <TextView
+                            <com.cooltechworks.views.WhatsAppTextView
                                 android:id="@+id/event_page_description"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
