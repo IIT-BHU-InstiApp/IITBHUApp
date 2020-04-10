@@ -173,6 +173,7 @@ public class IITBHUMapFragment extends Fragment implements
 
 
 
+
     FloatingActionMenu filterFAM;
     FloatingActionButton filterHostel, filterOther, filterDepartment, filterLT;
 
