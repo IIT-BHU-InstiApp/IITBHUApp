@@ -42,7 +42,7 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-      Log.d("position"," " +position);
+//      Log.d("position"," " +position);
 
         //holder.title.setText(data.get(position).getTitle());
        // Log.d("imageurlhorizontal",data.get(position).getImage());

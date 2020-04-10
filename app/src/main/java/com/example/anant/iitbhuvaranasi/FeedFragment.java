@@ -68,7 +68,7 @@ public class FeedFragment extends Fragment {
         }
 //        String apidata = Api_Response.method(this.getActivity());
         getVerticalData4 = VerticalDataFeed.getVerticalData3(this.getActivity());
-        Log.d("howareyou1",getVerticalData4.toString());
+//        Log.d("howareyou1",getVerticalData4.toString());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -108,7 +108,7 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
       //
         //  Log.d("fe",getVerticalData1.toString());
-        Log.d("fe",getHorizontalData1.toString());
+//        Log.d("fe",getHorizontalData1.toString());
 
         mRecyclerView.setHasFixedSize(true);
 
@@ -132,10 +132,10 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
         try {
             JSONObject response = new JSONObject(resonse_feed);
             int status = response.getInt("status");
-            Log.d("status001", Integer.toString(status));
+//            Log.d("status001", Integer.toString(status));
 
             if (status == 1) {
-                Log.d("status100", "1");
+//                Log.d("status100", "1");
 //                JSONArray jsonArray = response.getJSONArray("notif");
                 JSONArray array = response.getJSONArray("councils");
 
@@ -148,21 +148,21 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
                     getHorizontalData1.add(new SingleHorizontaldata(image_council));
                 }
-                Log.d("horizontaldata234500", getHorizontalData1.toString());
+//                Log.d("horizontaldata234500", getHorizontalData1.toString());
 
 
             }
             else {
-                Log.d("status000", "0");
+//                Log.d("status000", "0");
             }
         }
         catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.d("beforemainadapter","009");
+//        Log.d("beforemainadapter","009");
         MainAdapterfeedfragment adapter = new MainAdapterfeedfragment(getActivity(), getObject());
-        Log.d("aftermainadapter","009");
+//        Log.d("aftermainadapter","009");
         //Log.d("getobjectstart",getObject().toString());
         mRecyclerView.setHasFixedSize(true);
         adapter.notifyDataSetChanged();
@@ -185,7 +185,7 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 
         SharedPreferences pref2 = getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
-        Log.d("response34567890123", response45678);
+//        Log.d("response34567890123", response45678);
 
         SharedPreferences sharedPrefs = getActivity().getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE);
 
@@ -217,7 +217,7 @@ Log.d("abeyyyyyysaaale",getVerticalData5.toString());
 //            ArrayList<String> test = ImageUrl;
 
 
-            Log.d("status0010", Integer.toString(status));
+//            Log.d("status0010", Integer.toString(status));
 
         } catch (JSONException e) {
             e.printStackTrace();

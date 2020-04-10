@@ -191,7 +191,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 showAlertDialog(this, "No Internet Connection",
                         "You don't have internet connection.", false);
             } else {
-                Log.d(result,"resultkya");
+//                Log.d(result,"resultkya");
                 Toast.makeText(SignInActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
                 signout();
             }

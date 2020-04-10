@@ -7,16 +7,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.util.Log;
+
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,14 +26,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import com.android.volley.Request;
+
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.cooltechworks.views.WhatsappViewCompat;
+//
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -90,14 +88,14 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         mRequestQueue = Volley.newRequestQueue(this);
         final String url = "http://iitbhuapp.tk/interested";
 
-        Log.d("morethanyouknow",time);
+//        Log.d("morethanyouknow",time);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         String json=getIntent().getStringExtra("all");
         Gson gson = new Gson();
         obj = gson.fromJson(json, SingleVerticalData.class);
-        Log.d("poiuy",obj.getClub_name());
+//        Log.d("poiuy",obj.getClub_name());
 
         thumb1View = findViewById(R.id.event_picture_2);
 
@@ -127,14 +125,14 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
       //  image=getIntent().getStringExtra("image");
         String notifid = obj.getNotifid();
         Integer notif_id = Integer.valueOf(notifid);
-        Log.d("notidsd",notifid);
+//        Log.d("notidsd",notifid);
         councilName.setText(obj.getCouncil_name());
         title_event.setText(obj.getTitle_event());
         map_location = obj.getMap_location();
-        Log.d("sdfsfdsf1",obj.getDescription_event());
-        Log.d("FeedFragmentMapData","Map Location from backend = "+map_location);
+//        Log.d("sdfsfdsf1",obj.getDescription_event());
+//        Log.d("FeedFragmentMapData","Map Location from backend = "+map_location);
        // WhatsappViewCompat.applyFormatting(description_event);
-        Log.d("sdfsfdsf",obj.getDescription_event());
+//        Log.d("sdfsfdsf",obj.getDescription_event());
         description_event.setText(obj.getDescription_event());
        // WhatsappViewCompat.applyFormatting(description_event);
        // WhatsappViewCompat.applyFormatting(description_event);
@@ -144,9 +142,9 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 .into(image_event);
         date_event.setText(time);
         venue_event.setText(obj.getLocation());
-        Log.d("location-098",venue_event.toString());
-        Log.d("location-0987",obj.getLocation());
-        Log.d("location-09876",obj.getMap_location());
+//        Log.d("location-098",venue_event.toString());
+//        Log.d("location-0987",obj.getLocation());
+//        Log.d("location-09876",obj.getMap_location());
        // view_count.setText(obj.getViewcount());
 //        interested_count.setText(obj.getInterestedcount());
         final JSONObject obj2 = new JSONObject();
@@ -251,7 +249,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.clock:
-                Log.d("morethanyou",time);
+//                Log.d("morethanyou",time);
                 addEventToCalender(obj.getTitle_event().toString(),obj.getDescription_event(),
                         obj.getLocation(),time.toString());
                 break;
@@ -362,7 +360,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setType("vnd.android.cursor.item/event");
         intent.putExtra("beginTime", lnsTime);
-        Log.d("34567", String.valueOf(cal.getTimeInMillis()));
+//        Log.d("34567", String.valueOf(cal.getTimeInMillis()));
         intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY,0);
         intent.putExtra("endTime", lnsTime+60*60*1000*2);
         intent.putExtra(CalendarContract.Events.TITLE, title);

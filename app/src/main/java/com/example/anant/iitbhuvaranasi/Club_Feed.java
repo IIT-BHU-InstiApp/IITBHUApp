@@ -67,8 +67,8 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
         custombar=mCustomView.findViewById(R.id.linear_club1);
         title1= getIntent().getStringExtra("title");
         final String image1 = getIntent().getStringExtra("image");
-        Log.d("title123",title1);
-        Log.d("image123",image1);
+//        Log.d("title123",title1);
+//        Log.d("image123",image1);
         club_name.setText(title1);
         Picasso.get()
                 .load(image1)
