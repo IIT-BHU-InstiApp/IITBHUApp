@@ -1,7 +1,7 @@
 package com.example.anant.iitbhuvaranasi;
 
 import android.Manifest;
-import android.app.Dialog;
+
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
@@ -31,7 +31,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -168,7 +168,7 @@ public class FoundFragment extends Fragment {
 
         UserImage = new ArrayList<>();
 
-        ownerInformation.setText("Owner's info. (If available in founded item)");
+        ownerInformation.setText("Owner's info. (If available in the item found)");
         contactLayout.setHint("Your Contact Number");
         lostItemTILayout.setHint("Found Item");
         locationlayout.setHint("Found at (Location)");
