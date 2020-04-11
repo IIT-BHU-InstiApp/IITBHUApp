@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-//import android.util.Log;
+//import android.util.
 
 public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalAdapter_Feedfragment.MyViewHolder1> {
     ArrayList<SingleVerticalData> data = new ArrayList<>();
@@ -45,21 +44,15 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
 
     @Override
     public void onBindViewHolder(final MyViewHolder1 holder, final int position) {
-        Log.d("position209", Integer.toString(position));
+
         final LayoutInflater inflater = LayoutInflater.from(mcontext);
 
-        // holder.image.setTransitionName("imageTransition");
-
-        // holder.image.setImageResource(data.get(position).getImage());
-        //holder.image_club.setImageResource(data.get(position).getEvent_image_club());
-        // Log.d("imageurlvertical",data.get(position).getImage());
-        // Log.d("imageurlvertical2",data.get(position).getImage_club());
-        holder.title.setText(data.get(position).getTitle_event());
+           holder.title.setText(data.get(position).getTitle_event());
         //  holder.club.setText(data.get(position).getClub());
         String originalString = data.get(position).getDate_event();
         String original = originalString.replace("T", " ");
         String original1 = original.replace("Z", "");
-        Log.d("67899", original1.toString());
+
         Date date2 = null;
         try {
             date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
@@ -70,15 +63,15 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
         }
         final String newString = new SimpleDateFormat("E, dd MMM  hh:mm a").format(date2);
         holder.date.setText(newString);
-        // Log.d("date",data.get(position).getDate());
-        // Log.d("holderimage2",holder.image.toString());
+
+
 
         // holder.viewcount.setText(data.get(position).getViewcount());
         // holder.interestedcount.setText(data.get(position).getInterested());
         Glide.with(mcontext)
                 .load(data.get(position).getImage_event())
-                .placeholder(R.drawable.sntc)
-                .error(R.drawable.amc_workshop)
+                .placeholder(R.drawable.ic_cloud_download_black_24dp)
+                .error(R.drawable.ic_error_outline_black_24dp)
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(holder.image);
 
@@ -90,7 +83,7 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mcontext, Feedfragment_notifcation_Activity.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) mcontext, pairs);
+
                 // ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mcontext, pair1);
                 Gson gson = new Gson();
                 String json = gson.toJson(data.get(position));
@@ -101,7 +94,7 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
                 intent.putExtra("image", data.get(position).getImage_event());
                 intent.putExtra("map_location", data.get(position).getMap_location());
 
-                mcontext.startActivity(intent, options.toBundle());
+                mcontext.startActivity(intent);
             }
         });
     }

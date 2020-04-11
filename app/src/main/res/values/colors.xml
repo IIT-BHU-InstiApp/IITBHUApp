@@ -1,38 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#915E9B</color>
-    <color name="colorPrimary_light">#673ab7</color>
     <color name="colorPrimaryDark">#40034B</color>
     <color name="colorAccent">#481452</color>
     <color name="Black">#0E0D0D</color>
-    <color name="startpurple">#E8CBEE</color>
     <color name="black">#1A181A</color>
-    <color name="feed_background">#536dfe</color>
     <color name="black_color">#000000</color>
     <color name="white_color">#FFFFFF</color>
-    <color name="greycolor600">#757575</color>
     <color name="grey">#9A9A92</color>
-    <color name="grey_1">#CDCDC1</color>
 
 
-    <color name="colorSecondary">#ffd740</color>
-
-    <color name="primaryTextColor">#fafafa</color>
-    <color name="secondaryTextColor">#000000</color>
     <color name="colorGray">#757575</color>
-    <color name="colorWhite">#FFFFFF</color>
 
-    <color name="colorTagGreen">#AED581</color>
     <color name="colorRed">#FF0000</color>
-    <color name="colorGreen">#00FF00</color>
     <!-- Map -->
-    <item name="transparent_black" type="color">#20000000</item>
-    <item name="list_item_gray_even" type="color">#ffe6e6e6</item>
 
     <!-- Added By Suryansh -->
     <color name="colorblack">#000000</color>
-    <color name="colorwhite">#ffffff</color>
-    <color name="colorblue200">#90CAF9</color>
     <color name="colorblue220">#55A4E4</color>
 
     <!-- Added by Suryansh. -->

@@ -40,13 +40,13 @@ public class AboutCategory extends StatelessSection {
         this.name = name;
     }
 
-    public List<AboutIndividual> getIndividuals() {
-        return individuals;
-    }
+//    public List<AboutIndividual> getIndividuals() {
+//        return individuals;
+//    }
 
-    public void setIndividuals(List<AboutIndividual> individuals) {
-        this.individuals = individuals;
-    }
+//    public void setIndividuals(List<AboutIndividual> individuals) {
+//        this.individuals = individuals;
+//    }
 
     @Override
     public int getContentItemsTotal() {

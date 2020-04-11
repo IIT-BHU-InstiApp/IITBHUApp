@@ -16,7 +16,6 @@
         tools:text="Hostel Name" />
 
     <ImageView
-        android:id="@+id/hostel_complainlink"
         android:src="@drawable/ic_link_holo_blue_light_24dp"
         android:background="@null"
         android:layout_width="wrap_content"

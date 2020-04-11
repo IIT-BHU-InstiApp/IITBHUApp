@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/tools"
-    android:id="@+id/card_view2"
     android:layout_gravity="center"
     android:layout_weight="10"
     android:layout_width="wrap_content"
@@ -293,14 +292,12 @@
             android:layout_margin="10dp">
 
             <ImageView
-                android:id="@+id/studentsignphoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher_round"
                 android:layout_gravity="center"/>
 
             <TextView
-                android:id="@+id/studentsign"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -318,14 +315,12 @@
             android:layout_margin="10dp">
 
             <ImageView
-                android:id="@+id/DAAsignphoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher_round"
                 android:layout_gravity="center"/>
 
             <TextView
-                android:id="@+id/DAAsign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="DOAA's Signature"

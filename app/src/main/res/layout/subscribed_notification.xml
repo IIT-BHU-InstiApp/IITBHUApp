@@ -24,7 +24,6 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/numb_card"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignEnd="@id/img_card"

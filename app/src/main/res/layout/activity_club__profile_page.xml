@@ -21,7 +21,7 @@
         android:id="@+id/club_profile_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
-        android:src="@drawable/ecell"
+        android:src="@drawable/thumb_drawable"
         />
 
     <TextView

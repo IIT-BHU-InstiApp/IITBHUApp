@@ -4,15 +4,17 @@
     android:layout_height="wrap_content"
     android:id="@+id/linear_club1"
     android:background="@color/colorPrimary"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    >
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:id="@+id/feed_clubimage"
-        android:textAlignment="textStart"
-        android:src="@drawable/ecell"
+        android:src="@drawable/thumb_drawable"
         android:cropToPadding="true"
         android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical"
+
         />
     <TextView
         android:layout_width="wrap_content"
@@ -20,11 +22,24 @@
         android:layout_height="wrap_content"
         android:text="Club_name"
         android:textStyle="bold"
-        android:textColor="@color/white_color"
+        android:textColor="@color/white"
         android:textSize="18dp"
         android:layout_gravity="center"
         android:gravity="center"
         />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|center_vertical"
+        >
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_info_outline_white_24dp"
+        android:id="@+id/about_club"
+
+        />
+    </RelativeLayout>
 
 
 </LinearLayout>

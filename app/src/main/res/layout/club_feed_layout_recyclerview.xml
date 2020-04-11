@@ -118,7 +118,7 @@
 
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/sntc"
+                android:src="@drawable/thumb_drawable"
                 android:transitionName="fullscreen"
                 />
 

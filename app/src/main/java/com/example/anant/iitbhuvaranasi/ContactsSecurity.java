@@ -35,6 +35,9 @@ public class ContactsSecurity extends Fragment {
 
         LinearLayout linearLayout = view.findViewById(R.id.security_contact_container);
         ArrayList<ContactsStruct> arrayList = new ArrayList<>();
+        arrayList.add(new ContactsStruct("Health Emergency", "Sir Sunder Lal Hospital", "0542-2369844", ""));
+        arrayList.add(new ContactsStruct("Health Emergency", "Sir Sunder Lal Hospital", "0542-2309308", ""));
+
         arrayList.add(new ContactsStruct("Dy. Chief Proctor", "Prof. Prabhakar Singh", "8004924507", ""));
         arrayList.add(new ContactsStruct("Proctor", "Prof. Rajendra Prasad", "9453048438", ""));
         arrayList.add(new ContactsStruct("Security Officer", "Mr. Shashank Shekhar Prasad Singh", "8004925734", ""));
@@ -48,7 +51,23 @@ public class ContactsSecurity extends Fragment {
 
             final TextView number = contact_view.findViewById(R.id.email_contact);
 
-            if(i<3){
+            if(i<2){
+                post.setText(arrayList.get(i).getPost());
+                name.setText(arrayList.get(i).getName());
+                number.setText(arrayList.get(i).getNumber());
+                number.setTextColor(getResources().getColor(R.color.colorblue220));
+                number.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" + number.getText()));
+                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
+                    }
+                });
+            }
+            else if(i>=2 && i<5){
                 post.setText(arrayList.get(i).getPost());
                 name.setText(arrayList.get(i).getName());
                 number.setText(arrayList.get(i).getNumber());

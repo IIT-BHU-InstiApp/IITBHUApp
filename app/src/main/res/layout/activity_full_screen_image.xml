@@ -15,8 +15,7 @@
         android:id="@+id/fullscree_nmageView"
         android:transitionName="fullscreen"
         android:layout_width="match_parent"
-        android:src="@drawable/logo"
-        android:layout_height="match_parent"
+        android:src="@drawable/logo_iitbhu"        android:layout_height="match_parent"
          />
 
 </LinearLayout>
