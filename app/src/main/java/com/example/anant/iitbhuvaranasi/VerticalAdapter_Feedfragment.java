@@ -70,8 +70,8 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
         // holder.interestedcount.setText(data.get(position).getInterested());
         Glide.with(mcontext)
                 .load(data.get(position).getImage_event())
-                .placeholder(R.drawable.ic_cloud_download_black_24dp)
-                .error(R.drawable.ic_error_outline_black_24dp)
+                .error(R.drawable.background)
+                .thumbnail(.1f)
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(holder.image);
 

@@ -35,7 +35,7 @@ public class Full_screen_imageActivity extends AppCompatActivity  {
 
         if (image != null) {
             Glide.with(this)
-                    .load(image)
+                    .load(image).thumbnail(.1f).error(R.drawable.background)
                     .fitCenter() // scale to fit entire image within ImageView
                     .into(imageView);
         }

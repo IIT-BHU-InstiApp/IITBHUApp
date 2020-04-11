@@ -136,8 +136,14 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         description_event.setText(obj.getDescription_event());
        // WhatsappViewCompat.applyFormatting(description_event);
        // WhatsappViewCompat.applyFormatting(description_event);
+      /*  Glide.with(this)
+                .load(obj.getImage_event())
+                .fitCenter() // scale to fit entire image within ImageView
+                .into(image_event);*/
         Glide.with(this)
                 .load(obj.getImage_event())
+                .error(R.drawable.background)
+                .thumbnail(.1f)
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(image_event);
         date_event.setText(time);
