@@ -50,7 +50,6 @@ import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity
 
 public class IITBHUMapActivity extends AppCompatActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -190,6 +189,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
 
     private boolean mPermissionDenied = false;
+    private boolean mPermissionGranted=!mPermissionDenied;
     private GoogleMap mMap;
 
     public IITBHUMapActivity() {
@@ -319,7 +319,6 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         }
 
         mMap.setOnMyLocationButtonClickListener(this);
-        mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
 
         markHostels();
@@ -401,9 +400,9 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing
-            // TODO : Error is coming from this line(closed)
-            PermissionUtils.requestPermission(/*(AppCompatActivity)*/this , LOCATION_PERMISSION_REQUEST_CODE,
+            PermissionUtils.requestPermission(this , LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
+
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
             mMap.setMyLocationEnabled(true);
@@ -415,11 +414,6 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
-    }
-
-    @Override
-    public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
