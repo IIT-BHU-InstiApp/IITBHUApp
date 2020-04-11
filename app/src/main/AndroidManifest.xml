@@ -24,13 +24,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".DeveloperInfo"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
-        <!-- Remove above lines after moving to https -->
-        <!--<activity
-            android:name=".IITbhu_Map"
-            android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity
+            android:name=".IITBHUMapActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".DeveloperInfo"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ContactsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -62,7 +61,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FragmentSupportActivity" />
+
         <activity
             android:name=".HomeActivity"
             android:screenOrientation="portrait"

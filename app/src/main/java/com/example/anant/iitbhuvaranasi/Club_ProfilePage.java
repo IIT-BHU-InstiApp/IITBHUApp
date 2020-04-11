@@ -49,8 +49,8 @@ public class Club_ProfilePage extends AppCompatActivity {
         club_name1.setText(title1);
         Picasso.get()
                 .load(image1)
-                .placeholder(R.drawable.ic_eye_view)
-                .error(R.drawable.amc_workshop)
+                .placeholder(R.drawable.thumb_drawable)
+                .error(R.drawable.thumb_drawable)
                 .into(feed_clubimage1);
         TextView ClubInfo = findViewById(R.id.club_info);
         if(title1.contentEquals("Clubs Of Programmers")){ClubInfo.setText(getResources().getString(R.string.cops));}

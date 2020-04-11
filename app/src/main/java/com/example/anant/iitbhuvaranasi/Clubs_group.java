@@ -3,7 +3,7 @@ package com.example.anant.iitbhuvaranasi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -57,7 +57,7 @@ public class Clubs_group extends AppCompatActivity {
         Intent i = getIntent();
         position = i.getIntExtra("position",0);
         Toast.makeText(this,"" + position,Toast.LENGTH_LONG);
-        Log.d("whyuio","" + position);
+
 
         mExampleList = new ArrayList<>();
         RecyclerView = findViewById(R.id.recyclerView_clubs);
@@ -77,7 +77,7 @@ public class Clubs_group extends AppCompatActivity {
 
         SharedPreferences pref2 =  getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
-        Log.d("response34567890123",response45678);
+
 
 
 
@@ -94,13 +94,13 @@ public class Clubs_group extends AppCompatActivity {
                 String club_name = club.getString("name");
                 String image_club = "http://iitbhuapp.tk" + club.getString("image");
                 mExampleList.add(new CLubFeedData(image_club, club_name));
-                Log.d("status04560",club_name );
+
                 Adapter_ClubsGroup adapter_clubsGroup = new Adapter_ClubsGroup(this, mExampleList);
                 RecyclerView.setAdapter(adapter_clubsGroup);
 
             }
 
-            Log.d("status0010", Integer.toString(status));
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -118,7 +118,7 @@ public class Clubs_group extends AppCompatActivity {
                 String image_club = club.getString("image");
             }
 
-            Log.d("status0010", Integer.toString(status));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }*/

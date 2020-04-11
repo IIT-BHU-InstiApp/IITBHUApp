@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -191,7 +192,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 showAlertDialog(this, "No Internet Connection",
                         "You don't have internet connection.", false);
             } else {
-//                Log.d(result,"resultkya");
+//
                 Toast.makeText(SignInActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
                 signout();
             }
@@ -230,7 +231,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         UpdateUI(account);
-     //   Log.d("account",account.toString());
+     //
     }
 
     private void UpdateUI(GoogleSignInAccount account) {

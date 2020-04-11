@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:gravity="center"
-        android:id="@+id/linear_layout"
         android:orientation="vertical"
         >
 
@@ -34,7 +33,6 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="8dp"
-            android:id="@+id/iitbhulogo"
             android:src="@drawable/logoiitbhu"
             android:layout_gravity="center_horizontal"
             android:fadingEdge="vertical|horizontal"

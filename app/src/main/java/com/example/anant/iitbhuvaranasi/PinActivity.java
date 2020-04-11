@@ -55,7 +55,7 @@ public class PinActivity extends AppCompatActivity {
 
         SharedPreferences pref2 = getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
-        Log.d("response34567890123", response45678);
+
 
 
         try {
@@ -77,7 +77,7 @@ public class PinActivity extends AppCompatActivity {
             }
 
 
-            Log.d("status0010", Integer.toString(status));
+
 
         } catch (JSONException e) {
             e.printStackTrace();

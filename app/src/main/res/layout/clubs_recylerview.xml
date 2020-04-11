@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/ecell" />
+                android:src="@drawable/thumb_drawable" />
         </androidx.cardview.widget.CardView>
 
         <TextView

@@ -46,7 +46,7 @@ public class ID_card_Response {
                     int status = response.getInt("status");
                     if (status == 1) {
                         name = response.getString("name");
-                        Log.d("mnbvcc",name);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -55,18 +55,18 @@ public class ID_card_Response {
                 SharedPreferences pref = context.getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 String rew = response.toString();
-                Log.d("reponsefeed765",rew);
+
                 editor.putString(Constants.Response_ID_Old, rew);
                 editor.putString(Constants.Name_Student,name);
                 editor.commit();
-                Log.d("Response345678", apiresponse[0]);
+
 
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("TAG", "Error: " + error.getMessage());
+
 
             }
         });

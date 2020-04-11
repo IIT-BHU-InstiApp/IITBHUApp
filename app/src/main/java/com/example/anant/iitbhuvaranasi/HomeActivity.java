@@ -1,9 +1,11 @@
 package com.example.anant.iitbhuvaranasi;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -65,7 +67,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
 
-//        Log.d("email1234",email);
+//
         Constants.Email_Key = email;
 
         ID_card_Response.method(this);
@@ -110,14 +112,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
          TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
         SharedPreferences pref3 = getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
         name_student = pref3.getString(Constants.Name_Student,personGivenName );
-//        Log.d("mnbv",name_student);
+//
          emailOfStudent.setText(personEmail);
          nameOfStudent.setText(name_student);
-//                Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
+//
 //                +"\npersonFamilyName="+personFamilyName);
 
         navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
+        if(SignInActivity.guestLoginChecker == 1){
+            emailOfStudent.setText(" ");
+            nameOfStudent.setText("Hello Guest User");
+            if(Constants.Progress ==1) {
+                ProgressDialog dialog = ProgressDialog.show(this, "", "Detecting...",
+                        true);
+                dialog.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                }, 2000);
+                Constants.Progress = 2;
+            }
+        }
 
 
 //        if (savedInstanceState == null) {
@@ -176,11 +194,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //                editor1.putInt("track",1);
 //                editor1.commit();
 
-                /*getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new IITBHUMapFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);*/
+
                 location2345=null;
-                Intent intent1 = new Intent(HomeActivity.this, FragmentSupportActivity.class);
+                Intent intent1 = new Intent(HomeActivity.this, IITBHUMapActivity.class);
                 startActivity(intent1);
                 //finish();
                 x++;

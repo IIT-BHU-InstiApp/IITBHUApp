@@ -10,8 +10,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:id="@+id/feed_clubimage"
-
-        android:src="@drawable/ecell"
+        android:src="@drawable/thumb_drawable"
         android:cropToPadding="true"
         android:layout_marginRight="10dp"
         android:layout_gravity="center_vertical"

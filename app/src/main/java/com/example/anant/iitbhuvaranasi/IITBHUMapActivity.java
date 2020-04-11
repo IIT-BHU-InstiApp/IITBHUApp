@@ -22,9 +22,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -48,7 +48,7 @@ import java.util.Map;
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
 
 
-public class IITBHUMapFragment extends Fragment implements
+public class IITBHUMapActivity extends AppCompatActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback,
@@ -192,36 +192,35 @@ public class IITBHUMapFragment extends Fragment implements
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
 
-    public IITBHUMapFragment() {
+    public IITBHUMapActivity() {
         // Required empty public constructor
         location=location23;
     }
 
-    public IITBHUMapFragment(String locationOfEvent) {
+    public IITBHUMapActivity(String locationOfEvent) {
         location = locationOfEvent;
     }
 
+    /*
     public static com.google.android.gms.maps.MapFragment newInstance() {
         com.google.android.gms.maps.MapFragment fragment = new com.google.android.gms.maps.MapFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
+
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_i_i_t_b_h_u_map);
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        MapsInitializer.initialize(this);
 
-        MapsInitializer.initialize(getContext());
-
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager()
-                        .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
 
         hostelMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_24);
         departmentMarker = BitmapDescriptorFactory.fromResource(R.drawable.baseline_menu_book_black_24);
@@ -236,11 +235,11 @@ public class IITBHUMapFragment extends Fragment implements
 
         mapFragment.getMapAsync(this);
 
-        filterFAM = view.findViewById(R.id.filter_menu);
-        filterOther = view.findViewById(R.id.filter_atm);
-        filterDepartment = view.findViewById(R.id.filter_department);
-        filterHostel = view.findViewById(R.id.filter_hostel);
-        filterLT = view.findViewById(R.id.filter_pronite);
+        filterFAM = findViewById(R.id.filter_menu);
+        filterOther = findViewById(R.id.filter_atm);
+        filterDepartment = findViewById(R.id.filter_department);
+        filterHostel = findViewById(R.id.filter_hostel);
+        filterLT = findViewById(R.id.filter_pronite);
 
         createCustomAnimation();
 
@@ -294,7 +293,6 @@ public class IITBHUMapFragment extends Fragment implements
                 filterFAM.close(true);
             }
         });
-        return view;
     }
 
     /**
@@ -311,7 +309,7 @@ public class IITBHUMapFragment extends Fragment implements
             // in a raw resource file.
             boolean success = mMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
-                            getContext(), R.raw.style_json));
+                            this, R.raw.style_json));
 
             if (!success) {
                 Log.e(TAG, "Style parsing failed.");
@@ -400,11 +398,11 @@ public class IITBHUMapFragment extends Fragment implements
      * Enables the My Location layer if the fine location permission has been granted.
      */
     private void enableMyLocation() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing
             // TODO : Error is coming from this line(closed)
-            PermissionUtils.requestPermission(/*(AppCompatActivity)*/this.getActivity() , LOCATION_PERMISSION_REQUEST_CODE,
+            PermissionUtils.requestPermission(/*(AppCompatActivity)*/this , LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
@@ -421,7 +419,7 @@ public class IITBHUMapFragment extends Fragment implements
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(getActivity(), "Current location:\n" + location, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -457,17 +455,17 @@ public class IITBHUMapFragment extends Fragment implements
     private void showMissingPermissionError() {
         //PermissionUtils.PermissionDeniedDialog
         //      .newInstance(true).show((new android.app.FragmentManager())getChildFragmentManager(), "dialog");
-        Toast.makeText(this.getContext(),"Permission Missing",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Permission Missing",Toast.LENGTH_LONG).show();
     }
 
     private void markDepartments() {
         for (String key : departmentLocations.keySet())
-                mMap.addMarker(new MarkerOptions().position(departmentLocations.get(key).getPoint()).title(departmentLocations.get(key).getName()).icon(departmentMarker));
+            mMap.addMarker(new MarkerOptions().position(departmentLocations.get(key).getPoint()).title(departmentLocations.get(key).getName()).icon(departmentMarker));
     }
 
     private void markHostels() {
         for (String key : hostelLocations.keySet())
-                mMap.addMarker(new MarkerOptions().position(hostelLocations.get(key).getPoint()).title(hostelLocations.get(key).getName()).icon(hostelMarker));
+            mMap.addMarker(new MarkerOptions().position(hostelLocations.get(key).getPoint()).title(hostelLocations.get(key).getName()).icon(hostelMarker));
     }
 
     private void markAtms() {
@@ -543,7 +541,7 @@ public class IITBHUMapFragment extends Fragment implements
     private void displayAlertDialog(String name,View view)
     {
         String options[] = {"Display All","Select from List"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(IITBHUMapFragment.this.getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(IITBHUMapActivity.this);
         builder.setTitle("Display "+name);
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
@@ -566,7 +564,7 @@ public class IITBHUMapFragment extends Fragment implements
                             markOther();
                         }
                     }
-                        break;
+                    break;
                     case 1:
                         if (name.equals("Hostels"))
                             used=hostelLocations;
@@ -601,11 +599,11 @@ public class IITBHUMapFragment extends Fragment implements
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-//        getActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
-            int i=0;
-            for (String key : used.keySet()) {
-                menu.add(1,i,i,used.get(key).getName());
-            }
+        this.getMenuInflater().inflate(R.menu.context_menu, menu);
+        int i=0;
+        for (String key : used.keySet()) {
+            menu.add(1,i,i,used.get(key).getName());
+        }
     }
 
     public boolean onContextItemSelected(MenuItem item) {

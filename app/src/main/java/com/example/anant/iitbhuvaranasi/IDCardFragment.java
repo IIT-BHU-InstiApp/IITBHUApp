@@ -3,7 +3,6 @@ package com.example.anant.iitbhuvaranasi;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -60,12 +58,12 @@ public class IDCardFragment extends Fragment {
 
         SharedPreferences pref3 = this.getActivity().getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
         String resonse_feed = pref3.getString(Constants.Response_ID_Old, "3");
-        Log.d("response_id",resonse_feed);
+
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
-        Log.d("email1234",email);
-        Log.d("email123",Constants.Email_Key);
-        Log.d("response_id",resonse_feed);
+
+
+
         final TextView name = (TextView) view.findViewById(R.id.names);
         final TextView roll = (TextView) view.findViewById(R.id.rollnoedit);
         final TextView father = (TextView) view.findViewById(R.id.fathernameedit);
@@ -85,10 +83,10 @@ public class IDCardFragment extends Fragment {
         try {
             JSONObject response = new JSONObject(resonse_feed);
             int status = response.getInt("status");
-            Log.d("status001", Integer.toString(status));
+
 
             if (status == 1) {
-                Log.d("status100", "1");
+
                 name.setText(response.optString("name"));
                 roll.setText(response.optString("roll"));
                 father.setText(response.optString("fatherName"));
