@@ -11,18 +11,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Pinned Clubs"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
+            <TextView
+                android:id="@+id/add_button"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="24dp"
+                android:layout_gravity="center"
+                android:text="+"/>
+
+        </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -31,25 +50,16 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/horizontal_rcv2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
 
                     />
 
-                <Button
-                    android:id="@+id/add_button"
-                    style="?android:attr/borderlessButtonStyle"
 
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:gravity="center"
-
-                    android:text="+"
-                    android:textSize="32dp" />
             </LinearLayout>
 
-        </HorizontalScrollView>
 
         <TextView
             android:layout_width="wrap_content"

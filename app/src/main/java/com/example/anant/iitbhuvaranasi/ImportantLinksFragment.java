@@ -59,34 +59,28 @@ public class ImportantLinksFragment extends Fragment {
 //        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 //        formattedDate = df.format(c);
         //    String formattedDate;
-        toolbar = (Toolbar) Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
+        toolbar = (Toolbar) requireActivity().findViewById(R.id.toolbar);
         LinearLayout wifi = view.findViewById(R.id.wifi_clickable);
         LinearLayout academic_layout = view.findViewById(R.id.academic_layout);
         wifi.setVisibility(View.GONE);
 
         TextView academic = view.findViewById(R.id.academic_clickable);
         TextView wifi_guide = view.findViewById(R.id.wifi_lan);
-        TextView iitbhuLink = view.findViewById(R.id.iitbhu_link);
+//        TextView iitbhuLink = view.findViewById(R.id.iitbhu_link);
         expandCollapseText(academic, academic_layout);
         expandCollapseText(wifi_guide, wifi);
 
-        SpannableString spannableString = new SpannableString("Institute Website");
-        ClickableSpan link = new ClickableSpan() {
-
-            @Override
-            public void onClick(@NonNull View widget) {
-                String url = "https://iitbhu.ac.in/";
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
-
-            }
-        };
-
-        spannableString.setSpan(link, 0, 17, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ForegroundColorSpan(Objects.requireNonNull(getContext()).getResources().getColor(R.color.holo_blue_light)), 0, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        iitbhuLink.setText(spannableString);
-        iitbhuLink.setMovementMethod(LinkMovementMethod.getInstance());
+//        iitbhuLink.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String url = "https://iitbhu.ac.in/";
+//                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+//                CustomTabsIntent customTabsIntent = builder.build();
+//                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
+//            }
+//
+//
+//        });
 
 
         view.findViewById(R.id.academic_links).setOnClickListener(new View.OnClickListener() {
@@ -95,7 +89,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/deans/doaa/";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -106,7 +100,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "http://academics.iitbhu.ac.in/gmail_auth/index.php";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
 
             }
@@ -118,7 +112,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/academics/academic_info/doc/calendar_19-20_odd.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -129,7 +123,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/academics/academic_info/doc/calendar_19-20_even.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -139,7 +133,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/others/misc/holidays_2019.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -149,7 +143,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/others/misc/holidays_2020.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -161,7 +155,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://www.iitbhu.ac.in/cf/cis/network/helpdesk/";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -172,7 +166,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/central_facilities/cis/doc/wifi_setting_mobile.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -182,7 +176,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/central_facilities/cis/doc/wifi_connection_settings.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -192,7 +186,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/central_facilities/cis/doc/wifi_ssid_settings_windows10.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -202,7 +196,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/central_facilities/cis/doc/wired_connection_windows_settings.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -212,7 +206,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/central_facilities/cis/doc/wired_connection_ubuntu_settings.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -222,7 +216,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "https://iitbhu.ac.in/contents/institute/central_facilities/cis/doc/wired_connection_mac_settings.pdf";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
@@ -233,7 +227,7 @@ public class ImportantLinksFragment extends Fragment {
                 String url = "http://www.icardiitbhu.com/";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(Objects.requireNonNull(getContext()), Uri.parse(url));
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(url));
 
             }
         });
