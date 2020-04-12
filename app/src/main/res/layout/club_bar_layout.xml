@@ -7,30 +7,32 @@
     android:orientation="horizontal"
     >
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="45dp"
+        android:layout_width="25dp"
         android:layout_height="45dp"
         android:id="@+id/feed_clubimage"
         android:src="@drawable/thumb_drawable"
         android:cropToPadding="true"
         android:layout_marginRight="10dp"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical|start"
+        android:layout_weight="1"
 
         />
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/feed_clubname"
         android:layout_height="wrap_content"
-        android:text="Club_name"
+        android:text="sdjagdk"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="18dp"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:gravity="start"
         />
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="end|center_vertical"
+        android:gravity="center_vertical|end"
+        android:layout_weight="1"
         >
     <ImageButton
         android:layout_width="wrap_content"

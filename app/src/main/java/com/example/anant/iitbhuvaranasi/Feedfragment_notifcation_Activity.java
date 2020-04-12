@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -53,7 +54,8 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     String event_title,event_description,event_date,event_venue,event_time;
     TextView title_event, description_event, date_event, venue_event, time_event, interested_count,councilName;
    // Button  interested_button;
-    ImageButton share_button, location_button, clock_button;
+    Button share_button,clock_button;
+    Button  location_button;
     SingleVerticalData obj;
     private Animator currentAnimator;
     private int shortAnimationDuration;
@@ -103,15 +105,15 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         date_event = findViewById(R.id.event_page_date);
         image_event = findViewById(R.id.event_picture_2);
         councilName = findViewById(R.id.council_name);
-        share_button = (ImageButton) findViewById(R.id.share_event_button);
+        share_button =  findViewById(R.id.share_event_button);
         share_button.setOnClickListener(this);
         venue_event = (TextView) findViewById(R.id.event_venue);
-        location_button = (ImageButton) findViewById(R.id.location);
+        location_button =  findViewById(R.id.location);
         description_event=findViewById(R.id.event_page_description);
         location_button.setOnClickListener(this);
-        venue_event.setOnClickListener(this);
+//        venue_event.setOnClickListener(this);
         //time_event = (TextView) findViewById(R.id.event_time);
-        clock_button = (ImageButton) findViewById(R.id.clock);
+        clock_button =  findViewById(R.id.clock);
         clock_button.setOnClickListener(this);
       //  go_button = (Button) findViewById(R.id.going_button);
     //    go_button.setOnClickListener(this);
@@ -136,8 +138,14 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         description_event.setText(obj.getDescription_event());
        // WhatsappViewCompat.applyFormatting(description_event);
        // WhatsappViewCompat.applyFormatting(description_event);
+      /*  Glide.with(this)
+                .load(obj.getImage_event())
+                .fitCenter() // scale to fit entire image within ImageView
+                .into(image_event);*/
         Glide.with(this)
                 .load(obj.getImage_event())
+                .error(R.drawable.background)
+                .thumbnail(.1f)
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(image_event);
         date_event.setText(time);
@@ -295,14 +303,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                     startActivity(mapIntent);*/
                 break;
 
-            case R.id.event_venue:
-                location2345 = map_location;
-                startActivity(new Intent(this,IITBHUMapActivity.class));
-               /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
-                Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                    startActivity(mapIntent);*/
-                break;
+
 
         }
     }

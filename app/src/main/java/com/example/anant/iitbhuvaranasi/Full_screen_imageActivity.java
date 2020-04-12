@@ -1,12 +1,10 @@
 package com.example.anant.iitbhuvaranasi;
 
-import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
-import android.view.View;
+
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -16,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+
 
 public class Full_screen_imageActivity extends AppCompatActivity  {
     private ScaleGestureDetector scaleGestureDetector;
@@ -35,7 +33,7 @@ public class Full_screen_imageActivity extends AppCompatActivity  {
 
         if (image != null) {
             Glide.with(this)
-                    .load(image)
+                    .load(image).thumbnail(.1f).error(R.drawable.background)
                     .fitCenter() // scale to fit entire image within ImageView
                     .into(imageView);
         }

@@ -1,27 +1,23 @@
 package com.example.anant.iitbhuvaranasi;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.core.content.ContextCompat;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.graphics.Color;
-import android.graphics.Point;
+
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.View;
+
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.DecelerateInterpolator;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import static android.view.View.VISIBLE;
+
 
 public class DeveloperInfo extends AppCompatActivity {
     private Animator mCurrentAnimator;

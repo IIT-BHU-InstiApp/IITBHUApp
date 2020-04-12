@@ -12,9 +12,9 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
+
 
 public class ContactsActivity extends AppCompatActivity {
 

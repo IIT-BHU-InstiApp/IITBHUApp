@@ -10,9 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -40,10 +41,15 @@ public class Adapter_ClubsGroup extends RecyclerView.Adapter<Adapter_ClubsGroup.
         holder.mTitle.setText(mExampleList.get(position).getTitle());
         final String title1 = mExampleList.get(position).getTitle();
         final String image_url = mExampleList.get(position).getImage();
-        Picasso.get()
+        /*Picasso.get()
                 .load(mExampleList.get(position).getImage())
                 .placeholder(R.drawable.ic_cloud_download_black_24dp)
                 .error(R.drawable.ic_error_outline_black_24dp)
+                .into(holder.image);*/
+        Glide.with(mContext)
+                .load(mExampleList.get(position).getImage())
+                .error(R.drawable.background)
+                .thumbnail(0.1f)
                 .into(holder.image);
         // Title appears disabled if item is disabled
 

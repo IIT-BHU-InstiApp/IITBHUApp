@@ -7,18 +7,19 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -70,10 +71,16 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 //
 //
         club_name.setText(title1);
-        Picasso.get()
+       /* Picasso.get()
                 .load(image1)
                 .placeholder(R.drawable.thumb_drawable)
                 .error(R.drawable.thumb_drawable)
+                .into(feed_clubimage);*/
+        Glide.with(this)
+                .load(image1)
+                .error(R.drawable.background)
+                .thumbnail(.1f)
+                .fitCenter() // scale to fit entire image within ImageView
                 .into(feed_clubimage);
 
 

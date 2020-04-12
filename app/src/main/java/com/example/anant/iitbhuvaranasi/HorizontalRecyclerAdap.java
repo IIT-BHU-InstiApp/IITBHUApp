@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,12 +44,17 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
 //        holder.img.setImageResource();
         final String clubName = mTitle.get(position);
         final String clubImageUrl = mImageUrl.get(position);
-        Picasso
+        /*Picasso
                 .get()
                 .load("http://iitbhuapp.tk" + clubImageUrl)
                 .placeholder(R.drawable.background)
                 .error(R.drawable.ic_error_outline_black_24dp)
                 .noFade()
+                .into(holder.img);*/
+        Glide.with(mContext)
+                .load("http://iitbhuapp.tk" + clubImageUrl)
+                .error(R.drawable.background)
+                .thumbnail(0.1f)
                 .into(holder.img);
 //        holder.img.setLayoutParams(new ViewGroup.LayoutParams(250,250));
         float factor = holder.img .getContext().getResources().getDisplayMetrics().density;
