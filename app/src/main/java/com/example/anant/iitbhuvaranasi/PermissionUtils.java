@@ -34,9 +34,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 */
 
-
-//import org.kashiyatra.ky18.R;
-
 /**
  * Utility class for access to runtime permissions.
  */
