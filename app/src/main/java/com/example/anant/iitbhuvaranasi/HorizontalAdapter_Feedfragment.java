@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,11 +47,10 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
 
         //holder.title.setText(data.get(position).getTitle());
        //
-        Picasso.get()
+        Glide.with(context)
                 .load(data.get(position).getImage())
-                .placeholder(R.drawable.thumb_drawable)
-                .error(R.drawable.thumb_drawable)
-                .fit()
+                .error(R.drawable.background)
+                .thumbnail(0.1f)
                 .into(holder.image);
 //        ViewGroup.LayoutParams params = holder.image.getLayoutParams();
 //        params.width = 250;

@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -46,7 +47,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     public static String emailOfStudent = "";
-    public static String name_student;
+    public static String name_student = "";
 
     @Override
     protected void onResume() {
@@ -69,8 +70,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 //
         Constants.Email_Key = email;
-
+        Log.d("no_hats2","hello4");
         ID_card_Response.method(this);
+        Log.d("no_hats3","hello5");
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -111,8 +113,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
          TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
          TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
         SharedPreferences pref3 = getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
+        Log.d("no_hats","hello");
+        if(name_student.isEmpty()){
+            Log.d("no_hats1","hello123");
         name_student = pref3.getString(Constants.Name_Student,personGivenName );
-//
+     }
          emailOfStudent.setText(personEmail);
          nameOfStudent.setText(name_student);
 //

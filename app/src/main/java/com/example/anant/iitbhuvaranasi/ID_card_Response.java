@@ -2,6 +2,7 @@ package com.example.anant.iitbhuvaranasi;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 
 import com.android.volley.Request;
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 
 public class ID_card_Response {
 
@@ -46,6 +48,8 @@ public class ID_card_Response {
                     int status = response.getInt("status");
                     if (status == 1) {
                         name = response.getString("name");
+                        name_student = name;
+                        Log.d("name_changed",name_student);
 
                     }
                 } catch (JSONException e) {
