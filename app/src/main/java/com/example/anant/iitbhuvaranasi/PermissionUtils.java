@@ -19,20 +19,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
-
-/*
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
-*/
 
 /**
  * Utility class for access to runtime permissions.
@@ -43,15 +36,17 @@ public abstract class PermissionUtils {
      * Requests the fine location permission. If a rationale with an additional explanation should
      * be shown to the user, displays a dialog that triggers the request.
      */
-    public static void requestPermission(Activity activity, int requestId,
-                                         String permission, boolean finishActivity) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+    public static void requestPermission(Activity activity, String[] permission,
+                                         int requestId, boolean finishActivity) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission[0])
+            && ActivityCompat.shouldShowRequestPermissionRationale(activity, permission[1])) {
             // Display a dialog with rationale.
-            //PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
-            //        .show(activity.getFragmentManager(), "dialog");
+            PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
+                    .show(activity.getFragmentManager() , "dialog");
+
         } else {
             // Location permission has not been granted yet, request it.
-            ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
+            ActivityCompat.requestPermissions(activity, permission, requestId);
 
         }
     }
@@ -109,9 +104,9 @@ public abstract class PermissionUtils {
         @Override
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
-//            if (mFinishActivity) {
-//                getActivity().finish();
-//            }
+            if (mFinishActivity) {
+                getActivity().finish();
+            }
         }
     }
 
@@ -180,9 +175,9 @@ public abstract class PermissionUtils {
         @Override
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
-//            if (mFinishActivity) {
-//                getActivity().finish();
-//            }
+                    if (mFinishActivity) {
+                getActivity().finish();
+            }
         }
     }
 }

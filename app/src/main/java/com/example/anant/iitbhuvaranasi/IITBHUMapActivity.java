@@ -28,6 +28,8 @@ import androidx.core.content.ContextCompat;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -217,6 +219,14 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_i_i_t_b_h_u_map);
 
+        if (!isServicesOK())
+        {
+            Toast.makeText(this,"Google Play Services version not compatible",Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        enableMyLocation();
+
         MapsInitializer.initialize(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -242,6 +252,8 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         filterLT = findViewById(R.id.filter_pronite);
 
         createCustomAnimation();
+
+        //mMap.setMyLocationEnabled(true);
 
         filterFAM.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
@@ -293,6 +305,27 @@ public class IITBHUMapActivity extends AppCompatActivity implements
                 filterFAM.close(true);
             }
         });
+    }
+
+    private static final int ERROR_DIALOG_REQUEST = 9001;
+
+    //Checks play services are working
+    public boolean isServicesOK(){
+        boolean isAvailable = false;
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+
+        if(available == ConnectionResult.SUCCESS){
+            //everything is fine and the user can make map requests
+            isAvailable = true;
+        }
+        else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            //an error occured but we can resolve it
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(this, available, ERROR_DIALOG_REQUEST);
+            dialog.show();
+        }else{
+            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
+        }
+        return isAvailable;
     }
 
     /**
@@ -397,16 +430,25 @@ public class IITBHUMapActivity extends AppCompatActivity implements
      * Enables the My Location layer if the fine location permission has been granted.
      */
     private void enableMyLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission to access the location is missing
-            PermissionUtils.requestPermission(this , LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);
 
-        } else if (mMap != null) {
-            // Access to the location has been granted to the app.
-            mMap.setMyLocationEnabled(true);
+        String permissions[] = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED)
+            && (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED)) {
+                // Permission is granted
+                mPermissionDenied = false;
         }
+        else {
+            PermissionUtils.requestPermission(this ,permissions ,
+                    LOCATION_PERMISSION_REQUEST_CODE, true);
+        }
+
+        //} else if (mMap != null) {
+            // Access to the location has been granted to the app.
+           // mMap.setMyLocationEnabled(true);
+        //}
     }
 
     @Override

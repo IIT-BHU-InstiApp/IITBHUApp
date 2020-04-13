@@ -5,16 +5,19 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -49,23 +52,20 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club__feed);
 
-
-
         swipeRefreshLayout =  findViewById(R.id.swiperefreshlayout);
-        ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        LayoutInflater mInflater = LayoutInflater.from(this);
-
-        View mCustomView = mInflater.inflate(R.layout.club_bar_layout, null);
+        Toolbar toolbar = findViewById(R.id.club_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        club_name = mCustomView.findViewById(R.id.feed_clubname);
-        feed_clubimage = mCustomView.findViewById(R.id.feed_clubimage);
-        about_button = mCustomView.findViewById(R.id.about_club);
+//
 
-        custombar=mCustomView.findViewById(R.id.linear_club1);
+        club_name = toolbar.findViewById(R.id.feed_clubname);
+        feed_clubimage = toolbar.findViewById(R.id.feed_clubimage);
+        about_button = toolbar.findViewById(R.id.about_club);
+
+        custombar=toolbar.findViewById(R.id.linear_club1);
         title1= getIntent().getStringExtra("title");
         final String image1 = getIntent().getStringExtra("image");
 //
@@ -117,14 +117,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
 
 
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
 
-
-        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-
-        mActionBar.setCustomView(mCustomView, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
