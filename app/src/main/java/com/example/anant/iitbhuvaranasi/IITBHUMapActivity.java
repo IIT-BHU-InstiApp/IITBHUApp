@@ -9,14 +9,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
@@ -41,10 +38,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
@@ -173,8 +167,6 @@ public class IITBHUMapActivity extends AppCompatActivity implements
     String location23 = location2345;
 
 
-
-
     FloatingActionMenu filterFAM;
     FloatingActionButton filterHostel, filterOther, filterDepartment, filterLT;
 
@@ -190,8 +182,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
     BitmapDescriptor otherMarker;
 
 
-    private boolean mPermissionDenied = false;
-    private boolean mPermissionGranted=!mPermissionDenied;
+    private boolean mPermissionDenied;
     private GoogleMap mMap;
 
     public IITBHUMapActivity() {
@@ -203,14 +194,13 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         location = locationOfEvent;
     }
 
-    /*
+
     public static com.google.android.gms.maps.MapFragment newInstance() {
         com.google.android.gms.maps.MapFragment fragment = new com.google.android.gms.maps.MapFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }*/
-
+    }
 
 
     @Override
@@ -219,8 +209,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_i_i_t_b_h_u_map);
 
-        if (!isServicesOK())
-        {
+        if (!isServicesOK()) {
             Toast.makeText(this,"Google Play Services version not compatible",Toast.LENGTH_LONG).show();
             finish();
         }
@@ -253,7 +242,6 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
         createCustomAnimation();
 
-        //mMap.setMyLocationEnabled(true);
 
         filterFAM.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
@@ -351,8 +339,14 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             Log.e(TAG, "Can't find style. Error: ", e);
         }
 
-        mMap.setOnMyLocationButtonClickListener(this);
-        enableMyLocation();
+        //if map could not load,control would fallback to HomeActivity
+        if (mMap == null)
+        {
+            Toast.makeText(this,"There was error in loading the map",Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        enableMyLocationButton();
 
         markHostels();
         markDepartments();
@@ -445,10 +439,20 @@ public class IITBHUMapActivity extends AppCompatActivity implements
                     LOCATION_PERMISSION_REQUEST_CODE, true);
         }
 
-        //} else if (mMap != null) {
-            // Access to the location has been granted to the app.
-           // mMap.setMyLocationEnabled(true);
-        //}
+    }
+
+    private void enableMyLocationButton() {
+        //If permission is denied then control will not pass through this if statement
+        if (!mPermissionDenied) {
+            if ((ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED)
+                && (ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED)) {
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.setOnMyLocationButtonClickListener(this);
+            }
+        }
     }
 
     @Override
@@ -458,6 +462,8 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         return false;
     }
 
+    //Callback for the result from requesting permissions.
+    //This method is invoked for every call on requestPermissions(android.app.Activity, String[], int)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -466,9 +472,10 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         }
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})) {
             // Enable the my location layer if the permission has been granted.
-            enableMyLocation();
+            mPermissionDenied = false;
+            enableMyLocationButton();
         } else {
             // Display the missing permission error dialog when the fragments resume.
             mPermissionDenied = true;
@@ -489,9 +496,8 @@ public class IITBHUMapActivity extends AppCompatActivity implements
      * Displays a dialog with error message explaining that the location permission is missing.
      */
     private void showMissingPermissionError() {
-        //PermissionUtils.PermissionDeniedDialog
-        //      .newInstance(true).show((new android.app.FragmentManager())getChildFragmentManager(), "dialog");
-        Toast.makeText(this,"Permission Missing",Toast.LENGTH_LONG).show();
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getFragmentManager(), "dialog");
     }
 
     private void markDepartments() {
@@ -574,8 +580,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         filterFAM.setIconToggleAnimatorSet(set);
     }
 
-    private void displayAlertDialog(String name,View view)
-    {
+    private void displayAlertDialog(String name,View view) {
         String options[] = {"Display All","Select from List"};
         AlertDialog.Builder builder = new AlertDialog.Builder(IITBHUMapActivity.this);
         builder.setTitle("Display "+name);
@@ -642,6 +647,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
         String name = item.getTitle().toString();
         for (String key : used.keySet())
