@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -27,6 +28,13 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -38,6 +46,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,6 +80,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
     }
 
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private static final int LOCATION_SETTINGS_REQUEST = 1;
 
     private static final String TAG = com.google.android.gms.maps.MapFragment.class.getSimpleName();
 
@@ -457,9 +469,56 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMyLocationButtonClick() {
+        displayLocationSettingsRequest();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
+    }
+
+    //Displays Location Settings Request to enable GPS/other means to get location
+    //gets triggered when MyLocationButton is clicked
+    private void displayLocationSettingsRequest()
+    {
+        LocationRequest mLocationRequest = LocationRequest.create()
+                                            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                            .setInterval(10*1000)
+                                            .setFastestInterval(1*1000);
+
+        LocationSettingsRequest.Builder settingsBuilder = new LocationSettingsRequest.Builder()
+                                                                .addLocationRequest(mLocationRequest);
+        settingsBuilder.setAlwaysShow(true);
+
+        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(this)
+                                                .checkLocationSettings(settingsBuilder.build());
+
+
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                try {
+                    LocationSettingsResponse response =
+                            task.getResult(ApiException.class);
+                } catch (ApiException ex) {
+                    switch (ex.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            try {
+                                ResolvableApiException resolvableApiException =
+                                        (ResolvableApiException) ex;
+                                resolvableApiException
+                                        .startResolutionForResult(IITBHUMapActivity.this,
+                                                LOCATION_SETTINGS_REQUEST);
+                            } catch (IntentSender.SendIntentException e) {
+
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+
+                            break;
+                    }
+                }
+            }
+        });
+
     }
 
     //Callback for the result from requesting permissions.

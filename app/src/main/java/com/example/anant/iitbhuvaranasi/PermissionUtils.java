@@ -42,7 +42,6 @@ public abstract class PermissionUtils {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permissions[0])
             && ActivityCompat.shouldShowRequestPermissionRationale(activity, permissions[1])) {
             // Display a dialog with rationale.
-            Toast.makeText(activity.getApplicationContext(),"In the requestPermission ",Toast.LENGTH_LONG).show();
             PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
                     .show(activity.getFragmentManager() , "dialog");
 

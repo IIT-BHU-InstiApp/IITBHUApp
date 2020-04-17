@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.google.gms:google-services:4.3.3'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'androidx.fragment:fragment:1.2.4'
 
