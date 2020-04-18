@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "140076268748-k5lv2jltv837j3i0h17updmtj7vcbln1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.anant.iitbhuvaranasi",
+            "certificate_hash": "ab6e3fdba0c2c148045e79f8098d5f31adb5983f"
+          }
+        },
+        {
           "client_id": "140076268748-gol116c5mtmclf9j8jjo9s8qd2pim27e.apps.googleusercontent.com",
           "client_type": 3
         }

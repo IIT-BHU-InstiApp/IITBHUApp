@@ -1,9 +1,12 @@
 package com.example.anant.iitbhuvaranasi;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -33,6 +36,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
 
@@ -66,7 +74,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
 
         SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        String response45678 = sharedPreferences.getString(Constants.Response_Feed_Old, "2");
         email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+        createNotificationChannel();
+
 
 //
         Constants.Email_Key = email;
@@ -160,6 +171,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         //Added by Suryansh.
+
+//            ArrayList<String> test = ImageUrl;
+
+
+//
+
+
+
 
 
     }
@@ -421,5 +440,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //    }
 
 //
+private void createNotificationChannel(){
+    // Create the NotificationChannel, but only on API 26+ because
+    // the NotificationChannel class is new and not in the support library
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        String name = "FirebaseNotification";
+        String description = "No description";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel("firebase", name, importance);
+        channel.setDescription(description);
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
+}
 }
 

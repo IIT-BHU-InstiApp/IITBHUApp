@@ -1,5 +1,6 @@
 package com.example.anant.iitbhuvaranasi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -14,6 +15,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,8 +95,39 @@ public class PinActivity extends AppCompatActivity {
         for (int i = 0; i < ClubNames.size(); i++) {
             View view = getLayoutInflater().inflate(R.layout.pin_item, null);
             final Switch subItem = (Switch) view.findViewById(R.id.switch_for_pin);
+            String clubName= ClubNames.get(i);
+            String[] separated = clubName.split(" ");
+
             final int temp = i;
-            subItem.setText(ClubNames.get(i));
+            if(sharedPrefs.getBoolean("000" + i, false)) {
+                FirebaseMessaging.getInstance().subscribeToTopic(separated[0])
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                String msg = "Succcess";
+                                if (!task.isSuccessful()) {
+                                    msg = "Failed";
+                                }
+
+                                Toast.makeText(PinActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            else{
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(separated[0])
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                String msg = "Succcess";
+                                if (!task.isSuccessful()) {
+                                    msg = "Failed";
+                                }
+
+                                Toast.makeText(PinActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            subItem.setText(clubName);
             subItem.setId(i);
             subItem.setChecked(sharedPrefs.getBoolean("000" + i, false));
             subItem.setOnClickListener(new View.OnClickListener() {
@@ -100,10 +137,34 @@ public class PinActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
                         editor.putBoolean("000" + temp, true);
                         editor.commit();
+                        FirebaseMessaging.getInstance().subscribeToTopic(separated[0])
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        String msg = "Succcess";
+                                        if (!task.isSuccessful()) {
+                                            msg = "Failed";
+                                        }
+
+                                        Toast.makeText(PinActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     } else {
                         SharedPreferences.Editor editor = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
                         editor.putBoolean("000" + temp, false);
                         editor.commit();
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic(separated[0])
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        String msg = "Succcess";
+                                        if (!task.isSuccessful()) {
+                                            msg = "Failed";
+                                        }
+
+                                        Toast.makeText(PinActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
 
                 }
