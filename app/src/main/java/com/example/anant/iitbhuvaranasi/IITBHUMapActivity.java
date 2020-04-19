@@ -206,7 +206,6 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         location = locationOfEvent;
     }
 
-
     public static com.google.android.gms.maps.MapFragment newInstance() {
         com.google.android.gms.maps.MapFragment fragment = new com.google.android.gms.maps.MapFragment();
         Bundle args = new Bundle();
@@ -253,7 +252,6 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         filterLT = findViewById(R.id.filter_pronite);
 
         createCustomAnimation();
-
 
         filterFAM.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
