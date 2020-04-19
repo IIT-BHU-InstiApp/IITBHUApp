@@ -7,9 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+
 import android.provider.CalendarContract;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,22 +54,30 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder1 holder, final int position) {
-        Log.d("position209", Integer.toString(position));
+
 
         holder.title.setText(data.get(position).getTitle_event());
 
 
+/*
         Glide.with(context1)
                 .load(data.get(position).getImage_event())
-                .placeholder(R.drawable.sntc)
-                .error(R.drawable.amc_workshop)
+                .placeholder(R.drawable.background)
+                .error(R.drawable.ic_error_outline_black_24dp)
+                .fitCenter() // scale to fit entire image within ImageView
+                .into(holder.image);
+*/
+        Glide.with(context1)
+                .load(data.get(position).getImage_event())
+                .error(R.drawable.background)
+                .thumbnail(.1f)
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(holder.image);
 
         String originalString = data.get(position).getDate_event();
         String original = originalString.replace("T"," ");
         String original1 = original.replace("Z","");
-        Log.d("67899",original1.toString());
+
         Date date2 = null;
         try {
             date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
@@ -83,7 +90,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         // String time = new SimpleDateFormat("HH mm ss").format(date2);
         //starttime= Integer.valueOf(time);
 
-        Log.d("6789",newString);
+
 
 
         holder.date.setText(newString);
@@ -191,7 +198,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             @Override
             public void onClick(View view) {
                 location2345 = data.get(position).getMap_location();
-                Intent intent = new Intent(context1,FragmentSupportActivity.class);
+                Intent intent = new Intent(context1,IITBHUMapActivity.class);
                 context1.startActivity(intent);
             }
         });
@@ -274,24 +281,13 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setType("vnd.android.cursor.item/event");
         intent.putExtra("beginTime", lnsTime);
-        Log.d("34567", String.valueOf(cal.getTimeInMillis()));
+
         intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY,0);
         intent.putExtra("endTime", lnsTime+60*60*1000*2);
         intent.putExtra(CalendarContract.Events.TITLE, title);
         intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION,location);
         intent.putExtra("eventTimezone", "UTC/GMT +5:30");
-         /*   startActivity(intent);
-            Intent intent = new Intent(Intent.ACTION_INSERT);
-            intent.setType("vnd.android.cursor.item/event");
-
-            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, starttime);
-            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,"6789");
-            intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY,1);
-
-            intent.putExtra(CalendarContract.Events.TITLE, title);
-            intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
-            intent.putExtra(CalendarContract.Events.EVENT_LOCATION,location);*/
 
         context1.startActivity(intent);
     }

@@ -18,9 +18,7 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-import static com.example.anant.iitbhuvaranasi.AboutIndividual.TYPE_LINK;
 
 public class AboutFragment extends Fragment {
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
+
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,7 +55,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        //actionBar.hide();
 
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -191,7 +192,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 showAlertDialog(this, "No Internet Connection",
                         "You don't have internet connection.", false);
             } else {
-                Log.d(result,"resultkya");
+//
                 Toast.makeText(SignInActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
                 signout();
             }
@@ -230,7 +231,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         UpdateUI(account);
-     //   Log.d("account",account.toString());
+     //
     }
 
     private void UpdateUI(GoogleSignInAccount account) {

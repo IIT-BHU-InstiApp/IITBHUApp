@@ -9,12 +9,11 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Api_Response.method(this);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         videoView = (VideoView) findViewById(R.id.videoView);
 
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCompletion(MediaPlayer mediaPlayer) {
 //                startActivity(new Intent(MainActivity.this,SignInActivity.class));
 
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                startActivity(new Intent(MainActivity.this,SignInActivity.class));
                 finish();
             }
         });

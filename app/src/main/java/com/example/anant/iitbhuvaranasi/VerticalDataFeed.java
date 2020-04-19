@@ -2,7 +2,7 @@ package com.example.anant.iitbhuvaranasi;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +20,7 @@ public class VerticalDataFeed {
 
         SharedPreferences pref3 = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String resonse_feed = pref3.getString(Constants.Response_Feed_Old, "3");
-        Log.d("reponsefeed23",resonse_feed);
+
         getVerticalData3 = new ArrayList<>();
 
         JSONObject response;
@@ -29,22 +29,22 @@ public class VerticalDataFeed {
             try {
                 response = new JSONObject(resonse_feed);
                 int status = response.getInt("status");
-                Log.d("8938492",response.toString());
-                Log.d("status001", Integer.toString(status));
+
+
                 if (status == 1) {
-                    Log.d("status100", "1");
+
                     JSONArray jsonArray = response.getJSONArray("notif");
                     //JSONArray array = response.getJSONArray("councils");
 
             /*    for (int j = 0; j < array.length(); j++){
                     JSONObject hit1 = array.getJSONObject(j);
                     String image_council = "http://iitbhuapp.tk" + hit1.getString("image");
-                    //  Log.d("clubname", name);
-                    //Log.d("imageurl",image_council);
+                    //
+                    //
 
                     getHorizontalData1.add(new SingleHorizontaldata(image_council));
                 }*/
-                    /*  Log.d("horizontaldata234500", getHorizontalData1.toString());*/
+
 
                     for (int i = jsonArray.length() - 1; i >= 0; i--) {
                         JSONObject hit = jsonArray.getJSONObject(i);
@@ -84,17 +84,17 @@ public class VerticalDataFeed {
                         Interestedbutton_class.notification_id = notification_id;
                         getVerticalData3.add(new SingleVerticalData(club_name, club_image, council_name, council_image, title_event, description_event
                                 , image_event, date_event, location, viewcount, interestedcount, interested, notifid,map_location));
-                        Log.d("verticalse00", getVerticalData3.toArray().toString());
 
-                        // Log.d("imageurl00", image);
-                        Log.d("verticaldataori00", getVerticalData3.toString());
+
+                        //
+
 
                     }
-                    Log.d("getverticaldata100", getVerticalData3.toString());
+
 
 
                 } else {
-                    Log.d("status000", "0");
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -2,7 +2,7 @@ package com.example.anant.iitbhuvaranasi;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +11,12 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+
 
 //import android.util.Log;
 //import android.util.Log;
@@ -42,15 +43,14 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-      Log.d("position"," " +position);
+//
 
         //holder.title.setText(data.get(position).getTitle());
-       // Log.d("imageurlhorizontal",data.get(position).getImage());
-        Picasso.get()
+       //
+        Glide.with(context)
                 .load(data.get(position).getImage())
-                .placeholder(R.drawable.ic_eye_view)
-                .error(R.drawable.amc_workshop)
-                .fit()
+                .error(R.drawable.background)
+                .thumbnail(0.1f)
                 .into(holder.image);
 //        ViewGroup.LayoutParams params = holder.image.getLayoutParams();
 //        params.width = 250;
@@ -67,7 +67,7 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
 
         holder.image.setElevation(10);
 
-       // Log.d("holderimage",holder.image.toString());
+       //
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,14 +101,14 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
         //holder.title.setText(data.get(position).getTitle());
         //Picasso.get().load(data.get(position).getImage()).into(holder.images);
         //Toast.makeText(FeedFragment.class, ""+position, Toast.LENGTH_SHORT).show();
-        //Log.d("position",""+position);
+        //
         //Toast.makeText(context, ""+position, Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     public int getItemCount() {
-        //Log.d("getitemcount",""+data.size());
+        //
         return data.size();
     }
 

@@ -7,16 +7,14 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
@@ -28,6 +26,15 @@ import androidx.core.content.ContextCompat;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -39,10 +46,10 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
@@ -50,7 +57,6 @@ import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity
 
 public class IITBHUMapActivity extends AppCompatActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -74,6 +80,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
     }
 
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private static final int LOCATION_SETTINGS_REQUEST = 1;
 
     private static final String TAG = com.google.android.gms.maps.MapFragment.class.getSimpleName();
 
@@ -172,8 +179,6 @@ public class IITBHUMapActivity extends AppCompatActivity implements
     String location23 = location2345;
 
 
-
-
     FloatingActionMenu filterFAM;
     FloatingActionButton filterHostel, filterOther, filterDepartment, filterLT;
 
@@ -189,7 +194,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
     BitmapDescriptor otherMarker;
 
 
-    private boolean mPermissionDenied = false;
+    private boolean mPermissionDenied;
     private GoogleMap mMap;
 
     public IITBHUMapActivity() {
@@ -201,21 +206,26 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         location = locationOfEvent;
     }
 
-    /*
     public static com.google.android.gms.maps.MapFragment newInstance() {
         com.google.android.gms.maps.MapFragment fragment = new com.google.android.gms.maps.MapFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }*/
-
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_i_i_tbhu__map);
+        setContentView(R.layout.activity_i_i_t_b_h_u_map);
+
+        if (!isServicesOK()) {
+            Toast.makeText(this,"Google Play Services version not compatible",Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        enableMyLocation();
 
         MapsInitializer.initialize(this);
 
@@ -295,6 +305,27 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         });
     }
 
+    private static final int ERROR_DIALOG_REQUEST = 9001;
+
+    //Checks play services are working
+    public boolean isServicesOK(){
+        boolean isAvailable = false;
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+
+        if(available == ConnectionResult.SUCCESS){
+            //everything is fine and the user can make map requests
+            isAvailable = true;
+        }
+        else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            //an error occured but we can resolve it
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(this, available, ERROR_DIALOG_REQUEST);
+            dialog.show();
+        }else{
+            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
+        }
+        return isAvailable;
+    }
+
     /**
      * Manipulates the map when it's available.
      * The API invokes this callback when the map is ready for use.
@@ -318,9 +349,14 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             Log.e(TAG, "Can't find style. Error: ", e);
         }
 
-        mMap.setOnMyLocationButtonClickListener(this);
-        mMap.setOnMyLocationClickListener(this);
-        enableMyLocation();
+        //if map could not load,control would fallback to HomeActivity
+        if (mMap == null)
+        {
+            Toast.makeText(this,"There was error in loading the map",Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        enableMyLocationButton();
 
         markHostels();
         markDepartments();
@@ -398,30 +434,93 @@ public class IITBHUMapActivity extends AppCompatActivity implements
      * Enables the My Location layer if the fine location permission has been granted.
      */
     private void enableMyLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission to access the location is missing
-            // TODO : Error is coming from this line(closed)
-            PermissionUtils.requestPermission(/*(AppCompatActivity)*/this , LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);
-        } else if (mMap != null) {
-            // Access to the location has been granted to the app.
+
+        String permissions[] = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED)
+            && (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED)) {
+                // Permission is granted
+                mPermissionDenied = false;
+        }
+        else {
+            PermissionUtils.requestPermission(this ,permissions ,
+                    LOCATION_PERMISSION_REQUEST_CODE, true);
+        }
+
+    }
+
+    private void enableMyLocationButton() {
+        //If permission is denied then control will not pass through this if statement
+        if (!mPermissionDenied) {
+            if ((ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED)
+                && (ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED)) {
             mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.setOnMyLocationButtonClickListener(this);
+            }
         }
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
+        displayLocationSettingsRequest();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
     }
 
-    @Override
-    public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+    //Displays Location Settings Request to enable GPS/other means to get location
+    //gets triggered when MyLocationButton is clicked
+    private void displayLocationSettingsRequest()
+    {
+        LocationRequest mLocationRequest = LocationRequest.create()
+                                            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                            .setInterval(10*1000)
+                                            .setFastestInterval(1*1000);
+
+        LocationSettingsRequest.Builder settingsBuilder = new LocationSettingsRequest.Builder()
+                                                                .addLocationRequest(mLocationRequest);
+        settingsBuilder.setAlwaysShow(true);
+
+        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(this)
+                                                .checkLocationSettings(settingsBuilder.build());
+
+
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                try {
+                    LocationSettingsResponse response =
+                            task.getResult(ApiException.class);
+                } catch (ApiException ex) {
+                    switch (ex.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            try {
+                                ResolvableApiException resolvableApiException =
+                                        (ResolvableApiException) ex;
+                                resolvableApiException
+                                        .startResolutionForResult(IITBHUMapActivity.this,
+                                                LOCATION_SETTINGS_REQUEST);
+                            } catch (IntentSender.SendIntentException e) {
+
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+
+                            break;
+                    }
+                }
+            }
+        });
+
     }
 
+    //Callback for the result from requesting permissions.
+    //This method is invoked for every call on requestPermissions(android.app.Activity, String[], int)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -430,9 +529,10 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         }
 
         if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})) {
             // Enable the my location layer if the permission has been granted.
-            enableMyLocation();
+            mPermissionDenied = false;
+            enableMyLocationButton();
         } else {
             // Display the missing permission error dialog when the fragments resume.
             mPermissionDenied = true;
@@ -453,9 +553,8 @@ public class IITBHUMapActivity extends AppCompatActivity implements
      * Displays a dialog with error message explaining that the location permission is missing.
      */
     private void showMissingPermissionError() {
-        //PermissionUtils.PermissionDeniedDialog
-        //      .newInstance(true).show((new android.app.FragmentManager())getChildFragmentManager(), "dialog");
-        Toast.makeText(this,"Permission Missing",Toast.LENGTH_LONG).show();
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getFragmentManager(), "dialog");
     }
 
     private void markDepartments() {
@@ -538,8 +637,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         filterFAM.setIconToggleAnimatorSet(set);
     }
 
-    private void displayAlertDialog(String name,View view)
-    {
+    private void displayAlertDialog(String name,View view) {
         String options[] = {"Display All","Select from List"};
         AlertDialog.Builder builder = new AlertDialog.Builder(IITBHUMapActivity.this);
         builder.setTitle("Display "+name);
@@ -606,6 +704,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
     public boolean onContextItemSelected(MenuItem item) {
         String name = item.getTitle().toString();
         for (String key : used.keySet())

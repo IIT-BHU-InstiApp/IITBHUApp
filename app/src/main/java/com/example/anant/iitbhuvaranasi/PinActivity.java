@@ -8,9 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -21,8 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class PinActivity extends AppCompatActivity {
 
@@ -57,7 +55,7 @@ public class PinActivity extends AppCompatActivity {
 
         SharedPreferences pref2 = getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
-        Log.d("response34567890123", response45678);
+
 
 
         try {
@@ -79,7 +77,7 @@ public class PinActivity extends AppCompatActivity {
             }
 
 
-            Log.d("status0010", Integer.toString(status));
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -94,7 +92,7 @@ public class PinActivity extends AppCompatActivity {
             final int temp = i;
             subItem.setText(ClubNames.get(i));
             subItem.setId(i);
-            subItem.setChecked(sharedPrefs.getBoolean("000" + i, true));
+            subItem.setChecked(sharedPrefs.getBoolean("000" + i, false));
             subItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

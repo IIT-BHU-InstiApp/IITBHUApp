@@ -35,19 +35,19 @@ public class PORparliament extends Fragment {
 
         LinearLayout linearLayout = view.findViewById(R.id.parliament_contact_container);
         ArrayList<ContactsStruct> arrayList = new ArrayList<>();
-        arrayList.add(new ContactsStruct("Vice President", "Harshit Chaudhary","9517270783", "vp.gymkhana@iitbhu.ac.in"));
-        arrayList.add(new ContactsStruct("AVP", "Harshit Dixit","7992161439", "harshit.dixit.min16@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Anisha Pandey","8368907009", "anishapandey.che18@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Arihant Sukhlecha","8696357434", "arihant.ksukhlecha.cer17@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Avinash Mall","7379040696", "avinash.kmall.civ17@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Mohammed Hussain","9838734090", "mohammed.hussain.cer16@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Muskan Agarwal", "9468866478", "muskan.agarwal.cer16@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Pankaj P N Jarha","8319639968", "pankaj.pnjarha.min16@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Rinish Reddy Vaidyula","9010305713", "vaidyular.reddy.chy15@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Rupali Gharat", "9131214717", "rupali.gharat.cer17@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Vatsal Dwivedi","9571714294", "vatsal.dwivedi.civ17@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor", "Vibhatsu Yadav","8410286425", "vibhatsu.yadav.civ17@itbhu.ac.in"));
-        arrayList.add(new ContactsStruct("Convenor)", "VSV Surya Prakash","9441764781", "vsvsurya.prakash.civ16@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Vice President(Students' Parliament)", "Harshit Chaudhary","9517270783", "vp.gymkhana@iitbhu.ac.in"));
+        arrayList.add(new ContactsStruct("AVP(Students' Parliament)", "Harshit Dixit","7992161439", "harshit.dixit.min16@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (PG Affairs)", "Anisha Pandey","8368907009", "anishapandey.che18@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Web Committee)", "Arihant Sukhlecha","8696357434", "arihant.ksukhlecha.cer17@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Security Committee)", "Avinash Mall","7379040696", "avinash.kmall.civ17@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Festival Committee)", "Mohammed Hussain","9838734090", "mohammed.hussain.cer16@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Training and Placement)", "Muskan Agarwal", "9468866478", "muskan.agarwal.cer16@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Grievance & Redressal)", "Pankaj P N Jarha","8319639968", "pankaj.pnjarha.min16@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (UG Affairs)", "Rinish Reddy Vaidyula","9010305713", "vaidyular.reddy.chy15@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Hostel Affairs Committee)", "Rupali Gharat", "9131214717", "rupali.gharat.cer17@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Infrastructure Committee)", "Vatsal Dwivedi","9571714294", "vatsal.dwivedi.civ17@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Public Relations Committee)", "Vibhatsu Yadav","8410286425", "vibhatsu.yadav.civ17@itbhu.ac.in"));
+        arrayList.add(new ContactsStruct("Convenor (Finance Committee)", "VSV Surya Prakash","9441764781", "vsvsurya.prakash.civ16@itbhu.ac.in"));
 
 
         for (int i = 0; i < arrayList.size(); i++) {

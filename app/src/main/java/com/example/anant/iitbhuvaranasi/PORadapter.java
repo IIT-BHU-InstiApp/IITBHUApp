@@ -4,7 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+
 
 public class PORadapter extends FragmentPagerAdapter {
 
@@ -21,10 +21,10 @@ public class PORadapter extends FragmentPagerAdapter {
             else if(position == 1){
                 return new PORcouncils();
             }
-            else if(position == 2){
+            else {
                 return new PORfestivals();
             }
-            else{return new PORhec();}
+
         }
 
     @Nullable
@@ -37,8 +37,7 @@ public class PORadapter extends FragmentPagerAdapter {
                     return "Councils";
                 case 2:
                     return "Festivals";
-                case 3:
-                    return "HEC";
+
 
                 default:
                     return "error";
@@ -48,7 +47,7 @@ public class PORadapter extends FragmentPagerAdapter {
 
     @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -47,10 +48,16 @@ public class Club_ProfilePage extends AppCompatActivity {
         final String title1= getIntent().getStringExtra("title1");
         final String image1 = getIntent().getStringExtra("image1");
         club_name1.setText(title1);
-        Picasso.get()
+        /*Picasso.get()
                 .load(image1)
-                .placeholder(R.drawable.ic_eye_view)
-                .error(R.drawable.amc_workshop)
+                .placeholder(R.drawable.thumb_drawable)
+                .error(R.drawable.thumb_drawable)
+                .into(feed_clubimage1);*/
+        Glide.with(this)
+                .load(image1)
+                .error(R.drawable.background)
+                .thumbnail(.1f)
+                .fitCenter() // scale to fit entire image within ImageView
                 .into(feed_clubimage1);
         TextView ClubInfo = findViewById(R.id.club_info);
         if(title1.contentEquals("Clubs Of Programmers")){ClubInfo.setText(getResources().getString(R.string.cops));}
