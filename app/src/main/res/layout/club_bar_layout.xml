@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/linear_club1"
-    android:background="@color/colorPrimary"
-    android:orientation="horizontal"
-    >
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="25dp"
-        android:layout_height="45dp"
-        android:id="@+id/feed_clubimage"
-        android:src="@drawable/thumb_drawable"
-        android:cropToPadding="true"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="center_vertical|start"
-        android:layout_weight="1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentInsetEnd="16dp"
+    app:contentInsetLeft="0dp"
+    android:elevation="4dp">
 
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/feed_clubname"
-        android:layout_height="wrap_content"
-        android:text="sdjagdk"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:layout_gravity="center"
-        android:gravity="start"
-        />
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|end"
-        android:layout_weight="1"
-        >
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_info_outline_white_24dp"
-        android:id="@+id/about_club"
-
-        />
-    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/linear_club1"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal">
 
 
-</LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/feed_clubimage"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginEnd="8dp"
+            android:cropToPadding="true"
+            android:padding="4dp"
+            app:civ_border_color="@android:color/black"
+            android:src="@drawable/thumb_drawable" />
+
+        <TextView
+            android:id="@+id/feed_clubname"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="start|center_vertical"
+            android:text="Club Name"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:textSize="18dp" />
+
+
+        <ImageButton
+            android:id="@+id/about_club"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_info_outline_white_24dp" />
+
+    </LinearLayout>
+</androidx.appcompat.widget.Toolbar>

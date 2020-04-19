@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -202,7 +203,7 @@ public class FeedFragment extends Fragment {
         horizontalRcv.setLayoutManager(layoutManager2);
         horizontalRcv.setAdapter(horizontalRecyclerAdap);
 
-        Button addButton = view.findViewById(R.id.add_button);
+        TextView addButton = view.findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

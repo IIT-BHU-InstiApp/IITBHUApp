@@ -19,20 +19,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
-
-/*
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
-*/
 
 /**
  * Utility class for access to runtime permissions.
@@ -43,15 +37,17 @@ public abstract class PermissionUtils {
      * Requests the fine location permission. If a rationale with an additional explanation should
      * be shown to the user, displays a dialog that triggers the request.
      */
-    public static void requestPermission(Activity activity, int requestId,
-                                         String permission, boolean finishActivity) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+    public static void requestPermission(Activity activity, String[] permissions,
+                                         int requestId, boolean finishActivity) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permissions[0])
+            && ActivityCompat.shouldShowRequestPermissionRationale(activity, permissions[1])) {
             // Display a dialog with rationale.
-            //PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
-            //        .show(activity.getFragmentManager(), "dialog");
+            PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
+                    .show(activity.getFragmentManager() , "dialog");
+
         } else {
             // Location permission has not been granted yet, request it.
-            ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
+            ActivityCompat.requestPermissions(activity, permissions, requestId);
 
         }
     }
@@ -64,13 +60,14 @@ public abstract class PermissionUtils {
     //@see android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback
     //*/
     public static boolean isPermissionGranted(String[] grantPermissions, int[] grantResults,
-                                              String permission) {
+                                              String permission[]) {
         for (int i = 0; i < grantPermissions.length; i++) {
-            if (permission.equals(grantPermissions[i])) {
-                return grantResults[i] == PackageManager.PERMISSION_GRANTED;
+            if (permission[i].equals(grantPermissions[i])) {
+                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED)
+                     return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -88,7 +85,7 @@ public abstract class PermissionUtils {
          */
         public static PermissionDeniedDialog newInstance(boolean finishActivity) {
             Bundle arguments = new Bundle();
-//            arguments.putBoolean(ARGUMENT_FINISH_ACTIVITY, finishActivity);
+            arguments.putBoolean(ARGUMENT_FINISH_ACTIVITY, finishActivity);
 
             PermissionDeniedDialog dialog = new PermissionDeniedDialog();
             dialog.setArguments(arguments);
@@ -98,7 +95,7 @@ public abstract class PermissionUtils {
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-//            mFinishActivity = getArguments().getBoolean(ARGUMENT_FINISH_ACTIVITY);
+            mFinishActivity = getArguments().getBoolean(ARGUMENT_FINISH_ACTIVITY);
 
             return new AlertDialog.Builder(getActivity())
                     .setMessage("Location Permission Denied")
@@ -109,9 +106,9 @@ public abstract class PermissionUtils {
         @Override
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
-//            if (mFinishActivity) {
-//                getActivity().finish();
-//            }
+            if (mFinishActivity) {
+                getActivity().finish();
+            }
         }
     }
 
@@ -167,7 +164,7 @@ public abstract class PermissionUtils {
                         public void onClick(DialogInterface dialog, int which) {
                             // After click on Ok, request the permission.
                             ActivityCompat.requestPermissions(getActivity(),
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
                                     requestCode);
                             // Do not finish the Activity while requesting permission.
                             mFinishActivity = false;
@@ -177,12 +174,20 @@ public abstract class PermissionUtils {
                     .create();
         }
 
+        //This method will be invoked when the dialog is dismissed(its job is finished)
         @Override
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
-//            if (mFinishActivity) {
-//                getActivity().finish();
-//            }
+
+            if (mFinishActivity) {
+               getActivity().finish();
+            }
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            super.onCancel(dialog);
+            PermissionDeniedDialog.newInstance(false).show(getFragmentManager(),"deniedDialog");
         }
     }
 }

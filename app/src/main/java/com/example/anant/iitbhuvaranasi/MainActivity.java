@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Api_Response.method(this);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         videoView = (VideoView) findViewById(R.id.videoView);
 

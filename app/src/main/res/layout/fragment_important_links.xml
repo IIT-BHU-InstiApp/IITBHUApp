@@ -11,21 +11,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/iitbhu_link"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:singleLine="true"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="Institute Website"
-            android:textSize="21sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/iitbhu_link"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:singleLine="true"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor="@color/holo_blue_light"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:text="Institute Website"-->
+<!--            android:textSize="21sp" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="?android:attr/listDivider" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
