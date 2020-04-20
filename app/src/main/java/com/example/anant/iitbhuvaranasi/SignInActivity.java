@@ -152,9 +152,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 Log.d("emailtrue12345",email);
                 editor.putString(Constants.Email, email);
                 editor.commit();
-                Login_response.method(this,email);
-                Api_Response.method(this);
-                updateUI("true");
+                Login_response.method(this, email, new ServerCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Api_Response.method(SignInActivity.this);
+                        updateUI("true");
+                    }
+                });
+
 
                 //Login_response.method(this);
               //  Api_Response.method(this);
