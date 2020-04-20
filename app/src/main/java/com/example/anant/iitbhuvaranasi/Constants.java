@@ -22,6 +22,9 @@ public class Constants {
     public static final String Name_Student = "Name";
     public static String Email_Key = "MailId1";
     public static Integer Progress = 1;
+    public static String public_Email = "MailId2";
+    public static String password_shared= "MailId5";
+    public static String password= "MailId4";
 
     public static final String CALENDAR_DIALOG_YES = "Yes";
     public static final String CALENDAR_DIALOG_NO = "No";

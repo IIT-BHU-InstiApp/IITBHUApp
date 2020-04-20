@@ -103,7 +103,4 @@ public class VerticalDataFeed {
 
   return getVerticalData3;
     }
-
-
-
 }

@@ -27,11 +27,17 @@ public class ID_card_Response {
     public static String method(final Context context)
     {
         mRequestQueue = Volley.newRequestQueue(context);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        String email3 = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+        String password3 = sharedPreferences.getString(Constants.password_shared, Constants.password);
+
 
         String url = "http://iitbhuapp.tk/checkreg";
         JSONObject obj = new JSONObject();
         try {
-            obj.put("email", Constants.Email_Key);
+            obj.put("email",email3);
+            obj.put("password",password3);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
