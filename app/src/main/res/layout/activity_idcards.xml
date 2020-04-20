@@ -43,7 +43,7 @@
             android:layout_below="@+id/studentphoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sachit Maurya"
+            android:text="Name"
             android:textStyle="bold"
             android:textSize="30dp"/>
 
@@ -68,12 +68,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=": "/>
+                android:text=""/>
             <TextView
                 android:id="@+id/rollnoedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="16144015"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -95,7 +95,7 @@
                 android:id="@+id/fathernameedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Santosh Kumar Maurya"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -117,7 +117,7 @@
                 android:id="@+id/dobedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="26/11/1997"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -139,7 +139,7 @@
                 android:id="@+id/courseedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="IDD"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -161,7 +161,7 @@
                 android:id="@+id/departmentedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Metallurgical Engineering"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -183,7 +183,7 @@
                 android:id="@+id/yoaedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="2016"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -205,7 +205,7 @@
                 android:id="@+id/bloodgrpedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="AB+"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -227,7 +227,7 @@
                 android:id="@+id/contactnoedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="8188913979"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -249,7 +249,7 @@
                 android:id="@+id/emailidedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="sachitmaurya01@gmail.com"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -271,7 +271,7 @@
                 android:id="@+id/addressedit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="L.I.G-130/Phase-2, TRT LDA Colony, Mohan Road, Lucknow-226017"/>
+                android:hint=""/>
         </LinearLayout>
 
 
