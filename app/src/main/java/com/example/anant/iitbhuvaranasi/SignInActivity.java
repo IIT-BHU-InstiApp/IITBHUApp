@@ -91,7 +91,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        Api_Response.method(this);
+        //Api_Response.method(this);
         switch (v.getId()) {
             case R.id.siginbutton:
                 signIn();
@@ -146,8 +146,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             isInternetPresent = false;
             isInternetPresent = cd.isConnectingToInternet();
             if((isEmailValid2(email)==true || isEmailValid1(email)==true)&&(isInternetPresent))
-            {updateUI("true");
-                Api_Response.method(this);}
+            {
+                SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                Log.d("emailtrue12345",email);
+                editor.putString(Constants.Email, email);
+                editor.commit();
+                Login_response.method(this,email);
+                Api_Response.method(this);
+                updateUI("true");
+
+                //Login_response.method(this);
+              //  Api_Response.method(this);
+            }
             else
             {
                 if (!isInternetPresent) {
@@ -169,13 +180,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void updateUI(String result) {
         if(result == "true")
         {
-            if (Constants.isInternetPresent == false){
-                Api_Response.method(this);
-            }
-            SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(Constants.Email, email);
-            editor.commit();
+
 
             Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
             startActivity(intent);
@@ -193,7 +198,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 showAlertDialog(this, "No Internet Connection",
                         "You don't have internet connection.", false);
             } else {
-//
+
                 Toast.makeText(SignInActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
                 signout();
             }

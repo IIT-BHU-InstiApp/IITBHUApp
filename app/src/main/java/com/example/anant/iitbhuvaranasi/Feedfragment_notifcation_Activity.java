@@ -304,7 +304,6 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 break;
 
 
-
         }
     }
 

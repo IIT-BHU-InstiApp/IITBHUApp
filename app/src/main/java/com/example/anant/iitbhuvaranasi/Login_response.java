@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -17,54 +15,48 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.anant.iitbhuvaranasi.Constants.password;
+import static com.example.anant.iitbhuvaranasi.Constants.password_shared;
 
-public class Api_Response {
+public class Login_response {
     private static RequestQueue mRequestQueue;
 
-    public static String method(final Context context)
+    public static String method(final Context context,String mail)
     {
         mRequestQueue = Volley.newRequestQueue(context);
 
-        String url = "http://iitbhuapp.tk/feedandclubs";
+        String url = "http://iitbhuapp.tk/login";
         JSONObject obj = new JSONObject();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
-        String email3 = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
-        String password3 = sharedPreferences.getString(Constants.password_shared, Constants.password);
-        try {
-            obj.put("email",email3);
-            obj.put("password",password3);
-            Log.d("heloods","dsfsfds");
-            Log.d("heloods2",password3);
-            Log.d("heloods3",email3);
 
+        try {
+            obj.put("email",mail);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        final String[] apiresponse = {"0"};
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, obj, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
-                apiresponse[0] = response.toString();
+
                /* SharedPreferences pref = context.getSharedPreferences("MyPref2", 0);
                 SharedPreferences.Editor editor = pref.edit();
                 String rew = response.toString();
                 editor.putString("bhaiplease", rew);
                 editor.commit();*/
-                SharedPreferences pref = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                String rew = response.toString();
-                editor.putString(Constants.Response_Feed_Old, rew);
-                editor.commit();
-
 
                 try {
-                    int status = response.getInt("status");
+                    String password1 = response.getString("password");
+                    Log.d("password",password1);
+                    Constants.password = password1;
+                    SharedPreferences pref = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString(Constants.password_shared, password1);
+                    editor.commit();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
 
             }
         }, new Response.ErrorListener() {
@@ -75,6 +67,6 @@ public class Api_Response {
             }
         });
         mRequestQueue.add(request);
-        return apiresponse[0];
+        return "Successfull";
     }
 }
