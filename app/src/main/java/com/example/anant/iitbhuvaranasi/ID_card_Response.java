@@ -24,7 +24,7 @@ public class ID_card_Response {
     private static RequestQueue mRequestQueue;
     public static String name;
 
-    public static String method(final Context context)
+    public static String method(final Context context,ServerCallback serverCallback)
     {
         mRequestQueue = Volley.newRequestQueue(context);
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
@@ -71,7 +71,7 @@ public class ID_card_Response {
                 editor.commit();
 
 
-
+                serverCallback.onSuccess();
             }
         }, new Response.ErrorListener() {
             @Override

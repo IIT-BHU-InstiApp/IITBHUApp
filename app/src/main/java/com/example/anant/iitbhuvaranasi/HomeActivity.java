@@ -36,7 +36,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.messaging.FirebaseMessaging;
+//import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,7 +82,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //
         Constants.Email_Key = email;
         Log.d("no_hats2","hello4");
-        ID_card_Response.method(this);
+        ID_card_Response.method(this, new ServerCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+        });
         Log.d("no_hats3","hello5");
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

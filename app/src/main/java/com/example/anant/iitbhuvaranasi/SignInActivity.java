@@ -155,8 +155,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 Login_response.method(this, email, new ServerCallback() {
                     @Override
                     public void onSuccess() {
-                        Api_Response.method(SignInActivity.this);
-                        updateUI("true");
+                        Api_Response.method(SignInActivity.this, new ServerCallback() {
+                            @Override
+                            public void onSuccess() {
+                                updateUI("true");
+                            }
+                        });
+
                     }
                 });
 
@@ -185,8 +190,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void updateUI(String result) {
         if(result == "true")
         {
-
-
             Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
             startActivity(intent);
             finish();
@@ -248,6 +251,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void UpdateUI(GoogleSignInAccount account) {
         if(account != null)
         {
+            Api_Response.method(SignInActivity.this, new ServerCallback() {
+                @Override
+                public void onSuccess() {
+                }
+            });
             Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
             startActivity(intent);
             finish();

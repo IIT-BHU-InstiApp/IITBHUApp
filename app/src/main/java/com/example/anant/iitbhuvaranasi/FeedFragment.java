@@ -153,7 +153,12 @@ public class FeedFragment extends Fragment {
 
         //RECYCLERVIEW HORIZONTAL PINTAB
 
-        Api_Response.method(getContext());//////////////////////////////////
+        Api_Response.method(getContext(), new ServerCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+        });//////////////////////////////////
 
         SharedPreferences pref2 = getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");

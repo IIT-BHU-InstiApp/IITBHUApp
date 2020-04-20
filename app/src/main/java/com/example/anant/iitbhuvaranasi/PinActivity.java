@@ -57,7 +57,12 @@ public class PinActivity extends AppCompatActivity {
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
 
-        Api_Response.method(this);
+        Api_Response.method(this, new ServerCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+        });
 
         SharedPreferences pref2 = getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
