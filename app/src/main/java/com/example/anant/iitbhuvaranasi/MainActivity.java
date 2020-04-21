@@ -51,7 +51,12 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Api_Response.method(this);
+        Api_Response.method(this, new ServerCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+        });
         //getSupportActionBar().hide();
 
         videoView = (VideoView) findViewById(R.id.videoView);

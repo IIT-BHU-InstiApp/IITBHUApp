@@ -21,7 +21,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class Api_Response {
     private static RequestQueue mRequestQueue;
 
-    public static String method(final Context context)
+    public static String method(final Context context,ServerCallback serverCallback)
     {
         mRequestQueue = Volley.newRequestQueue(context);
 
@@ -59,13 +59,8 @@ public class Api_Response {
                 editor.putString(Constants.Response_Feed_Old, rew);
                 editor.commit();
 
-
-                try {
-                    int status = response.getInt("status");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+                
+                serverCallback.onSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
