@@ -109,7 +109,7 @@ public class PinActivity extends AppCompatActivity {
                                     msg = "Failed";
                                 }
 
-                                Toast.makeText(PinActivity.this, msg, Toast.LENGTH_SHORT).show();
+
                             }
                         });
             }
@@ -123,7 +123,7 @@ public class PinActivity extends AppCompatActivity {
                                     msg = "Failed";
                                 }
 
-                                Toast.makeText(PinActivity.this, msg, Toast.LENGTH_SHORT).show();
+
                             }
                         });
             }
@@ -141,12 +141,12 @@ public class PinActivity extends AppCompatActivity {
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        String msg = "Succcess";
+                                        String msg = "Subscribed to "+clubName+" for notifications";
                                         if (!task.isSuccessful()) {
                                             msg = "Failed";
                                         }
 
-                                        Toast.makeText(PinActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PinActivity.this, msg, Toast.LENGTH_LONG).show();
                                     }
                                 });
                     } else {
@@ -157,7 +157,7 @@ public class PinActivity extends AppCompatActivity {
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        String msg = "Succcess";
+                                        String msg = "Unsubscribed to "+clubName+" for notifications";
                                         if (!task.isSuccessful()) {
                                             msg = "Failed";
                                         }
