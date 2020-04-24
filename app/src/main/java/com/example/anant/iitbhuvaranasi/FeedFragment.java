@@ -154,8 +154,14 @@ public class FeedFragment extends Fragment {
         //RECYCLERVIEW HORIZONTAL PINTAB
 
         Api_Response.method(getContext(), new ServerCallback() {
+
             @Override
             public void onSuccess() {
+
+            }
+
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
 
             }
         });//////////////////////////////////

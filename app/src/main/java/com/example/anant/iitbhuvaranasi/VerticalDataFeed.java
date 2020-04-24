@@ -35,8 +35,7 @@ public class VerticalDataFeed {
 
                     JSONArray jsonArray = response.getJSONArray("notif");
                     //JSONArray array = response.getJSONArray("councils");
-
-            /*    for (int j = 0; j < array.length(); j++){
+                    /*    for (int j = 0; j < array.length(); j++){
                     JSONObject hit1 = array.getJSONObject(j);
                     String image_council = "http://iitbhuapp.tk" + hit1.getString("image");
                     //
@@ -78,10 +77,9 @@ public class VerticalDataFeed {
                         Integer interested1 = hit.getInt("interestedcount");
                         String interestedcount = interested1.toString();
                         String interested = hit.getInt("interested") + "";
-                        Integer notification_id = hit.getInt("notifid");
-                        Integer notif_id = hit.getInt("notifid");
-                        String notifid = notif_id.toString();
-                        Interestedbutton_class.notification_id = notification_id;
+                        //Integer notification_id = hit.getInt("notifid");
+                        String notifid = Integer.toString(hit.getInt("notifid"));
+                        //Interestedbutton_class.notification_id = notification_id;
                         getVerticalData3.add(new SingleVerticalData(club_name, club_image, council_name, council_image, title_event, description_event
                                 , image_event, date_event, location, viewcount, interestedcount, interested, notifid,map_location));
 
@@ -101,6 +99,6 @@ public class VerticalDataFeed {
             }
         }
 
-  return getVerticalData3;
+        return getVerticalData3;
     }
 }

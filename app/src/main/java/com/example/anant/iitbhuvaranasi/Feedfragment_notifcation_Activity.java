@@ -3,26 +3,34 @@ package com.example.anant.iitbhuvaranasi;
 import android.animation.Animator;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -32,15 +40,17 @@ import com.android.volley.RequestQueue;
 
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-//
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -53,7 +63,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     boolean check;
     String event_title,event_description,event_date,event_venue,event_time;
     TextView title_event, description_event, date_event, venue_event, time_event, interested_count,councilName;
-   // Button  interested_button;
+    Button  interested_button;
     Button share_button,clock_button;
     Button  location_button;
     SingleVerticalData obj;
@@ -63,7 +73,8 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     View thumb1View;
     int image2;
     private static RequestQueue mRequestQueue;
-
+    //TODO :: Handle it later notifid
+    Integer notif_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,14 +101,13 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         mRequestQueue = Volley.newRequestQueue(this);
         final String url = "http://iitbhuapp.tk/interested";
 
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         String json=getIntent().getStringExtra("all");
         Gson gson = new Gson();
         obj = gson.fromJson(json, SingleVerticalData.class);
-//
 
         thumb1View = findViewById(R.id.event_picture_2);
 
@@ -117,8 +127,8 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         clock_button.setOnClickListener(this);
       //  go_button = (Button) findViewById(R.id.going_button);
     //    go_button.setOnClickListener(this);
-      //  interested_button = (Button) findViewById(R.id.interested_button);
-       // interested_button.setOnClickListener(this);
+        interested_button = (Button) findViewById(R.id.interested_button);
+        interested_button.setOnClickListener(this);
     //    going_count = (TextView) findViewById(R.id.going_count);
         //interested_count = (TextView) findViewById(R.id.interested_count);
     //    view_count = (TextView) findViewById(R.id.view_count);
@@ -126,7 +136,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
       //  date_event.setText(getIntent().getStringExtra("date"));
       //  image=getIntent().getStringExtra("image");
         String notifid = obj.getNotifid();
-        Integer notif_id = Integer.valueOf(notifid);
+        notif_id = Integer.valueOf(notifid);
 //
         councilName.setText(obj.getCouncil_name());
         title_event.setText(obj.getTitle_event());
@@ -251,7 +261,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
 
 
 
- }
+    }
 
     @Override
     public void onClick(View v) {
@@ -303,8 +313,76 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                     startActivity(mapIntent);*/
                 break;
 
-
+            case R.id.interested_button:
+                displayNames();
+                break;
         }
+    }
+
+    private void displayNames()
+    {
+        ArrayList<String> arrayList = new ArrayList<String>();
+
+        InterestedResponse.method(this, new ServerCallback() {
+            @Override
+            public void onSuccess() {
+            }
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
+                arrayList.clear();
+                if (jsonResponse == null)
+                    Toast.makeText(Feedfragment_notifcation_Activity.this,"Error in displaying interested people",Toast.LENGTH_LONG).show();
+                else{
+                    JSONArray jsonArray = jsonResponse.optJSONArray("intrested_names");
+                    for (int i=0;i<jsonArray.length();i++)
+                    {
+                        arrayList.add(jsonArray.optString(i));
+                    }
+                    if (jsonResponse.optInt("status") == 1)
+                    {
+
+                    }
+                    else if (jsonResponse.optInt("status") == 2){
+
+                    }
+                    else{
+
+                    }
+
+                    arrayList.add("KSN Martin");
+                    arrayList.add("PlaceHolder-1");
+                    arrayList.add("PlaceHolder-2");
+
+                    final Dialog dialog = new Dialog(Feedfragment_notifcation_Activity.this);
+                    dialog.setContentView(R.layout.dialog_interested);
+                    if (dialog.getWindow() != null) {
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // this is optional
+                    }
+                    ListView listView = dialog.findViewById(R.id.lv_assignment_users);
+                    TextView titleTV = dialog.findViewById(R.id.tv_popup_title);
+                    titleTV.setText("Interested People");
+                    InterestedNamesAdapter adapter = new InterestedNamesAdapter(Feedfragment_notifcation_Activity.this, arrayList);
+                    listView.setAdapter(adapter);
+                    dialog.show();
+                }
+            }
+        },notif_id);
+
+        //Log.i("RESPONSE","FeedFragment = "+response[0].toString());
+
+        /*
+        if (response.optInt("status") == 1)
+        {
+            obj.setInterested("1");
+        }*/
+
+        /*JSONArray jsonArray=response2.optJSONArray("intrested_names");
+        for (int i=0;i <jsonArray.length();i++)
+        {
+            arrayList.add(jsonArray.optString(i));
+        }
+        */
+
     }
 
     public void addEventToCalender(String title,String description,String location,String time) {
