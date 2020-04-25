@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -72,18 +73,21 @@ public class VerticalDataFeed {
                         String date_event = hit.getString("datetime");
                         String location = hit.getString("location");
                         String map_location = hit.getString("map_location");
-
-                        Integer viewcount1 = hit.getInt("viewedcount");
-                        String viewcount = viewcount1.toString();
-                        Integer interested1 = hit.getInt("interestedcount");
-                        String interestedcount = interested1.toString();
-                        String interested = hit.getInt("interested") + "";
+                        int viewcount1 = hit.getInt("viewedcount");
+                        String viewcount = Integer.toString(viewcount1);
+                        int interestedcount = hit.getInt("interestedcount");
+                        int interestedInt = hit.getInt("interested");
+                        Boolean interested = interestedInt == 1;
                         Integer notification_id = hit.getInt("notifid");
-                        Integer notif_id = hit.getInt("notifid");
-                        String notifid = notif_id.toString();
+                        int notifid = hit.getInt("notifid");
+                        JSONArray interestedNamesJsonArray =  hit.getJSONArray("interested_names");
+                        List<String> interestedNames = new ArrayList<>();
+                        for(int n = 0; n < interestedNamesJsonArray.length(); n++){
+                            interestedNames.add(interestedNamesJsonArray.getString(n));
+                        }
                         Interestedbutton_class.notification_id = notification_id;
                         getVerticalData3.add(new SingleVerticalData(club_name, club_image, council_name, council_image, title_event, description_event
-                                , image_event, date_event, location, viewcount, interestedcount, interested, notifid,map_location));
+                                , image_event, date_event, location, viewcount, interestedcount, interested, interestedNames, notifid,map_location));
 
 
                         //

@@ -1,19 +1,24 @@
 package com.example.anant.iitbhuvaranasi;
 
+import java.util.List;
+
 public class SingleVerticalData {
 
     private String club_name,club_image,council_name,council_image;
     private String title_event,map_location;
     private String description_event;
     private String image_event,date_event;
-    private String location,viewcount,interestedcount,interested,notifid;
+    private String location,viewcount;
+    private int interestedcount,notifid;
+    private Boolean interested;
+    private List<String> interestdNames;
 
     public SingleVerticalData(){
 
     }
 
 
-    public SingleVerticalData(String club_name, String club_image, String council_name, String council_image, String title_event, String description_event, String image_event, String date_event, String location, String viewcount, String interestedcount, String interested, String notifid, String map_location) {
+    public SingleVerticalData(String club_name, String club_image, String council_name, String council_image, String title_event, String description_event, String image_event, String date_event, String location, String viewcount, int interestedcount, Boolean interested, List<String> interestedNames, int notifid, String map_location) {
         this.club_name = club_name;
         this.club_image = club_image;
         this.council_name = council_name;
@@ -28,6 +33,7 @@ public class SingleVerticalData {
         this.interested = interested;
         this.notifid = notifid;
         this.map_location = map_location;
+        this.interestdNames = interestedNames;
     }
 
 
@@ -130,27 +136,31 @@ public class SingleVerticalData {
         this.viewcount = viewcount;
     }
 
-    public String getInterestedcount() {
+    public int getInterestedcount() {
         return interestedcount;
     }
 
-    public void setInterestedcount(String interestedcount) {
+    public void setInterestedcount(int interestedcount) {
         this.interestedcount = interestedcount;
     }
 
-    public String getInterested() {
+    public Boolean isInterested() {
         return interested;
     }
 
-    public void setInterested(String interested) {
+    public void setInterested(Boolean interested) {
         this.interested = interested;
     }
 
-    public String getNotifid() {
+    public int getNotifid() {
         return notifid;
     }
 
-    public void setNotifid(String notifid) {
+    public void setNotifid(int notifid) {
         this.notifid = notifid;
+    }
+
+    public List<String> getInterestdNames(){
+        return interestdNames;
     }
 }

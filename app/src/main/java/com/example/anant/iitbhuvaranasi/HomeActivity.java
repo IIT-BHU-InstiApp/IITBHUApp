@@ -282,6 +282,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 x++;
                 break;
+
+            case R.id.post_feed:
+                Intent postIntent = new Intent(HomeActivity.this, PostActivity.class);
+                startActivity(postIntent);
+                x++;
+                break;
             case R.id.nav_security:
                 Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
                 intent.putExtra("Intent", "security");
