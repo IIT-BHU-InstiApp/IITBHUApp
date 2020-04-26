@@ -64,7 +64,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     public static String location2345 = null;
     boolean check;
     String event_title,event_description,event_date,event_venue,event_time;
-    TextView title_event, description_event, date_event, venue_event, time_event, interested_count,councilName;
+    TextView title_event, description_event, date_event, venue_event, interested_count,councilName;
     Button  interested_button;
     Button share_button,clock_button;
     Button  location_button;
@@ -126,7 +126,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         interested_button = (Button) findViewById(R.id.interested_button);
         interested_button.setOnClickListener(this);
     //    going_count = (TextView) findViewById(R.id.going_count);
-        //interested_count = (TextView) findViewById(R.id.interested_count);
+        interested_count = (TextView) findViewById(R.id.interested_count);
     //    view_count = (TextView) findViewById(R.id.view_count);
        // title_event.setText(getIntent().getStringExtra("title"));
       //  date_event.setText(getIntent().getStringExtra("date"));
@@ -136,8 +136,8 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         councilName.setText(obj.getCouncil_name());
         title_event.setText(obj.getTitle_event());
         map_location = obj.getMap_location();
-//
-//
+
+
        // WhatsappViewCompat.applyFormatting(description_event);
 //
         description_event.setText(obj.getDescription_event());
@@ -155,11 +155,10 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 .into(image_event);
         date_event.setText(time);
         venue_event.setText(obj.getLocation());
-//
-//
-//
+
+
        // view_count.setText(obj.getViewcount());
-//        interested_count.setText(obj.getInterestedcount());
+        //interested_count.setText(obj.getInterestedcount());
         final JSONObject obj2 = new JSONObject();
         try {
             obj2.put("roll", 18085016);
@@ -212,9 +211,25 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     @Override
     protected void onResume() {
         super.onResume();
+        int interestedCount = Integer.parseInt(obj.getInterestedcount());
         if (obj.getInterested().equals("1")){
-            interested_button.setBackgroundColor(Color.GRAY);
+            if (interestedCount == 1)
+                interested_count.setText("You");
+            else if (interestedCount ==2)
+                interested_count.setText("You +"+(interestedCount-1)+ " other");
+            else
+                interested_count.setText("You +"+(interestedCount-1)+ " others");
+            interested_button.setBackgroundTintList(ContextCompat.getColorStateList(this,R.color.colorPrimaryDark));
             interested_button.setText("Already Interested");
+        }
+        else
+        {
+            if (interestedCount == 0)
+                interested_count.setText("No one yet");
+            else if (interestedCount == 1)
+                interested_count.setText( interestedCount+" other");
+            else
+                interested_count.setText( interestedCount+" others");
         }
     }
 
