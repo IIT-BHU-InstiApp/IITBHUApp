@@ -79,12 +79,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         createNotificationChannel();
 
 
-//
         Constants.Email_Key = email;
         Log.d("no_hats2","hello4");
         ID_card_Response.method(this, new ServerCallback() {
             @Override
             public void onSuccess() {
+
+            }
+
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
 
             }
         });

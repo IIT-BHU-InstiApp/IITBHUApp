@@ -99,7 +99,6 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
         });
     }
 
-
     @Override
     public int getItemCount() {
         return data.size();
@@ -123,6 +122,4 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
             date = (TextView) itemView.findViewById(R.id.event_dates1);
         }
     }
-
-
 }

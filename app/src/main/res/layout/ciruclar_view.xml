@@ -10,7 +10,7 @@
         android:layout_height="0dp"
 
 
-        app:civ_border_color="@color/colorblack"
+        app:civ_border_color="@color/black_color"
 
         android:id="@+id/circleImage"
          />
