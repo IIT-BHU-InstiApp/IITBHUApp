@@ -1,23 +1,18 @@
 package com.example.anant.iitbhuvaranasi;
 
-import android.app.VoiceInteractor;
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
 
 
 public class InterestedResponse
@@ -30,11 +25,10 @@ public class InterestedResponse
 
         JSONObject[] apiResponse = new JSONObject[1];
 
-
         String url = "http://iitbhuapp.tk/interested";
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("email","tanmaymishra.mec18@itbhu.ac.in");
+            jsonObject.put("email",emailOfStudent);
             jsonObject.put("notifid",notifid);
         }
         catch (JSONException e)
@@ -53,7 +47,6 @@ public class InterestedResponse
                     }
                     else{
                         apiResponse[0] = response;
-                        Log.i("ricks", apiResponse[0].toString());
                     }
 
                 } catch (JSONException e) {
@@ -65,7 +58,6 @@ public class InterestedResponse
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.i("Error","Error Occured");
             }
         });
         

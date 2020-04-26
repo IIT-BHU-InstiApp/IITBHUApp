@@ -8,6 +8,7 @@
     tools:context=".Feedfragment_notifcation_Activity">
 
     <LinearLayout
+        android:id="@+id/linear_layout_feed_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -168,10 +169,10 @@
                                             android:layout_marginLeft="32dp"
                                             android:layout_weight="1"
                                             android:background="@drawable/capsule_shape"
-                                            android:drawableLeft="@drawable/ic_share_black_24dp"
+                                            android:drawableLeft="@drawable/baseline_check_box_white_24"
                                             android:paddingLeft="20dp"
                                             android:paddingRight="20dp"
-                                            android:text="Interested"
+                                            android:text="Interested ?"
                                             android:textColor="@color/white"
                                             android:textSize="10sp" />
                                     </LinearLayout>
@@ -308,15 +309,25 @@
                                 android:text="description"
                                 android:textColor="@color/Black"
                                 android:textSize="16sp" />
+
                         </androidx.cardview.widget.CardView>
 
                     </LinearLayout>
 
+
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
+
+
+            <ProgressBar
+                android:id="@+id/progress_bar_feedfragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:visibility="visible"
+                android:padding="20dp"
+                android:backgroundTint="@color/black"/>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
     </LinearLayout>
 </FrameLayout>
