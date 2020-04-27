@@ -13,6 +13,7 @@ public class SingleVerticalData {
     private Boolean interested;
     private List<String> interestdNames;
 
+
     public SingleVerticalData(){
 
     }
