@@ -8,7 +8,6 @@
     tools:context=".Feedfragment_notifcation_Activity">
 
     <LinearLayout
-        android:id="@+id/linear_layout_feed_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -136,73 +135,9 @@
                                 android:textColor="@color/colorGray"
                                 android:textSize="16sp" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
 
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:orientation="vertical"
-                                    android:weightSum="10">
+                        </LinearLayout>
 
-
-                                    <TextView
-                                        android:id="@+id/event_page_title"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="16dp"
-                                        android:layout_weight="9"
-                                        android:ellipsize="end"
-                                        android:maxLines="2"
-                                        android:text="Event Title"
-                                        android:textColor="@color/black_color"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
-
-                                        <ImageView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:background="@drawable/ic_event_black_24dp" />
-
-                                        <TextView
-                                            android:id="@+id/event_page_date"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="5dp"
-                                            android:layout_marginTop="0dp"
-                                            android:layout_marginBottom="16dp"
-                                            android:background="@android:color/transparent"
-                                            android:gravity="center_vertical"
-                                            android:text="Date"
-                                            android:textColor="@color/colorGray"
-                                            android:textSize="16dp" />
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:orientation="vertical">
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -212,62 +147,80 @@
 
                             <ImageView
 
-                                <TextView
-                                    android:id="@+id/event_venue"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="5dp"
-                                    android:text="Gymkhana Ground"
-                                    android:textColor="@color/colorGray"
-                                    android:textSize="16sp" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/ic_location_on_black_24dp" />
+
+                            <TextView
+                                android:id="@+id/event_venue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginLeft="4dp"
+                                android:text="Venue"
+                                android:textColor="@color/colorGray"
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="14dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="horizontal">
 
-                                <ImageView
+                            <Button
+                                android:id="@+id/location"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/capsule_shape"
+                                android:drawableLeft="@drawable/ic_map_white_24dp"
+                                android:gravity="center"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="on map"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
 
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/baseline_people_24" />
+                            <Button
+                                android:id="@+id/clock"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/capsule_shape"
+                                android:drawableLeft="@drawable/ic_event_white_24dp"
+                                android:gravity="center"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="reminder"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
 
-                                <TextView
-                                    android:id="@+id/interested_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginEnd="4dp"
-                                    android:textColor="@color/colorGray"
-                                    android:textSize="16sp"
-                                    tools:text="People interested"/>
-                                <Button
-                                    android:id="@+id/interested_button"
-                                    android:layout_width="20dp"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="end"
-                                    android:layout_marginTop="2dp"
-                                    android:layout_marginStart="2dp"
-                                    android:layout_marginEnd="2dp"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/capsule_shape"
-                                    android:paddingLeft="20dp"
-                                    android:paddingRight="20dp"
-                                    android:text="Interested ?"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp" />
-
-                            </LinearLayout>
-
-
-                            <LinearLayout
+                            <Button
+                                android:id="@+id/share_event_button"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/capsule_shape"
+                                android:drawableLeft="@drawable/ic_share_black_24dp"
+                                android:gravity="center"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="share"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
 
 
                         </LinearLayout>
@@ -310,38 +263,9 @@
                                 android:textSize="10sp" />
 
 
-                            <ProgressBar
-                                android:id="@+id/progress_bar_feedfragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:visibility="gone"
-                                android:padding="20dp"
-                                android:backgroundTint="@color/black"/>
-
                         </LinearLayout>
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            app:cardCornerRadius="20dp"
-                            android:elevation="8dp"
-                            android:layout_marginBottom="4dp"
-                            android:paddingBottom="4dp"
-                            android:background="@color/white_color"
-                            android:layout_height="wrap_content">
-                            <com.cooltechworks.views.WhatsAppTextView
-                                android:id="@+id/event_page_description"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="12dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="16dp"
-                                android:text="description"
-                                android:textColor="@color/Black"
-                                android:textSize="16sp" />
 
-                        </androidx.cardview.widget.CardView>
                     </LinearLayout>
 
 
@@ -373,9 +297,8 @@
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
-
-
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
     </LinearLayout>
 </FrameLayout>

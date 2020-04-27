@@ -3,35 +3,25 @@ package com.example.anant.iitbhuvaranasi;
 import android.animation.Animator;
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-
-import android.util.Log;
+import android.text.Html;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -45,15 +35,12 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -70,18 +57,20 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
     String image, time, map_location;
     public static String location2345 = null;
     boolean check;
-    String event_title,event_description,event_date,event_venue,event_time;
-    TextView title_event, description_event, date_event, venue_event, interested_count,councilName;
-    Button  interested_button;
-    Button share_button,clock_button;
-    Button  location_button;
+    String event_title, event_description, event_date, event_venue, event_time;
+    TextView title_event, description_event, date_event, venue_event, time_event, interested_count, councilName;
+    // Button  interested_button;
+    Button share_button, clock_button;
+    Button location_button, interestedButton;
     SingleVerticalData obj;
     private Animator currentAnimator;
     private int shortAnimationDuration;
     SharedPreferences sharedpreferences;
     View thumb1View;
-    //TODO :: Handle it later notifid
-    Integer notif_id;
+    int image2, interestedCount;
+    private static RequestQueue mRequestQueue;
+    int notif_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,27 +79,32 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
         Toolbar toolbar = findViewById(R.id.toolbar_notification);
         Window window = this.getWindow();
 
-        // clear FLAG_TRANSLUCENT_STATUS flag:
+// clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        time=getIntent().getStringExtra("time");
+        time = getIntent().getStringExtra("time");
+        mRequestQueue = Volley.newRequestQueue(this);
+        final String url = "http://iitbhuapp.tk/interested";
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         String json = getIntent().getStringExtra("all");
         Gson gson = new Gson();
         obj = gson.fromJson(json, SingleVerticalData.class);
+//
 
         thumb1View = findViewById(R.id.event_picture_2);
 
@@ -131,24 +125,58 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
         //time_event = (TextView) findViewById(R.id.event_time);
         clock_button = findViewById(R.id.clock);
         clock_button.setOnClickListener(this);
-      //  go_button = (Button) findViewById(R.id.going_button);
-    //    go_button.setOnClickListener(this);
-        interested_button = (Button) findViewById(R.id.interested_button);
-        interested_button.setOnClickListener(this);
-    //    going_count = (TextView) findViewById(R.id.going_count);
-        interested_count = (TextView) findViewById(R.id.interested_count);
-    //    view_count = (TextView) findViewById(R.id.view_count);
-       // title_event.setText(getIntent().getStringExtra("title"));
-      //  date_event.setText(getIntent().getStringExtra("date"));
-      //  image=getIntent().getStringExtra("image");
-        String notifid = obj.getNotifid();
-        notif_id = Integer.valueOf(notifid);
+        //  go_button = (Button) findViewById(R.id.going_button);
+        //    go_button.setOnClickListener(this);
+        //  interested_button = (Button) findViewById(R.id.interested_button);
+        // interested_button.setOnClickListener(this);
+        //    going_count = (TextView) findViewById(R.id.going_count);
+        //interested_count = (TextView) findViewById(R.id.interested_count);
+        //    view_count = (TextView) findViewById(R.id.view_count);
+        // title_event.setText(getIntent().getStringExtra("title"));
+        //  date_event.setText(getIntent().getStringExtra("date"));
+        //  image=getIntent().getStringExtra("image");
+        int notifid = obj.getNotifid();
+        notif_id = notifid;
+
+
+//
         councilName.setText(obj.getCouncil_name());
         title_event.setText(obj.getTitle_event());
         map_location = obj.getMap_location();
+        interestedCount = obj.getInterestedcount();
+        List<String> interestedNames = obj.getInterestdNames();
 
+        if (obj.isInterested()) {
+            if (interestedCount == 1) {
+                interested_count.setText(name_student);
+            } else {
+                interested_count.setText("You and " + (interestedCount - 1) + " others");
+            }
+            interestedButton.setEnabled(false);
+            interestedButton.setTextColor(Color.parseColor("#000000"));
+            interestedButton.setBackground(getResources().getDrawable(R.drawable.button_background_border));
+        } else {
+            String text = null;
+            switch (interestedNames.size()) {
+                case 0:
+                    interested_count.setVisibility(View.GONE);
+                    break;
+                case 1:
+                    text = interestedNames.get(0);
+                    break;
+                case 2:
+                    text = interestedNames.get(0) + " and " + interestedNames.get(1);
+                    break;
+                default:
+                    text = interestedNames.get(0) + ", " + interestedNames.get(1) + " and " + (interestedCount - 2);
+                    break;
 
-       // WhatsappViewCompat.applyFormatting(description_event);
+            }
+            interested_count.setText(text);
+        }
+
+//
+        // WhatsappViewCompat.applyFormatting(description_event);
 //
         description_event.setText(obj.getDescription_event());
         // WhatsappViewCompat.applyFormatting(description_event);
@@ -165,10 +193,11 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
                 .into(image_event);
         date_event.setText(time);
         venue_event.setText(obj.getLocation());
-
-
-       // view_count.setText(obj.getViewcount());
-        //interested_count.setText(obj.getInterestedcount());
+//
+//
+//
+        // view_count.setText(obj.getViewcount());
+//        interested_count.setText(obj.getInterestedcount());
         final JSONObject obj2 = new JSONObject();
         try {
             obj2.put("roll", 18085016);
@@ -177,7 +206,63 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
             e.printStackTrace();
         }
 
+//        if (obj.getInterested().equals("1")){
+//            interested_button.setBackgroundColor(Color.GRAY);
+//        }
 
+
+        final Pair[] pairs = new Pair[1];
+        pairs[0] = new Pair<View, String>(image_event, "fullscreen");
+
+        /*interested_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                interested_button.setBackgroundColor(Color.GRAY);
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, obj2, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Integer interested = response.getInt("status");
+                            if (interested == 1){
+                            interested_count.setText(obj.getInterestedcount()+1);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                       *//* Integer interest = 1;
+                        try {
+                            interest = response.getInt("status");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (interest == 1) {
+                            check = true;
+                            interested_button.setBackgroundColor(Color.GRAY);
+                        }*//*
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                mRequestQueue.add(jsonObjectRequest);
+            }
+        });*/
+        image_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View, String>(image_event, "fullscreen");
+                Intent intent = new Intent(Feedfragment_notifcation_Activity.this, Full_screen_imageActivity.class);
+                ActivityOptions options1 = ActivityOptions.makeSceneTransitionAnimation((Activity) Feedfragment_notifcation_Activity.this, pairs);
+                intent.putExtra("image", obj.getImage_event());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent, options1.toBundle());
              /*   AlertDialog.Builder mBuilder1 = new AlertDialog.Builder(Feedfragment_notifcation_Activity.this);
                 View View =inflater.inflate(R.layout.dialog_custom_layout_image1, null);
                 PhotoView photoView1 = View.findViewById(R.id.imageView2);
@@ -199,34 +284,10 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
          *//*       Picasso.get()
                         .load(obj.getImage_event())
                         .into(image_eventfullscreen);*/
-        //    }
-        //});
+            }
+        });
 
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        int interestedCount = Integer.parseInt(obj.getInterestedcount());
-        if (obj.getInterested().equals("1")){
-            if (interestedCount == 1)
-                interested_count.setText("You");
-            else if (interestedCount ==2)
-                interested_count.setText("You +"+(interestedCount-1)+ " other");
-            else
-                interested_count.setText("You +"+(interestedCount-1)+ " others");
-            interested_button.setBackgroundTintList(ContextCompat.getColorStateList(this,R.color.colorPrimaryDark));
-            interested_button.setText("Already Interested");
-        }
-        else
-        {
-            if (interestedCount == 0)
-                interested_count.setText("No one yet");
-            else if (interestedCount == 1)
-                interested_count.setText( interestedCount+" other");
-            else
-                interested_count.setText( interestedCount+" others");
-        }
     }
 
     @Override
@@ -279,65 +340,68 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
                     startActivity(mapIntent);*/
                 break;
 
-            case R.id.interested_button:
-                displayInterestedPeople();
+            case R.id.interested:
+                SharedPreferences sharedPreferences = Feedfragment_notifcation_Activity.this.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+                String email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+
+                JSONObject postparams = new JSONObject();
+                try {
+                    postparams.put("email", email);
+                    postparams.put("notifid", notif_id);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, INTERESTED_URL, postparams, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int responseCode = response.getInt("status");
+                            switch (responseCode) {
+                                case 0:
+                                    Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong.\nTry again Later", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case 1:
+                                    interestedButton.setEnabled(false);
+                                    interestedButton.setBackground(getResources().getDrawable(R.drawable.button_background_border));
+                                    interestedButton.setTextColor(Color.parseColor("#000000"));
+                                    obj.setInterested(true);
+                                    if(interestedCount == 0) {
+                                        interested_count.setText(name_student);
+                                    }else{
+                                        interested_count.setText("You and " + interestedCount + " others");
+                                    }
+                                    break;
+                                case 2:
+                                    break;
+                                default:
+                                    Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong.\nTry again Later", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong.\nTry again Later", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                RequestQueue requestQueue = Volley.newRequestQueue(Feedfragment_notifcation_Activity.this);
+                requestQueue.add(postRequest);
                 break;
+
+
         }
 
 
     }
 
-    private void displayInterestedPeople()
-    {
-        ProgressBar progress = findViewById(R.id.progress_bar_feedfragment);
 
-        progress.setIndeterminate(true);
-        progress.setVisibility(ProgressBar.VISIBLE);
-        ArrayList<String> arrayList = new ArrayList<String>();
-
-        InterestedResponse.method(this, new ServerCallback() {
-            @Override
-            public void onSuccess() {
-            }
-            @Override
-            public void onSuccess(JSONObject jsonResponse) {
-                arrayList.clear();
-                progress.setVisibility(ProgressBar.GONE);
-                if (jsonResponse == null)
-                    Toast.makeText(Feedfragment_notifcation_Activity.this,"Error in displaying interested people",Toast.LENGTH_LONG).show();
-                else{
-                    JSONArray jsonArray = jsonResponse.optJSONArray("intrested_names");
-                    int status = jsonResponse.optInt("status");
-                    if (status == 1 || status == 2)
-                    {
-                        if (status==1) {
-                            //TODO:: Update the Feed Data
-                            //new FeedFragment().updateFeedData();
-                            obj.setInterested("1");
-                        }
-                        for (int i=0;i<jsonArray.length();i++)
-                        {
-                            arrayList.add(jsonArray.optString(i));
-                        }
-                    }
-
-                    final Dialog dialog = new Dialog(Feedfragment_notifcation_Activity.this);
-                    dialog.setContentView(R.layout.dialog_interested);
-                    if (dialog.getWindow() != null) {
-                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // this is optional
-                    }
-                    ListView listView = dialog.findViewById(R.id.lv_assignment_users);
-                    TextView titleTV = dialog.findViewById(R.id.tv_popup_title);
-                    titleTV.setText("Interested People");
-                    InterestedNamesAdapter adapter = new InterestedNamesAdapter(Feedfragment_notifcation_Activity.this, arrayList);
-                    listView.setAdapter(adapter);
-                    dialog.show();
-                }
-            }
-        },notif_id);
-    }
-
-    public void addEventToCalender(String title,String description,String location,String time) {
+    public void addEventToCalender(String title, String description, String location, String time) {
         SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
         String savedOption = sharedPref.getString(Constants.CALENDAR_DIALOG, Constants.CALENDAR_DIALOG_ALWAYS_ASK);
         if (savedOption.equals(Constants.CALENDAR_DIALOG_YES)) {

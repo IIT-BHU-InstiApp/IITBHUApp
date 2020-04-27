@@ -62,11 +62,6 @@ public class PinActivity extends AppCompatActivity {
             public void onSuccess() {
 
             }
-
-            @Override
-            public void onSuccess(JSONObject jsonResponse) {
-
-            }
         });
 
         SharedPreferences pref2 = getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);

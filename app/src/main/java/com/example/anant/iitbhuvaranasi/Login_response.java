@@ -11,7 +11,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,8 +21,7 @@ import static com.example.anant.iitbhuvaranasi.Constants.password_shared;
 public class Login_response {
     private static RequestQueue mRequestQueue;
 
-    @NotNull
-    public static String method(final Context context, String mail, ServerCallback serverCallback)
+    public static String method(final Context context,String mail,ServerCallback serverCallback)
     {
         mRequestQueue = Volley.newRequestQueue(context);
 
