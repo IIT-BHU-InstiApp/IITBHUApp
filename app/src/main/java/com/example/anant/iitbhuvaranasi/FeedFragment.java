@@ -54,7 +54,7 @@ public class FeedFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.feed_fragment, container, false);
 
-        //RecyclerView.RecycledViewPool sharedPool = new RecyclerView.RecycledViewPool();
+//        RecyclerView.RecycledViewPool sharedPool = new RecyclerView.RecycledViewPool();
 
 
         cd = new ConnectionDetector(getContext());
@@ -134,9 +134,10 @@ public class FeedFragment extends Fragment {
             e.printStackTrace();
         }
 
-
+//
         MainAdapterfeedfragment adapter = new MainAdapterfeedfragment(getActivity(), getObject());
-
+//
+        //
         mRecyclerView.setHasFixedSize(true);
         adapter.notifyDataSetChanged();
         // adapter.setHasStableIds(true);
@@ -152,9 +153,55 @@ public class FeedFragment extends Fragment {
 
         //RECYCLERVIEW HORIZONTAL PINTAB
 
-        updateFeedData();
+        Api_Response.method(getContext(), new ServerCallback() {
+            @Override
+            public void onSuccess() {
 
-//      int[] imgId = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5};
+            }
+        });//////////////////////////////////
+
+        SharedPreferences pref2 = getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
+//
+
+        SharedPreferences sharedPrefs = getActivity().getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE);
+
+        try {
+            JSONObject jsonObject = new JSONObject(response45678);
+//            int status = jsonObject.getInt("status");
+            JSONArray allcouncils = jsonObject.getJSONArray("councils");
+//            JSONObject council = allcouncils.getJSONObject(position);
+//            JSONArray clubs = council.getJSONArray("clubs");
+//            View pinView = LayoutInflater.from(getContext()).inflate(R.layout.activity_pin,null);
+//            LinearLayout subList = pinView.findViewById(R.id.sub_list);
+            int posiClub = 0;
+            for (int i = 0; i < allcouncils.length(); i++) {
+                JSONObject council = allcouncils.getJSONObject(i);
+                JSONArray clubs = council.getJSONArray("clubs");
+                for (int j = 0; j < clubs.length(); j++) {
+                    JSONObject club = clubs.getJSONObject(j);
+                    String clubImage = club.getString("image");
+                    String clubTitle = club.getString("name");
+//                    Switch subItem = (Switch) subList.findViewById(posiClub);
+                    if (sharedPrefs.getBoolean("000" + posiClub, false)) {
+                        ImageUrl.add(clubImage);
+                        Title.add(clubTitle);
+                    }
+                    posiClub++;
+                }
+
+            }
+//            ArrayList<String> test = ImageUrl;
+
+
+//
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+//        int[] imgId = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5};
         RecyclerView horizontalRcv = view.findViewById(R.id.horizontal_rcv2);
         HorizontalRecyclerAdap horizontalRecyclerAdap = new HorizontalRecyclerAdap(getContext(), ImageUrl, Title);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -176,58 +223,12 @@ public class FeedFragment extends Fragment {
         return view;
     }
 
-    public void updateFeedData() {
-
-        Api_Response.method(getContext(), new ServerCallback() {
-
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onSuccess(JSONObject jsonResponse) {
-
-            }
-        });
-
-        SharedPreferences pref2 = getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
-        String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
-
-
-        SharedPreferences sharedPrefs = getActivity().getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE);
-
-        try {
-            JSONObject jsonObject = new JSONObject(response45678);
-            JSONArray allcouncils = jsonObject.getJSONArray("councils");
-            int posiClub = 0;
-            for (int i = 0; i < allcouncils.length(); i++) {
-                JSONObject council = allcouncils.getJSONObject(i);
-                JSONArray clubs = council.getJSONArray("clubs");
-                for (int j = 0; j < clubs.length(); j++) {
-                    JSONObject club = clubs.getJSONObject(j);
-                    String clubImage = club.getString("image");
-                    String clubTitle = club.getString("name");
-                    if (sharedPrefs.getBoolean("000" + posiClub, false)) {
-                        ImageUrl.add(clubImage);
-                        Title.add(clubTitle);
-                    }
-                    posiClub++;
-                }
-
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     private ArrayList<Object> getObject() {
         objects.add(getHorizontalData1);
         objects.add(getVerticalData5);
 
+        //
         return objects;
     }
 
@@ -277,7 +278,11 @@ public class FeedFragment extends Fragment {
 
         // Showing Alert Message
         alertDialog.show();
+
+
     }
+
+
 }
 
 

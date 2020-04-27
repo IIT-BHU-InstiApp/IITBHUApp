@@ -33,6 +33,10 @@ public class Api_Response {
         try {
             obj.put("email",email3);
             obj.put("password",password3);
+            Log.d("heloods","dsfsfds");
+            Log.d("heloods2",password3);
+            Log.d("heloods3",email3);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

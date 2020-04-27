@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess() {
 
             }
-
-            @Override
-            public void onSuccess(JSONObject jsonResponse) {
-
-            }
         });
         //getSupportActionBar().hide();
 

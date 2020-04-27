@@ -31,8 +31,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import org.json.JSONObject;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -162,17 +160,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             public void onSuccess() {
                                 updateUI("true");
                             }
-
-                            @Override
-                            public void onSuccess(JSONObject jsonResponse) {
-
-                            }
                         });
-
-                    }
-
-                    @Override
-                    public void onSuccess(JSONObject jsonResponse) {
 
                     }
                 });
@@ -266,11 +254,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             Api_Response.method(SignInActivity.this, new ServerCallback() {
                 @Override
                 public void onSuccess() {
-                }
-
-                @Override
-                public void onSuccess(JSONObject jsonResponse) {
-
                 }
             });
             Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
