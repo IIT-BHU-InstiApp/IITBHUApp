@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.Html;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -360,7 +361,7 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
                             int responseCode = response.getInt("status");
                             switch (responseCode) {
                                 case 0:
-                                    Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong.\nTry again Later", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong! Try again Later", Toast.LENGTH_SHORT).show();
                                     break;
                                 case 1:
                                     interestedButton.setEnabled(false);
@@ -369,6 +370,7 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
                                     obj.setInterested(true);
                                     if(interestedCount == 0) {
                                         interested_count.setText(name_student);
+                                        interested_count.setVisibility(View.VISIBLE);
                                     }else{
                                         interested_count.setText("You and " + interestedCount + " others");
                                     }
@@ -376,7 +378,7 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
                                 case 2:
                                     break;
                                 default:
-                                    Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong.\nTry again Later", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong! Try again Later", Toast.LENGTH_SHORT).show();
                                     break;
                             }
                         } catch (JSONException e) {
@@ -387,7 +389,7 @@ public class Feedfragment_notifcation_Activity extends AppCompatActivity impleme
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong.\nTry again Later", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Feedfragment_notifcation_Activity.this, "Something went Wrong! Try again Later", Toast.LENGTH_SHORT).show();
                     }
                 });
                 RequestQueue requestQueue = Volley.newRequestQueue(Feedfragment_notifcation_Activity.this);

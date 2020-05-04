@@ -1,6 +1,5 @@
 package com.example.anant.iitbhuvaranasi;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -13,10 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,12 +20,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -38,11 +32,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -50,15 +47,17 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
-
-import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PostActivity extends AppCompatActivity {
@@ -69,33 +68,32 @@ public class PostActivity extends AppCompatActivity {
     TextView dateTime;
     LinearLayout setDateTime;
     int mYear, mMonth, mDay, mHour, mMinute;
-    String mDateTime;
+    String mDateTime, mMapLocation, mMapLocationTitle;
     EditText eventDescription, eventTitle, venue;
     ImageView eventImage;
     CircularImageView removeImage;
     CoordinatorLayout coordinatorLayout;
-    String mposter,mMapLocation;
-    String mMapLocationTitle;
-    Uri imageUri;
+    Uri imageUri = null;
+    byte[] imageData = null;
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt("mYear",mYear);
-        outState.putInt("mMonth",mMonth);
-        outState.putInt("mDay",mDay);
-        outState.putInt("mHour",mHour);
-        outState.putInt("mMinutes",mMinute);
-        outState.putString("dateNtime",dateTime.getText().toString());
-        outState.putString("eventTitle",eventTitle.getText().toString());
-        outState.putString("venue",venue.getText().toString());
-        outState.putString("eventDescription",eventDescription.getText().toString());
+        outState.putInt("mYear", mYear);
+        outState.putInt("mMonth", mMonth);
+        outState.putInt("mDay", mDay);
+        outState.putInt("mHour", mHour);
+        outState.putInt("mMinutes", mMinute);
+        outState.putString("dateNtime", dateTime.getText().toString());
+        outState.putString("eventTitle", eventTitle.getText().toString());
+        outState.putString("venue", venue.getText().toString());
+        outState.putString("eventDescription", eventDescription.getText().toString());
         outState.putString("imageUri", String.valueOf(imageUri));
-        outState.putString("mposter",mposter);
-        outState.putString("mMapLocationTitle",mMapLocationTitle);
-        outState.putString("mMapLocation",mMapLocation);
-        outState.putString("venue",venue.getText().toString());
+        outState.putByteArray("imageData", imageData);
+        outState.putString("mMapLocationTitle", mMapLocationTitle);
+        outState.putString("mMapLocation", mMapLocation);
+        outState.putString("venue", venue.getText().toString());
 
     }
 
@@ -103,7 +101,7 @@ public class PostActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             mYear = savedInstanceState.getInt("mYear");
             mMonth = savedInstanceState.getInt("mMonth");
             mDay = savedInstanceState.getInt("mDay");
@@ -113,9 +111,9 @@ public class PostActivity extends AppCompatActivity {
             venue.setText(savedInstanceState.getString("venue"));
             eventTitle.setText(savedInstanceState.getString("eventTitle"));
             eventDescription.setText(savedInstanceState.getString("eventDescription"));
-            mposter = savedInstanceState.getString("poster");
+            imageData = savedInstanceState.getByteArray("imageData");
             imageUri = Uri.parse(savedInstanceState.getString("imageUri"));
-            if(imageUri != null){
+            if (imageUri != null) {
                 removeImage.setVisibility(View.VISIBLE);
                 ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 eventImage.setLayoutParams(layoutParams);
@@ -152,11 +150,10 @@ public class PostActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         venue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(venue.getText())){
+                if (TextUtils.isEmpty(venue.getText())) {
                     Toast.makeText(PostActivity.this, "This venue is for preview. \n For map select location using \"ON MAP\" button", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -174,21 +171,19 @@ public class PostActivity extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout, "This button is disabled in post preview", Snackbar.LENGTH_SHORT).show();
             }
         });
-
         reminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar.make(coordinatorLayout, "This button is disabled in post preview", Snackbar.LENGTH_SHORT).show();
             }
         });
-
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Feedfragment_notifcation_Activity.location2345 = mMapLocation;
-                Intent locationIntent = new Intent(PostActivity.this,IITBHUMapActivity.class);
-                locationIntent.putExtra("PostActivity",true);
-                startActivityForResult(locationIntent,MAP_REQUEST_CODE);
+                Intent locationIntent = new Intent(PostActivity.this, IITBHUMapActivity.class);
+                locationIntent.putExtra("PostActivity", true);
+                startActivityForResult(locationIntent, MAP_REQUEST_CODE);
             }
         });
 
@@ -229,7 +224,6 @@ public class PostActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 dateTime.setText(new SimpleDateFormat("E, dd MMM  hh:mm a").format(dateNTime));
-
                             }
                         }, mHour, mMinute, false);
                         timePickerDialog.show();
@@ -257,35 +251,35 @@ public class PostActivity extends AppCompatActivity {
                 int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
                 ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
                 eventImage.setLayoutParams(layoutParams);
-                mposter = "";
+                imageUri = null;
+                imageData = null;
                 eventImage.setImageDrawable(getDrawable(R.drawable.ic_insert_photo_color_primary_24dp));
                 eventImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 eventImage.setBackgroundColor(Color.parseColor("#E0E0E0"));
             }
         });
 
-
     }
 
     public void post(View view) {
-        if(TextUtils.isEmpty(eventTitle.getText())){
+        if (TextUtils.isEmpty(eventTitle.getText())) {
             Snackbar.make(coordinatorLayout, "Please fill event title", Snackbar.LENGTH_SHORT).show();
-        }else if(TextUtils.isEmpty(dateTime.getText())){
+        } else if (TextUtils.isEmpty(dateTime.getText())) {
             Snackbar.make(coordinatorLayout, "Please specify event date & time", Snackbar.LENGTH_SHORT).show();
-        }else if(TextUtils.isEmpty(venue.getText())){
+        } else if (TextUtils.isEmpty(venue.getText())) {
             Snackbar.make(coordinatorLayout, "Please specify venue", Snackbar.LENGTH_SHORT).show();
-        }else if(TextUtils.isEmpty(eventDescription.getText())){
+        } else if (TextUtils.isEmpty(eventDescription.getText())) {
             Snackbar.make(coordinatorLayout, "Please fill event description", Snackbar.LENGTH_SHORT).show();
-        }else {
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             StringBuilder builderMessage = new StringBuilder();
-            if(eventImage.getScaleType() == ImageView.ScaleType.CENTER_INSIDE){
+            if (eventImage.getScaleType() == ImageView.ScaleType.CENTER_INSIDE) {
                 builderMessage.append("This event post doesn't contain poster.\n");
             }
-            if(mMapLocation == null){
+            if (mMapLocation == null) {
                 builderMessage.append("You haven't set map location.\n\n");
-            }else{
-                builderMessage.append("Your map Location is set to: " + mMapLocation + " i.e " +mMapLocationTitle+ "\n\n");
+            } else {
+                builderMessage.append("Your map Location is set to: ").append(mMapLocation).append(" i.e ").append(mMapLocationTitle).append("\n\n");
             }
             builderMessage.append("Are you sure you want to post this event?");
             builder.setMessage(builderMessage.toString());
@@ -296,13 +290,14 @@ public class PostActivity extends AppCompatActivity {
                     final ProgressDialog pdialog = new ProgressDialog(PostActivity.this);
                     pdialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     pdialog.setMessage("Posting your event...");
+                    pdialog.setCanceledOnTouchOutside(false);
                     pdialog.show();
 
                     SharedPreferences sharedPreferences = PostActivity.this.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
                     String email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
                     String password = sharedPreferences.getString(Constants.password_shared, Constants.password);
                     // Todo fetch club/Council
-                    String clubCouncil = "SNTC" ;
+                    String clubCouncil = "Robotics Club";
                     String year = String.valueOf(mYear);
                     String month = String.valueOf(mMonth);
                     String day = String.valueOf(mDay);
@@ -312,68 +307,72 @@ public class PostActivity extends AppCompatActivity {
                     String mapLocation = mMapLocation;
                     String header = eventTitle.getText().toString();
                     String description = eventDescription.getText().toString();
-                    String image = mposter;
 
-
-                    JSONObject postparams = new JSONObject();
-                    try {
-                        postparams.put("email", email);
-                        postparams.put("password", password);
-                        postparams.put("club", clubCouncil);
-                        postparams.put("year", year);
-                        postparams.put("month", month);
-                        postparams.put("day", day);
-                        postparams.put("hour", hour);
-                        postparams.put("minutes", minutes);
-                        postparams.put("location",location);
-                        postparams.put("map_location",mapLocation);
-                        postparams.put("header", header);
-                        postparams.put("description", description);
-                        postparams.put("image", image);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, FEED_POST_URL, postparams, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            pdialog.dismiss();
-                            try {
-                                int responseCode = response.getInt("status");
-                                switch(responseCode){
-                                    case 0:
-                                        Log.e("TAGG", "res 0");
-                                        Snackbar.make(coordinatorLayout, "Something went Wrong.\nTry again Later", Snackbar.LENGTH_LONG).show();
-                                        break;
-                                    case 1:
-                                        Snackbar.make(coordinatorLayout, "Event successfully posted", Snackbar.LENGTH_LONG).show();
-                                        break;
-                                    case 3:
-                                        Snackbar.make(coordinatorLayout, "Invalid credentials.\nUnable to post event", Snackbar.LENGTH_LONG).show();
-                                        break;
-                                    default:
-                                        Log.e("TAGG", "default");
-
-                                        Snackbar.make(coordinatorLayout, "Something went Wrong.\nTry again Later", Snackbar.LENGTH_LONG).show();
-                                        break;
+                    VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, FEED_POST_URL,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    pdialog.dismiss();
+                                    try {
+                                        int responseCode = response.getInt("status");
+                                        switch (responseCode) {
+                                            case 0:
+                                                Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
+                                                break;
+                                            case 1:
+                                                Snackbar.make(coordinatorLayout, "Event successfully posted", Snackbar.LENGTH_LONG).show();
+                                                break;
+                                            case 3:
+                                                Snackbar.make(coordinatorLayout, "Invalid credentials! Unable to post event", Snackbar.LENGTH_LONG).show();
+                                                break;
+                                            default:
+                                                Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
+                                                break;
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
+                            }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             pdialog.dismiss();
-                            Log.e("TAGG", "error" + error);
-
-                            Snackbar.make(coordinatorLayout, "Something went Wrong.\nTry again Later", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
                         }
-                    });
-                    RequestQueue requestQueue = Volley.newRequestQueue(PostActivity.this);
-                    requestQueue.add(postRequest);
+                    }) {
+                        @Override
+                        public Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("email", email);
+                            params.put("password", password);
+                            params.put("club", clubCouncil);
+                            params.put("location", location);
+                            params.put("map_location", mapLocation);
+                            params.put("header", header);
+                            params.put("description", description);
+                            params.put("year", year);
+                            params.put("month", month);
+                            params.put("day", day);
+                            params.put("hour", hour);
+                            params.put("minutes", minutes);
+                            return params;
+                        }
+
+                        @Override
+                        protected Map<String, DataPart> getByteData() {
+                            Map<String, DataPart> files = new HashMap<>();
+                            if (imageData != null) {
+                                String imageName = header + ".jpeg";
+                                files.put("notification_image", new DataPart(imageName, imageData, "image/jpeg"));
+                            }
+                            return files;
+                        }
+                    };
+                    RequestQueue multipartRequestQueue = Volley.newRequestQueue(PostActivity.this);
+                    multipartRequestQueue.add(multipartRequest);
                 }
             });
+
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -386,7 +385,6 @@ public class PostActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -395,13 +393,11 @@ public class PostActivity extends AppCompatActivity {
             if (data != null) {
                 imageUri = data.getData();
 
-
-                Bitmap rbitmap;
+                Bitmap imageBitmap;
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                    rbitmap = getResizedBitmap(bitmap, 500);//Setting the Bitmap to ImageView
-                    mposter = getStringImage(rbitmap);
-                    //base64toString.add(userImage);
+                    imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    imageBitmap = getResizedBitmap(imageBitmap, 500);//Setting the Bitmap to ImageView
+                    imageData = getFileData(imageBitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -415,7 +411,7 @@ public class PostActivity extends AppCompatActivity {
                 Toast.makeText(this, "You haven't picked image", Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == MAP_REQUEST_CODE && resultCode == RESULT_OK) {
-            if(data != null) {
+            if (data != null) {
                 mMapLocationTitle = data.getStringExtra("MarkerTitle");
                 mMapLocation = data.getStringExtra("MarkerKey");
                 if (TextUtils.isEmpty(venue.getText())) {
@@ -441,18 +437,191 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
-    private String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    public byte[] getFileData(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         super.onBackPressed();
 
         return true;
+    }
+
+    static class VolleyMultipartRequest extends Request<JSONObject> {
+
+        private final String twoHyphens = "--";
+        private final String lineEnd = "\r\n";
+        private final String boundary = "--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx--";
+
+
+        private Response.Listener<JSONObject> mListener;
+        private Response.ErrorListener mErrorListener;
+
+        VolleyMultipartRequest(int method, String url,
+                               Response.Listener<JSONObject> listener,
+                               Response.ErrorListener errorListener) {
+            super(method, url, errorListener);
+            this.mListener = listener;
+            this.mErrorListener = errorListener;
+        }
+
+
+        @Override
+        public String getBodyContentType() {
+            return "multipart/form-data; boundary=" + boundary;
+        }
+
+        @Override
+        public byte[] getBody() throws AuthFailureError {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            DataOutputStream dos = new DataOutputStream(bos);
+
+            try {
+                Map<String, String> params = getParams();
+                if (params != null && params.size() > 0) {
+                    textParse(dos, params, getParamsEncoding());
+                }
+
+                Map<String, DataPart> data = getByteData();
+                if (data != null && data.size() > 0) {
+                    dataParse(dos, data);
+                }
+
+                // close multipart form data after text and file data
+                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+                return bos.toByteArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected Map<String, DataPart> getByteData() throws AuthFailureError {
+            return null;
+        }
+
+        @Override
+        protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+            // For Network Response
+            /**
+             *   try {
+             *      return Response.success(
+             *             response,
+             *            HttpHeaderParser.parseCacheHeaders(response));
+             *} catch (Exception e) {
+             *   return Response.error(new ParseError(e));
+             *}
+             */
+
+            try {
+                String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+                return Response.success(new JSONObject(jsonString), HttpHeaderParser.parseCacheHeaders(response));
+            } catch (UnsupportedEncodingException | JSONException e) {
+                return Response.error(new ParseError(e));
+            }
+        }
+
+        @Override
+        protected void deliverResponse(JSONObject response) {
+            mListener.onResponse(response);
+        }
+
+        @Override
+        public void deliverError(VolleyError error) {
+            mErrorListener.onErrorResponse(error);
+        }
+
+        private void textParse(DataOutputStream dataOutputStream, Map<String, String> params, String encoding) throws IOException {
+            try {
+                for (Map.Entry<String, String> entry : params.entrySet()) {
+                    buildTextPart(dataOutputStream, entry.getKey(), entry.getValue());
+                }
+            } catch (UnsupportedEncodingException uee) {
+                throw new RuntimeException("Encoding not supported: " + encoding, uee);
+            }
+        }
+
+        private void buildTextPart(DataOutputStream dataOutputStream, String parameterName, String parameterValue) throws IOException {
+
+            String string = twoHyphens + boundary + lineEnd +
+                    "Content-Disposition: form-data;" +
+                    " name=\"" + parameterName + "\"" + lineEnd + lineEnd +
+                    parameterValue + lineEnd;
+            dataOutputStream.writeBytes(string);
+        }
+
+
+        private void dataParse(DataOutputStream dataOutputStream, Map<String, DataPart> data) throws IOException {
+            for (Map.Entry<String, DataPart> entry : data.entrySet()) {
+                buildDataPart(dataOutputStream, entry.getKey(), entry.getValue());
+            }
+        }
+
+        private void buildDataPart(DataOutputStream dataOutputStream, String inputName, DataPart dataFile) throws IOException {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(twoHyphens + boundary + lineEnd)
+                    .append("Content-Disposition: form-data; name=\"")
+                    .append(inputName).append("\";")
+                    .append(" filename=\"")
+                    .append(dataFile.getFileName())
+                    .append("\"")
+                    .append(lineEnd);
+
+            if (dataFile.getType() != null && !dataFile.getType().trim().isEmpty()) {
+                stringBuilder.append("Content-Type: ")
+                        .append(dataFile.getType())
+                        .append(lineEnd);
+            }
+            stringBuilder.append(lineEnd);
+            dataOutputStream.writeBytes(stringBuilder.toString());
+
+            ByteArrayInputStream fileInputStream = new ByteArrayInputStream(dataFile.getContent());
+            int bytesAvailable = fileInputStream.available();
+
+            int maxBufferSize = 1024 * 1024;
+            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            byte[] buffer = new byte[bufferSize];
+
+            int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+            while (bytesRead > 0) {
+                dataOutputStream.write(buffer, 0, bufferSize);
+                bytesAvailable = fileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            }
+
+            dataOutputStream.writeBytes(lineEnd);
+        }
+
+        static class DataPart {
+            private String fileName;
+            private byte[] content;
+            private String type;
+
+
+            DataPart(String name, byte[] data, String dataType) {
+                fileName = name;
+                content = data;
+                type = dataType;
+            }
+
+            String getFileName() {
+                return fileName;
+            }
+
+            byte[] getContent() {
+                return content;
+            }
+
+            String getType() {
+                return type;
+            }
+        }
     }
 }
