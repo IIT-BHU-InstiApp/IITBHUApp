@@ -205,26 +205,25 @@
                                 android:orientation="horizontal"
                                 android:layout_marginTop="14dp">
 
-                                <ImageView
-
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/baseline_people_24" />
-
-                                <TextView
+                                <Button
                                     android:id="@+id/interested_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginEnd="4dp"
-                                    android:textColor="@color/colorGray"
-                                    android:textSize="16sp"
-                                    tools:text="People interested"/>
+                                    android:layout_width="20dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="start"
+                                    android:layout_margin="2dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/capsule_shape"
+                                    android:drawableLeft="@drawable/baseline_people_24"
+                                    android:gravity="center"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="20dp"
+                                    android:text="Going"
+                                    android:textColor="@color/white"
+                                    android:textSize="10sp" />
+
                                 <Button
                                     android:id="@+id/interested_button"
-                                    android:layout_width="20dp"
+                                    android:layout_width="15dp"
                                     android:layout_height="30dp"
                                     android:layout_gravity="end"
                                     android:layout_marginTop="2dp"

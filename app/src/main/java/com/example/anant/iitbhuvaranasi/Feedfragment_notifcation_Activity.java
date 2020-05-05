@@ -14,33 +14,24 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-
-import com.android.volley.RequestQueue;
-
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
@@ -52,10 +43,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-
+import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 
 public class  Feedfragment_notifcation_Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -117,20 +107,14 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         location_button =  findViewById(R.id.location);
         description_event=findViewById(R.id.event_page_description);
         location_button.setOnClickListener(this);
-//        venue_event.setOnClickListener(this);
-        //time_event = (TextView) findViewById(R.id.event_time);
+
         clock_button =  findViewById(R.id.clock);
         clock_button.setOnClickListener(this);
-      //  go_button = (Button) findViewById(R.id.going_button);
-    //    go_button.setOnClickListener(this);
         interested_button = (Button) findViewById(R.id.interested_button);
         interested_button.setOnClickListener(this);
-    //    going_count = (TextView) findViewById(R.id.going_count);
-        interested_count = (TextView) findViewById(R.id.interested_count);
-    //    view_count = (TextView) findViewById(R.id.view_count);
-       // title_event.setText(getIntent().getStringExtra("title"));
-      //  date_event.setText(getIntent().getStringExtra("date"));
-      //  image=getIntent().getStringExtra("image");
+        interested_count =  findViewById(R.id.interested_count);
+        interested_count.setOnClickListener(this);
+
         String notifid = obj.getNotifid();
         notif_id = Integer.valueOf(notifid);
         councilName.setText(obj.getCouncil_name());
@@ -220,6 +204,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
             else
                 interested_count.setText("You +"+(interestedCount-1)+ " others");
             interested_button.setBackgroundTintList(ContextCompat.getColorStateList(this,R.color.colorPrimaryDark));
+
             interested_button.setText("Already Interested");
         }
         else
@@ -283,19 +268,28 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                     startActivity(mapIntent);*/
                 break;
 
+            case R.id.interested_count:
+                registerOrDisplayIntersted(0);
+                break;
+
             case R.id.interested_button:
-                displayInterestedPeople();
+                registerOrDisplayIntersted(1);
                 break;
         }
     }
 
-    private void displayInterestedPeople()
+    /*
+     *
+     *
+     */
+    private void registerOrDisplayIntersted(int choice)
     {
         ProgressBar progress = findViewById(R.id.progress_bar_feedfragment);
 
         progress.setIndeterminate(true);
         progress.setVisibility(ProgressBar.VISIBLE);
         ArrayList<String> arrayList = new ArrayList<String>();
+
 
         InterestedResponse.method(this, new ServerCallback() {
             @Override
@@ -307,36 +301,52 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 progress.setVisibility(ProgressBar.GONE);
                 if (jsonResponse == null)
                     Toast.makeText(Feedfragment_notifcation_Activity.this,"Error in displaying interested people",Toast.LENGTH_LONG).show();
-                else{
+                else {
                     JSONArray jsonArray = jsonResponse.optJSONArray("intrested_names");
                     int status = jsonResponse.optInt("status");
-                    if (status == 1 || status == 2)
-                    {
-                        if (status==1) {
-                            //TODO:: Update the Feed Data
-                            //new FeedFragment().updateFeedData();
-                            obj.setInterested("1");
-                        }
-                        for (int i=0;i<jsonArray.length();i++)
-                        {
-                            arrayList.add(jsonArray.optString(i));
-                        }
-                    }
+                    switch (choice) {
 
-                    final Dialog dialog = new Dialog(Feedfragment_notifcation_Activity.this);
-                    dialog.setContentView(R.layout.dialog_interested);
-                    if (dialog.getWindow() != null) {
-                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // this is optional
+                        case 1: {
+                            if (status == 1) {
+                                //TODO:: Update the Feed Data
+                                //new FeedFragment().updateFeedData();
+                                Toast.makeText(Feedfragment_notifcation_Activity.this, "Successfully added your name", Toast.LENGTH_SHORT).show();
+                                obj.setInterested("1");
+                            }else if (status == 2)
+                                Toast.makeText(Feedfragment_notifcation_Activity.this, "You are already interested", Toast.LENGTH_SHORT).show();
+                            onResume();
+                        break;
+                        }
+                        case 0: {
+                            if (status == 1 || status == 2 || status == 3) {
+
+                                //TODO :: Remove the lines below after updating feed data
+                                if (obj.getInterested().equals("1"))
+                                    arrayList.add(name_student);
+
+
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    arrayList.add(jsonArray.optString(i));
+                                }
+                            }
+
+
+                            final Dialog dialog = new Dialog(Feedfragment_notifcation_Activity.this);
+                            dialog.setContentView(R.layout.dialog_interested);
+                            if (dialog.getWindow() != null) {
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // this is optional
+                            }
+                            ListView listView = dialog.findViewById(R.id.lv_assignment_users);
+                            TextView titleTV = dialog.findViewById(R.id.tv_popup_title);
+                            titleTV.setText("Interested People");
+                            InterestedNamesAdapter adapter = new InterestedNamesAdapter(Feedfragment_notifcation_Activity.this, arrayList);
+                            listView.setAdapter(adapter);
+                            dialog.show();
+                        }
                     }
-                    ListView listView = dialog.findViewById(R.id.lv_assignment_users);
-                    TextView titleTV = dialog.findViewById(R.id.tv_popup_title);
-                    titleTV.setText("Interested People");
-                    InterestedNamesAdapter adapter = new InterestedNamesAdapter(Feedfragment_notifcation_Activity.this, arrayList);
-                    listView.setAdapter(adapter);
-                    dialog.show();
                 }
             }
-        },notif_id);
+        },notif_id,choice);
     }
 
     public void addEventToCalender(String title,String description,String location,String time) {

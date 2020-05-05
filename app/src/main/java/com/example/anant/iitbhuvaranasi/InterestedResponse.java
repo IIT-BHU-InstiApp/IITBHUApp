@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
 
 
@@ -19,16 +20,22 @@ public class InterestedResponse
 {
     private static RequestQueue mRequestQueue;
     
-    public static JSONObject method(final Context context, ServerCallback serverCallback,int notifid) {
+    public static JSONObject method(final Context context, ServerCallback serverCallback,int notifid,int choice) {
 
         mRequestQueue = Volley.newRequestQueue(context);
 
         JSONObject[] apiResponse = new JSONObject[1];
 
+        String password = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE)
+                .getString(Constants.password_shared, Constants.password);
+
+
         String url = "http://iitbhuapp.tk/interested";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("email",emailOfStudent);
+            jsonObject.put("password",password);
+            jsonObject.put("switch",choice);
             jsonObject.put("notifid",notifid);
         }
         catch (JSONException e)
