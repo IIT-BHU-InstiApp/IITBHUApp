@@ -83,9 +83,40 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 guestLoginChecker = 1;
+                String email4 ="guestuser@iitbhu.ac.in";
+                SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                Log.d("emailtrue12345",email4);
+                editor.putString(Constants.Email, email4);
+                editor.commit();
+                Login_response.method(SignInActivity.this, email4, new ServerCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Api_Response.method(SignInActivity.this, new ServerCallback() {
+                            @Override
+                            public void onSuccess() {
+                                updateUI("true");
+                            }
 
-                startActivity(new Intent(SignInActivity.this,HomeActivity.class));
-                finish();
+                            @Override
+                            public void onError() {
+                                startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                                finish();
+                            }
+
+
+                        });
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                        finish();
+                    }
+
+
+                });
 
             }
         });
