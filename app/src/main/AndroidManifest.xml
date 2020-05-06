@@ -23,7 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup"
+        android:configChanges="uiMode">
         <activity
             android:screenOrientation="portrait"
             android:name=".IITBHUMapActivity"/>

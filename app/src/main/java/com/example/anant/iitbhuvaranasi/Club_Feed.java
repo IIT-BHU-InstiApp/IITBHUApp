@@ -129,6 +129,11 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
                     public void onSuccess() {
 
                     }
+
+                    @Override
+                    public void onError() {
+
+                    }
                 });
                 getVerticalData8 = VerticalDataFeed.getVerticalData3(getApplicationContext());
                 getVerticalData4 = getVerticalData8;
