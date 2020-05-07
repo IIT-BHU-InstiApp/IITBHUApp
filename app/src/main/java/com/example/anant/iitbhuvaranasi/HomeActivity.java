@@ -1,5 +1,6 @@
 package com.example.anant.iitbhuvaranasi;
 
+import android.animation.Animator;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -18,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +57,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public String email;
 
     NavigationView navigationView;
+    ProgressBar progressBar;
+    FrameLayout container;
     int x = 0;
     int track = 0;
 
@@ -147,6 +152,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView =  findViewById(R.id.nav_view);
+        progressBar = findViewById(R.id.progressBar);
+        container = findViewById(R.id.fragment_container);
+
 
         View headerView = navigationView.getHeaderView(0);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -234,177 +242,210 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if(menuItem.getItemId() != R.id.nav_maps && menuItem.getItemId() != R.id.nav_academics&& menuItem.getItemId() != R.id.nav_por && menuItem.getItemId() != R.id.nav_security  && menuItem.getItemId() != R.id.nav_study && menuItem.getItemId() != R.id.nav_logout ) {
+            bottomNavigationView.setVisibility(View.GONE);
+            crossfade(progressBar, container, false);
+        }
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
-        switch (menuItem.getItemId()) {
+            }
 
-            case R.id.nav_notifications:
-                track = 0;
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                switch (menuItem.getItemId()) {
+
+                    case R.id.nav_notifications:
+                        track = 0;
 
 //                SharedPreferences.Editor editor = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor.putInt("track",0);
 //                editor.commit();
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FeedFragment()).commit();
-                bottomNavigationView.setSelectedItemId(R.id.feed);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                new FeedFragment()).commit();
+                        bottomNavigationView.setSelectedItemId(R.id.feed);
 
-                bottomNavigationView.setVisibility(View.VISIBLE);
+                        bottomNavigationView.setVisibility(View.VISIBLE);
 
 
 
-                break;
+                        break;
 
-            case R.id.nav_maps:
+                    case R.id.nav_maps:
 //                track = 1;
 //                SharedPreferences.Editor editor1 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor1.putInt("track",1);
 //                editor1.commit();
 
 
-                location2345=null;
-                Intent intent1 = new Intent(HomeActivity.this, IITBHUMapActivity.class);
-                startActivity(intent1);
-                //finish();
-                x++;
-                break;
-            case R.id.nav_complain:
+                        location2345=null;
+                        Intent intent1 = new Intent(HomeActivity.this, IITBHUMapActivity.class);
+                        startActivity(intent1);
+                        //finish();
+                        x++;
+                        break;
+                    case R.id.nav_complain:
 
 //                SharedPreferences.Editor editor2 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor2.putInt("track",2);
 //                editor2.commit();
-                if(SignInActivity.guestLoginChecker != 1){
-                    track = 2;
+                        if(SignInActivity.guestLoginChecker != 1){
+                            track = 2;
+                            bottomNavigationView.setVisibility(View.GONE);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                    new ComplainFragment()).commit();
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ComplainFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
-                    x++;}
-                else{
-                    itemSelectionNavigationView();
-                    Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
-                    toast.show();
+                            x++;}
+                        else{
+                            itemSelectionNavigationView();
+                            Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                            toast.show();
 
-                }
-
-
-
-                break;
-            case R.id.lost_found:
-
-                if(SignInActivity.guestLoginChecker != 1){
-                    track = 3;
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new LostAndFoundFragment()).commit();
-                    bottomNavigationView.setVisibility(View.GONE);
-                    x++;}
-                else{
-                    itemSelectionNavigationView();
-                    Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
-                    toast.show();
-
-                }
-                break;
+                        }
 
 
-            case R.id.important_links:
-                track = 5;
+
+                        break;
+                    case R.id.lost_found:
+
+                        if(SignInActivity.guestLoginChecker != 1){
+                            track = 3;
+
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                    new LostAndFoundFragment()).commit();
+                            bottomNavigationView.setVisibility(View.GONE);
+                            x++;}
+                        else{
+                            itemSelectionNavigationView();
+                            Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                            toast.show();
+
+                        }
+                        break;
+
+
+                    case R.id.important_links:
+                        track = 5;
 //                SharedPreferences.Editor editor5 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor5.putInt("track",5);
 //                editor5.commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ImportantLinksFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                new ImportantLinksFragment()).commit();
+                        bottomNavigationView.setVisibility(View.GONE);
 
 
-                x++;
-                break;
-            case R.id.nav_security:
-                Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
-                intent.putExtra("Intent", "security");
-                startActivity(intent);
-                finish();
+                        x++;
+                        break;
+                    case R.id.nav_security:
+                        Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
+                        intent.putExtra("Intent", "security");
+                        startActivity(intent);
+                        finish();
 
-                x++;
+                        x++;
 
-                break;
-            case R.id.nav_academics:
-                Intent intent4 = new Intent(HomeActivity.this, ContactsActivity.class);
-                intent4.putExtra("Intent", "academics");
-                startActivity(intent4);
-                finish();
-                x++;
+                        break;
+                    case R.id.nav_academics:
+                        Intent intent4 = new Intent(HomeActivity.this, ContactsActivity.class);
+                        intent4.putExtra("Intent", "academics");
+                        startActivity(intent4);
+                        finish();
+                        x++;
 
-                break;
-            case R.id.nav_por:
-                Intent intent3 = new Intent(HomeActivity.this, ContactsActivity.class);
-                intent3.putExtra("Intent", "por");
-                startActivity(intent3);
-                finish();
-                x++;
+                        break;
+                    case R.id.nav_por:
+                        Intent intent3 = new Intent(HomeActivity.this, ContactsActivity.class);
+                        intent3.putExtra("Intent", "por");
+                        startActivity(intent3);
+                        finish();
+                        x++;
 
-                break;
-            case R.id.nav_study:
-
-
-                String url = "https://drive.google.com/drive/u/1/folders/1UxuN1fej_4L-l9S_efyWq39h1YAzH8TW";
+                        break;
+                    case R.id.nav_study:
 
 
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.intent.setPackage("com.android.chrome");
-                customTabsIntent.launchUrl(this, Uri.parse(url));
+                        String url = "https://drive.google.com/drive/u/1/folders/1UxuN1fej_4L-l9S_efyWq39h1YAzH8TW";
 
 
-
-                break;
-            case R.id.nav_about:
-                track = 9;
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new AboutFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
-                x++;
-                break;
-                case R.id.feedback:
-                    String url1 = "https://docs.google.com/forms/d/e/1FAIpQLScGQbDEt_6gN5u3P6UsEEAEEmHE-8vvbjNUl6XhZPgBgKE0KA/viewform?usp=sf_link";
-                    CustomTabsIntent.Builder builder1 = new CustomTabsIntent.Builder();
-                    CustomTabsIntent customTabsIntent1 = builder1.build();
-                    //customTabsIntent1.intent.setPackage("com.android.chrome");
-                    customTabsIntent1.launchUrl(this, Uri.parse(url1));
-                    //customTabsIntent1.launchUrl(Objects.requireNonNull(this, Uri.parse(url1));
+                        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                        CustomTabsIntent customTabsIntent = builder.build();
+                        customTabsIntent.intent.setPackage("com.android.chrome");
+                        customTabsIntent.launchUrl(HomeActivity.this, Uri.parse(url));
 
 
 
-                    break;
-            case R.id.nav_logout:
-                SignInActivity.guestLoginChecker = 0;
-                mGoogleSignInClient.signOut()
-                        .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                // ...
-                            }
-                        });
-
-                SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor spreferencesEditor = spreferences.edit();
-                spreferencesEditor.clear();
-                spreferencesEditor.apply();
-
-                Intent intent2 = new Intent(this, SignInActivity.class);
-                startActivity(intent2);
-                finish();
-                break;
-            case R.id.timetable:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new Timetable()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
+                        break;
+                    case R.id.nav_about:
+                        track = 9;
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                new AboutFragment()).commit();
+                        bottomNavigationView.setVisibility(View.GONE);
+                        x++;
+                        break;
+                    case R.id.feedback:
+                        String url1 = "https://docs.google.com/forms/d/e/1FAIpQLScGQbDEt_6gN5u3P6UsEEAEEmHE-8vvbjNUl6XhZPgBgKE0KA/viewform?usp=sf_link";
+                        CustomTabsIntent.Builder builder1 = new CustomTabsIntent.Builder();
+                        CustomTabsIntent customTabsIntent1 = builder1.build();
+                        //customTabsIntent1.intent.setPackage("com.android.chrome");
+                        customTabsIntent1.launchUrl(HomeActivity.this, Uri.parse(url1));
+                        //customTabsIntent1.launchUrl(Objects.requireNonNull(this, Uri.parse(url1));
 
 
-                x++;
-                break;
 
-        }
+                        break;
+                    case R.id.nav_logout:
+                        SignInActivity.guestLoginChecker = 0;
+                        mGoogleSignInClient.signOut();
+//                                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        // ...
+//                                    }
+//                                });
+
+                        SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor spreferencesEditor = spreferences.edit();
+                        spreferencesEditor.clear();
+                        spreferencesEditor.apply();
+
+                        Intent intent2 = new Intent(HomeActivity.this, SignInActivity.class);
+                        startActivity(intent2);
+                        finish();
+                        break;
+//                    case R.id.timetable:
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                new Timetable()).commit();
+//                        bottomNavigationView.setVisibility(View.GONE);
+//
+//
+//                        x++;
+//                        break;
+
+                }
+                if(menuItem.getItemId() != R.id.nav_maps && menuItem.getItemId() != R.id.nav_academics&& menuItem.getItemId() != R.id.nav_por && menuItem.getItemId() != R.id.nav_security && menuItem.getItemId() != R.id.nav_study && menuItem.getItemId() != R.id.nav_logout ) {
+                    crossfade(container, progressBar, false);
+                }
+
+
+                // Remove this listener so close by, for example, swiping do not call it again
+                drawer.removeDrawerListener(this);
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
+
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -505,6 +546,58 @@ private void createNotificationChannel(){
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
+
+
 }
+
+    private void crossfade(View viewIn, View viewOut, Boolean animateViewOut) {
+
+        long crossfadeDuration = 200L;
+
+        // Set the content view to 0% opacity but visible, so that it is visible
+        // (but fully transparent) during the animation.
+//        viewIn.alpha = 0f;
+        viewIn.setAlpha(0f);
+//        viewIn.visibility = View.VISIBLE;
+        viewIn.setVisibility(View.VISIBLE);
+        viewIn.bringToFront();
+
+
+        // Animate the in view to 100% opacity, and clear any animation
+        // listener set on the view.
+        viewIn.animate()
+                .alpha(1f)
+                .setDuration(crossfadeDuration)
+                .setListener(null);
+
+        // Animate the out view to 0% opacity. After the animation ends,
+        // set its visibility to GONE as an optimization step (it won't
+        // participate in layout passes, etc.)
+        viewOut.animate()
+                .alpha(0f)
+                .setDuration( (animateViewOut) ? crossfadeDuration : 0)
+            .setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    viewOut.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
+
+    }
 }
 

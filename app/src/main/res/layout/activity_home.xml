@@ -16,20 +16,27 @@
         >
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp"
-            android:id="@+id/toolbar"
 
-            >
-        </androidx.appcompat.widget.Toolbar>
+            />
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_navigation"
-            android:layout_below="@+id/toolbar"></FrameLayout>
+            android:layout_below="@+id/toolbar"
+            android:visibility="visible"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+
+            android:visibility="gone" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
