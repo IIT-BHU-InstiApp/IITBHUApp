@@ -125,7 +125,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
        // title_event.setText(getIntent().getStringExtra("title"));
       //  date_event.setText(getIntent().getStringExtra("date"));
       //  image=getIntent().getStringExtra("image");
-        String notifid = obj.getNotifid();
+        int notifid = obj.getNotifid();
         Integer notif_id = Integer.valueOf(notifid);
 //
         councilName.setText(obj.getCouncil_name());

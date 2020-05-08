@@ -26,13 +26,18 @@
         tools:replace="android:allowBackup"
         android:configChanges="uiMode">
         <activity
+
+        tools:replace="android:allowBackup">
+        <activity android:name=".PostActivity"
             android:screenOrientation="portrait"
-            android:name=".IITBHUMapActivity"/>
+            android:launchMode="singleInstance"/>
         <activity
-            android:screenOrientation="portrait"
-            android:name=".DeveloperInfo" />
+            android:name=".IITBHUMapActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".ContactsActivity" />
+            android:name=".DeveloperInfo"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ContactsActivity" />
         <activity
             android:name=".PinActivity"
             android:screenOrientation="portrait" />
@@ -40,18 +45,18 @@
             android:name=".Club_ProfilePage"
             android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".Club_Feed"/>
+            android:name=".Club_Feed"
+            android:screenOrientation="portrait" />
         <activity android:name=".SignInActivity" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".Full_screen_imageActivity" />
+            android:name=".Full_screen_imageActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".Clubs_group" />
+            android:name=".Clubs_group"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".Feedfragment_notifcation_Activity"/>
+            android:name=".Feedfragment_notifcation_Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -61,7 +66,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".HomeActivity"
             android:screenOrientation="portrait" />
@@ -69,10 +73,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB-tWhMGh3DcoNvJbVJWgMuV4xaaVJxje0" />
-
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
+
         <service android:name=".NotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
