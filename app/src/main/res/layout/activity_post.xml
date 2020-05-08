@@ -83,7 +83,8 @@
                                 app:civ_border_color="#66000000"
                                 app:civ_circle_color="@android:color/transparent"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent" />
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:onClick="removeImage"/>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -126,7 +127,7 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/council_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -192,7 +193,7 @@
                             android:layout_gravity="center"
                             android:background="@drawable/ic_location_on_black_24dp" />
 
-                        <EditText
+                        <AutoCompleteTextView
                             android:id="@+id/event_venue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -201,7 +202,8 @@
                             android:gravity="center_vertical"
                             android:hint="Venue"
                             android:textColor="@color/colorGray"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:completionThreshold="0"/>
 
                     </LinearLayout>
 

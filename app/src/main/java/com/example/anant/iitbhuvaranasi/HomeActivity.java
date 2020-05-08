@@ -10,12 +10,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-
-
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,13 +34,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-//import com.google.firebase.messaging.FirebaseMessaging;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import static com.example.anant.iitbhuvaranasi.Constants.IS_POR_PREF;
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
+
+//import com.google.firebase.messaging.FirebaseMessaging;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -73,7 +69,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = sharedPreferences.getString(Constants.Response_Feed_Old, "2");
         email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
         createNotificationChannel();
@@ -81,14 +77,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 //
         Constants.Email_Key = email;
-        Log.d("no_hats2","hello4");
+        Log.d("no_hats2", "hello4");
         ID_card_Response.method(this, new ServerCallback() {
             @Override
             public void onSuccess() {
 
             }
         });
-        Log.d("no_hats3","hello5");
+        Log.d("no_hats3", "hello5");
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -109,7 +105,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView =  findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
 
         View headerView = navigationView.getHeaderView(0);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -126,25 +122,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             //personFamilyName = acct.getFamilyName();
         }
 
-         TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
-         TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
+        TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
+        TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
         SharedPreferences pref3 = getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
-        Log.d("no_hats","hello");
-        if(name_student.isEmpty()){
-            Log.d("no_hats1","hello123");
-        name_student = pref3.getString(Constants.Name_Student,personGivenName );
-     }
-         emailOfStudent.setText(personEmail);
-         nameOfStudent.setText(name_student);
+        Log.d("no_hats", "hello");
+        if (name_student.isEmpty()) {
+            Log.d("no_hats1", "hello123");
+            name_student = pref3.getString(Constants.Name_Student, personGivenName);
+        }
+        emailOfStudent.setText(personEmail);
+        nameOfStudent.setText(name_student);
 //
 //                +"\npersonFamilyName="+personFamilyName);
 
         navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
-        if(SignInActivity.guestLoginChecker == 1){
+        if (SignInActivity.guestLoginChecker == 1) {
             emailOfStudent.setText(" ");
             nameOfStudent.setText("Hello Guest User");
-            if(Constants.Progress ==1) {
+            if (Constants.Progress == 1) {
                 ProgressDialog dialog = ProgressDialog.show(this, "", "Detecting...",
                         true);
                 dialog.show();
@@ -158,6 +154,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
+        MenuItem menuItem = navigationView.getMenu().findItem(R.id.post_feed);
+        if (sharedPreferences.getBoolean(IS_POR_PREF,false)) {
+            menuItem.setVisible(true);
+        } else {
+           menuItem.setVisible(false);
+        }
+
 
 //        if (savedInstanceState == null) {
 //            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -167,7 +170,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         //Added by Suryansh.
 
-        BottomNavigationView bottomNav =  findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
         bottomNav.setOnNavigationItemSelectedListener(listener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -183,17 +186,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //
 
 
-
-
-
     }
+
     private void itemSelectionNavigationView() {
         navigationView.getMenu().getItem(track).setChecked(true);
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -214,7 +214,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setVisibility(View.VISIBLE);
 
 
-
                 break;
 
             case R.id.nav_maps:
@@ -224,7 +223,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //                editor1.commit();
 
 
-                location2345=null;
+                location2345 = null;
                 Intent intent1 = new Intent(HomeActivity.this, IITBHUMapActivity.class);
                 startActivity(intent1);
                 //finish();
@@ -235,35 +234,34 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //                SharedPreferences.Editor editor2 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor2.putInt("track",2);
 //                editor2.commit();
-                if(SignInActivity.guestLoginChecker != 1){
+                if (SignInActivity.guestLoginChecker != 1) {
                     track = 2;
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ComplainFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
-                    x++;}
-                else{
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new ComplainFragment()).commit();
+                    bottomNavigationView.setVisibility(View.GONE);
+                    x++;
+                } else {
                     itemSelectionNavigationView();
-                    Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), "You need to LogIn for this feature", Toast.LENGTH_LONG);
                     toast.show();
 
                 }
 
 
-
                 break;
             case R.id.lost_found:
 
-                if(SignInActivity.guestLoginChecker != 1){
+                if (SignInActivity.guestLoginChecker != 1) {
                     track = 3;
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             new LostAndFoundFragment()).commit();
                     bottomNavigationView.setVisibility(View.GONE);
-                    x++;}
-                else{
+                    x++;
+                } else {
                     itemSelectionNavigationView();
-                    Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), "You need to LogIn for this feature", Toast.LENGTH_LONG);
                     toast.show();
 
                 }
@@ -284,8 +282,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.post_feed:
+
                 Intent postIntent = new Intent(HomeActivity.this, PostActivity.class);
                 startActivity(postIntent);
+
                 x++;
                 break;
             case R.id.nav_security:
@@ -325,7 +325,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 customTabsIntent.launchUrl(this, Uri.parse(url));
 
 
-
                 break;
             case R.id.nav_about:
                 track = 9;
@@ -334,17 +333,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 bottomNavigationView.setVisibility(View.GONE);
                 x++;
                 break;
-                case R.id.feedback:
-                    String url1 = "https://docs.google.com/forms/d/e/1FAIpQLScGQbDEt_6gN5u3P6UsEEAEEmHE-8vvbjNUl6XhZPgBgKE0KA/viewform?usp=sf_link";
-                    CustomTabsIntent.Builder builder1 = new CustomTabsIntent.Builder();
-                    CustomTabsIntent customTabsIntent1 = builder1.build();
-                    //customTabsIntent1.intent.setPackage("com.android.chrome");
-                    customTabsIntent1.launchUrl(this, Uri.parse(url1));
-                    //customTabsIntent1.launchUrl(Objects.requireNonNull(this, Uri.parse(url1));
+            case R.id.feedback:
+                String url1 = "https://docs.google.com/forms/d/e/1FAIpQLScGQbDEt_6gN5u3P6UsEEAEEmHE-8vvbjNUl6XhZPgBgKE0KA/viewform?usp=sf_link";
+                CustomTabsIntent.Builder builder1 = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent1 = builder1.build();
+                //customTabsIntent1.intent.setPackage("com.android.chrome");
+                customTabsIntent1.launchUrl(this, Uri.parse(url1));
+                //customTabsIntent1.launchUrl(Objects.requireNonNull(this, Uri.parse(url1));
 
 
-
-                    break;
+                break;
             case R.id.nav_logout:
                 SignInActivity.guestLoginChecker = 0;
                 mGoogleSignInClient.signOut()
@@ -406,15 +404,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Fragment selectedFragment = null;
 
 
-
             switch (item.getItemId()) {
                 case R.id.id_card:
-                    if(SignInActivity.guestLoginChecker == 1){
+                    if (SignInActivity.guestLoginChecker == 1) {
 
                         selectedFragment = new FeedFragment();
-                        Toast.makeText(getApplicationContext(),"You need to Login for this feature",Toast.LENGTH_LONG).show();
-                    }
-                    else {
+                        Toast.makeText(getApplicationContext(), "You need to Login for this feature", Toast.LENGTH_LONG).show();
+                    } else {
                         selectedFragment = new IDCardFragment();
                     }
 
@@ -422,7 +418,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 case R.id.feed:
 
-                        selectedFragment = new FeedFragment();
+                    selectedFragment = new FeedFragment();
 
                     break;
 
@@ -450,21 +446,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //
 //    }
 
-//
-private void createNotificationChannel(){
-    // Create the NotificationChannel, but only on API 26+ because
-    // the NotificationChannel class is new and not in the support library
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        String name = "FirebaseNotification";
-        String description = "No description";
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel("firebase", name, importance);
-        channel.setDescription(description);
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
+    //
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String name = "FirebaseNotification";
+            String description = "No description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("firebase", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
-}
 }
 

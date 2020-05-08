@@ -68,7 +68,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
 
     //Nested class used for storing map data
-    private class Place {
+     static class Place {
         private String name;
         private LatLng point;
 
@@ -91,7 +91,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
     private static final String TAG = com.google.android.gms.maps.MapFragment.class.getSimpleName();
 
-    final Map<String, Place> hostelLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> hostelLocations = new HashMap<String, Place>() {{
         put("C_V_RAMAN", new Place("C V Raman Hostel", new LatLng(25.265912276191887, 82.9862916469574)));
         put("MORVI", new Place("Morvi Hostel", new LatLng(25.265077860079725, 82.98618972301483)));
         put("DHANRAJGIRI", new Place("Dhanrajgiri Hostel", new LatLng(25.26392325158243, 82.98608243465424)));
@@ -112,7 +112,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         put("IIT_GIRLS", new Place("IIT Girls Hostel", new LatLng(25.261187, 82.983791)));
     }};
 
-    final Map<String, Place> departmentLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> departmentLocations = new HashMap<String, Place>() {{
         //Departments
         put("ARCHITECHTURE", new Place("Department of Architecture, Planning and Design", new LatLng(25.261633, 82.991648)));
         put("CERAMIC", new Place("Department of Ceramic Engineering", new LatLng(25.259783, 82.992806)));
@@ -134,7 +134,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         put("HUMANISTIC_STUDIES", new Place("Department of Humanistic Studies", new LatLng(25.261603, 82.990653)));
     }};
 
-    final Map<String, Place> ltLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> ltLocations = new HashMap<String, Place>() {{
         //Lecture Theatres
         put("G11", new Place("G-11", new LatLng(25.26123559095607, 82.99245402216911)));
         put("G14", new Place("G-14", new LatLng(25.26172800976422, 82.99058854579926)));
@@ -142,39 +142,39 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         put("LT1", new Place("Lecture Theatre 1", new LatLng(25.260275004676558, 82.99107670783997)));
     }};
 
-    final Map<String, Place> atmLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> atmLocations = new HashMap<String, Place>() {{
         put("ATM_HG1", new Place("ICICI ATM", new LatLng(25.2622883459788, 82.9817345738411)));
         put("ATM_HG2", new Place("SBI ATM", new LatLng(25.26173468044865, 82.98157699406147)));
         put("ATM_VT", new Place("Bank of Baroda ATM", new LatLng(25.26537378738049, 82.98967659473419)));
         put("ATM_eCorner", new Place("SBI eCorner", new LatLng(25.26386261007635, 82.9949739575386)));
     }};
 
-    final Map<String, Place> templeLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> templeLocations = new HashMap<String, Place>() {{
         put("VT", new Place("Vishwanath Temple", new LatLng(25.266083, 82.987908)));
     }};
 
-    final Map<String, Place> cafeLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> cafeLocations = new HashMap<String, Place>() {{
         put("DG", new Place("DG Corner", new LatLng(25.263215, 82.986463)));
         put("LC", new Place("Limbdi Corner", new LatLng(25.260667, 82.986883)));
         put("CCD", new Place("Café Coffee Day", new LatLng(25.258257, 82.986542)));
     }};
 
-    final Map<String, Place> hospitalLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> hospitalLocations = new HashMap<String, Place>() {{
         put("SUNDERLAL_HOSPITAL", new Place("Sir Sunderlal Hospital", new LatLng(25.276436, 82.999643)));
         put("HEALTH_CENTER", new Place("Student's Health Center", new LatLng(25.270028, 82.988653)));
     }};
 
-    final Map<String, Place> petrolLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> petrolLocations = new HashMap<String, Place>() {{
         put("BHU_PETROL", new Place("BHU Petrol Pump", new LatLng(25.278200, 82.996613)));
     }};
 
-    final Map<String, Place> groundLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> groundLocations = new HashMap<String, Place>() {{
         put("RAJPUTANA_GROUND", new Place("Rajputana Grounds", new LatLng(25.262191, 82.987291)));
         put("GYMKHANAA_GROUND", new Place("Gymkhana Grounds", new LatLng(25.260313, 82.988470)));
         put("ADV_GROUND", new Place("ADV Grounds", new LatLng(25.258717674410665, 82.99015402793884)));
     }};
 
-    final Map<String, Place> otherLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> otherLocations = new HashMap<String, Place>() {{
         put("SWATANTRATA_BHAVAN", new Place("Swatantrata Bhavan", new LatLng(25.26073589298122, 82.99452066421509)));
         put("HG", new Place("Hyderabad Gate", new LatLng(25.262944, 82.982306)));
         put("GTAC", new Place("GTAC", new LatLng(25.259717, 82.984984)));
@@ -760,5 +760,21 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             }
         }
         return null;
+    }
+
+    public static Map<String, Place> getMapLocations(){
+        Map<String, Place> mapLocations = new HashMap<>();
+        mapLocations.putAll(hostelLocations);
+        mapLocations.putAll(departmentLocations);
+        mapLocations.putAll(ltLocations);
+        mapLocations.putAll(atmLocations);
+        mapLocations.putAll(templeLocations);
+        mapLocations.putAll(cafeLocations);
+        mapLocations.putAll(hospitalLocations);
+        mapLocations.putAll(petrolLocations);
+        mapLocations.putAll(groundLocations);
+        mapLocations.putAll(otherLocations);
+
+        return mapLocations;
     }
 }

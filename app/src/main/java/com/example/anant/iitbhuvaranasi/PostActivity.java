@@ -3,6 +3,7 @@ package com.example.anant.iitbhuvaranasi;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,15 +12,22 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -44,6 +52,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,10 +63,18 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.example.anant.iitbhuvaranasi.Constants.POR_RESPONSIBILITIES_PREF;
+import static com.example.anant.iitbhuvaranasi.Constants.PREF_NAME;
+import static com.example.anant.iitbhuvaranasi.IITBHUMapActivity.Place;
+import static com.example.anant.iitbhuvaranasi.IITBHUMapActivity.getMapLocations;
 
 
 public class PostActivity extends AppCompatActivity {
@@ -69,12 +86,16 @@ public class PostActivity extends AppCompatActivity {
     LinearLayout setDateTime;
     int mYear, mMonth, mDay, mHour, mMinute;
     String mDateTime, mMapLocation, mMapLocationTitle;
-    EditText eventDescription, eventTitle, venue;
+    EditText eventDescription, eventTitle;
+    Spinner clubName;
+    AutoCompleteTextView venue;
     ImageView eventImage;
     CircularImageView removeImage;
     CoordinatorLayout coordinatorLayout;
     Uri imageUri = null;
     byte[] imageData = null;
+    ArrayAdapter<String> clubAdapter;
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -140,6 +161,7 @@ public class PostActivity extends AppCompatActivity {
         eventDescription = findViewById(R.id.event_description);
         eventImage = findViewById(R.id.event_image);
         removeImage = findViewById(R.id.remove_image);
+        clubName = findViewById(R.id.council_name);
         Button location = findViewById(R.id.location);
         Button shareEvent = findViewById(R.id.share_event_button);
         Button reminder = findViewById(R.id.clock);
@@ -150,14 +172,59 @@ public class PostActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        venue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(venue.getText())) {
-                    Toast.makeText(PostActivity.this, "This venue is for preview. \n For map select location using \"ON MAP\" button", Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPreferences = this.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        String responsibilities = sharedPreferences.getString(POR_RESPONSIBILITIES_PREF, "Club");
+
+        if (responsibilities != null) {
+            clubAdapter = new ArrayAdapter<String>(this, R.layout.post_activity_club_spinner_layout, new ArrayList<String>(Arrays.asList(responsibilities.split("\\s*,\\s*")))) {
+                @Override
+                public View getDropDownView(int position, View convertView, @NotNull ViewGroup parent) {
+
+                    View view = getLayoutInflater().inflate(R.layout.support_simple_spinner_dropdown_item, parent, false);
+                    ((TextView) view).setText(getItem(position));
+                    return view;
                 }
+            };
+            clubName.setAdapter(clubAdapter);
+        }
+
+        VenueAdapter venueAdapter = new VenueAdapter(this, getMapLocations());
+        venue.setAdapter(venueAdapter);
+        venue.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mMapLocation = venueAdapter.mLocations.get(position).getKey();
+                mMapLocationTitle = venueAdapter.mLocations.get(position).getName();
+                venue.setText(mMapLocationTitle);
             }
         });
+
+//        venue.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                for (Location item : venueList(getMapLocations())) {
+//                    if (s.toString().trim().toLowerCase().equals(item.getName().trim().toLowerCase())){
+//                        mMapLocation = null;
+//                        mMapLocationTitle = null;
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                for (Location item : venueList(getMapLocations())) {
+//                    if (s.toString().trim().toLowerCase().equals(item.getName().trim().toLowerCase())){
+//                        mMapLocation = item.getKey();
+//                        mMapLocationTitle = item.getName();
+//                    }
+//                }
+//            }
+//        });
 
         interested.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,12 +254,34 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        Calendar calendar = Calendar.getInstance();
-        mYear = calendar.get(Calendar.YEAR);
-        mMonth = calendar.get(Calendar.MONTH);
-        mDay = calendar.get(Calendar.DAY_OF_MONTH);
-        mHour = 18;
-        mMinute = 00;
+        location.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                String message;
+                if (mMapLocation == null) {
+                    message = "You haven't set map location.";
+                } else {
+                    message = "Your map Location is set to: " + mMapLocation + " i.e " + mMapLocationTitle;
+                }
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG);
+                if (mMapLocation != null) {
+                    snackbar.setAction("Remove", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mMapLocation = null;
+                            mMapLocationTitle = null;
+                        }
+                    });
+                    snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
+                    snackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
+                }
+                snackbar.show();
+                return true;
+            }
+        });
+
+        getCurrentTime();
+
 
         setDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,18 +336,31 @@ public class PostActivity extends AppCompatActivity {
         removeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeImage.setVisibility(View.GONE);
-                int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
-                ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-                eventImage.setLayoutParams(layoutParams);
-                imageUri = null;
-                imageData = null;
-                eventImage.setImageDrawable(getDrawable(R.drawable.ic_insert_photo_color_primary_24dp));
-                eventImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                eventImage.setBackgroundColor(Color.parseColor("#E0E0E0"));
+                removeImage();
             }
         });
 
+    }
+
+    public void getCurrentTime() {
+        Calendar calendar = Calendar.getInstance();
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        mHour = 18;
+        mMinute = 00;
+    }
+
+    public void removeImage() {
+        removeImage.setVisibility(View.GONE);
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        eventImage.setLayoutParams(layoutParams);
+        imageUri = null;
+        imageData = null;
+        eventImage.setImageDrawable(getDrawable(R.drawable.ic_insert_photo_color_primary_24dp));
+        eventImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        eventImage.setBackgroundColor(Color.parseColor("#E0E0E0"));
     }
 
     public void post(View view) {
@@ -274,7 +376,7 @@ public class PostActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             StringBuilder builderMessage = new StringBuilder();
             if (eventImage.getScaleType() == ImageView.ScaleType.CENTER_INSIDE) {
-                builderMessage.append("This event post doesn't contain poster.\n");
+                builderMessage.append("This event post doesn't contain poster.\n\n");
             }
             if (mMapLocation == null) {
                 builderMessage.append("You haven't set map location.\n\n");
@@ -283,105 +385,116 @@ public class PostActivity extends AppCompatActivity {
             }
             builderMessage.append("Are you sure you want to post this event?");
             builder.setMessage(builderMessage.toString());
-            builder.setCancelable(false);
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    final ProgressDialog pdialog = new ProgressDialog(PostActivity.this);
-                    pdialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    pdialog.setMessage("Posting your event...");
-                    pdialog.setCanceledOnTouchOutside(false);
-                    pdialog.show();
-
-                    SharedPreferences sharedPreferences = PostActivity.this.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
-                    String email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
-                    String password = sharedPreferences.getString(Constants.password_shared, Constants.password);
-                    // Todo fetch club/Council
-                    String clubCouncil = "Robotics Club";
-                    String year = String.valueOf(mYear);
-                    String month = String.valueOf(mMonth);
-                    String day = String.valueOf(mDay);
-                    String hour = String.valueOf(mHour);
-                    String minutes = String.valueOf(mMinute);
-                    String location = venue.getText().toString();
-                    String mapLocation = mMapLocation;
-                    String header = eventTitle.getText().toString();
-                    String description = eventDescription.getText().toString();
-
-                    VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, FEED_POST_URL,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    pdialog.dismiss();
-                                    try {
-                                        int responseCode = response.getInt("status");
-                                        switch (responseCode) {
-                                            case 0:
-                                                Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
-                                                break;
-                                            case 1:
-                                                Snackbar.make(coordinatorLayout, "Event successfully posted", Snackbar.LENGTH_LONG).show();
-                                                break;
-                                            case 3:
-                                                Snackbar.make(coordinatorLayout, "Invalid credentials! Unable to post event", Snackbar.LENGTH_LONG).show();
-                                                break;
-                                            default:
-                                                Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
-                                                break;
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            pdialog.dismiss();
-                            Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
-                        }
-                    }) {
-                        @Override
-                        public Map<String, String> getParams() {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("email", email);
-                            params.put("password", password);
-                            params.put("club", clubCouncil);
-                            params.put("location", location);
-                            params.put("map_location", mapLocation);
-                            params.put("header", header);
-                            params.put("description", description);
-                            params.put("year", year);
-                            params.put("month", month);
-                            params.put("day", day);
-                            params.put("hour", hour);
-                            params.put("minutes", minutes);
-                            return params;
-                        }
-
-                        @Override
-                        protected Map<String, DataPart> getByteData() {
-                            Map<String, DataPart> files = new HashMap<>();
-                            if (imageData != null) {
-                                String imageName = header + ".jpeg";
-                                files.put("notification_image", new DataPart(imageName, imageData, "image/jpeg"));
-                            }
-                            return files;
-                        }
-                    };
-                    RequestQueue multipartRequestQueue = Volley.newRequestQueue(PostActivity.this);
-                    multipartRequestQueue.add(multipartRequest);
+                    dialog.dismiss();
+                    postEvent();
                 }
             });
-
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
+                    dialog.dismiss();
                 }
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
+    }
+
+    private void postEvent() {
+        final ProgressDialog pdialog = new ProgressDialog(PostActivity.this);
+        pdialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pdialog.setMessage("Posting your event...");
+        pdialog.setCanceledOnTouchOutside(false);
+        pdialog.show();
+
+        SharedPreferences sharedPreferences = PostActivity.this.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        String email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+        String password = sharedPreferences.getString(Constants.password_shared, Constants.password);
+        String club = clubName.getSelectedItem().toString();
+        String year = String.valueOf(mYear);
+        String month = String.valueOf(mMonth);
+        String day = String.valueOf(mDay);
+        String hour = String.valueOf(mHour);
+        String minutes = String.valueOf(mMinute);
+        String location = venue.getText().toString();
+        String mapLocation = mMapLocation;
+        String header = eventTitle.getText().toString();
+        String description = eventDescription.getText().toString();
+
+        VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, FEED_POST_URL,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        pdialog.dismiss();
+                        try {
+                            int responseCode = response.getInt("status");
+                            switch (responseCode) {
+                                case 0:
+                                    Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
+                                    break;
+                                case 1:
+                                    Snackbar.make(coordinatorLayout, "Event successfully posted", Snackbar.LENGTH_LONG).show();
+                                    removeImage();
+                                    eventTitle.getText().clear();
+                                    dateTime.setText(null);
+                                    mDateTime = null;
+                                    getCurrentTime();
+                                    venue.getText().clear();
+                                    mMapLocation = null;
+                                    mMapLocationTitle = null;
+                                    eventDescription.getText().clear();
+                                    break;
+                                case 3:
+                                    Snackbar.make(coordinatorLayout, "Invalid credentials! Unable to post event", Snackbar.LENGTH_LONG).show();
+                                    break;
+                                default:
+                                    Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pdialog.dismiss();
+                Snackbar.make(coordinatorLayout, "Something went Wrong! Try again Later", Snackbar.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            public Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("password", password);
+                params.put("club", club);
+                params.put("location", location);
+                params.put("map_location", mapLocation);
+                params.put("header", header);
+                params.put("description", description);
+                params.put("year", year);
+                params.put("month", month);
+                params.put("day", day);
+                params.put("hour", hour);
+                params.put("minutes", minutes);
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> files = new HashMap<>();
+                if (imageData != null) {
+                    String imageName = header + ".jpeg";
+                    files.put("notification_image", new DataPart(imageName, imageData, "image/jpeg"));
+                }
+                return files;
+            }
+        };
+        RequestQueue multipartRequestQueue = Volley.newRequestQueue(PostActivity.this);
+        multipartRequestQueue.add(multipartRequest);
     }
 
 
@@ -448,6 +561,98 @@ public class PostActivity extends AppCompatActivity {
         super.onBackPressed();
 
         return true;
+    }
+
+    private ArrayList<Location> venueList(Map<String, Place> mapLocations) {
+        ArrayList<Location> venueName = new ArrayList<>();
+        for (Map.Entry<String, Place> entry : mapLocations.entrySet()) {
+            venueName.add(new Location(entry.getKey(), entry.getValue().getName()));
+        }
+        return venueName;
+    }
+
+
+    class VenueAdapter extends ArrayAdapter<Location> {
+
+        Context mContext;
+        List<Location> originalLocations = new ArrayList<>();
+        List<Location> mLocations = new ArrayList<>();
+
+        public VenueAdapter(@NonNull Context context, Map<String, Place> mapLocations) {
+            super(context, 0, venueList(mapLocations));
+
+            mContext = context;
+            originalLocations = venueList(mapLocations);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view = getLayoutInflater().inflate(R.layout.support_simple_spinner_dropdown_item, parent, false);
+            ((TextView) view).setText(mLocations.get(position).getName());
+            return view;
+        }
+
+        @Override
+        public int getCount() {
+            return mLocations.size();
+        }
+
+        @NonNull
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    final FilterResults results = new FilterResults();
+
+                    final String constraintString = constraint.toString().trim().toLowerCase();
+
+                    final List<Location> values = new ArrayList<>(originalLocations);
+                    final List<Location> newValues = new ArrayList<>();
+
+                    for (Location item : values) {
+                        final String entryString = item.getName().trim().toLowerCase();
+                        if (entryString.contains(constraintString)) {
+                            newValues.add(new Location(item.getKey(), item.getName()));
+                        }
+                    }
+                    results.values = newValues;
+                    results.count = newValues.size();
+
+                    return results;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    if (results.count != 0) {
+                        mLocations = (List<Location>) results.values;
+                        notifyDataSetChanged();
+                    } else {
+                        notifyDataSetInvalidated();
+                    }
+                }
+            };
+        }
+    }
+
+    static class Location {
+
+        String mKey;
+        String mName;
+
+        Location(String key, String name) {
+            mKey = key;
+            mName = name;
+        }
+
+        private String getKey() {
+            return mKey;
+        }
+
+        private String getName() {
+            return mName;
+        }
     }
 
     static class VolleyMultipartRequest extends Request<JSONObject> {
