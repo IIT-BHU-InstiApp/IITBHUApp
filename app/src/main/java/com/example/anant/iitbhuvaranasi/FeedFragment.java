@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -158,6 +159,11 @@ public class FeedFragment extends Fragment {
             public void onSuccess() {
 
             }
+
+            @Override
+            public void onError() {
+
+            }
         });//////////////////////////////////
 
         SharedPreferences pref2 = getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
@@ -208,7 +214,7 @@ public class FeedFragment extends Fragment {
         horizontalRcv.setLayoutManager(layoutManager2);
         horizontalRcv.setAdapter(horizontalRecyclerAdap);
 
-        TextView addButton = view.findViewById(R.id.add_button);
+        ImageView addButton = view.findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

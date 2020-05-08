@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -68,7 +69,8 @@ public class HorizontalRecyclerAdap extends RecyclerView.Adapter<HorizontalRecyc
                 Toast.makeText(mContext, "This is a RecyclerView Item", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.img.setBorderWidth(3);
+        holder.img.setBorderWidth(5);
+        holder.img.setBorderColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         holder.img.setPadding(8,8,8,0);
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -42,7 +42,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:text="Ecell"
-            android:textColor="@color/Black"
+            android:textColor="@color/black"
             android:singleLine="true"
 
             android:textSize="16dp"

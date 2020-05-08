@@ -35,10 +35,15 @@
             android:id="@+id/important_links"
             android:icon="@drawable/ic_link_holo_blue_light_24dp"
             android:title="Important Links" />
+<!--        <item-->
+<!--            android:id="@+id/timetable"-->
+<!--            android:icon="@drawable/ic_link_holo_blue_light_24dp"-->
+<!--            android:title="Timetable" 
 
         <item
             android:id="@+id/post_feed"
             android:title="Post Feed" />
+
     </group>
 
 

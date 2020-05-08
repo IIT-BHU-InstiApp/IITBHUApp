@@ -62,6 +62,11 @@ public class PinActivity extends AppCompatActivity {
             public void onSuccess() {
 
             }
+
+            @Override
+            public void onError() {
+
+            }
         });
 
         SharedPreferences pref2 = getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);

@@ -134,7 +134,7 @@
                                         android:ellipsize="end"
                                         android:maxLines="2"
                                         android:text="Event Title"
-                                        android:textColor="@color/black_color"
+                                        android:textColor="@color/black"
                                         android:textSize="18sp"
                                         android:textStyle="bold" />
 
@@ -158,7 +158,7 @@
                                             android:background="@android:color/transparent"
                                             android:gravity="center_vertical"
                                             android:text="Date"
-                                            android:textColor="@color/colorGray"
+
                                             android:textSize="16dp" />
                                     </LinearLayout>
 
@@ -196,7 +196,7 @@
                                     android:layout_margin="5dp"
 
                                     android:text="Gymkhana Ground"
-                                    android:textColor="@color/colorGray"
+
                                     android:textSize="16sp" />
 
                             </LinearLayout>
@@ -279,6 +279,8 @@
                             android:layout_width="match_parent"
                             app:cardCornerRadius="20dp"
                             android:elevation="8dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
                             android:layout_marginBottom="4dp"
                             android:paddingBottom="4dp"
                             android:background="@color/white_color"
@@ -292,7 +294,7 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginBottom="16dp"
                                 android:text="description"
-                                android:textColor="@color/Black"
+
                                 android:textSize="16sp" />
                         </androidx.cardview.widget.CardView>
 

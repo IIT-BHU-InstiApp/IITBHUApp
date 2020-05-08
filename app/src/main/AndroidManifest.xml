@@ -23,6 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup"
+        android:configChanges="uiMode">
+        <activity
+
         tools:replace="android:allowBackup">
         <activity android:name=".PostActivity"
             android:screenOrientation="portrait"
