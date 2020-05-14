@@ -431,8 +431,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //                        bottomNavigationView.setVisibility(View.GONE);
 //
 //
-//                        x++;
-//                        break;
+//                        x++;//                        break;
+=======
+                
+
+
+
+
+            case R.id.post_feed:
+                Intent postIntent = new Intent(HomeActivity.this, PostActivity.class);
+                startActivity(postIntent);
+                x++;
+                break;
+            
+
+      
+
+
+
+
 
                 }
                 if(menuItem.getItemId() != R.id.nav_maps && menuItem.getItemId() != R.id.nav_academics&& menuItem.getItemId() != R.id.nav_por && menuItem.getItemId() != R.id.nav_security && menuItem.getItemId() != R.id.nav_study && menuItem.getItemId() != R.id.nav_logout ) {
