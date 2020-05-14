@@ -156,6 +156,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                     public void onSuccess() {
                                         updateUI("true");
                                     }
+                                    @Override
+                                    public void onSuccess(JSONObject jsonResponse) {
+
+                                    }
                                 });
                             }
 
