@@ -32,4 +32,7 @@ If automation and robots fascinate you, you’ve landed in the right place. The 
 
     <!-- TODO: Remove or change this placeholder text -->
 
+    <string name="are_interested"><font size = "1">are interested</font></string>
+    <string name="is_interested"><font size = "1">is interested</font></string>
+
 </resources>

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +24,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
-
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,13 +37,13 @@ import java.util.regex.Pattern;
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     public static int guestLoginChecker;
 
-    private static final int RC_SIGN_IN =1 ;
+    private static final int RC_SIGN_IN = 1;
     private GoogleApiClient googleApiClient;
     private Button signInButton;
-    private  static final int REQ_CODE = 9001;
+    private static final int REQ_CODE = 9001;
     private GoogleSignInClient mGoogleSignInClient;
-    private  GoogleSignInOptions gso;
-    private String email,imageUri;
+    private GoogleSignInOptions gso;
+    private String email, imageUri;
     private Uri personphoto;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
@@ -67,10 +65,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
+        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
         cd = new ConnectionDetector(this);
         isInternetPresent = cd.isConnectingToInternet();
-        if(!isInternetPresent){
+        if (!isInternetPresent) {
             showAlertDialog(this, "No Internet Connection",
                     "You don't have internet connection.", false);
         }
@@ -83,8 +81,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 guestLoginChecker = 1;
-
-                startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                 finish();
             }
         });
@@ -100,10 +97,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
 
-
         }
     }
-
 
 
     @Override
@@ -136,31 +131,32 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             email = account.getEmail();
             personphoto = account.getPhotoUrl();
-            if(personphoto == null)
-            {
-                imageUri =  "no value";
-            }
-            else
-            {
+            if (personphoto == null) {
+                imageUri = "no value";
+            } else {
                 imageUri = personphoto.toString();
             }
             // Signed in successfully, show authenticated UI.
             isInternetPresent = false;
             isInternetPresent = cd.isConnectingToInternet();
-            if((isEmailValid2(email)==true || isEmailValid1(email)==true)&&(isInternetPresent))
-            {
-                SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+            if ((isEmailValid2(email) == true || isEmailValid1(email) == true) && (isInternetPresent)) {
+                SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                Log.d("emailtrue12345",email);
+                Log.d("emailtrue12345", email);
                 editor.putString(Constants.Email, email);
                 editor.commit();
                 Login_response.method(this, email, new ServerCallback() {
                     @Override
                     public void onSuccess() {
-                        Api_Response.method(SignInActivity.this, new ServerCallback() {
+                        POR_Response.getPORData(SignInActivity.this, new ServerCallback() {
                             @Override
                             public void onSuccess() {
-                                updateUI("true");
+                                Api_Response.method(SignInActivity.this, new ServerCallback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        updateUI("true");
+                                    }
+                                });
                             }
 
                             @Override
@@ -168,7 +164,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                             }
                         });
-
                     }
 
                     @Override
@@ -179,15 +174,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
 
                 //Login_response.method(this);
-              //  Api_Response.method(this);
-            }
-            else
-            {
+                //  Api_Response.method(this);
+            } else {
                 if (!isInternetPresent) {
                     showAlertDialog(this, "No Internet Connection",
                             "You don't have internet connection.", false);
-                }
-                else {
+                } else {
                     updateUI("invalid");
                 }
             }
@@ -200,18 +192,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void updateUI(String result) {
-        if(result == "true")
-        {
-            Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
+        if (result == "true") {
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
-        }
-        else if(result == "invalid")
-        {
-            Toast.makeText(SignInActivity.this,"Select Valid Institute Email-id",Toast.LENGTH_SHORT).show();
+        } else if (result == "invalid") {
+            Toast.makeText(SignInActivity.this, "Select Valid Institute Email-id", Toast.LENGTH_SHORT).show();
             signout();
-        }
-        else if(result == "false") {
+        } else if (result == "false") {
             isInternetPresent = false;
             isInternetPresent = cd.isConnectingToInternet();
             if (!isInternetPresent) {
@@ -238,6 +226,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
         return isValid;
     }
+
     public static boolean isEmailValid2(String email) {
         boolean isValid = false;
 
@@ -257,12 +246,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         UpdateUI(account);
-     //
+        //
     }
 
     private void UpdateUI(GoogleSignInAccount account) {
-        if(account != null)
-        {
+        if (account != null) {
             Api_Response.method(SignInActivity.this, new ServerCallback() {
                 @Override
                 public void onSuccess() {
@@ -273,7 +261,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
             });
-            Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }

@@ -5,8 +5,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -45,11 +47,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
@@ -58,10 +63,12 @@ import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity
 public class IITBHUMapActivity extends AppCompatActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
         OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback,
+        GoogleMap.OnInfoWindowClickListener {
+
 
     //Nested class used for storing map data
-    private class Place {
+     static class Place {
         private String name;
         private LatLng point;
 
@@ -84,7 +91,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
     private static final String TAG = com.google.android.gms.maps.MapFragment.class.getSimpleName();
 
-    final Map<String, Place> hostelLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> hostelLocations = new HashMap<String, Place>() {{
         put("C_V_RAMAN", new Place("C V Raman Hostel", new LatLng(25.265912276191887, 82.9862916469574)));
         put("MORVI", new Place("Morvi Hostel", new LatLng(25.265077860079725, 82.98618972301483)));
         put("DHANRAJGIRI", new Place("Dhanrajgiri Hostel", new LatLng(25.26392325158243, 82.98608243465424)));
@@ -105,7 +112,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         put("IIT_GIRLS", new Place("IIT Girls Hostel", new LatLng(25.261187, 82.983791)));
     }};
 
-    final Map<String, Place> departmentLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> departmentLocations = new HashMap<String, Place>() {{
         //Departments
         put("ARCHITECHTURE", new Place("Department of Architecture, Planning and Design", new LatLng(25.261633, 82.991648)));
         put("CERAMIC", new Place("Department of Ceramic Engineering", new LatLng(25.259783, 82.992806)));
@@ -127,7 +134,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         put("HUMANISTIC_STUDIES", new Place("Department of Humanistic Studies", new LatLng(25.261603, 82.990653)));
     }};
 
-    final Map<String, Place> ltLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> ltLocations = new HashMap<String, Place>() {{
         //Lecture Theatres
         put("G11", new Place("G-11", new LatLng(25.26123559095607, 82.99245402216911)));
         put("G14", new Place("G-14", new LatLng(25.26172800976422, 82.99058854579926)));
@@ -135,48 +142,50 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         put("LT1", new Place("Lecture Theatre 1", new LatLng(25.260275004676558, 82.99107670783997)));
     }};
 
-    final Map<String, Place> atmLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> atmLocations = new HashMap<String, Place>() {{
         put("ATM_HG1", new Place("ICICI ATM", new LatLng(25.2622883459788, 82.9817345738411)));
         put("ATM_HG2", new Place("SBI ATM", new LatLng(25.26173468044865, 82.98157699406147)));
         put("ATM_VT", new Place("Bank of Baroda ATM", new LatLng(25.26537378738049, 82.98967659473419)));
         put("ATM_eCorner", new Place("SBI eCorner", new LatLng(25.26386261007635, 82.9949739575386)));
     }};
 
-    final Map<String, Place> templeLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> templeLocations = new HashMap<String, Place>() {{
         put("VT", new Place("Vishwanath Temple", new LatLng(25.266083, 82.987908)));
     }};
 
-    final Map<String, Place> cafeLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> cafeLocations = new HashMap<String, Place>() {{
         put("DG", new Place("DG Corner", new LatLng(25.263215, 82.986463)));
         put("LC", new Place("Limbdi Corner", new LatLng(25.260667, 82.986883)));
         put("CCD", new Place("Café Coffee Day", new LatLng(25.258257, 82.986542)));
     }};
 
-    final Map<String, Place> hospitalLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> hospitalLocations = new HashMap<String, Place>() {{
         put("SUNDERLAL_HOSPITAL", new Place("Sir Sunderlal Hospital", new LatLng(25.276436, 82.999643)));
         put("HEALTH_CENTER", new Place("Student's Health Center", new LatLng(25.270028, 82.988653)));
     }};
 
-    final Map<String, Place> petrolLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> petrolLocations = new HashMap<String, Place>() {{
         put("BHU_PETROL", new Place("BHU Petrol Pump", new LatLng(25.278200, 82.996613)));
     }};
 
-    final Map<String, Place> groundLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> groundLocations = new HashMap<String, Place>() {{
         put("RAJPUTANA_GROUND", new Place("Rajputana Grounds", new LatLng(25.262191, 82.987291)));
         put("GYMKHANAA_GROUND", new Place("Gymkhana Grounds", new LatLng(25.260313, 82.988470)));
         put("ADV_GROUND", new Place("ADV Grounds", new LatLng(25.258717674410665, 82.99015402793884)));
     }};
 
-    final Map<String, Place> otherLocations = new HashMap<String, Place>() {{
+    static final Map<String, Place> otherLocations = new HashMap<String, Place>() {{
         put("SWATANTRATA_BHAVAN", new Place("Swatantrata Bhavan", new LatLng(25.26073589298122, 82.99452066421509)));
         put("HG", new Place("Hyderabad Gate", new LatLng(25.262944, 82.982306)));
         put("GTAC", new Place("GTAC", new LatLng(25.259717, 82.984984)));
     }};
 
-    static Map<String,Place> used;
+    static Map<String, Place> used;
 
     private String location = null;
     String location23 = location2345;
+    Boolean isPostActivity;
+
 
 
     FloatingActionMenu filterFAM;
@@ -199,7 +208,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
     public IITBHUMapActivity() {
         // Required empty public constructor
-        location=location23;
+        location = location23;
     }
 
     public IITBHUMapActivity(String locationOfEvent) {
@@ -216,12 +225,13 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_i_i_t_b_h_u_map);
 
+        Intent intent = getIntent();
+        isPostActivity = intent.getBooleanExtra("PostActivity", false);
         if (!isServicesOK()) {
-            Toast.makeText(this,"Google Play Services version not compatible",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Google Play Services version not compatible", Toast.LENGTH_LONG).show();
             finish();
         }
 
@@ -275,7 +285,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                displayAlertDialog("Others",view);
+                displayAlertDialog("Others", view);
                 filterFAM.close(true);
             }
         });
@@ -283,7 +293,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                displayAlertDialog("Lecture Halls",view);
+                displayAlertDialog("Lecture Halls", view);
                 filterFAM.close(true);
             }
         });
@@ -291,7 +301,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                displayAlertDialog("Hostels",view);
+                displayAlertDialog("Hostels", view);
                 filterFAM.close(true);
             }
         });
@@ -299,28 +309,28 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 mMap.clear();
-                displayAlertDialog("Departments",view);
+                displayAlertDialog("Departments", view);
                 filterFAM.close(true);
             }
         });
+
     }
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     //Checks play services are working
-    public boolean isServicesOK(){
+    public boolean isServicesOK() {
         boolean isAvailable = false;
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
 
-        if(available == ConnectionResult.SUCCESS){
+        if (available == ConnectionResult.SUCCESS) {
             //everything is fine and the user can make map requests
             isAvailable = true;
-        }
-        else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
             //an error occured but we can resolve it
             Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
-        }else{
+        } else {
             Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
         }
         return isAvailable;
@@ -335,6 +345,8 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         LatLng targetLocation = cafeLocations.get("LC").getPoint();
 
         mMap = googleMap;
+
+        mMap.setOnInfoWindowClickListener(this);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -350,9 +362,8 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         }
 
         //if map could not load,control would fallback to HomeActivity
-        if (mMap == null)
-        {
-            Toast.makeText(this,"There was error in loading the map",Toast.LENGTH_LONG).show();
+        if (mMap == null) {
+            Toast.makeText(this, "There was error in loading the map", Toast.LENGTH_LONG).show();
             finish();
         }
 
@@ -435,17 +446,16 @@ public class IITBHUMapActivity extends AppCompatActivity implements
      */
     private void enableMyLocation() {
 
-        String permissions[] = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+        String permissions[] = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED)
-            && (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED)) {
-                // Permission is granted
-                mPermissionDenied = false;
-        }
-        else {
-            PermissionUtils.requestPermission(this ,permissions ,
+                && (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED)) {
+            // Permission is granted
+            mPermissionDenied = false;
+        } else {
+            PermissionUtils.requestPermission(this, permissions,
                     LOCATION_PERMISSION_REQUEST_CODE, true);
         }
 
@@ -456,11 +466,11 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         if (!mPermissionDenied) {
             if ((ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED)
-                && (ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED)) {
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            mMap.setOnMyLocationButtonClickListener(this);
+                    && (ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED)) {
+                mMap.setMyLocationEnabled(true);
+                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                mMap.setOnMyLocationButtonClickListener(this);
             }
         }
     }
@@ -475,19 +485,18 @@ public class IITBHUMapActivity extends AppCompatActivity implements
 
     //Displays Location Settings Request to enable GPS/other means to get location
     //gets triggered when MyLocationButton is clicked
-    private void displayLocationSettingsRequest()
-    {
+    private void displayLocationSettingsRequest() {
         LocationRequest mLocationRequest = LocationRequest.create()
-                                            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                            .setInterval(10*1000)
-                                            .setFastestInterval(1*1000);
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)
+                .setFastestInterval(1 * 1000);
 
         LocationSettingsRequest.Builder settingsBuilder = new LocationSettingsRequest.Builder()
-                                                                .addLocationRequest(mLocationRequest);
+                .addLocationRequest(mLocationRequest);
         settingsBuilder.setAlwaysShow(true);
 
         Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(this)
-                                                .checkLocationSettings(settingsBuilder.build());
+                .checkLocationSettings(settingsBuilder.build());
 
 
         result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
@@ -577,22 +586,22 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             mMap.addMarker(new MarkerOptions().position(ltLocations.get(key).getPoint()).title(ltLocations.get(key).getName()).icon(ltMarker));
     }
 
-    private void markTemples(){
+    private void markTemples() {
         for (String key : templeLocations.keySet())
             mMap.addMarker(new MarkerOptions().position(templeLocations.get(key).getPoint()).title(templeLocations.get(key).getName()).icon(templeMarker));
     }
 
-    private void markPetrol(){
+    private void markPetrol() {
         for (String key : petrolLocations.keySet())
             mMap.addMarker(new MarkerOptions().position(petrolLocations.get(key).getPoint()).title(petrolLocations.get(key).getName()).icon(petrolMarker));
     }
 
-    private void markCafe(){
+    private void markCafe() {
         for (String key : cafeLocations.keySet())
             mMap.addMarker(new MarkerOptions().position(cafeLocations.get(key).getPoint()).title(cafeLocations.get(key).getName()).icon(cafeMarker));
     }
 
-    private void markHospitals(){
+    private void markHospitals() {
         for (String key : hospitalLocations.keySet())
             mMap.addMarker(new MarkerOptions().position(hospitalLocations.get(key).getPoint()).title(hospitalLocations.get(key).getName()).icon(hospitalMarker));
     }
@@ -602,7 +611,7 @@ public class IITBHUMapActivity extends AppCompatActivity implements
             mMap.addMarker(new MarkerOptions().position(groundLocations.get(key).getPoint()).title(groundLocations.get(key).getName()).icon(groundMarker));
     }
 
-    private void markOther(){
+    private void markOther() {
         for (String key : otherLocations.keySet())
             mMap.addMarker(new MarkerOptions().position(otherLocations.get(key).getPoint()).title(otherLocations.get(key).getName()).icon(otherMarker));
     }
@@ -637,14 +646,14 @@ public class IITBHUMapActivity extends AppCompatActivity implements
         filterFAM.setIconToggleAnimatorSet(set);
     }
 
-    private void displayAlertDialog(String name,View view) {
-        String options[] = {"Display All","Select from List"};
+    private void displayAlertDialog(String name, View view) {
+        String options[] = {"Display All", "Select from List"};
         AlertDialog.Builder builder = new AlertDialog.Builder(IITBHUMapActivity.this);
-        builder.setTitle("Display "+name);
+        builder.setTitle("Display " + name);
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which){
+                switch (which) {
                     case 0: {
                         if (name.equals("Hostels"))
                             markHostels();
@@ -665,11 +674,11 @@ public class IITBHUMapActivity extends AppCompatActivity implements
                     break;
                     case 1:
                         if (name.equals("Hostels"))
-                            used=hostelLocations;
+                            used = hostelLocations;
                         else if (name.equals("Departments"))
-                            used=departmentLocations;
+                            used = departmentLocations;
                         else if (name.equals("Lecture Halls"))
-                            used=ltLocations;
+                            used = ltLocations;
                         else if (name.equals("Others")) {
                             used = new HashMap<String, Place>();
                             used.clear();
@@ -698,22 +707,74 @@ public class IITBHUMapActivity extends AppCompatActivity implements
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         this.getMenuInflater().inflate(R.menu.context_menu, menu);
-        int i=0;
+        int i = 0;
         for (String key : used.keySet()) {
-            menu.add(1,i,i,used.get(key).getName());
+            menu.add(1, i, i, used.get(key).getName());
         }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         String name = item.getTitle().toString();
-        for (String key : used.keySet())
-        {
-            if (name.equals(used.get(key).getName())){
-                location2345=key;
+        for (String key : used.keySet()) {
+            if (name.equals(used.get(key).getName())) {
+                location2345 = key;
                 onMapReady(mMap);
             }
         }
         return true;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        if (isPostActivity) {
+            Intent postActivityIntent = new Intent();
+            postActivityIntent.putExtra("MarkerTitle", marker.getTitle());
+            postActivityIntent.putExtra("MarkerKey", getKey(marker.getTitle()));
+            setResult(Activity.RESULT_OK,postActivityIntent);
+            finish();
+        }
+
+    }
+
+    public String getKey(String name) {
+
+        List<Map> hashmapList = new ArrayList<>();
+        hashmapList.add(hostelLocations);
+        hashmapList.add(departmentLocations);
+        hashmapList.add(ltLocations);
+        hashmapList.add(atmLocations);
+        hashmapList.add(templeLocations);
+        hashmapList.add(cafeLocations);
+        hashmapList.add(hospitalLocations);
+        hashmapList.add(petrolLocations);
+        hashmapList.add(groundLocations);
+        hashmapList.add(otherLocations);
+
+        for (int i = 0; i < hashmapList.size(); i++) {
+            Map hashmap = hashmapList.get(i);
+            for (Map.Entry<String, Place> entry : (Iterable<Map.Entry<String, Place>>) hashmap.entrySet()) {
+                if (entry.getValue().getName().equals(name)) {
+                    return entry.getKey();
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Map<String, Place> getMapLocations(){
+        Map<String, Place> mapLocations = new HashMap<>();
+        mapLocations.putAll(hostelLocations);
+        mapLocations.putAll(departmentLocations);
+        mapLocations.putAll(ltLocations);
+        mapLocations.putAll(atmLocations);
+        mapLocations.putAll(templeLocations);
+        mapLocations.putAll(cafeLocations);
+        mapLocations.putAll(hospitalLocations);
+        mapLocations.putAll(petrolLocations);
+        mapLocations.putAll(groundLocations);
+        mapLocations.putAll(otherLocations);
+
+        return mapLocations;
     }
 }
