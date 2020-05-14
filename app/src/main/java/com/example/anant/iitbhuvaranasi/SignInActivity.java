@@ -12,6 +12,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,12 +51,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private Uri personphoto;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
+    LinearLayout signInLayout;
+    ProgressBar progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -78,10 +83,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         signInButton = findViewById(R.id.siginbutton);
         signInButton.setOnClickListener(this);
 
+        signInLayout = findViewById(R.id.signIn_layout);
+        progressBar = findViewById(R.id.signIn_progress);
         TextView guestLogin = findViewById(R.id.guestLogin);
         guestLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                signInLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+
                 guestLoginChecker = 1;
                 String email4 ="guestuser@iitbhu.ac.in";
                 SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
@@ -100,6 +110,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                             @Override
                             public void onError() {
+
                                 startActivity(new Intent(SignInActivity.this,HomeActivity.class));
                                 finish();
                             }
@@ -181,6 +192,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             isInternetPresent = cd.isConnectingToInternet();
             if((isEmailValid2(email)==true || isEmailValid1(email)==true)&&(isInternetPresent))
             {
+                signInLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+
                 SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 Log.d("emailtrue12345",email);

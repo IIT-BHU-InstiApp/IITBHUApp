@@ -242,7 +242,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        if(menuItem.getItemId() != R.id.nav_maps && menuItem.getItemId() != R.id.nav_academics&& menuItem.getItemId() != R.id.nav_por && menuItem.getItemId() != R.id.nav_security  && menuItem.getItemId() != R.id.nav_study && menuItem.getItemId() != R.id.nav_logout ) {
+        if(menuItem.getItemId() != R.id.nav_maps && menuItem.getItemId() != R.id.nav_academics && menuItem.getItemId() != R.id.nav_por && menuItem.getItemId() != R.id.nav_security  && menuItem.getItemId() != R.id.nav_study && menuItem.getItemId() != R.id.nav_logout ) {
             bottomNavigationView.setVisibility(View.GONE);
             crossfade(progressBar, container, false);
         }
@@ -305,6 +305,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                             x++;}
                         else{
                             itemSelectionNavigationView();
+                            if(track == 0) {
+                                bottomNavigationView.setVisibility(View.VISIBLE);
+                            }
                             Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
                             toast.show();
 
@@ -320,10 +323,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                                     new LostAndFoundFragment()).commit();
-                            bottomNavigationView.setVisibility(View.GONE);
+
                             x++;}
                         else{
                             itemSelectionNavigationView();
+                            if(track == 0) {
+                                bottomNavigationView.setVisibility(View.VISIBLE);
+                            }
                             Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
                             toast.show();
 
@@ -419,9 +425,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         startActivity(intent2);
                         finish();
                         break;
-//                    case R.id.timetable:
+//                    case R.id.nav_events:
 //                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                new Timetable()).commit();
+//                                new ExpandedFeedFragment()).commit();
 //                        bottomNavigationView.setVisibility(View.GONE);
 //
 //

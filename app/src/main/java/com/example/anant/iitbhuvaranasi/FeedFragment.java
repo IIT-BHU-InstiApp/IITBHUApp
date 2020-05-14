@@ -77,25 +77,25 @@ public class FeedFragment extends Fragment {
             e.printStackTrace();
         }
 
-        getVerticalData5 = new ArrayList<>();
+        getVerticalData5 = VerticalDataFeed.getUpcomingEvents(getContext());
         getHorizontalData1 = new ArrayList<>();
 
 
-        for (int a = 0; a < getVerticalData4.size(); a++) {
-            String originalString = getVerticalData4.get(a).getDate_event();
-            String original = originalString.replace("T", " ");
-            String original1 = original.replace("Z", "");
-
-            Date date2 = null;
-            try {
-                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            if (CurrentTime.before(date2)) {
-                getVerticalData5.add(getVerticalData4.get(a));
-            }
-        }
+//        for (int a = 0; a < getVerticalData4.size(); a++) {
+//            String originalString = getVerticalData4.get(a).getDate_event();
+//            String original = originalString.replace("T", " ");
+//            String original1 = original.replace("Z", "");
+//
+//            Date date2 = null;
+//            try {
+//                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            if (CurrentTime.before(date2)) {
+//                getVerticalData5.add(getVerticalData4.get(a));
+//            }
+//        }
         mRecyclerView = view.findViewById(R.id.recycler_view);
 
         mRecyclerView.setHasFixedSize(true);

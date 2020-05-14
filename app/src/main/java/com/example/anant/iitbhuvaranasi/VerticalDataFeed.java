@@ -8,13 +8,73 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class VerticalDataFeed {
 
     public static ArrayList<SingleVerticalData> getVerticalData3;
+
+    public static ArrayList<SingleVerticalData> getUpcomingEvents(Context context){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date CurrentTime = null;
+        try {
+            CurrentTime = dateFormat.parse(dateFormat.format(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        ArrayList<SingleVerticalData> allEvents = getVerticalData3(context);
+        ArrayList<SingleVerticalData> upComingEvents = new ArrayList<SingleVerticalData>();
+
+        for (int a = 0; a < allEvents.size(); a++) {
+            String originalString = allEvents.get(a).getDate_event();
+            String original = originalString.replace("T", " ");
+            String original1 = original.replace("Z", "");
+
+            Date date2 = null;
+            try {
+                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (CurrentTime.before(date2)) {
+                upComingEvents.add(allEvents.get(a));
+            }
+        }
+        return upComingEvents;
+    }
+    public static ArrayList<SingleVerticalData> getPastEvents(Context context){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date CurrentTime = null;
+        try {
+            CurrentTime = dateFormat.parse(dateFormat.format(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        ArrayList<SingleVerticalData> allEvents = getVerticalData3(context);
+        ArrayList<SingleVerticalData> pastEvents = new ArrayList<SingleVerticalData>();
+
+        for (int a = 0; a < allEvents.size(); a++) {
+            String originalString = allEvents.get(a).getDate_event();
+            String original = originalString.replace("T", " ");
+            String original1 = original.replace("Z", "");
+
+            Date date2 = null;
+            try {
+                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (CurrentTime.after(date2)) {
+                pastEvents.add(allEvents.get(a));
+            }
+        }
+        return pastEvents;
+    }
 
     public static ArrayList<SingleVerticalData> getVerticalData3(final Context context) {
 
