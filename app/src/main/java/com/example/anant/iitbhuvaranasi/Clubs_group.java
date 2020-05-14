@@ -80,7 +80,7 @@ public class Clubs_group extends AppCompatActivity {
             }
 
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onError() {
 
             }
         });

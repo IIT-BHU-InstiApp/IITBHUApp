@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onError() {
 
             }
         });

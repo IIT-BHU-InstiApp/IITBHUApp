@@ -25,8 +25,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -133,7 +131,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
                     }
 
                     @Override
-                    public void onSuccess(JSONObject jsonResponse) {
+                    public void onError() {
 
                     }
                 });

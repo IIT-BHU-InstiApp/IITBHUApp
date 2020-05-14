@@ -34,7 +34,7 @@
             android:gravity="start|center_vertical"
             android:text="Club Name"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textSize="18dp" />
 
 
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
-            android:background="@drawable/ic_info_outline_white_24dp" />
+            android:background="@drawable/ic_info" />
 
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

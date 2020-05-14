@@ -8,6 +8,7 @@ public class SingleVerticalData {
     private String image_event,date_event;
     private String location,viewcount,interestedcount,interested,notifid;
 
+
     public SingleVerticalData(){
 
     }

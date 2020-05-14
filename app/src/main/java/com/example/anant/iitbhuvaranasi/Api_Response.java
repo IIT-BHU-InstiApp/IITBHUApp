@@ -33,6 +33,10 @@ public class Api_Response {
         try {
             obj.put("email",email3);
             obj.put("password",password3);
+            Log.d("heloods","dsfsfds");
+            Log.d("heloods2",password3);
+            Log.d("heloods3",email3);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -61,11 +65,56 @@ public class Api_Response {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                serverCallback.onError();
 
             }
         });
         mRequestQueue.add(request);
         return apiresponse[0];
+    }
+
+    public static void MethodForTimetable(final Context context,ServerCallBackForTimetable serverCallback)
+    {
+        mRequestQueue = Volley.newRequestQueue(context);
+
+        String url = "http://iitbhuapp.tk/timetable";
+        JSONObject obj = new JSONObject();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        String email3 = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+        String password3 = sharedPreferences.getString(Constants.password_shared, Constants.password);
+        try {
+            obj.put("email",email3);
+            obj.put("password",password3);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, obj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+
+               /* SharedPreferences pref = context.getSharedPreferences("MyPref2", 0);
+                SharedPreferences.Editor editor = pref.edit();
+                String rew = response.toString();
+                editor.putString("bhaiplease", rew);
+                editor.commit();*/
+
+
+                serverCallback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+            }
+        });
+        mRequestQueue.add(request);
+
     }
 }

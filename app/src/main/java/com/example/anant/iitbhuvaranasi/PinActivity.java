@@ -64,7 +64,7 @@ public class PinActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onError() {
 
             }
         });

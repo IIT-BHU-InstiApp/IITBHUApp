@@ -37,13 +37,13 @@ import java.util.regex.Pattern;
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     public static int guestLoginChecker;
 
-    private static final int RC_SIGN_IN = 1;
+    private static final int RC_SIGN_IN =1 ;
     private GoogleApiClient googleApiClient;
     private Button signInButton;
-    private static final int REQ_CODE = 9001;
+    private  static final int REQ_CODE = 9001;
     private GoogleSignInClient mGoogleSignInClient;
-    private GoogleSignInOptions gso;
-    private String email, imageUri;
+    private  GoogleSignInOptions gso;
+    private String email,imageUri;
     private Uri personphoto;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
@@ -65,10 +65,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
+        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
         cd = new ConnectionDetector(this);
         isInternetPresent = cd.isConnectingToInternet();
-        if (!isInternetPresent) {
+        if(!isInternetPresent){
             showAlertDialog(this, "No Internet Connection",
                     "You don't have internet connection.", false);
         }
@@ -81,8 +81,41 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 guestLoginChecker = 1;
-                startActivity(new Intent(SignInActivity.this, HomeActivity.class));
-                finish();
+                String email4 ="guestuser@iitbhu.ac.in";
+                SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                Log.d("emailtrue12345",email4);
+                editor.putString(Constants.Email, email4);
+                editor.commit();
+                Login_response.method(SignInActivity.this, email4, new ServerCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Api_Response.method(SignInActivity.this, new ServerCallback() {
+                            @Override
+                            public void onSuccess() {
+                                updateUI("true");
+                            }
+
+                            @Override
+                            public void onError() {
+                                startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                                finish();
+                            }
+
+
+                        });
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                        finish();
+                    }
+
+
+                });
+
             }
         });
     }
@@ -97,8 +130,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
 
+
         }
     }
+
 
 
     @Override
@@ -230,7 +265,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
         return isValid;
     }
-
     public static boolean isEmailValid2(String email) {
         boolean isValid = false;
 
@@ -250,11 +284,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         UpdateUI(account);
-        //
+     //
     }
 
     private void UpdateUI(GoogleSignInAccount account) {
-        if (account != null) {
+        if(account != null)
+        {
             Api_Response.method(SignInActivity.this, new ServerCallback() {
                 @Override
                 public void onSuccess() {
@@ -265,7 +300,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
             });
-            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+            Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
             startActivity(intent);
             finish();
         }

@@ -7,23 +7,24 @@
     <color name="black">#1A181A</color>
     <color name="black_color">#000000</color>
     <color name="white_color">#FFFFFF</color>
+    <color name="bnb_color">#FFFFFF</color>
     <color name="grey">#9A9A92</color>
+    <color name="transparent">@android:color/transparent</color>
+
+
 
 
     <color name="colorGray">#757575</color>
 
     <color name="colorRed">#FF0000</color>
+    <!-- Map -->
 
+    <!-- Added By Suryansh -->
+    <color name="colorblack">#000000</color>
     <color name="colorblue220">#55A4E4</color>
 
     <!-- Added by Suryansh. -->
     <color name="toolbar_color_control_normal">@color/colorGray</color>
 
     <color name="holo_blue_light">#ff33b5e5</color>
-
-    <color name="mint">#ADEFD1FF</color>
-    <color name="sailor_blue">#00203F</color>
-
-    <color name="pale_green">#CBCE91FF</color>
-    <color name="bubblegum_pink">#EA738DFF</color>
 </resources>

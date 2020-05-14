@@ -1,10 +1,12 @@
 package com.example.anant.iitbhuvaranasi;
 
+import android.animation.Animator;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,12 +16,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.view.GravityCompat;
@@ -47,13 +53,42 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
     public String email;
+
     NavigationView navigationView;
+    ProgressBar progressBar;
+    FrameLayout container;
     int x = 0;
     int track = 0;
 
 
     public static String emailOfStudent = "";
     public static String name_student = "";
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+
+        getMenuInflater().inflate(R.menu.home_menu,menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.normal_theme:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                return true;
+            case R.id.dark_theme:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 
     @Override
     protected void onResume() {
@@ -78,7 +113,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         Constants.Email_Key = email;
-        Log.d("no_hats2", "hello4");
+        Log.d("no_hats2","hello4");
         ID_card_Response.method(this, new ServerCallback() {
             @Override
             public void onSuccess() {
@@ -90,12 +125,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        Log.d("no_hats3", "hello5");
+        Log.d("no_hats3","hello5");
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -111,7 +148,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = findViewById(R.id.nav_view);
+        navigationView =  findViewById(R.id.nav_view);
+        progressBar = findViewById(R.id.progressBar);
+        container = findViewById(R.id.fragment_container);
+
 
         View headerView = navigationView.getHeaderView(0);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -128,25 +168,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             //personFamilyName = acct.getFamilyName();
         }
 
-        TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
-        TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
+         TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
+         TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
         SharedPreferences pref3 = getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
-        Log.d("no_hats", "hello");
-        if (name_student.isEmpty()) {
-            Log.d("no_hats1", "hello123");
-            name_student = pref3.getString(Constants.Name_Student, personGivenName);
-        }
-        emailOfStudent.setText(personEmail);
-        nameOfStudent.setText(name_student);
+        Log.d("no_hats","hello");
+        if(name_student.isEmpty()){
+            Log.d("no_hats1","hello123");
+        name_student = pref3.getString(Constants.Name_Student,personGivenName );
+     }
+         emailOfStudent.setText(personEmail);
+         nameOfStudent.setText(name_student);
 //
 //                +"\npersonFamilyName="+personFamilyName);
 
         navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
-        if (SignInActivity.guestLoginChecker == 1) {
+        if(SignInActivity.guestLoginChecker == 1){
             emailOfStudent.setText(" ");
             nameOfStudent.setText("Hello Guest User");
-            if (Constants.Progress == 1) {
+            if(Constants.Progress ==1) {
                 ProgressDialog dialog = ProgressDialog.show(this, "", "Detecting...",
                         true);
                 dialog.show();
@@ -203,39 +243,55 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if(menuItem.getItemId() != R.id.nav_maps && menuItem.getItemId() != R.id.nav_academics&& menuItem.getItemId() != R.id.nav_por && menuItem.getItemId() != R.id.nav_security  && menuItem.getItemId() != R.id.nav_study && menuItem.getItemId() != R.id.nav_logout ) {
+            bottomNavigationView.setVisibility(View.GONE);
+            crossfade(progressBar, container, false);
+        }
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
-        switch (menuItem.getItemId()) {
+            }
 
-            case R.id.nav_notifications:
-                track = 0;
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                switch (menuItem.getItemId()) {
+
+                    case R.id.nav_notifications:
+                        track = 0;
 
 //                SharedPreferences.Editor editor = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor.putInt("track",0);
 //                editor.commit();
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FeedFragment()).commit();
-                bottomNavigationView.setSelectedItemId(R.id.feed);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                new FeedFragment()).commit();
+                        bottomNavigationView.setSelectedItemId(R.id.feed);
 
-                bottomNavigationView.setVisibility(View.VISIBLE);
+                        bottomNavigationView.setVisibility(View.VISIBLE);
 
 
                 break;
 
-            case R.id.nav_maps:
+                    case R.id.nav_maps:
 //                track = 1;
 //                SharedPreferences.Editor editor1 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor1.putInt("track",1);
 //                editor1.commit();
 
 
-                location2345 = null;
-                Intent intent1 = new Intent(HomeActivity.this, IITBHUMapActivity.class);
-                startActivity(intent1);
-                //finish();
-                x++;
-                break;
-            case R.id.nav_complain:
+                        location2345=null;
+                        Intent intent1 = new Intent(HomeActivity.this, IITBHUMapActivity.class);
+                        startActivity(intent1);
+                        //finish();
+                        x++;
+                        break;
+                    case R.id.nav_complain:
 
 //                SharedPreferences.Editor editor2 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor2.putInt("track",2);
@@ -255,33 +311,34 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 }
 
 
-                break;
-            case R.id.lost_found:
 
-                if (SignInActivity.guestLoginChecker != 1) {
-                    track = 3;
+                        break;
+                    case R.id.lost_found:
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new LostAndFoundFragment()).commit();
-                    bottomNavigationView.setVisibility(View.GONE);
-                    x++;
-                } else {
-                    itemSelectionNavigationView();
-                    Toast toast = Toast.makeText(getApplicationContext(), "You need to LogIn for this feature", Toast.LENGTH_LONG);
-                    toast.show();
+                        if(SignInActivity.guestLoginChecker != 1){
+                            track = 3;
 
-                }
-                break;
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                    new LostAndFoundFragment()).commit();
+                            bottomNavigationView.setVisibility(View.GONE);
+                            x++;}
+                        else{
+                            itemSelectionNavigationView();
+                            Toast toast = Toast.makeText(getApplicationContext(),"You need to LogIn for this feature",Toast.LENGTH_LONG);
+                            toast.show();
+
+                        }
+                        break;
 
 
-            case R.id.important_links:
-                track = 5;
+                    case R.id.important_links:
+                        track = 5;
 //                SharedPreferences.Editor editor5 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor5.putInt("track",5);
 //                editor5.commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ImportantLinksFragment()).commit();
-                bottomNavigationView.setVisibility(View.GONE);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                new ImportantLinksFragment()).commit();
+                        bottomNavigationView.setVisibility(View.GONE);
 
 
                 x++;
@@ -299,36 +356,43 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 intent.putExtra("Intent", "security");
                 startActivity(intent);
                 finish();
+                        x++;
+                        break;
+                    case R.id.nav_security:
+                        Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
+                        intent.putExtra("Intent", "security");
+                        startActivity(intent);
+                        finish();
 
-                x++;
+                        x++;
 
-                break;
-            case R.id.nav_academics:
-                Intent intent4 = new Intent(HomeActivity.this, ContactsActivity.class);
-                intent4.putExtra("Intent", "academics");
-                startActivity(intent4);
-                finish();
-                x++;
+                        break;
+                    case R.id.nav_academics:
+                        Intent intent4 = new Intent(HomeActivity.this, ContactsActivity.class);
+                        intent4.putExtra("Intent", "academics");
+                        startActivity(intent4);
+                        finish();
+                        x++;
 
-                break;
-            case R.id.nav_por:
-                Intent intent3 = new Intent(HomeActivity.this, ContactsActivity.class);
-                intent3.putExtra("Intent", "por");
-                startActivity(intent3);
-                finish();
-                x++;
+                        break;
+                    case R.id.nav_por:
+                        Intent intent3 = new Intent(HomeActivity.this, ContactsActivity.class);
+                        intent3.putExtra("Intent", "por");
+                        startActivity(intent3);
+                        finish();
+                        x++;
 
-                break;
-            case R.id.nav_study:
-
-
-                String url = "https://drive.google.com/drive/u/1/folders/1UxuN1fej_4L-l9S_efyWq39h1YAzH8TW";
+                        break;
+                    case R.id.nav_study:
 
 
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.intent.setPackage("com.android.chrome");
-                customTabsIntent.launchUrl(this, Uri.parse(url));
+                        String url = "https://drive.google.com/drive/u/1/folders/1UxuN1fej_4L-l9S_efyWq39h1YAzH8TW";
+
+
+                        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                        CustomTabsIntent customTabsIntent = builder.build();
+                        customTabsIntent.intent.setPackage("com.android.chrome");
+                        customTabsIntent.launchUrl(HomeActivity.this, Uri.parse(url));
 
 
                 break;
@@ -359,16 +423,70 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                             }
                         });
 
-                SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor spreferencesEditor = spreferences.edit();
-                spreferencesEditor.clear();
-                spreferencesEditor.apply();
+                        break;
+                    case R.id.nav_logout:
+                        SignInActivity.guestLoginChecker = 0;
+                        mGoogleSignInClient.signOut();
+//                                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        // ...
+//                                    }
+//                                });
 
-                Intent intent2 = new Intent(this, SignInActivity.class);
-                startActivity(intent2);
-                finish();
+                        SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor spreferencesEditor = spreferences.edit();
+                        spreferencesEditor.clear();
+                        spreferencesEditor.apply();
+
+                        Intent intent2 = new Intent(HomeActivity.this, SignInActivity.class);
+                        startActivity(intent2);
+                        finish();
+                        break;
+//                    case R.id.timetable:
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                new Timetable()).commit();
+//                        bottomNavigationView.setVisibility(View.GONE);
+//
+//
+//                        x++;//                        break;
+=======
+
+
+
+
+
+            case R.id.post_feed:
+                Intent postIntent = new Intent(HomeActivity.this, PostActivity.class);
+                startActivity(postIntent);
+                x++;
                 break;
-        }
+
+
+
+
+
+
+
+
+                }
+                if(menuItem.getItemId() != R.id.nav_maps && menuItem.getItemId() != R.id.nav_academics&& menuItem.getItemId() != R.id.nav_por && menuItem.getItemId() != R.id.nav_security && menuItem.getItemId() != R.id.nav_study && menuItem.getItemId() != R.id.nav_logout ) {
+                    crossfade(container, progressBar, false);
+                }
+
+
+                // Remove this listener so close by, for example, swiping do not call it again
+                drawer.removeDrawerListener(this);
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
+
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -410,6 +528,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Fragment selectedFragment = null;
 
 
+
             switch (item.getItemId()) {
                 case R.id.id_card:
                     if (SignInActivity.guestLoginChecker == 1) {
@@ -424,7 +543,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 case R.id.feed:
 
-                    selectedFragment = new FeedFragment();
+                        selectedFragment = new FeedFragment();
 
                     break;
 
@@ -452,21 +571,73 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //
 //    }
 
-    //
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String name = "FirebaseNotification";
-            String description = "No description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("firebase", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+//
+private void createNotificationChannel(){
+    // Create the NotificationChannel, but only on API 26+ because
+    // the NotificationChannel class is new and not in the support library
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        String name = "FirebaseNotification";
+        String description = "No description";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel("firebase", name, importance);
+        channel.setDescription(description);
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
+
+
+}
+
+    private void crossfade(View viewIn, View viewOut, Boolean animateViewOut) {
+
+        long crossfadeDuration = 200L;
+
+        // Set the content view to 0% opacity but visible, so that it is visible
+        // (but fully transparent) during the animation.
+//        viewIn.alpha = 0f;
+        viewIn.setAlpha(0f);
+//        viewIn.visibility = View.VISIBLE;
+        viewIn.setVisibility(View.VISIBLE);
+        viewIn.bringToFront();
+
+
+        // Animate the in view to 100% opacity, and clear any animation
+        // listener set on the view.
+        viewIn.animate()
+                .alpha(1f)
+                .setDuration(crossfadeDuration)
+                .setListener(null);
+
+        // Animate the out view to 0% opacity. After the animation ends,
+        // set its visibility to GONE as an optimization step (it won't
+        // participate in layout passes, etc.)
+        viewOut.animate()
+                .alpha(0f)
+                .setDuration( (animateViewOut) ? crossfadeDuration : 0)
+            .setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    viewOut.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
+
     }
 }
 
