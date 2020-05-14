@@ -25,37 +25,40 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup"
         android:configChanges="uiMode">
-        <activity android:name=".PostActivity"
+        <!--        <activity-->
+
+        <!--        tools:replace="android:allowBackup"/>-->
+        <activity android:name=".Activities.PostActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"/>
         <activity
-            android:name=".IITBHUMapActivity"
+            android:name=".Activities.IITBHUMapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DeveloperInfo"
+            android:name=".Activities.DeveloperInfo"
             android:screenOrientation="portrait" />
-        <activity android:name=".ContactsActivity" />
+        <activity android:name=".Activities.ContactsActivity" />
         <activity
-            android:name=".PinActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Club_ProfilePage"
+            android:name=".Activities.PinActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Club_Feed"
-            android:screenOrientation="portrait" />
-        <activity android:name=".SignInActivity" />
-        <activity
-            android:name=".Full_screen_imageActivity"
+            android:name=".Activities.Club_ProfilePage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Clubs_group"
+            android:name=".Activities.Club_Feed"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.SignInActivity" />
+        <activity
+            android:name=".Activities.Full_screen_imageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Feedfragment_notifcation_Activity"
+            android:name=".Activities.Clubs_group"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.Feedfragment_notifcation_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,7 +67,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".Activities.HomeActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

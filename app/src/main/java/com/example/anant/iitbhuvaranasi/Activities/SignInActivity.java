@@ -24,6 +24,7 @@ import com.example.anant.iitbhuvaranasi.BackendResponse.Api_Response;
 import com.example.anant.iitbhuvaranasi.ConnectionDetector;
 import com.example.anant.iitbhuvaranasi.Constants;
 import com.example.anant.iitbhuvaranasi.BackendResponse.Login_response;
+import com.example.anant.iitbhuvaranasi.POR_Response;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
 import com.google.android.gms.auth.api.Auth;
@@ -36,6 +37,8 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,7 +101,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 String email4 ="guestuser@iitbhu.ac.in";
                 SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                Log.d("emailtrue12345",email4);
+
                 editor.putString(Constants.Email, email4);
                 editor.commit();
                 Login_response.method(SignInActivity.this, email4, new ServerCallback() {
@@ -206,7 +209,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                Log.d("emailtrue12345",email);
+
                 editor.putString(Constants.Email, email);
                 editor.commit();
                 Login_response.method(this, email, new ServerCallback() {

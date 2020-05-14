@@ -1,4 +1,4 @@
-package com.example.anant.iitbhuvaranasi;
+package com.example.anant.iitbhuvaranasi.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -49,6 +49,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.Volley;
+import com.example.anant.iitbhuvaranasi.Activities.Feedfragment_notifcation_Activity;
+import com.example.anant.iitbhuvaranasi.Activities.IITBHUMapActivity;
+import com.example.anant.iitbhuvaranasi.Activities.IITBHUMapActivity;
+import com.example.anant.iitbhuvaranasi.Constants;
+import com.example.anant.iitbhuvaranasi.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -71,10 +76,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.anant.iitbhuvaranasi.Activities.IITBHUMapActivity.getMapLocations;
 import static com.example.anant.iitbhuvaranasi.Constants.POR_RESPONSIBILITIES_PREF;
 import static com.example.anant.iitbhuvaranasi.Constants.PREF_NAME;
-import static com.example.anant.iitbhuvaranasi.IITBHUMapActivity.Place;
-import static com.example.anant.iitbhuvaranasi.IITBHUMapActivity.getMapLocations;
+//import static com.example.anant.iitbhuvaranasi.IITBHUMapActivity.Place;
+//import static com.example.anant.iitbhuvaranasi.IITBHUMapActivity.getMapLocations;
 
 
 public class PostActivity extends AppCompatActivity {
@@ -563,9 +569,9 @@ public class PostActivity extends AppCompatActivity {
         return true;
     }
 
-    private ArrayList<Location> venueList(Map<String, Place> mapLocations) {
+    private ArrayList<Location> venueList(Map<String, IITBHUMapActivity.Place> mapLocations) {
         ArrayList<Location> venueName = new ArrayList<>();
-        for (Map.Entry<String, Place> entry : mapLocations.entrySet()) {
+        for (Map.Entry<String, IITBHUMapActivity.Place> entry : mapLocations.entrySet()) {
             venueName.add(new Location(entry.getKey(), entry.getValue().getName()));
         }
         return venueName;
@@ -578,7 +584,7 @@ public class PostActivity extends AppCompatActivity {
         List<Location> originalLocations = new ArrayList<>();
         List<Location> mLocations = new ArrayList<>();
 
-        public VenueAdapter(@NonNull Context context, Map<String, Place> mapLocations) {
+        public VenueAdapter(@NonNull Context context, Map<String, IITBHUMapActivity.Place> mapLocations) {
             super(context, 0, venueList(mapLocations));
 
             mContext = context;

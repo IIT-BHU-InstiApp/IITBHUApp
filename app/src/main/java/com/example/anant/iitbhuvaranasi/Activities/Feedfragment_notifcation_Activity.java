@@ -52,7 +52,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
+//import static com.example.anant.iitbhuvaranasi.HomeActivity.name_student;
 
 public class  Feedfragment_notifcation_Activity extends AppCompatActivity implements View.OnClickListener {
 

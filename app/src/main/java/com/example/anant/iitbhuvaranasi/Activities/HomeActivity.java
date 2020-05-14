@@ -39,6 +39,7 @@ import com.example.anant.iitbhuvaranasi.Fragments.IDCardFragment;
 import com.example.anant.iitbhuvaranasi.Fragments.ImportantLinksFragment;
 import com.example.anant.iitbhuvaranasi.BackendResponse.ID_card_Response;
 import com.example.anant.iitbhuvaranasi.Fragments.LostAndFoundFragment;
+//import com.example.anant.iitbhuvaranasi.PostActivity;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -52,7 +53,7 @@ import static com.example.anant.iitbhuvaranasi.Activities.Feedfragment_notifcati
 import org.json.JSONObject;
 
 import static com.example.anant.iitbhuvaranasi.Constants.IS_POR_PREF;
-import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
+//import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
 
 //import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -121,7 +122,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         Constants.Email_Key = email;
-        Log.d("no_hats2","hello4");
+
         ID_card_Response.method(this, new ServerCallback() {
             @Override
             public void onSuccess() {
@@ -140,7 +141,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         });
-        Log.d("no_hats3","hello5");
+
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -186,9 +187,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
          TextView emailOfStudent = headerView.findViewById(R.id.email_of_student);
          TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
         SharedPreferences pref3 = getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
-        Log.d("no_hats","hello");
+
         if(name_student.isEmpty()){
-            Log.d("no_hats1","hello123");
+
         name_student = pref3.getString(Constants.Name_Student,personGivenName );
      }
          emailOfStudent.setText(personEmail);
@@ -365,13 +366,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 x++;
                 break;
 
-            case R.id.post_feed:
 
-                Intent postIntent = new Intent(HomeActivity.this, PostActivity.class);
-                startActivity(postIntent);
-
-                x++;
-                break;
             case R.id.nav_security:
                 Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
                 intent.putExtra("Intent", "security");
@@ -453,18 +448,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //
 //
 //                        x++;//                        break;
-=======
-                
-
-
-
-
-
-
-
-
-
-
+                    case R.id.post_feed:
+                        Intent postIntent = new Intent(HomeActivity.this, PostActivity.class);
+                        startActivity(postIntent);
+                        x++;
+                        break;
 
 
                 }

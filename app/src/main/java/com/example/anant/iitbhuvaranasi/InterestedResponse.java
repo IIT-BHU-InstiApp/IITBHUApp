@@ -8,19 +8,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
+import static com.example.anant.iitbhuvaranasi.Activities.HomeActivity.emailOfStudent;
+//import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
 
 
 public class InterestedResponse
 {
     private static RequestQueue mRequestQueue;
 
-    public static JSONObject method(final Context context, ServerCallback serverCallback,int notifid,int choice) {
+    public static JSONObject method(final Context context, ServerCallback serverCallback, int notifid, int choice) {
 
         mRequestQueue = Volley.newRequestQueue(context);
 

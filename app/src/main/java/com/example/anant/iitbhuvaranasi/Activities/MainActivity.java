@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        //getSupportActionBar().hide();
+       // getSupportActionBar().hide();
 
         videoView = (VideoView) findViewById(R.id.videoView);
 

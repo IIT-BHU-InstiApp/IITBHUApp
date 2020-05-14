@@ -57,7 +57,7 @@ public class ID_card_Response {
                     if (status == 1) {
                         name = response.getString("name");
                         name_student = name;
-                        Log.d("name_changed",name_student);
+
 
                     }
                 } catch (JSONException e) {

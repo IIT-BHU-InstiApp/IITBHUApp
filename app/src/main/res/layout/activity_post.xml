@@ -7,7 +7,6 @@
     tools:context=".Activities.PostActivity">
 
     <Button
-        android:id="@+id/post"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:layout_gravity="center"
@@ -180,7 +179,6 @@
 
 
                     <LinearLayout
-                        android:id="@+id/set_venue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12sp"

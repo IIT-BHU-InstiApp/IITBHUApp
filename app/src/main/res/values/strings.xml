@@ -2,7 +2,6 @@
     <string name="app_name">IIT (BHU) Varanasi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="set_event_time_calender">Set Calendar Reminder</string>
 
 
     <string name="sae">“All those cars were once just a dream in somebody’s head.”
@@ -34,8 +33,5 @@ If automation and robots fascinate you, you’ve landed in the right place. The 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-
-    <string name="are_interested"><font size = "1">are interested</font></string>
-    <string name="is_interested"><font size = "1">is interested</font></string>
 
 </resources>

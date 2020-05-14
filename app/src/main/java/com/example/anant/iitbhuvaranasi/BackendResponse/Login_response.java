@@ -47,7 +47,7 @@ public class Login_response {
 
                 try {
                     String password1 = response.getString("password");
-                    Log.d("password",password1);
+
                     Constants.password = password1;
                     SharedPreferences pref = context.getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
