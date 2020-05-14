@@ -164,6 +164,11 @@ public class FeedFragment extends Fragment {
             public void onError() {
 
             }
+
+            @Override
+            public void onSuccess(JSONObject response) {
+
+            }
         });//////////////////////////////////
 
         SharedPreferences pref2 = getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);

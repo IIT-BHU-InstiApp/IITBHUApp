@@ -121,9 +121,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
 
             @Override
-            public void onSuccess(JSONObject jsonResponse) {
+            public void onError() {
 
             }
+
+            @Override
+            public void onSuccess(JSONObject response) {
+
+            }
+
+
         });
         Log.d("no_hats3","hello5");
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -358,15 +365,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 finish();
                         x++;
                         break;
-                    case R.id.nav_security:
-                        Intent intent = new Intent(HomeActivity.this, ContactsActivity.class);
-                        intent.putExtra("Intent", "security");
-                        startActivity(intent);
-                        finish();
 
-                        x++;
-
-                        break;
                     case R.id.nav_academics:
                         Intent intent4 = new Intent(HomeActivity.this, ContactsActivity.class);
                         intent4.putExtra("Intent", "academics");
@@ -408,22 +407,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 CustomTabsIntent.Builder builder1 = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent1 = builder1.build();
                 //customTabsIntent1.intent.setPackage("com.android.chrome");
-                customTabsIntent1.launchUrl(this, Uri.parse(url1));
+                customTabsIntent1.launchUrl(HomeActivity.this, Uri.parse(url1));
                 //customTabsIntent1.launchUrl(Objects.requireNonNull(this, Uri.parse(url1));
 
 
                 break;
-            case R.id.nav_logout:
-                SignInActivity.guestLoginChecker = 0;
-                mGoogleSignInClient.signOut()
-                        .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                // ...
-                            }
-                        });
 
-                        break;
                     case R.id.nav_logout:
                         SignInActivity.guestLoginChecker = 0;
                         mGoogleSignInClient.signOut();
@@ -450,17 +439,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //
 //
 //                        x++;//                        break;
-=======
 
 
 
 
 
-            case R.id.post_feed:
-                Intent postIntent = new Intent(HomeActivity.this, PostActivity.class);
-                startActivity(postIntent);
-                x++;
-                break;
 
 
 

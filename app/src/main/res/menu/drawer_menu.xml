@@ -35,34 +35,29 @@
             android:id="@+id/important_links"
             android:icon="@drawable/ic_link_holo_blue_light_24dp"
             android:title="Important Links" />
-<!--        <item-->
-<!--            android:id="@+id/timetable"-->
-<!--            android:icon="@drawable/ic_link_holo_blue_light_24dp"-->
-<!--            android:title="Timetable" 
 
         <item
             android:id="@+id/post_feed"
             android:title="Post Feed" />
-
     </group>
 
 
 
-        <group android:id="@+id/group2">
+    <group android:id="@+id/group2">
 
-            <item
-                android:id="@+id/nav_academics"
-                android:icon="@drawable/ic_imp_contacts"
-                android:title="Academics"/>
-            <item
-                android:id="@+id/nav_por"
-                android:icon="@drawable/ic_imp_contacts"
-                android:title="POR"/>
-            <item
-                android:id="@+id/nav_security"
-                android:icon="@drawable/ic_imp_contacts"
-                android:title="Security/Emergency"/>
-        </group>
+        <item
+            android:id="@+id/nav_academics"
+            android:icon="@drawable/ic_imp_contacts"
+            android:title="Academics"/>
+        <item
+            android:id="@+id/nav_por"
+            android:icon="@drawable/ic_imp_contacts"
+            android:title="POR"/>
+        <item
+            android:id="@+id/nav_security"
+            android:icon="@drawable/ic_imp_contacts"
+            android:title="Security/Emergency"/>
+    </group>
 
 
     <group android:checkableBehavior="single"
@@ -70,32 +65,30 @@
 
 
 
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_developer_mode_black_24dp"
-                android:title="Developers" />
-            <item
-                android:id="@+id/feedback"
-                android:icon="@drawable/ic_feedback_black_24dp"
-                android:title="Feedback/Suggestions" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_logout"
-                android:title="Logout" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_developer_mode_black_24dp"
+            android:title="Developers" />
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_feedback_black_24dp"
+            android:title="Feedback/Suggestions" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
 
     </group>
 
 
 
-        <!--        <item-->
-        <!--            android:id="@+id/nav_myprofile"-->
-        <!--            android:icon="@drawable/ic_complain"-->
-        <!--            android:title="My Profile" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/nav_eidcard"-->
-        <!--            android:icon="@drawable/ic_about"-->
-        <!--            android:title="E-ID Card" />-->
+    <!--        <item-->
+    <!--            android:id="@+id/nav_myprofile"-->
+    <!--            android:icon="@drawable/ic_complain"-->
+    <!--            android:title="My Profile" />-->
+    <!--        <item-->
+    <!--            android:id="@+id/nav_eidcard"-->
+    <!--            android:icon="@drawable/ic_about"-->
+    <!--            android:title="E-ID Card" />-->
 
 </menu>
-
-

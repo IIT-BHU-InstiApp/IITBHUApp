@@ -83,6 +83,11 @@ public class Clubs_group extends AppCompatActivity {
             public void onError() {
 
             }
+
+            @Override
+            public void onSuccess(JSONObject response) {
+
+            }
         });
 
         SharedPreferences pref2 =  getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);

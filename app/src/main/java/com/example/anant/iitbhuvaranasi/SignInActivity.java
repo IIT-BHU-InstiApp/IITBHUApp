@@ -102,6 +102,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                 finish();
                             }
 
+                            @Override
+                            public void onSuccess(JSONObject response) {
+
+                            }
+
 
                         });
 
@@ -111,6 +116,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     public void onError() {
                         startActivity(new Intent(SignInActivity.this,HomeActivity.class));
                         finish();
+                    }
+
+                    @Override
+                    public void onSuccess(JSONObject response) {
+
                     }
 
 
@@ -191,6 +201,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                     public void onSuccess() {
                                         updateUI("true");
                                     }
+
+                                    @Override
+                                    public void onError() {
+
+                                    }
+
                                     @Override
                                     public void onSuccess(JSONObject jsonResponse) {
 
@@ -199,10 +215,20 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             }
 
                             @Override
+                            public void onError() {
+
+                            }
+
+                            @Override
                             public void onSuccess(JSONObject jsonResponse) {
 
                             }
                         });
+                    }
+
+                    @Override
+                    public void onError() {
+
                     }
 
                     @Override
@@ -293,6 +319,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             Api_Response.method(SignInActivity.this, new ServerCallback() {
                 @Override
                 public void onSuccess() {
+                }
+
+                @Override
+                public void onError() {
+
                 }
 
                 @Override

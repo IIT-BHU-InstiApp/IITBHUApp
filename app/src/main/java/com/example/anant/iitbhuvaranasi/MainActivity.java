@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
             public void onError() {
 
             }
+
+            @Override
+            public void onSuccess(JSONObject response) {
+
+            }
         });
         //getSupportActionBar().hide();
 

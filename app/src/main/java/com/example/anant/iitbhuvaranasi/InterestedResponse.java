@@ -19,7 +19,7 @@ import static com.example.anant.iitbhuvaranasi.HomeActivity.emailOfStudent;
 public class InterestedResponse
 {
     private static RequestQueue mRequestQueue;
-    
+
     public static JSONObject method(final Context context, ServerCallback serverCallback,int notifid,int choice) {
 
         mRequestQueue = Volley.newRequestQueue(context);
@@ -67,10 +67,10 @@ public class InterestedResponse
                 error.printStackTrace();
             }
         });
-        
+
         mRequestQueue.add(request);
-        
-    return apiResponse[0];
+
+        return apiResponse[0];
     }
 
 }
@@ -80,30 +80,24 @@ public class InterestedResponse
     private static RequestQueue mRequestQueue;
     private static String[] apiResponse={"0"};
     private static ServerCallback mServerCallback;
-
     public static String method(final Context context, ServerCallback serverCallback, int notifid)
     {
         mServerCallback=serverCallback;
         mRequestQueue = Volley.newRequestQueue(context);
-
         String url = "http://iitbhuapp.tk/interested";
         JSONObject jsonObject =new JSONObject();
-
         try
         {
             jsonObject.put("email", "tanmaymishra.mec18@itbhu.ac.in");
             jsonObject.put("notifid", notifid);
         }
         catch (JSONException e){e.printStackTrace();}
-
         ResponseListener responseListener = new ResponseListener();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url,jsonObject,responseListener,responseListener);
         mRequestQueue.add(request);
         Log.i("RESPONSE","InterestedClass "+apiResponse[0]);
         return apiResponse[0];
     }
-
-
     static class ResponseListener implements Response.Listener<JSONObject>,Response.ErrorListener
     {
         @Override
@@ -117,14 +111,12 @@ public class InterestedResponse
                     apiResponse[0] = response.toString();
                     Log.i("ricks", apiResponse[0]);
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             apiResponse[0] = response.toString();
             mServerCallback.onSuccess();
         }
-
         @Override
         public void onErrorResponse(VolleyError error) {
             error.printStackTrace();
