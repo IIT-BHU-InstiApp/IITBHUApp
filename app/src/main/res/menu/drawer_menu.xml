@@ -42,7 +42,7 @@
 <!--        <item-->
 <!--            android:id="@+id/timetable"-->
 <!--            android:icon="@drawable/ic_link_holo_blue_light_24dp"-->
-<!--            android:title="Timetable" 
+<!--            android:title="Timetable" -->
 
         <item
             android:id="@+id/post_feed"
@@ -91,14 +91,14 @@
 
 
 
-        <!--        <item-->
-        <!--            android:id="@+id/nav_myprofile"-->
-        <!--            android:icon="@drawable/ic_complain"-->
-        <!--            android:title="My Profile" />-->
-        <!--        <item-->
-        <!--            android:id="@+id/nav_eidcard"-->
-        <!--            android:icon="@drawable/ic_about"-->
-        <!--            android:title="E-ID Card" />-->
+<!--            <item-->
+<!--                    android:id="@+id/nav_myprofile"-->
+<!--                    android:icon="@drawable/ic_complain"-->
+<!--                    android:title="My Profile" />-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_eidcard"-->
+<!--                    android:icon="@drawable/ic_about"-->
+<!--                    android:title="E-ID Card" />-->
 
 </menu>
 

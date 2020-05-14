@@ -25,9 +25,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup"
         android:configChanges="uiMode">
-        <activity
+<!--        <activity-->
 
-        tools:replace="android:allowBackup">
+<!--        tools:replace="android:allowBackup"/>-->
         <activity android:name=".PostActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"/>
