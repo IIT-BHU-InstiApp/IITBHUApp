@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    tools:context=".Club_ProfilePage">
+    tools:context=".Activities.Club_ProfilePage">
     <include
         android:id="@+id/toolbar_profile_page"
         layout="@layout/custom_toolbar_main"

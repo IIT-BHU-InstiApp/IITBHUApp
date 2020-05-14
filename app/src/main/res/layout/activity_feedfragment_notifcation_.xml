@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Feedfragment_notifcation_Activity">
+    tools:context=".Activities.Feedfragment_notifcation_Activity">
 
     <LinearLayout
         android:id="@+id/linear_layout_feed_fragment"

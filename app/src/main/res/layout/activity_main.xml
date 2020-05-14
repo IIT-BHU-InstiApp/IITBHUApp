@@ -7,7 +7,7 @@
     android:background="#FEFEFE"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Activities.MainActivity">
 
 
     <VideoView
