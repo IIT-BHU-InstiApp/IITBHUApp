@@ -2,7 +2,7 @@ package com.example.anant.iitbhuvaranasi.NewModels;
 
 import androidx.annotation.Nullable;
 
-public class ClubListPost {
+public class BuiltAllCouncilsPost {
 
     @Nullable
     private int id;
@@ -11,13 +11,11 @@ public class ClubListPost {
     private String name;
 
     @Nullable
-    private BuiltAllCouncilsPost council;
-
-    @Nullable
     private String small_image_url;
 
     @Nullable
     private String large_image_url;
+
 
     public int getId() {
         return id;
@@ -26,11 +24,6 @@ public class ClubListPost {
     @Nullable
     public String getName() {
         return name;
-    }
-
-    @Nullable
-    public BuiltAllCouncilsPost getCouncil() {
-        return council;
     }
 
     @Nullable
