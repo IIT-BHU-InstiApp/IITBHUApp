@@ -48,4 +48,74 @@ public class BuiltWorkshopCreatePost {
     @Nullable
     private String link;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public int getClub() {
+        return club;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Nullable
+    public String getDescription() {
+        return description;
+    }
+
+    @Nullable
+    public String getTime() {
+        return time;
+    }
+
+    @Nullable
+    public String getLocation() {
+        return location;
+    }
+
+    @Nullable
+    public String getLatitude() {
+        return latitude;
+    }
+
+    @Nullable
+    public String getLongitude() {
+        return longitude;
+    }
+
+    @Nullable
+    public String getAudience() {
+        return audience;
+    }
+
+    @Nullable
+    public List<Integer> getResources() {
+        return resources;
+    }
+
+    @Nullable
+    public List<Integer> getContacts() {
+        return contacts;
+    }
+
+    @Nullable
+    public String getImage_url() {
+        return image_url;
+    }
+
+    @Nullable
+    public List<Integer> getTags() {
+        return tags;
+    }
+
+    @Nullable
+    public String getLink() {
+        return link;
+    }
 }

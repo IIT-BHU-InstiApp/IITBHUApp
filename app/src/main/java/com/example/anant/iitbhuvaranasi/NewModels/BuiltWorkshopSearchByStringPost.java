@@ -10,4 +10,13 @@ public class BuiltWorkshopSearchByStringPost {
     @Nullable
     private String search_string;
 
+    @Nullable
+    public String getSearch_by() {
+        return search_by;
+    }
+
+    @Nullable
+    public String getSearch_string() {
+        return search_string;
+    }
 }
