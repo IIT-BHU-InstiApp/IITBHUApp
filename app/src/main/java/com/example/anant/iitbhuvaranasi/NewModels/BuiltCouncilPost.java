@@ -50,4 +50,77 @@ public class BuiltCouncilPost {
 
     @Nullable
     private String youtube_url;
+
+    public int getId() {
+        return id;
+    }
+
+    @Nullable
+    public String getName() {
+        return name;
+    }
+
+    @Nullable
+    public String getDescription() {
+        return description;
+    }
+
+    @Nullable
+    public SecyPost getGensec() {
+        return gensec;
+    }
+
+    @Nullable
+    public List<SecyPost> getJoint_gensec() {
+        return joint_gensec;
+    }
+
+    @Nullable
+    public List<ClubListPost> getClubs() {
+        return clubs;
+    }
+
+    @Nullable
+    public String getSmall_image_url() {
+        return small_image_url;
+    }
+
+    @Nullable
+    public String getLarge_image_url() {
+        return large_image_url;
+    }
+
+    public boolean isIs_por_holder() {
+        return is_por_holder;
+    }
+
+    @Nullable
+    public String getWebsite_url() {
+        return website_url;
+    }
+
+    @Nullable
+    public String getFacebook_url() {
+        return facebook_url;
+    }
+
+    @Nullable
+    public String getTwitter_url() {
+        return twitter_url;
+    }
+
+    @Nullable
+    public String getInstagram_url() {
+        return instagram_url;
+    }
+
+    @Nullable
+    public String getLinkedin_url() {
+        return linkedin_url;
+    }
+
+    @Nullable
+    public String getYoutube_url() {
+        return youtube_url;
+    }
 }

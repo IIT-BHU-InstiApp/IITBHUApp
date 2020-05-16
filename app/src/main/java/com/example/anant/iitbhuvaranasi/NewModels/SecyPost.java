@@ -19,4 +19,27 @@ public class SecyPost {
     @Nullable
     private String photo_url;
 
+    public int getId() {
+        return id;
+    }
+
+    @Nullable
+    public String getName() {
+        return name;
+    }
+
+    @Nullable
+    public String getEmail() {
+        return email;
+    }
+
+    @Nullable
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    @Nullable
+    public String getPhoto_url() {
+        return photo_url;
+    }
 }

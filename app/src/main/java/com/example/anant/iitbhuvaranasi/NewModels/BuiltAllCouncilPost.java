@@ -16,15 +16,23 @@ public class BuiltAllCouncilPost {
     @Nullable
     private String large_image_url;
 
-    public BuiltAllCouncilPost(
-            int id,
-            @Nullable String name,
-            @Nullable String small_image_url,
-            @Nullable String large_image_url
-    ) {
-        this.id = id;
-        this.name = name;
-        this.small_image_url = small_image_url;
-        this.large_image_url = large_image_url;
+
+    public int getId() {
+        return id;
+    }
+
+    @Nullable
+    public String getName() {
+        return name;
+    }
+
+    @Nullable
+    public String getSmall_image_url() {
+        return small_image_url;
+    }
+
+    @Nullable
+    public String getLarge_image_url() {
+        return large_image_url;
     }
 }

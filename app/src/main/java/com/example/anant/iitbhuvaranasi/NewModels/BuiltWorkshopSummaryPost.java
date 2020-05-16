@@ -25,21 +25,32 @@ public class BuiltWorkshopSummaryPost {
     private List<TagDetail> tags;
 
 
-    public BuiltWorkshopSummaryPost(
-            int id,
-            @Nullable ClubListPost club,
-            @Nullable String title,
-            @Nullable String date,
-            @Nullable String time,
-            @Nullable List<TagDetail> tags
-    ) {
-        this.id = id;
-        this.club = club;
-        this.title = title;
-        this.date = date;
-        this.time = time;
-        this.tags = tags;
+    public int getId() {
+        return id;
     }
 
+    @Nullable
+    public ClubListPost getClub() {
+        return club;
+    }
 
+    @Nullable
+    public String getTitle() {
+        return title;
+    }
+
+    @Nullable
+    public String getDate() {
+        return date;
+    }
+
+    @Nullable
+    public String getTime() {
+        return time;
+    }
+
+    @Nullable
+    public List<TagDetail> getTags() {
+        return tags;
+    }
 }
