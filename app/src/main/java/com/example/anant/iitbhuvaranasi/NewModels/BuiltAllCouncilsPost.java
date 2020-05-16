@@ -2,7 +2,7 @@ package com.example.anant.iitbhuvaranasi.NewModels;
 
 import androidx.annotation.Nullable;
 
-public class BuiltAllCouncilPost {
+public class BuiltAllCouncilsPost {
 
     @Nullable
     private int id;

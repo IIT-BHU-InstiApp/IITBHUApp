@@ -11,7 +11,7 @@ public class ClubListPost {
     private String name;
 
     @Nullable
-    private BuiltAllCouncilPost council;
+    private BuiltAllCouncilsPost council;
 
     @Nullable
     private String small_image_url;
@@ -29,7 +29,7 @@ public class ClubListPost {
     }
 
     @Nullable
-    public BuiltAllCouncilPost getCouncil() {
+    public BuiltAllCouncilsPost getCouncil() {
         return council;
     }
 
