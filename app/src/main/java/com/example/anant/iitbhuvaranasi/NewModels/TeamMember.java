@@ -13,4 +13,18 @@ public class TeamMember {
     @Nullable
     private String github_image_url;
 
+    @Nullable
+    public String getName() {
+        return name;
+    }
+
+    @Nullable
+    public String getGithub_username() {
+        return github_username;
+    }
+
+    @Nullable
+    public String getGithub_image_url() {
+        return github_image_url;
+    }
 }

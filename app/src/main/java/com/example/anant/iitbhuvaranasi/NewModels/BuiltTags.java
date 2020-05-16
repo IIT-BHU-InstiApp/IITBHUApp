@@ -9,4 +9,8 @@ public class BuiltTags {
     @Nullable
     private List<Integer> tags;
 
+    @Nullable
+    public List<Integer> getTags() {
+        return tags;
+    }
 }

@@ -8,4 +8,9 @@ public class BuiltContacts {
 
     @Nullable
     private List<Integer> contacts;
+
+    @Nullable
+    public List<Integer> getContacts() {
+        return contacts;
+    }
 }
