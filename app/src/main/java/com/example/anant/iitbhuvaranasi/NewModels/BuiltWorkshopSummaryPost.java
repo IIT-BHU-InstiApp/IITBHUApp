@@ -25,4 +25,21 @@ public class BuiltWorkshopSummaryPost {
     private List<TagDetail> tags;
 
 
+    public BuiltWorkshopSummaryPost(
+            int id,
+            @Nullable ClubListPost club,
+            @Nullable String title,
+            @Nullable String date,
+            @Nullable String time,
+            @Nullable List<TagDetail> tags
+    ) {
+        this.id = id;
+        this.club = club;
+        this.title = title;
+        this.date = date;
+        this.time = time;
+        this.tags = tags;
+    }
+
+
 }
