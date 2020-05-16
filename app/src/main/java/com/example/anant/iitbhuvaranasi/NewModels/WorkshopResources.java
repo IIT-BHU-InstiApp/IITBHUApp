@@ -16,4 +16,22 @@ public class WorkshopResources {
     @Nullable
     private String resource_type;
 
+    public int getId() {
+        return id;
+    }
+
+    @Nullable
+    public String getName() {
+        return name;
+    }
+
+    @Nullable
+    public String getLink() {
+        return link;
+    }
+
+    @Nullable
+    public String getResource_type() {
+        return resource_type;
+    }
 }

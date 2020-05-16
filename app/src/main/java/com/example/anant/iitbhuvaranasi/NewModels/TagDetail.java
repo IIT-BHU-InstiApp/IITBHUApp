@@ -13,4 +13,17 @@ public class TagDetail {
     @Nullable
     private ClubListPost club;
 
+    public int getId() {
+        return id;
+    }
+
+    @Nullable
+    public String getTag_name() {
+        return tag_name;
+    }
+
+    @Nullable
+    public ClubListPost getClub() {
+        return club;
+    }
 }

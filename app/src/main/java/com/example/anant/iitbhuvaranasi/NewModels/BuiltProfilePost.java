@@ -33,4 +33,47 @@ public class BuiltProfilePost {
     @Nullable
     private String photo_url;
 
+    public int getId() {
+        return id;
+    }
+
+    @Nullable
+    public String getName() {
+        return name;
+    }
+
+    @Nullable
+    public String getEmail() {
+        return email;
+    }
+
+    @Nullable
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    @Nullable
+    public String getDepartment() {
+        return department;
+    }
+
+    @Nullable
+    public String getYear_of_joining() {
+        return year_of_joining;
+    }
+
+    @Nullable
+    public List<ClubListPost> getSubscriptions() {
+        return subscriptions;
+    }
+
+    @Nullable
+    public List<ClubListPost> getClub_privileges() {
+        return club_privileges;
+    }
+
+    @Nullable
+    public String getPhoto_url() {
+        return photo_url;
+    }
 }
