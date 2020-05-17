@@ -95,8 +95,8 @@ dependencies {
     implementation 'com.github.cooltechworks:WhatsappFormatter:v1.0'
     implementation 'com.google.firebase:firebase-messaging:20.1.5'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
 
 
 }
