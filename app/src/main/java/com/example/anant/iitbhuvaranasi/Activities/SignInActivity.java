@@ -235,18 +235,97 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                         Log.d("GoogleActivity", "signInWithCredential:success");
                         firebaseUser = mAuth.getCurrentUser();
+
                         firebaseIdToken = firebaseUser.getIdToken(false).getResult().getToken();
+
+
+                        //______________________________________ requesting token from backend _______________________
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(Constants.herokuBaseUrl)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        OtherAPIs loginAPI = retrofit.create(OtherAPIs.class);
+                        Call<Token> call = loginAPI.logInPost(new LoginPost(firebaseIdToken));
+                        signInLayout.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        call.enqueue(new Callback<Token>() {
+                            @Override
+                            public void onResponse(Call<Token> call, Response<Token> response) {
+
+                                if (response.isSuccessful() && response.code() == 200) {
+
+                                    System.out.println("------------------------token fetched from backend-------------------------");
+
+                                    Token token = response.body();
+                                    Constants.djangoToken = "token " + token.getToken();
+                                    SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+
+                                    editor.putString(Constants.djangoTokenKey, Constants.djangoToken);
+                                    editor.commit();
+
+                                    editor.putString(Constants.Email, email);
+                                    editor.commit();
+
+                                    email = account.getEmail();
+                                    personphoto = account.getPhotoUrl();
+                                    if (personphoto == null) {
+                                        imageUri = "no value";
+                                    } else {
+                                        imageUri = personphoto.toString();
+                                    }
+                                    updateUI("true");
+                                }else{
+
+                                    signout();
+                                    isInternetPresent = false;
+                                    isInternetPresent = cd.isConnectingToInternet();
+
+                                    if (!isInternetPresent) {
+                                        showAlertDialog(SignInActivity.this, "No Internet Connection",
+                                                "You don't have internet connection.", false);
+                                    } else {
+                                        updateUI("invalid");
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Token> call, Throwable t) {
+                                System.out.println("------------------------ response failed-------------------------");
+                                System.out.println("------------------------ response failed-------------------------");
+                                System.out.println("------------------------ response failed-------------------------");
+
+
+                                signout();
+
+                                isInternetPresent = false;
+                                isInternetPresent = cd.isConnectingToInternet();
+
+                                if (!isInternetPresent) {
+                                    showAlertDialog(SignInActivity.this, "No Internet Connection",
+                                            "You don't have internet connection.", false);
+                                } else {
+                                    updateUI("invalid");
+                                }
+
+                            }
+                        });
+
+//_________________________________________________________________________________________________
+
 
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("GoogleActivity", "signInWithCredential:failure", task.getException());
 
-//                    TODO: implement below method
-//                        UpdateUI(null);
+                        updateUI("false");
                     }
 
-
-                    //TODO: SHOW PROGRESS BAR HERE
+                    //TODO:  PROGRESS BAR
 //                     hideProgressBar();
 
                 }
@@ -255,113 +334,77 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             // ------------------------------------------------------Firebase Auth Ends-----------------------------------------------
 
 
-            //______________________________________ requesting token from backend _______________________
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.herokuBaseUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            OtherAPIs loginAPI = retrofit.create(OtherAPIs.class);
-            Call<Token> call = loginAPI.logInPost(new LoginPost(firebaseIdToken));
-
-            try {
-                Token token = call.execute().body();
-                Constants.djangoToken = "token " + token.getToken();
-                SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-
-                editor.putString(Constants.djangoTokenKey, Constants.djangoToken);
-                editor.commit();
-
-                Log.w("backend Token", Constants.djangoToken);
-
-
-            } catch (IOException e) {
-                Log.w("token request","token  request from backend failed : " + e.getMessage());
-            }
-
-//_________________________________________________________________________________________________
-
-
-            email = account.getEmail();
-            personphoto = account.getPhotoUrl();
-            if (personphoto == null) {
-                imageUri = "no value";
-            } else {
-                imageUri = personphoto.toString();
-            }
             // Signed in successfully, show authenticated UI.
-            isInternetPresent = false;
-            isInternetPresent = cd.isConnectingToInternet();
-            if ((isEmailValid2(email) == true || isEmailValid1(email) == true) && (isInternetPresent)) {
-                signInLayout.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
-
-                SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-
-                editor.putString(Constants.Email, email);
-                editor.commit();
-
-                Login_response.method(this, email, new ServerCallback() {
-                    @Override
-                    public void onSuccess() {
-                        POR_Response.getPORData(SignInActivity.this, new ServerCallback() {
-                            @Override
-                            public void onSuccess() {
-                                Api_Response.method(SignInActivity.this, new ServerCallback() {
-                                    @Override
-                                    public void onSuccess() {
-                                        updateUI("true");
-                                    }
-
-                                    @Override
-                                    public void onError() {
-
-                                    }
-
-                                    @Override
-                                    public void onSuccess(JSONObject jsonResponse) {
-
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onError() {
-
-                            }
-
-                            @Override
-                            public void onSuccess(JSONObject jsonResponse) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-
-                    @Override
-                    public void onSuccess(JSONObject jsonResponse) {
-
-                    }
-                });
-
-
-                //Login_response.method(this);
-                //  Api_Response.method(this);
-            } else {
-                if (!isInternetPresent) {
-                    showAlertDialog(this, "No Internet Connection",
-                            "You don't have internet connection.", false);
-                } else {
-                    updateUI("invalid");
-                }
-            }
+//            isInternetPresent = false;
+//            isInternetPresent = cd.isConnectingToInternet();
+//            if ((isEmailValid2(email) == true || isEmailValid1(email) == true) && (isInternetPresent)) {
+//                signInLayout.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.VISIBLE);
+//
+//                SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPref.edit();
+//
+//                editor.putString(Constants.Email, email);
+//                editor.commit();
+//
+//                Login_response.method(this, email, new ServerCallback() {
+//                    @Override
+//                    public void onSuccess() {
+//                        POR_Response.getPORData(SignInActivity.this, new ServerCallback() {
+//                            @Override
+//                            public void onSuccess() {
+//                                Api_Response.method(SignInActivity.this, new ServerCallback() {
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        updateUI("true");
+//                                    }
+//
+//                                    @Override
+//                                    public void onError() {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onSuccess(JSONObject jsonResponse) {
+//
+//                                    }
+//                                });
+//                            }
+//
+//                            @Override
+//                            public void onError() {
+//
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(JSONObject jsonResponse) {
+//
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onError() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(JSONObject jsonResponse) {
+//
+//                    }
+//                });
+//
+//
+//                //Login_response.method(this);
+//                //  Api_Response.method(this);
+//            } else {
+//                if (!isInternetPresent) {
+//                    showAlertDialog(this, "No Internet Connection",
+//                            "You don't have internet connection.", false);
+//                } else {
+//                    updateUI("invalid");
+//                }
+//            }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -371,6 +414,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void updateUI(String result) {
+
         if (result == "true") {
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);
@@ -390,6 +434,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 signout();
             }
         }
+        progressBar.setVisibility(View.INVISIBLE);
+        signInLayout.setVisibility(View.VISIBLE);
+
     }
 
     public static boolean isEmailValid1(String email) {
@@ -423,19 +470,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onStart() {
         super.onStart();
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 //        UpdateUI(account);
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        UpdateUI(currentUser);
+        UpdateUI(account, currentUser);
         //
     }
 
     private void UpdateUI(
-//            GoogleSignInAccount account
+            GoogleSignInAccount account,
             FirebaseUser user) {
         if (
-//                account != null
-                user != null) {
+                account != null &&
+                        user != null) {
             Api_Response.method(SignInActivity.this, new ServerCallback() {
                 @Override
                 public void onSuccess() {
@@ -459,6 +506,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signout() {
+        System.out.println("-------------------------signing out--------------------");
+        System.out.println("-------------------------signing out--------------------");
 // Firebase sign out
         if (mAuth != null) {
             mAuth.signOut();
@@ -480,6 +529,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void showAlertDialog(Context context, String title, String message, Boolean status) {
+
+        progressBar.setVisibility(View.INVISIBLE);
+        signInLayout.setVisibility(View.VISIBLE);
+
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
         // Setting Dialog Title
