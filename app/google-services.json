@@ -1,42 +1,111 @@
 {
   "project_info": {
-    "project_number": "140076268748",
-    "firebase_url": "https://iitbhu-app.firebaseio.com",
-    "project_id": "iitbhu-app",
-    "storage_bucket": "iitbhu-app.appspot.com"
+    "project_number": "897714770024",
+    "firebase_url": "https://iit-bhu-workshops-app.firebaseio.com",
+    "project_id": "iit-bhu-workshops-app",
+    "storage_bucket": "iit-bhu-workshops-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:140076268748:android:4b05ff7965ef6234e8d669",
+        "mobilesdk_app_id": "1:897714770024:android:8fcf6ca5d31af65b27abdd",
         "android_client_info": {
           "package_name": "com.example.anant.iitbhuvaranasi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "140076268748-k5lv2jltv837j3i0h17updmtj7vcbln1.apps.googleusercontent.com",
+          "client_id": "897714770024-9jg0ugiucd0n1bdafs96o0shpr49g4jc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.anant.iitbhuvaranasi",
-            "certificate_hash": "ab6e3fdba0c2c148045e79f8098d5f31adb5983f"
+            "certificate_hash": "246c5cabf318cec54b4a4e75d4cb9bc373fd4656"
           }
         },
         {
-          "client_id": "140076268748-gol116c5mtmclf9j8jjo9s8qd2pim27e.apps.googleusercontent.com",
+          "client_id": "897714770024-4s4ns1sp5a106go47ag97mcs68u2h2p2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDo0O_TkFnNHg76Itv9G7T1Qe3eKBehBIc"
+          "current_key": "AIzaSyCOtLJG_dWAHTXjArWliiiZrR5_25P6k94"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "140076268748-gol116c5mtmclf9j8jjo9s8qd2pim27e.apps.googleusercontent.com",
+              "client_id": "897714770024-4s4ns1sp5a106go47ag97mcs68u2h2p2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897714770024:android:3a3fa293e0e2e38827abdd",
+        "android_client_info": {
+          "package_name": "com.example.iit_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "897714770024-9imjbo5ojgih5j7q4c6vmdq2hai4udcf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iit_app",
+            "certificate_hash": "d9f6bb01382d117f8e3915715ca6b5c4ccd6e5b9"
+          }
+        },
+        {
+          "client_id": "897714770024-b71cc9re8jf1qaa2k9j2jrp516h2uh1m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iit_app",
+            "certificate_hash": "465a721f73eb01071d4268d07df28d312c282f20"
+          }
+        },
+        {
+          "client_id": "897714770024-77as242ahqvmfqhadis5nku1ogub1lq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iit_app",
+            "certificate_hash": "072e8452ab93567f9f743889e4df974ab8f2486f"
+          }
+        },
+        {
+          "client_id": "897714770024-57c8ojqvr49kfd6ogvqjp6nkq3ip7v3h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iit_app",
+            "certificate_hash": "246c5cabf318cec54b4a4e75d4cb9bc373fd4656"
+          }
+        },
+        {
+          "client_id": "897714770024-1avrl0339v8dhbo4a5o9m56lj86nd36a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iit_app",
+            "certificate_hash": "6e98aae69bdc659f724db5d5ec2ead7f9107c155"
+          }
+        },
+        {
+          "client_id": "897714770024-4s4ns1sp5a106go47ag97mcs68u2h2p2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOtLJG_dWAHTXjArWliiiZrR5_25P6k94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "897714770024-4s4ns1sp5a106go47ag97mcs68u2h2p2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

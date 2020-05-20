@@ -20,10 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.anant.iitbhuvaranasi.BackendCalls.OtherAPIs;
 import com.example.anant.iitbhuvaranasi.BackendResponse.Api_Response;
 import com.example.anant.iitbhuvaranasi.ConnectionDetector;
 import com.example.anant.iitbhuvaranasi.Constants;
 import com.example.anant.iitbhuvaranasi.BackendResponse.Login_response;
+import com.example.anant.iitbhuvaranasi.NewModels.LoginPost;
+import com.example.anant.iitbhuvaranasi.NewModels.Token;
 import com.example.anant.iitbhuvaranasi.POR_Response;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
@@ -37,27 +40,47 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     public static int guestLoginChecker;
 
-    private static final int RC_SIGN_IN =1 ;
-    private GoogleApiClient googleApiClient;
+    private static final int RC_SIGN_IN = 1;
     private Button signInButton;
-    private  static final int REQ_CODE = 9001;
+    private static final int REQ_CODE = 9001;
     private GoogleSignInClient mGoogleSignInClient;
-    private  GoogleSignInOptions gso;
-    private String email,imageUri;
+    private GoogleSignInOptions gso;
+    private String email, imageUri;
     private Uri personphoto;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
     LinearLayout signInLayout;
     ProgressBar progressBar;
+
+    //    ------------------------------------------------------------
+    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+    String firebaseIdToken;
+
+
+//    ------------------------------------------------------------
 
 
     @Override
@@ -66,21 +89,24 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
 
-
         ActionBar actionBar = getSupportActionBar();
         //actionBar.hide();
 
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
         cd = new ConnectionDetector(this);
         isInternetPresent = cd.isConnectingToInternet();
-        if(!isInternetPresent){
+        if (!isInternetPresent) {
             showAlertDialog(this, "No Internet Connection",
                     "You don't have internet connection.", false);
         }
@@ -98,8 +124,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 progressBar.setVisibility(View.VISIBLE);
 
                 guestLoginChecker = 1;
-                String email4 ="guestuser@iitbhu.ac.in";
-                SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                String email4 = "guestuser@iitbhu.ac.in";
+                SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
 
                 editor.putString(Constants.Email, email4);
@@ -116,7 +142,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onError() {
 
-                                startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                                startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                                 finish();
                             }
 
@@ -132,7 +158,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                     @Override
                     public void onError() {
-                        startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                        startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                         finish();
                     }
 
@@ -158,10 +184,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
 
-
         }
     }
-
 
 
     @Override
@@ -192,84 +216,195 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            email = account.getEmail();
-            personphoto = account.getPhotoUrl();
-            if (personphoto == null) {
-                imageUri = "no value";
-            } else {
-                imageUri = personphoto.toString();
-            }
-            // Signed in successfully, show authenticated UI.
-            isInternetPresent = false;
-            isInternetPresent = cd.isConnectingToInternet();
-            if((isEmailValid2(email)==true || isEmailValid1(email)==true)&&(isInternetPresent))
-            {
-                signInLayout.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
 
-                SharedPreferences sharedPref =getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
+            // -----------------------------------------------Firebase Auth Starts------------------------------------------------------
 
-                editor.putString(Constants.Email, email);
-                editor.commit();
-                Login_response.method(this, email, new ServerCallback() {
-                    @Override
-                    public void onSuccess() {
-                        POR_Response.getPORData(SignInActivity.this, new ServerCallback() {
+            //TODO: SHOW PROGRESS BAR HERE
+//                    showProgressBar();
+            Log.w("google id token", account.getIdToken());
+            AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+
+            mAuth = FirebaseAuth.getInstance();
+            mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+
+                        //  Sign in success, update UI with the signed-in user's information
+
+                        Log.d("GoogleActivity", "signInWithCredential:success");
+                        firebaseUser = mAuth.getCurrentUser();
+
+                        firebaseIdToken = firebaseUser.getIdToken(false).getResult().getToken();
+
+
+                        //______________________________________ requesting token from backend _______________________
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(Constants.herokuBaseUrl)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        OtherAPIs loginAPI = retrofit.create(OtherAPIs.class);
+                        Call<Token> call = loginAPI.logInPost(new LoginPost(firebaseIdToken));
+                        signInLayout.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        call.enqueue(new Callback<Token>() {
                             @Override
-                            public void onSuccess() {
-                                Api_Response.method(SignInActivity.this, new ServerCallback() {
-                                    @Override
-                                    public void onSuccess() {
-                                        updateUI("true");
+                            public void onResponse(Call<Token> call, Response<Token> response) {
+
+                                if (response.isSuccessful() && response.code() == 200) {
+
+                                    System.out.println("------------------------token fetched from backend-------------------------");
+
+                                    Token token = response.body();
+                                    Constants.djangoToken = "token " + token.getToken();
+                                    SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+
+                                    editor.putString(Constants.djangoTokenKey, Constants.djangoToken);
+                                    editor.commit();
+
+                                    editor.putString(Constants.Email, email);
+                                    editor.commit();
+
+                                    email = account.getEmail();
+                                    personphoto = account.getPhotoUrl();
+                                    if (personphoto == null) {
+                                        imageUri = "no value";
+                                    } else {
+                                        imageUri = personphoto.toString();
+                                    }
+                                    updateUI("true");
+                                }else{
+
+                                    signout();
+                                    isInternetPresent = false;
+                                    isInternetPresent = cd.isConnectingToInternet();
+
+                                    if (!isInternetPresent) {
+                                        showAlertDialog(SignInActivity.this, "No Internet Connection",
+                                                "You don't have internet connection.", false);
+                                    } else {
+                                        updateUI("invalid");
                                     }
 
-                                    @Override
-                                    public void onError() {
-
-                                    }
-
-                                    @Override
-                                    public void onSuccess(JSONObject jsonResponse) {
-
-                                    }
-                                });
+                                }
                             }
 
                             @Override
-                            public void onError() {
+                            public void onFailure(Call<Token> call, Throwable t) {
+                                System.out.println("------------------------ response failed-------------------------");
+                                System.out.println("------------------------ response failed-------------------------");
+                                System.out.println("------------------------ response failed-------------------------");
 
-                            }
 
-                            @Override
-                            public void onSuccess(JSONObject jsonResponse) {
+                                signout();
+
+                                isInternetPresent = false;
+                                isInternetPresent = cd.isConnectingToInternet();
+
+                                if (!isInternetPresent) {
+                                    showAlertDialog(SignInActivity.this, "No Internet Connection",
+                                            "You don't have internet connection.", false);
+                                } else {
+                                    updateUI("invalid");
+                                }
 
                             }
                         });
+
+//_________________________________________________________________________________________________
+
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("GoogleActivity", "signInWithCredential:failure", task.getException());
+
+                        updateUI("false");
                     }
 
-                    @Override
-                    public void onError() {
+                    //TODO:  PROGRESS BAR
+//                     hideProgressBar();
 
-                    }
-
-                    @Override
-                    public void onSuccess(JSONObject jsonResponse) {
-
-                    }
-                });
-
-
-                //Login_response.method(this);
-                //  Api_Response.method(this);
-            } else {
-                if (!isInternetPresent) {
-                    showAlertDialog(this, "No Internet Connection",
-                            "You don't have internet connection.", false);
-                } else {
-                    updateUI("invalid");
                 }
-            }
+            });
+
+            // ------------------------------------------------------Firebase Auth Ends-----------------------------------------------
+
+
+            // Signed in successfully, show authenticated UI.
+//            isInternetPresent = false;
+//            isInternetPresent = cd.isConnectingToInternet();
+//            if ((isEmailValid2(email) == true || isEmailValid1(email) == true) && (isInternetPresent)) {
+//                signInLayout.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.VISIBLE);
+//
+//                SharedPreferences sharedPref = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPref.edit();
+//
+//                editor.putString(Constants.Email, email);
+//                editor.commit();
+//
+//                Login_response.method(this, email, new ServerCallback() {
+//                    @Override
+//                    public void onSuccess() {
+//                        POR_Response.getPORData(SignInActivity.this, new ServerCallback() {
+//                            @Override
+//                            public void onSuccess() {
+//                                Api_Response.method(SignInActivity.this, new ServerCallback() {
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        updateUI("true");
+//                                    }
+//
+//                                    @Override
+//                                    public void onError() {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onSuccess(JSONObject jsonResponse) {
+//
+//                                    }
+//                                });
+//                            }
+//
+//                            @Override
+//                            public void onError() {
+//
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(JSONObject jsonResponse) {
+//
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onError() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(JSONObject jsonResponse) {
+//
+//                    }
+//                });
+//
+//
+//                //Login_response.method(this);
+//                //  Api_Response.method(this);
+//            } else {
+//                if (!isInternetPresent) {
+//                    showAlertDialog(this, "No Internet Connection",
+//                            "You don't have internet connection.", false);
+//                } else {
+//                    updateUI("invalid");
+//                }
+//            }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -279,18 +414,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void updateUI(String result) {
-        if(result == "true")
-        {
-            Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
+
+        if (result == "true") {
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
-        }
-        else if(result == "invalid")
-        {
-            Toast.makeText(SignInActivity.this,"Select Valid Institute Email-id",Toast.LENGTH_SHORT).show();
+        } else if (result == "invalid") {
+            Toast.makeText(SignInActivity.this, "Select Valid Institute Email-id", Toast.LENGTH_SHORT).show();
             signout();
-        }
-        else if(result == "false") {
+        } else if (result == "false") {
             isInternetPresent = false;
             isInternetPresent = cd.isConnectingToInternet();
             if (!isInternetPresent) {
@@ -302,6 +434,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 signout();
             }
         }
+        progressBar.setVisibility(View.INVISIBLE);
+        signInLayout.setVisibility(View.VISIBLE);
+
     }
 
     public static boolean isEmailValid1(String email) {
@@ -317,6 +452,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
         return isValid;
     }
+
     public static boolean isEmailValid2(String email) {
         boolean isValid = false;
 
@@ -335,13 +471,18 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        UpdateUI(account);
-     //
+//        UpdateUI(account);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        UpdateUI(account, currentUser);
+        //
     }
 
-    private void UpdateUI(GoogleSignInAccount account) {
-        if(account != null)
-        {
+    private void UpdateUI(
+            GoogleSignInAccount account,
+            FirebaseUser user) {
+        if (
+                account != null &&
+                        user != null) {
             Api_Response.method(SignInActivity.this, new ServerCallback() {
                 @Override
                 public void onSuccess() {
@@ -357,7 +498,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
             });
-            Intent intent= new Intent(SignInActivity.this,HomeActivity.class);
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }
@@ -365,13 +506,22 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signout() {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // ...
-                    }
-                });
+        System.out.println("-------------------------signing out--------------------");
+        System.out.println("-------------------------signing out--------------------");
+// Firebase sign out
+        if (mAuth != null) {
+            mAuth.signOut();
+        }
+        // Google sign out
+        if (mGoogleSignInClient != null) {
+            mGoogleSignInClient.signOut()
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // ...
+                        }
+                    });
+        }
         SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor spreferencesEditor = spreferences.edit();
         spreferencesEditor.clear();
@@ -379,6 +529,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void showAlertDialog(Context context, String title, String message, Boolean status) {
+
+        progressBar.setVisibility(View.INVISIBLE);
+        signInLayout.setVisibility(View.VISIBLE);
+
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
 
         // Setting Dialog Title

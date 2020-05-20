@@ -98,4 +98,9 @@ public class Constants {
 
 
 
+//    ---------------------------------------------------
+    public static final String herokuBaseUrl = "https://workshops-app-backend.herokuapp.com/";
+    public static String djangoToken = null;
+    public static final String djangoTokenKey = "djangoTokenKey";
+
 }
