@@ -119,9 +119,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String response45678 = sharedPreferences.getString(Constants.Response_Feed_Old, "2");
         email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
         createNotificationChannel();
-
-
         Constants.Email_Key = email;
+
+//        -------------------------------------------
+        Constants.djangoToken = sharedPreferences.getString(Constants.djangoTokenKey,null);
+//        -------------------------------------------
+
 
         ID_card_Response.method(this, new ServerCallback() {
             @Override

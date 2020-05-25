@@ -15,17 +15,27 @@ import com.android.volley.toolbox.Volley;
 import com.example.anant.iitbhuvaranasi.Constants;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallBackForTimetable;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
+import com.example.anant.iitbhuvaranasi.NewBackendResponses.Workshop_Responses;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltAllWorkshopsPost;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class Api_Response {
     private static RequestQueue mRequestQueue;
 
-    public static String method(final Context context, ServerCallback serverCallback)
-    {
+    public static String method(final Context context, ServerCallback serverCallback) {
+
+//       implementing new backend workshops api --------asynchronously---------start
+        Workshop_Responses.allWorkshopsMethod();
+//    end----------------------------   implementing new backend workshops api
+
+
         mRequestQueue = Volley.newRequestQueue(context);
 
         String url = "http://iitbhuapp.tk/feedandclubs";
@@ -34,8 +44,8 @@ public class Api_Response {
         String email3 = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
         String password3 = sharedPreferences.getString(Constants.password_shared, Constants.password);
         try {
-            obj.put("email",email3);
-            obj.put("password",password3);
+            obj.put("email", email3);
+            obj.put("password", password3);
 
 
         } catch (JSONException e) {
@@ -60,7 +70,7 @@ public class Api_Response {
                 editor.putString(Constants.Response_Feed_Old, rew);
                 editor.commit();
 
-                
+
                 serverCallback.onSuccess();
             }
         }, new Response.ErrorListener() {
@@ -74,8 +84,7 @@ public class Api_Response {
         return apiresponse[0];
     }
 
-    public static void MethodForTimetable(final Context context, ServerCallBackForTimetable serverCallback)
-    {
+    public static void MethodForTimetable(final Context context, ServerCallBackForTimetable serverCallback) {
         mRequestQueue = Volley.newRequestQueue(context);
 
         String url = "http://iitbhuapp.tk/timetable";
@@ -84,14 +93,13 @@ public class Api_Response {
         String email3 = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
         String password3 = sharedPreferences.getString(Constants.password_shared, Constants.password);
         try {
-            obj.put("email",email3);
-            obj.put("password",password3);
+            obj.put("email", email3);
+            obj.put("password", password3);
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, obj, new Response.Listener<JSONObject>() {

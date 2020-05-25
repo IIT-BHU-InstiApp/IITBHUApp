@@ -1,5 +1,8 @@
 package com.example.anant.iitbhuvaranasi;
 
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltAllCouncilsPost;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltAllWorkshopsPost;
+
 import java.util.ArrayList;
 
 public class Constants {
@@ -102,5 +105,7 @@ public class Constants {
     public static final String herokuBaseUrl = "https://workshops-app-backend.herokuapp.com/";
     public static String djangoToken = null;
     public static final String djangoTokenKey = "djangoTokenKey";
+
+    public static BuiltAllWorkshopsPost allWorkshopsPost = null;
 
 }
