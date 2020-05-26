@@ -2,8 +2,10 @@ package com.example.anant.iitbhuvaranasi;
 
 import com.example.anant.iitbhuvaranasi.NewModels.BuiltAllCouncilsPost;
 import com.example.anant.iitbhuvaranasi.NewModels.BuiltAllWorkshopsPost;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltWorkshopSummaryPost;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Constants {
 
@@ -107,5 +109,7 @@ public class Constants {
     public static final String djangoTokenKey = "djangoTokenKey";
 
     public static BuiltAllWorkshopsPost allWorkshopsPost = null;
+    public static List<BuiltWorkshopSummaryPost> activeWorkshops = null;
+    public static List<BuiltWorkshopSummaryPost> pastWorkshops = null;
 
 }

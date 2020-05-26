@@ -30,6 +30,9 @@ public class Workshop_Responses {
                     return;
                 }
                 Constants.allWorkshopsPost = response.body();
+                System.out.println("workshops fetched (all)--------------------------------------------------------------------------------------------");
+                System.out.println(Constants.allWorkshopsPost.toString());
+                System.out.println("workshops fetched (all)--------------------------------------------------------------------------------------------");
 
             }
             @Override

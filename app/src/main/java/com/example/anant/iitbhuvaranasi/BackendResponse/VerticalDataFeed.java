@@ -28,6 +28,12 @@ public class VerticalDataFeed {
     public static ArrayList<SingleVerticalData> getVerticalData3;
 
     public static ArrayList<SingleVerticalData> getUpcomingEvents(Context context){
+
+//      active workshops from new backend
+        Constants.activeWorkshops = Constants.allWorkshopsPost.getActive_workshops();
+//      active workshops from new backend
+
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date CurrentTime = null;
         try {
@@ -56,6 +62,13 @@ public class VerticalDataFeed {
         return upComingEvents;
     }
     public static ArrayList<SingleVerticalData> getPastEvents(Context context){
+
+        //      past workshops from new backend
+            Constants.pastWorkshops = Constants.allWorkshopsPost.getPast_workshops();
+        //      past workshops from new backend
+
+
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date CurrentTime = null;
         try {

@@ -276,7 +276,55 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                     } else {
                                         imageUri = personphoto.toString();
                                     }
-                                    updateUI("true");
+
+                                    Login_response.method(SignInActivity.this, email, new ServerCallback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            POR_Response.getPORData(SignInActivity.this, new ServerCallback() {
+                                                @Override
+                                                public void onSuccess() {
+                                                    Api_Response.method(SignInActivity.this, new ServerCallback() {
+                                                        @Override
+                                                        public void onSuccess() {
+                                                            updateUI("true");
+                                                        }
+
+                                                        @Override
+                                                        public void onError() {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onSuccess(JSONObject jsonResponse) {
+
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onError() {
+
+                                                }
+
+                                                @Override
+                                                public void onSuccess(JSONObject jsonResponse) {
+
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onError() {
+
+                                        }
+
+                                        @Override
+                                        public void onSuccess(JSONObject jsonResponse) {
+
+                                        }
+                                    });
+
+//                                    updateUI("true");
                                 }else{
 
                                     signout();

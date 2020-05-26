@@ -127,5 +127,4 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
         }
     }
 
-
 }
