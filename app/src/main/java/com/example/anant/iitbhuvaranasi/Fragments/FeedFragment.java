@@ -28,6 +28,7 @@ import com.example.anant.iitbhuvaranasi.Constants;
 import com.example.anant.iitbhuvaranasi.Models.SingleHorizontaldata;
 import com.example.anant.iitbhuvaranasi.Models.SingleVerticalData;
 import com.example.anant.iitbhuvaranasi.Activities.PinActivity;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltWorkshopSummaryPost;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
 import com.example.anant.iitbhuvaranasi.BackendResponse.VerticalDataFeed;
@@ -40,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -53,7 +55,7 @@ public class FeedFragment extends Fragment {
     ConnectionDetector cd;
     //public static ArrayList<SingleVerticalData> getVerticalData1 = new ArrayList<>();
     public static ArrayList<SingleVerticalData> getVerticalData4 = new ArrayList<>();
-    public static ArrayList<SingleVerticalData> getVerticalData5;
+    public static List<BuiltWorkshopSummaryPost> getVerticalData5;
     public static ArrayList<SingleHorizontaldata> getHorizontalData1 = new ArrayList<>();
     private ArrayList<String> ImageUrl = new ArrayList<>();
     private ArrayList<String> Title = new ArrayList<>();
