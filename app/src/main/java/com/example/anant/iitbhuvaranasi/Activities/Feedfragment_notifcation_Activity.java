@@ -40,6 +40,7 @@ import com.bumptech.glide.Glide;
 //
 import com.example.anant.iitbhuvaranasi.Constants;
 import com.example.anant.iitbhuvaranasi.Models.SingleVerticalData;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltWorkshopSummaryPost;
 import com.example.anant.iitbhuvaranasi.R;
 import com.google.gson.Gson;
 
@@ -65,7 +66,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     Button  interested_button;
     Button share_button,clock_button;
     Button  location_button;
-    SingleVerticalData obj;
+    BuiltWorkshopSummaryPost obj;
     private Animator currentAnimator;
     private int shortAnimationDuration;
     SharedPreferences sharedpreferences;
@@ -99,14 +100,13 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         mRequestQueue = Volley.newRequestQueue(this);
         final String url = "http://iitbhuapp.tk/interested";
 
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         String json=getIntent().getStringExtra("all");
         Gson gson = new Gson();
-        obj = gson.fromJson(json, SingleVerticalData.class);
-//
+        obj = gson.fromJson(json, BuiltWorkshopSummaryPost.class);
+
 
         thumb1View = findViewById(R.id.event_picture_2);
 
@@ -120,60 +120,37 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         location_button =  findViewById(R.id.location);
         description_event=findViewById(R.id.event_page_description);
         location_button.setOnClickListener(this);
-//        venue_event.setOnClickListener(this);
-        //time_event = (TextView) findViewById(R.id.event_time);
+
         clock_button =  findViewById(R.id.clock);
         clock_button.setOnClickListener(this);
-      //  go_button = (Button) findViewById(R.id.going_button);
-    //    go_button.setOnClickListener(this);
-      //  interested_button = (Button) findViewById(R.id.interested_button);
-       // interested_button.setOnClickListener(this);
-    //    going_count = (TextView) findViewById(R.id.going_count);
-        //interested_count = (TextView) findViewById(R.id.interested_count);
-    //    view_count = (TextView) findViewById(R.id.view_count);
-       // title_event.setText(getIntent().getStringExtra("title"));
-      //  date_event.setText(getIntent().getStringExtra("date"));
-      //  image=getIntent().getStringExtra("image");
-        String notifid = obj.getNotifid();
-        Integer notif_id = Integer.valueOf(notifid);
+
+//        String notifid = obj.getNotifid();
+//        Integer notif_id = Integer.valueOf(notifid);
 //
-        councilName.setText(obj.getCouncil_name());
-        title_event.setText(obj.getTitle_event());
-        map_location = obj.getMap_location();
+        councilName.setText(obj.getClub().getCouncil().getName());
+        title_event.setText(obj.getTitle());
+//        map_location = obj.getMap_location();
 //
 //
-       // WhatsappViewCompat.applyFormatting(description_event);
 //
-        description_event.setText(obj.getDescription_event());
-       // WhatsappViewCompat.applyFormatting(description_event);
-       // WhatsappViewCompat.applyFormatting(description_event);
-      /*  Glide.with(this)
-                .load(obj.getImage_event())
-                .fitCenter() // scale to fit entire image within ImageView
-                .into(image_event);*/
+        description_event.setText("Place for Description");
+
         Glide.with(this)
-                .load(obj.getImage_event())
+                .load(obj.getClub().getLarge_image_url())
                 .error(R.drawable.background)
                 .thumbnail(.1f)
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(image_event);
         date_event.setText(time);
-        venue_event.setText(obj.getLocation());
-//
-//
-//
-       // view_count.setText(obj.getViewcount());
-//        interested_count.setText(obj.getInterestedcount());
-        final JSONObject obj2 = new JSONObject();
-        try {
-            obj2.put("roll", 18085016);
-            obj2.put("notifid",notif_id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        String location = "Location";
+        venue_event.setText(location);
 
-//        if (obj.getInterested().equals("1")){
-//            interested_button.setBackgroundColor(Color.GRAY);
+//        final JSONObject obj2 = new JSONObject();
+//        try {
+//            obj2.put("roll", 18085016);
+//            obj2.put("notifid",notif_id);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
 //        }
 
 
@@ -184,45 +161,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         final Pair[] pairs = new Pair[1];
         pairs[0] = new Pair<View, String>(image_event, "fullscreen");
 
-        /*interested_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                interested_button.setBackgroundColor(Color.GRAY);
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, obj2, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Integer interested = response.getInt("status");
-                            if (interested == 1){
-                            interested_count.setText(obj.getInterestedcount()+1);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                       *//* Integer interest = 1;
-                        try {
-                            interest = response.getInt("status");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        if (interest == 1) {
-                            check = true;
-                            interested_button.setBackgroundColor(Color.GRAY);
-                        }*//*
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-                mRequestQueue.add(jsonObjectRequest);
-            }
-        });*/
         image_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,30 +169,10 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 pairs[0] = new Pair<View, String>(image_event, "fullscreen");
                 Intent intent = new Intent(Feedfragment_notifcation_Activity.this, Full_screen_imageActivity.class);
                 ActivityOptions options1 = ActivityOptions.makeSceneTransitionAnimation((Activity) Feedfragment_notifcation_Activity.this, pairs);
-                intent.putExtra("image", obj.getImage_event());
+                intent.putExtra("image", "https://firebasestorage.googleapis.com/v0/b/iit-bhu-workshops-app.appspot.com/o/sntc%2Frobo.png?alt=media&token=ab0603c8-b62e-433f-8577-4a3b8da02e0a");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent,options1.toBundle());
-             /*   AlertDialog.Builder mBuilder1 = new AlertDialog.Builder(Feedfragment_notifcation_Activity.this);
-                View View =inflater.inflate(R.layout.dialog_custom_layout_image1, null);
-                PhotoView photoView1 = View.findViewById(R.id.imageView2);
-                Glide.with(Feedfragment_notifcation_Activity.this)
-                        .load(image)
-                        .error(R.drawable.amc_workshop)
-                        .fitCenter() // scale to fit entire image within ImageView
-                        .into(photoView1);
-                mBuilder1.setView(View);
-                AlertDialog mDialog = mBuilder1.create();
-                mDialog.show();*/
-            /*    LayoutInflater inflater = LayoutInflater
-                        .from(getApplicationContext());
-                View view = inflater.inflate(R.layout.activity_full_screen_image, null);
-                image_eventfullscreen= findViewById(R.id.fullscree_nmageView);
 
-
-                layoutToAdd.addView(view);
-         *//*       Picasso.get()
-                        .load(obj.getImage_event())
-                        .into(image_eventfullscreen);*/
             }
         });
 
@@ -267,49 +186,30 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         switch (v.getId()) {
             case R.id.clock:
 //
-                addEventToCalender(obj.getTitle_event().toString(),obj.getDescription_event(),
-                        obj.getLocation(),time.toString());
+                addEventToCalender(obj.getTitle().toString(),"obj.getDescription_event()",
+                        "obj.getLocation()",time.toString());
                 break;
-            /*    Calendar beginTime = Calendar.getInstance();
-                beginTime.set(2012, 0, 19, 7, 30);
-                Calendar endTime = Calendar.getInstance();
-                endTime.set(2012, 0, 19, 8, 30);
-                Intent intent = new Intent(Intent.ACTION_INSERT)
-                        .setData(CalendarContract.Events.CONTENT_URI)
-                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-                        .putExtra(CalendarContract.Events.TITLE,"hke" )
-                        .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
-                        .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
-                        //invitees emails
-                        .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
-                startActivity(intent);*/
+
 
 
             case R.id.share_event_button:
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "#IIT BHU App\n"+ obj.getTitle_event().toString() + "\n"
-                        + obj.getDescription_event().toString()
+                String shareBody = "#IIT BHU App\n"+ obj.getTitle().toString() + "\n"
+                        + "obj.getDescription()".toString()
                         + "\n\n" + "Date & Time : " + time + "\nVenue : " +
-                        obj.getLocation().toString() ;
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, obj.getTitle_event().toString());
+                        "obj.getLocation()".toString() ;
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, obj.getTitle().toString());
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;
 
-            /*case R.id.going_button:
-
-                break;*/
 
 
             case R.id.location:
                 location2345 = map_location;
                 startActivity(new Intent(this,IITBHUMapActivity.class));
-               /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
-                Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                    startActivity(mapIntent);*/
+
                 break;
 
 
@@ -376,17 +276,6 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION,location);
         intent.putExtra("eventTimezone", "UTC/GMT +5:30");
-         /*   startActivity(intent);
-            Intent intent = new Intent(Intent.ACTION_INSERT);
-            intent.setType("vnd.android.cursor.item/event");
-
-            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, starttime);
-            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,"6789");
-            intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY,1);
-
-            intent.putExtra(CalendarContract.Events.TITLE, title);
-            intent.putExtra(CalendarContract.Events.DESCRIPTION, description);
-            intent.putExtra(CalendarContract.Events.EVENT_LOCATION,location);*/
 
         startActivity(intent);
     }

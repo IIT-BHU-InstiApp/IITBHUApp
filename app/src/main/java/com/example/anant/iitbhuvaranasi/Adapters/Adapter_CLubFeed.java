@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.provider.CalendarContract;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.example.anant.iitbhuvaranasi.Constants;
 import com.example.anant.iitbhuvaranasi.Activities.Feedfragment_notifcation_Activity;
 import com.example.anant.iitbhuvaranasi.Activities.IITBHUMapActivity;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltWorkshopSummaryPost;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Models.SingleVerticalData;
 import com.google.gson.Gson;
@@ -35,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static com.example.anant.iitbhuvaranasi.Activities.Feedfragment_notifcation_Activity.location2345;
 
@@ -42,10 +45,10 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
 
     public  long starttime;
 
-    ArrayList<SingleVerticalData> data = new ArrayList<>();
+    List<BuiltWorkshopSummaryPost>  data;
     private Context context1;
 
-    public Adapter_CLubFeed(ArrayList<SingleVerticalData> data, Context context1) {
+    public Adapter_CLubFeed(List<BuiltWorkshopSummaryPost> data, Context context1) {
         this.data = data;
         this.context1 = context1;
     }
@@ -61,7 +64,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder1 holder, final int position) {
 
 
-        holder.title.setText(data.get(position).getTitle_event());
+        holder.title.setText(data.get(position).getTitle());
 
 
 /*
@@ -73,32 +76,51 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
                 .into(holder.image);
 */
         Glide.with(context1)
-                .load(data.get(position).getImage_event())
+                .load(data.get(position).getClub().getLarge_image_url())
                 .error(R.drawable.background)
                 .thumbnail(.1f)
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(holder.image);
 
-        String originalString = data.get(position).getDate_event();
-        String original = originalString.replace("T"," ");
-        String original1 = original.replace("Z","");
-
+//        String originalString = data.get(position).getDate();
+//        String original = originalString.replace("T"," ");
+//        String original1 = original.replace("Z","");
+//
+//        Date date2 = null;
+//        try {
+//            date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+//
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        final String newString = new SimpleDateFormat("E, dd MMM  hh:mm a").format(date2);
+        String originalString = data.get(position).getDate();
+        String timeString = data.get(position).getTime();
+//        String original = originalString.replace("T", " ");
+//        String original1 = original.replace("Z", "");
+//
         Date date2 = null;
+        Date time = null;
+        Log.d("time", timeString+"abcd");
+        Log.d("date", originalString);
         try {
-            date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+            date2 = new SimpleDateFormat("yyyy-MM-dd").parse(originalString);
+            time = new SimpleDateFormat("HH:mm:ss").parse(timeString);
 
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        final String newString = new SimpleDateFormat("E, dd MMM  hh:mm a").format(date2);
+        final String newString = new SimpleDateFormat("dd MMM, E").format(date2) +" "+ new SimpleDateFormat("hh mm, a").format(time);
+        holder.date.setText(newString);
         // String time = new SimpleDateFormat("HH mm ss").format(date2);
         //starttime= Integer.valueOf(time);
 
 
 
 
-        holder.date.setText(newString);
+
 
 
         final Pair[] pairs = new Pair[3];
@@ -115,9 +137,9 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
                 // ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mcontext, pair1);
                 intent.putExtra("all",json);
                 intent.putExtra("time",newString);
-                intent.putExtra("title", data.get(position).getTitle_event());
-                intent.putExtra("date", data.get(position).getDate_event());
-                intent.putExtra("image", data.get(position).getImage_event());
+                intent.putExtra("title", data.get(position).getTitle());
+                intent.putExtra("date", data.get(position).getDate());
+                intent.putExtra("image", data.get(position).getClub().getLarge_image_url());
                 context1.startActivity(intent);
             }
         });
@@ -131,9 +153,9 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
                 // ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mcontext, pair1);
                 intent.putExtra("all",json);
                 intent.putExtra("time",newString);
-                intent.putExtra("title", data.get(position).getTitle_event());
-                intent.putExtra("date", data.get(position).getDate_event());
-                intent.putExtra("image", data.get(position).getImage_event());
+                intent.putExtra("title", data.get(position).getTitle());
+                intent.putExtra("date", data.get(position).getDate());
+                intent.putExtra("image", data.get(position).getClub().getLarge_image_url());
                 context1.startActivity(intent);
                /* Intent intent = new Intent(context1, Full_screen_imageActivity.class);
                  ActivityOptions options1 = ActivityOptions.makeSceneTransitionAnimation((Activity) context1, pairs);
@@ -155,9 +177,9 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
                 // ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mcontext, pair1);
                 intent.putExtra("all",json);
                 intent.putExtra("time",newString);
-                intent.putExtra("title", data.get(position).getTitle_event());
-                intent.putExtra("date", data.get(position).getDate_event());
-                intent.putExtra("image", data.get(position).getImage_event());
+                intent.putExtra("title", data.get(position).getTitle());
+                intent.putExtra("date", data.get(position).getDate());
+                intent.putExtra("image", data.get(position).getClub().getLarge_image_url());
                 context1.startActivity(intent);
             }
         });
@@ -166,7 +188,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "#IIT BHU App\n"+ data.get(position).getTitle_event().toString() + "\n" + data.get(position).getDescription_event().toString() + "\n\n" + "Date & Time : " + newString + "\nVenue : " + data.get(position).getLocation().toString() ;
+                String shareBody = "#IIT BHU App\n"+ data.get(position).getTitle().toString() + "\n" +" data.get(position).getDescription_event()".toString() + "\n\n" + "Date & Time : " + newString + "\nVenue : " + "data.get(position).getLocation()".toString() ;
 
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
@@ -177,8 +199,8 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         holder.setReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addEventToCalender(data.get(position).getTitle_event().toString(),data.get(position).getDescription_event().toString(),
-                        data.get(position).getLocation().toString(),newString);
+                addEventToCalender(data.get(position).getTitle().toString(),"data.get(position).getDescription_event().toString()",
+                        "data.get(position).getLocation().toString()",newString);
             }
         });
 
@@ -202,7 +224,7 @@ public class Adapter_CLubFeed extends RecyclerView.Adapter<Adapter_CLubFeed.MyVi
         holder.mapLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                location2345 = data.get(position).getMap_location();
+                location2345 = "data.get(position).getMap_location()";
                 Intent intent = new Intent(context1, IITBHUMapActivity.class);
                 context1.startActivity(intent);
             }

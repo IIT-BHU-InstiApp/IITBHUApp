@@ -4,6 +4,7 @@ package com.example.anant.iitbhuvaranasi.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.RequestQueue;
 import com.bumptech.glide.Glide;
 import com.example.anant.iitbhuvaranasi.Activities.Feedfragment_notifcation_Activity;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltWorkshopSummaryPost;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Models.SingleVerticalData;
 import com.google.gson.Gson;
@@ -25,16 +27,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //import android.util.
 
 public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalAdapter_Feedfragment.MyViewHolder1> {
-    ArrayList<SingleVerticalData> data = new ArrayList<>();
+    List<BuiltWorkshopSummaryPost> data;
     private Context mcontext;
     private static RequestQueue mRequestQueue;
 
 
-    public VerticalAdapter_Feedfragment(Context context, ArrayList<SingleVerticalData> data) {
+    public VerticalAdapter_Feedfragment(Context context,List<BuiltWorkshopSummaryPost> data) {
         this.data = data;
         this.mcontext = context;
     }
@@ -50,21 +53,26 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
 
         final LayoutInflater inflater = LayoutInflater.from(mcontext);
 
-           holder.title.setText(data.get(position).getTitle_event());
+           holder.title.setText(data.get(position).getTitle());
         //  holder.club.setText(data.get(position).getClub());
-        String originalString = data.get(position).getDate_event();
-        String original = originalString.replace("T", " ");
-        String original1 = original.replace("Z", "");
-
+        String originalString = data.get(position).getDate();
+        String timeString = data.get(position).getTime();
+//        String original = originalString.replace("T", " ");
+//        String original1 = original.replace("Z", "");
+//
         Date date2 = null;
+        Date time = null;
+        Log.d("time", timeString+"abcd");
+        Log.d("date", originalString);
         try {
-            date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+            date2 = new SimpleDateFormat("yyyy-MM-dd").parse(originalString);
+            time = new SimpleDateFormat("HH:mm:ss").parse(timeString);
 
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        final String newString = new SimpleDateFormat("E, dd MMM  hh:mm a").format(date2);
+        final String newString = new SimpleDateFormat("dd MMM, E").format(date2) +" "+ new SimpleDateFormat("hh:mm a").format(time);
         holder.date.setText(newString);
 
 
@@ -72,7 +80,7 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
         // holder.viewcount.setText(data.get(position).getViewcount());
         // holder.interestedcount.setText(data.get(position).getInterested());
         Glide.with(mcontext)
-                .load(data.get(position).getImage_event())
+                .load(data.get(position).getClub().getSmall_image_url())
                 .error(R.drawable.background)
                 .thumbnail(.1f)
                 .fitCenter() // scale to fit entire image within ImageView
@@ -92,10 +100,10 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
                 String json = gson.toJson(data.get(position));
                 intent.putExtra("all", json);
                 intent.putExtra("time", newString);
-                intent.putExtra("title", data.get(position).getTitle_event());
-                intent.putExtra("date", data.get(position).getDate_event());
-                intent.putExtra("image", data.get(position).getImage_event());
-                intent.putExtra("map_location", data.get(position).getMap_location());
+                intent.putExtra("title", data.get(position).getTitle());
+                intent.putExtra("date", data.get(position).getDate());
+                intent.putExtra("image", data.get(position).getClub().getSmall_image_url());
+                intent.putExtra("map_location", data.get(position).getTitle());
 
                 mcontext.startActivity(intent);
             }

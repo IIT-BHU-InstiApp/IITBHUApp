@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import android.util.Log;
 import android.view.View;
 
 import android.widget.ImageButton;
@@ -20,7 +21,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.example.anant.iitbhuvaranasi.Adapters.Adapter_CLubFeed;
 import com.example.anant.iitbhuvaranasi.BackendResponse.Api_Response;
-import com.example.anant.iitbhuvaranasi.Models.SingleVerticalData;
+//import com.example.anant.iitbhuvaranasi.Models.SingleVerticalData;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltWorkshopSummaryPost;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
 import com.example.anant.iitbhuvaranasi.BackendResponse.VerticalDataFeed;
@@ -28,11 +30,12 @@ import com.example.anant.iitbhuvaranasi.BackendResponse.VerticalDataFeed;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.anant.iitbhuvaranasi.Fragments.FeedFragment.getVerticalData4;
+//import static com.example.anant.iitbhuvaranasi.Fragments.FeedFragment.getVerticalData4;
 
 public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
@@ -45,8 +48,9 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
     private Integer notifid5 = 2;
     String title1;
 
-    public static ArrayList<SingleVerticalData> getVerticalData3;
-    public static ArrayList<SingleVerticalData> getVerticalData8 = new ArrayList<>();
+    public static List<BuiltWorkshopSummaryPost>  getVerticalData3 =new ArrayList<>();
+    public static List<BuiltWorkshopSummaryPost>  getVerticalData = new ArrayList<>();
+    public static List<BuiltWorkshopSummaryPost> getVerticalData8 = new ArrayList<>();
     Adapter_CLubFeed adapter_cLubFeed;
 
     @Override
@@ -112,7 +116,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
                 // Fetching data from server
 
 
-                loadRecyclerViewData(getVerticalData4);
+                loadRecyclerViewData(getVerticalData);
             }
         });
 
@@ -142,11 +146,11 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
                     }
                 });
-                getVerticalData8 = VerticalDataFeed.getVerticalData3(getApplicationContext());
-                getVerticalData4 = getVerticalData8;
+                getVerticalData8 = VerticalDataFeed.getUpcomingEvents(getApplicationContext());
+                getVerticalData = getVerticalData8;
 
 
-                loadRecyclerViewData(getVerticalData8);
+                loadRecyclerViewData(getVerticalData);
                // implement Handler to wait for 3 seconds and then update UI means update value of TextView
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -162,6 +166,12 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
                 }, 3000);
             }
         });
+        getVerticalData8 = VerticalDataFeed.getUpcomingEvents(getApplicationContext());
+        getVerticalData = getVerticalData8;
+
+
+        loadRecyclerViewData(getVerticalData);
+
 
     }
 
@@ -169,18 +179,19 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
     public void onRefresh() {
 
         // Fetching data from server
-        loadRecyclerViewData(getVerticalData4);
+        loadRecyclerViewData(getVerticalData);
     }
 
-    private void loadRecyclerViewData(ArrayList<SingleVerticalData> getVerticalData4) {
-        getVerticalData3 = new ArrayList<>();
+    private void loadRecyclerViewData(List<BuiltWorkshopSummaryPost> getVerticalData4) {
+        List<BuiltWorkshopSummaryPost> tempData = new ArrayList<>();
+
 
 
         for(int a=0;a<getVerticalData4.size();a++) {
 
 
-            if (getVerticalData4.get(a).getClub_name().equals(title1)){
-                getVerticalData3.add(getVerticalData4.get(a));
+            if (getVerticalData4.get(a).getClub().getName().equals(title1)){
+                tempData.add(getVerticalData4.get(a));
 
             }
 
@@ -190,8 +201,9 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
         RecyclerView.setHasFixedSize(true);
 
         RecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        Log.d("clubfeed", "loadRecyclerViewData: "+ getVerticalData4.toString());
 
-        Adapter_CLubFeed adapter_cLubFeed = new Adapter_CLubFeed(getVerticalData3,Club_Feed.this);
+        Adapter_CLubFeed adapter_cLubFeed = new Adapter_CLubFeed(tempData,Club_Feed.this);
         adapter_cLubFeed.notifyDataSetChanged();
         RecyclerView.setAdapter(adapter_cLubFeed);
       }

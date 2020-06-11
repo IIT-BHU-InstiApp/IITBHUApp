@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.example.anant.iitbhuvaranasi.Constants;
 import com.example.anant.iitbhuvaranasi.Models.Interestedbutton_class;
 import com.example.anant.iitbhuvaranasi.Models.SingleVerticalData;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltWorkshopSummaryPost;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,39 +28,40 @@ public class VerticalDataFeed {
 
     public static ArrayList<SingleVerticalData> getVerticalData3;
 
-    public static ArrayList<SingleVerticalData> getUpcomingEvents(Context context){
+    public static List<BuiltWorkshopSummaryPost> getUpcomingEvents(Context context){
 
 //      active workshops from new backend
         Constants.activeWorkshops = Constants.allWorkshopsPost.getActive_workshops();
 //      active workshops from new backend
 
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date CurrentTime = null;
-        try {
-            CurrentTime = dateFormat.parse(dateFormat.format(new Date()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        ArrayList<SingleVerticalData> allEvents = getVerticalData3(context);
-        ArrayList<SingleVerticalData> upComingEvents = new ArrayList<SingleVerticalData>();
-
-        for (int a = 0; a < allEvents.size(); a++) {
-            String originalString = allEvents.get(a).getDate_event();
-            String original = originalString.replace("T", " ");
-            String original1 = original.replace("Z", "");
-
-            Date date2 = null;
-            try {
-                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            if (CurrentTime.before(date2)) {
-                upComingEvents.add(allEvents.get(a));
-            }
-        }
-        return upComingEvents;
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date CurrentTime = null;
+//        try {
+//            CurrentTime = dateFormat.parse(dateFormat.format(new Date()));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        ArrayList<SingleVerticalData> allEvents = getVerticalData3(context);
+//        ArrayList<SingleVerticalData> upComingEvents = new ArrayList<SingleVerticalData>();
+//
+//        for (int a = 0; a < allEvents.size(); a++) {
+//            String originalString = allEvents.get(a).getDate_event();
+//            String original = originalString.replace("T", " ");
+//            String original1 = original.replace("Z", "");
+//
+//            Date date2 = null;
+//            try {
+//                date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            if (CurrentTime.before(date2)) {
+//                upComingEvents.add(allEvents.get(a));
+//            }
+//        }
+//        return upComingEvents;
+        return Constants.activeWorkshops;
     }
     public static ArrayList<SingleVerticalData> getPastEvents(Context context){
 
@@ -87,12 +89,13 @@ public class VerticalDataFeed {
             Date date2 = null;
             try {
                 date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(original1);
+                if (CurrentTime.after(date2)) {
+                    pastEvents.add(allEvents.get(a));
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (CurrentTime.after(date2)) {
-                pastEvents.add(allEvents.get(a));
-            }
+
         }
         return pastEvents;
     }
