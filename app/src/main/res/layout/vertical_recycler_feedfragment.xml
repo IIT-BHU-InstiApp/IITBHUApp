@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
     android:orientation="vertical">
     
     <TextView
@@ -14,15 +12,13 @@
         android:textSize="24dp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="0dp"/>
+        android:layout_margin="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/inner_recyclerView"
+        android:id="@+id/event_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:nestedScrollingEnabled="false"/>
 
 </LinearLayout>

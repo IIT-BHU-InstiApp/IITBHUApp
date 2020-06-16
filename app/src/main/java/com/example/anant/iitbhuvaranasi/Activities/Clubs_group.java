@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.anant.iitbhuvaranasi.Adapters.Adapter_ClubsGroup;
+import com.example.anant.iitbhuvaranasi.BackendCalls.CouncilAPIS;
 import com.example.anant.iitbhuvaranasi.BackendResponse.Api_Response;
 import com.example.anant.iitbhuvaranasi.Constants;
+import com.example.anant.iitbhuvaranasi.Interfaces.RetrofitResponseListener;
 import com.example.anant.iitbhuvaranasi.Models.CLubFeedData;
+import com.example.anant.iitbhuvaranasi.NewBackendResponses.CouncilResponse;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltAllCouncilsPost;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltCouncilPost;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
 
@@ -28,6 +35,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static app.AppController.TAG;
+import static com.example.anant.iitbhuvaranasi.Constants.djangoTokenKey;
 
 public class Clubs_group extends AppCompatActivity {
 
@@ -35,6 +52,7 @@ public class Clubs_group extends AppCompatActivity {
     private ArrayList<CLubFeedData> mExampleList;
     Integer position;
     private RecyclerView.LayoutManager layoutManager;
+    BuiltCouncilPost builtCouncilPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +80,8 @@ public class Clubs_group extends AppCompatActivity {
         //Added by Suryansh
 
         Intent i = getIntent();
-        position = i.getIntExtra("position",0);
+//        position = i.getIntExtra("position",0);
+        int id = i.getIntExtra("id",0);
         Toast.makeText(this,"" + position,Toast.LENGTH_LONG);
 
 
@@ -100,33 +119,45 @@ public class Clubs_group extends AppCompatActivity {
         SharedPreferences pref2 =  getApplicationContext().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String response45678 = pref2.getString(Constants.Response_Feed_Old, "2");
 
-
-
-
-
-        try {
-            JSONObject jsonObject = new JSONObject(response45678);
-            int status = jsonObject.getInt("status");
-            JSONArray allcouncils= jsonObject.getJSONArray("councils");
-            JSONObject council = allcouncils.getJSONObject(position);
-            JSONArray clubs = council.getJSONArray("clubs");
-            for(int a=0;a<clubs.length();a++)
-            {
-                JSONObject club = clubs.getJSONObject(a);
-                String club_name = club.getString("name");
-                String image_club = "http://iitbhuapp.tk" + club.getString("image");
-                mExampleList.add(new CLubFeedData(image_club, club_name));
-
-                Adapter_ClubsGroup adapter_clubsGroup = new Adapter_ClubsGroup(this, mExampleList);
-                RecyclerView.setAdapter(adapter_clubsGroup);
-
+        CouncilResponse.responseCouncilDetails(id, new RetrofitResponseListener<BuiltCouncilPost>() {
+            @Override
+            public void onSuccess(Response<BuiltCouncilPost> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    Adapter_ClubsGroup adapterClubsGroup = new Adapter_ClubsGroup(Clubs_group.this, response.body());
+                    RecyclerView.setAdapter(adapterClubsGroup);
+                }
             }
 
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            JSONObject jsonObject = new JSONObject(response45678);
+//            int status = jsonObject.getInt("status");
+//            JSONArray allcouncils= jsonObject.getJSONArray("councils");
+//            JSONObject council = allcouncils.getJSONObject(position);
+//            JSONArray clubs = council.getJSONArray("clubs");
+//            for(int a=0;a<clubs.length();a++)
+//            {
+//                JSONObject club = clubs.getJSONObject(a);
+//                String club_name = club.getString("name");
+//                String image_club = "http://iitbhuapp.tk" + club.getString("image");
+//                mExampleList.add(new CLubFeedData(image_club, club_name));
+//
+//                Adapter_ClubsGroup adapter_clubsGroup = new Adapter_ClubsGroup(this, mExampleList);
+//                RecyclerView.setAdapter(adapter_clubsGroup);
+//
+//            }
+//
+//
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         /*try {
             JSONObject jsonObject = new JSONObject(response);
             int status = jsonObject.getInt("status");

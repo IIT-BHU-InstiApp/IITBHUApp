@@ -30,9 +30,13 @@ public class VerticalDataFeed {
 
     public static List<BuiltWorkshopSummaryPost> getUpcomingEvents(Context context){
 
+
 //      active workshops from new backend
-        Constants.activeWorkshops = Constants.allWorkshopsPost.getActive_workshops();
+        if(Constants.allWorkshopsPost != null) {
+            Constants.activeWorkshops = Constants.allWorkshopsPost.getActive_workshops();
+        }
 //      active workshops from new backend
+
 
 
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

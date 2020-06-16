@@ -32,13 +32,15 @@ import java.util.List;
 //import android.util.
 
 public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalAdapter_Feedfragment.MyViewHolder1> {
-    List<BuiltWorkshopSummaryPost> data;
+    List<BuiltWorkshopSummaryPost> data = new ArrayList<>();
     private Context mcontext;
     private static RequestQueue mRequestQueue;
 
 
     public VerticalAdapter_Feedfragment(Context context,List<BuiltWorkshopSummaryPost> data) {
-        this.data = data;
+        if(data != null) {
+            this.data = data;
+        }
         this.mcontext = context;
     }
 
@@ -114,6 +116,7 @@ public class VerticalAdapter_Feedfragment extends RecyclerView.Adapter<VerticalA
     @Override
     public int getItemCount() {
         return data.size();
+//        return 0;
     }
 
     public class MyViewHolder1 extends RecyclerView.ViewHolder {
