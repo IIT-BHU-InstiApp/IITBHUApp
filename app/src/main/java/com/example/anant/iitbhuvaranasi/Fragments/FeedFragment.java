@@ -20,14 +20,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.anant.iitbhuvaranasi.Adapters.HorizontalAdapter_Feedfragment;
 import com.example.anant.iitbhuvaranasi.Adapters.HorizontalRecyclerAdap;
-import com.example.anant.iitbhuvaranasi.Adapters.MainAdapterfeedfragment;
+import com.example.anant.iitbhuvaranasi.Adapters.VerticalAdapter_Feedfragment;
 import com.example.anant.iitbhuvaranasi.BackendResponse.Api_Response;
 import com.example.anant.iitbhuvaranasi.ConnectionDetector;
 import com.example.anant.iitbhuvaranasi.Constants;
-import com.example.anant.iitbhuvaranasi.Models.SingleHorizontaldata;
+import com.example.anant.iitbhuvaranasi.Interfaces.RetrofitResponseListener;
 import com.example.anant.iitbhuvaranasi.Models.SingleVerticalData;
 import com.example.anant.iitbhuvaranasi.Activities.PinActivity;
+import com.example.anant.iitbhuvaranasi.NewBackendResponses.CouncilResponse;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltAllCouncilsPost;
 import com.example.anant.iitbhuvaranasi.NewModels.BuiltWorkshopSummaryPost;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Interfaces.ServerCallback;
@@ -43,6 +46,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Response;
+
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -50,13 +55,12 @@ public class FeedFragment extends Fragment {
     private ArrayList<Object> objects = new ArrayList<>();
     // public static Integer i=0;
 //   SharedPreferences sharedpreferences;
-    private RecyclerView mRecyclerView;
     Boolean isInternetPresent = false;
     ConnectionDetector cd;
     //public static ArrayList<SingleVerticalData> getVerticalData1 = new ArrayList<>();
     public static ArrayList<SingleVerticalData> getVerticalData4 = new ArrayList<>();
-    public static List<BuiltWorkshopSummaryPost> getVerticalData5;
-    public static ArrayList<SingleHorizontaldata> getHorizontalData1 = new ArrayList<>();
+    public static List<BuiltWorkshopSummaryPost> getVerticalData5 = new ArrayList<>();
+    public static List<BuiltAllCouncilsPost> getHorizontalData1 = new ArrayList<>();
     private ArrayList<String> ImageUrl = new ArrayList<>();
     private ArrayList<String> Title = new ArrayList<>();
 
@@ -108,60 +112,63 @@ public class FeedFragment extends Fragment {
 //                getVerticalData5.add(getVerticalData4.get(a));
 //            }
 //        }
-        mRecyclerView = view.findViewById(R.id.recycler_view);
+//        councilRecyclerView = view.findViewById(R.id.council_recyclerView);
 
-        mRecyclerView.setHasFixedSize(true);
+//        councilRecyclerView.setHasFixedSize(true);
 
         SharedPreferences pref3 = this.getActivity().getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String resonse_feed = pref3.getString(Constants.Response_Feed_Old, "3");
 
 
 
+
         /**
          * Fetching Data from sharedpref
          */
-        try {
-            JSONObject response = new JSONObject(resonse_feed);
-            int status = response.getInt("status");
+//        try {
+//            JSONObject response = new JSONObject(resonse_feed);
+//            int status = response.getInt("status");
+////
 //
-
-            if (status == 1) {
+//            if (status == 1) {
+////
+////                JSONArray jsonArray = response.getJSONArray("notif");
+//                JSONArray array = response.getJSONArray("councils");
 //
-//                JSONArray jsonArray = response.getJSONArray("notif");
-                JSONArray array = response.getJSONArray("councils");
-
-
-                for (int j = 0; j < array.length(); j++) {
-                    JSONObject hit1 = array.getJSONObject(j);
-                    String image_council = "http://iitbhuapp.tk" + hit1.getString("image");
-                    //
-                    //
-
-                    getHorizontalData1.add(new SingleHorizontaldata(image_council));
-                }
-
-
-            } else {
-           }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//
+//                for (int j = 0; j < array.length(); j++) {
+//                    JSONObject hit1 = array.getJSONObject(j);
+//                    String image_council = "http://iitbhuapp.tk" + hit1.getString("image");
+//                    //
+//                    //
+//
+//                    getHorizontalData1.add(new SingleHorizontaldata(image_council));
+//                }
+//
+//
+//            } else {
+//           }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
 //
-        MainAdapterfeedfragment adapter = new MainAdapterfeedfragment(getActivity(), getObject());
+//        MainAdapterfeedfragment adapter = new MainAdapterfeedfragment(getActivity(), getObject());
+
+
 //
         //
-        mRecyclerView.setHasFixedSize(true);
-        adapter.notifyDataSetChanged();
-        // adapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
+//        mRecyclerView.setHasFixedSize(true);
+//        adapter.notifyDataSetChanged();
+//        // adapter.setHasStableIds(true);
+//        mRecyclerView.setAdapter(adapter);
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
+//            @Override
+//            public boolean canScrollVertically() {
+//                return false;
+//            }
+//        });
 
 
         //RECYCLERVIEW HORIZONTAL PINTAB
@@ -225,11 +232,11 @@ public class FeedFragment extends Fragment {
 
 
 //        int[] imgId = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4, R.drawable.slide5};
-        RecyclerView horizontalRcv = view.findViewById(R.id.horizontal_rcv2);
-        HorizontalRecyclerAdap horizontalRecyclerAdap = new HorizontalRecyclerAdap(getContext(), ImageUrl, Title);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        horizontalRcv.setLayoutManager(layoutManager2);
-        horizontalRcv.setAdapter(horizontalRecyclerAdap);
+        RecyclerView pinnedRecyclerView = view.findViewById(R.id.horizontal_rcv2);
+        HorizontalRecyclerAdap pinnedAdapter = new HorizontalRecyclerAdap(getContext(), ImageUrl, Title);
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        pinnedRecyclerView.setLayoutManager(horizontalLayoutManager);
+        pinnedRecyclerView.setAdapter(pinnedAdapter);
 
         ImageView addButton = view.findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -241,6 +248,34 @@ public class FeedFragment extends Fragment {
 
             }
         });
+
+
+
+        RecyclerView councilRecyclerView = view.findViewById(R.id.council_recyclerView);
+        LinearLayoutManager councilLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        councilRecyclerView.setLayoutManager(councilLayoutManager);
+
+        CouncilResponse.responseAllCouncils(new RetrofitResponseListener<List<BuiltAllCouncilsPost>>() {
+            @Override
+            public void onSuccess(Response<List<BuiltAllCouncilsPost>> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    HorizontalAdapter_Feedfragment councilAdapter = new HorizontalAdapter_Feedfragment(getContext(),response.body());
+                    councilRecyclerView.setAdapter(councilAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+
+        RecyclerView eventRecyclerView = view.findViewById(R.id.event_recyclerView);
+        VerticalAdapter_Feedfragment eventAdapter = new VerticalAdapter_Feedfragment(getContext(),getVerticalData5);
+        LinearLayoutManager eventLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        eventRecyclerView.setLayoutManager(eventLayoutManager);
+        eventRecyclerView.setAdapter(eventAdapter);
 
 
         return view;

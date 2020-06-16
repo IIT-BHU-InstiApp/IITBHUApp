@@ -2,6 +2,7 @@ package com.example.anant.iitbhuvaranasi.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +17,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.anant.iitbhuvaranasi.Models.CLubFeedData;
 import com.example.anant.iitbhuvaranasi.Activities.Club_Feed;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltCouncilPost;
+import com.example.anant.iitbhuvaranasi.NewModels.ClubListPost;
 import com.example.anant.iitbhuvaranasi.R;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static app.AppController.TAG;
 
 public class Adapter_ClubsGroup extends RecyclerView.Adapter<Adapter_ClubsGroup.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<CLubFeedData> mExampleList;
+    private List<ClubListPost> mExampleList;
 
-    public Adapter_ClubsGroup(Context mContext, ArrayList<CLubFeedData> mExampleList) {
+    public Adapter_ClubsGroup(Context mContext, BuiltCouncilPost builtCouncilPost) {
         this.mContext = mContext;
-        this.mExampleList = mExampleList;
+        this.mExampleList = builtCouncilPost.getClubs();
     }
 
     @NonNull
@@ -40,16 +46,16 @@ public class Adapter_ClubsGroup extends RecyclerView.Adapter<Adapter_ClubsGroup.
     @Override
     public void onBindViewHolder(@NonNull Adapter_ClubsGroup.ViewHolder holder, int position) {
 
-        holder.mTitle.setText(mExampleList.get(position).getTitle());
-        final String title1 = mExampleList.get(position).getTitle();
-        final String image_url = mExampleList.get(position).getImage();
+        holder.mTitle.setText(mExampleList.get(position).getName());
+        final String title1 = mExampleList.get(position).getName();
+        final String image_url = mExampleList.get(position).getSmall_image_url();
         /*Picasso.get()
                 .load(mExampleList.get(position).getImage())
                 .placeholder(R.drawable.ic_cloud_download_black_24dp)
                 .error(R.drawable.ic_error_outline_black_24dp)
                 .into(holder.image);*/
         Glide.with(mContext)
-                .load(mExampleList.get(position).getImage())
+                .load(mExampleList.get(position).getSmall_image_url())
                 .error(R.drawable.background)
                 .thumbnail(0.1f)
                 .into(holder.image);

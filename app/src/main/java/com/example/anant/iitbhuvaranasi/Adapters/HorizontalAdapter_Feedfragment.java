@@ -3,6 +3,7 @@ package com.example.anant.iitbhuvaranasi.Adapters;
 import android.content.Context;
 import android.content.Intent;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.anant.iitbhuvaranasi.Activities.Clubs_group;
+import com.example.anant.iitbhuvaranasi.NewModels.BuiltAllCouncilsPost;
 import com.example.anant.iitbhuvaranasi.R;
 import com.example.anant.iitbhuvaranasi.Models.SingleHorizontaldata;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import retrofit2.http.Tag;
 
-
-//import android.util.Log;
-//import android.util.Log;
-
-//import static com.example.anant.iitbhuvaranasi.Fragments.FeedFragment.getHorizontalData;
+import static app.AppController.TAG;
 
 
 public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<HorizontalAdapter_Feedfragment.MyViewHolder> {
 
-    ArrayList<SingleHorizontaldata> data = new ArrayList<>();
+    List<BuiltAllCouncilsPost> data;
     private Context context;
 
-    public HorizontalAdapter_Feedfragment(Context context,ArrayList<SingleHorizontaldata> data) {
+    public HorizontalAdapter_Feedfragment(Context context, List<BuiltAllCouncilsPost> data) {
         this.data = data;
         this.context=context;
     }
@@ -50,7 +50,7 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
         //holder.title.setText(data.get(position).getTitle());
        //
         Glide.with(context)
-                .load(data.get(position).getImage())
+                .load(data.get(position).getSmall_image_url())
                 .error(R.drawable.background)
                 .thumbnail(0.1f)
                 .into(holder.image);
@@ -75,7 +75,8 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Clubs_group.class);
-                intent.putExtra("position",position);
+//                intent.putExtra("position",position);
+                intent.putExtra("id",data.get(position).getId());
                 context.startActivity(intent);
             }
         });
@@ -110,7 +111,6 @@ public class HorizontalAdapter_Feedfragment extends RecyclerView.Adapter<Horizon
 
     @Override
     public int getItemCount() {
-        //
         return data.size();
     }
 
